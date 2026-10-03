@@ -1,0 +1,20 @@
+---
+import Logo from "../Logo.astro";
+import { routes, t, type Lang } from "../../i18n/ui";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = t(lang);
+---
+<header class="topbar" data-topbar>
+  <a href={routes.home[lang]} class="topbar-logo" aria-label={tr("home.aria")}><Logo class="" /></a>
+  <div class="topbar-actions">
+    <!-- Sin JavaScript lleva a la página de contacto; con JavaScript abre el pop-up -->
+    <a href={routes.contact[lang]} class="btn btn-green" data-contact-open>
+      <span class="btn-label-long">{tr("cta.start")}</span><span class="btn-label-short" aria-hidden="true">{tr("cta.start.short")}</span>
+    </a>
+    <button class="topbar-menu" type="button" data-menu-open aria-controls="site-menu" aria-expanded="false" aria-label={tr("nav.open")}>
+      <span>{tr("menu")}</span><i aria-hidden="true"></i>
+    </button>
+  </div>
+</header>

@@ -1,0 +1,20 @@
+---
+import { routes, type Lang } from "../../i18n/ui";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const copy = {
+  es: { title: "Recibido.", text: "Gracias por escribirnos. Revisamos tu mensaje y te respondemos por correo.", back: "Volver al inicio" },
+  en: { title: "Got it.", text: "Thanks for reaching out. We'll review your message and reply by email.", back: "Back to home" },
+}[lang];
+---
+<section class="thanks tone-dark edge">
+  <h1 class="t-mega">{copy.title}</h1>
+  <p class="t-lead t-mute">{copy.text}</p>
+  <a href={routes.home[lang]} class="link-arrow">{copy.back} <span class="arr" aria-hidden="true">→</span></a>
+</section>
+
+<style>
+  .thanks { min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; gap: 1.5rem; padding-block: calc(var(--bar-h) + 2rem) clamp(48px, 10vh, 120px); }
+  .thanks h1 { color: var(--green); margin-left: -.04em; }
+</style>

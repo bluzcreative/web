@@ -1,0 +1,35 @@
+---
+// Fondo de /contacto/: lo que se ve detrás del pop-up y si se cierra.
+// En la etapa 3 se reemplaza por la landing completa, así /contacto/ se ve como el inicio con el pop-up abierto.
+import { routes, t, type Lang } from "../../i18n/ui";
+import { whatsappUrl } from "../../data/brand";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = t(lang);
+---
+<section class="landing tone-dark edge">
+  <a href={routes.contact[lang]} class="t-mega landing-title" data-contact-open>{tr("contact.title")}</a>
+  <div class="landing-paths">
+    <a href={routes.contact[lang]} class="landing-path" data-contact-open>
+      <span class="t-label">{tr("contact.form.kicker")}</span>
+      <span class="t-h2">{tr("contact.form.title")} <span aria-hidden="true">→</span></span>
+    </a>
+    <a href={whatsappUrl(tr("contact.chat.message"))} target="_blank" rel="noopener" class="landing-path">
+      <span class="t-label">{tr("contact.chat.kicker")}</span>
+      <span class="t-h2">{tr("contact.chat.title")} <span aria-hidden="true">↗</span></span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .landing { min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; gap: 3rem; padding-block: calc(var(--bar-h) + 2rem) var(--edge); }
+  .landing-title { display: block; margin-left: -.04em; transition: color .4s var(--ease-out); }
+  .landing-title:hover { color: var(--green); }
+  .landing-paths { display: grid; gap: var(--gutter); }
+  @media (min-width: 900px) { .landing-paths { grid-template-columns: 1fr 1fr; } }
+  .landing-path { display: grid; gap: .75rem; padding: clamp(24px, 3vw, 48px); border: 1px solid var(--line);
+    transition: background-color .35s var(--ease-out), color .35s var(--ease-out), border-color .35s var(--ease-out); }
+  .landing-path:hover { background: var(--green); color: var(--black); border-color: var(--green); }
+  .landing-path:hover .t-label { color: rgba(10,10,10,.7); }
+</style>

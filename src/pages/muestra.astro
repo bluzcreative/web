@@ -1,8 +1,7 @@
 ---
 // Etapa 1 · Dirección de arte. Página interna para validar el sistema visual antes de aplicarlo
 // a las páginas reales. No se indexa y no aparece en el menú. Textos e imágenes son provisionales.
-import "../styles/system.css";
-import Logo from "../components/Logo.astro";
+import Site from "../layouts/Site.astro";
 import { whatsappUrl } from "../data/brand";
 
 const services = ["Paid media", "Estrategia de contenido", "Diseño web", "Automatizaciones"];
@@ -28,29 +27,8 @@ const ramp = [
   { name: "Etiqueta", cls: "t-label", spec: "Inter 600 · 12 px · mayúsculas", sample: "Paid media · Estados Unidos" },
 ];
 ---
-<!doctype html>
-<html lang="es" data-base="dark">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>Muestra visual | Bluz Creative</title>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Fraunces:ital,wght@1,400;1,500&family=Inter:wght@400;500;600;700&display=swap">
-</head>
-<body>
+<Site lang="es" title="Muestra visual | Bluz Creative" description="Muestra interna del sistema visual." noindex>
 
-<header class="topbar">
-  <a href="/" class="topbar-logo" aria-label="Bluz Creative, inicio"><Logo class="" /></a>
-  <div class="topbar-actions">
-    <a href="#hablamos" class="btn btn-green"><span class="btn-label-long">Empieza tu proyecto</span><span class="btn-label-short">Empieza</span></a>
-    <button class="topbar-menu" type="button" aria-label="Abrir menú"><span>Menú</span><i aria-hidden="true"></i></button>
-  </div>
-</header>
-
-<main>
 
   <!-- 1. Impacto: frase gigante a todo lo ancho sobre video -->
   <section class="hero tone-dark">
@@ -161,9 +139,9 @@ const ramp = [
       <div>
         <p class="t-label">Botones y enlaces</p>
         <div class="buttons">
-          <a href="#hablamos" class="btn btn-green">Empieza tu proyecto</a>
-          <a href="#hablamos" class="btn btn-line">Hablemos</a>
-          <a href="#hablamos" class="link-arrow">Ver servicios <span class="arr" aria-hidden="true">→</span></a>
+          <a href="/contacto/" class="btn btn-green" data-contact-open>Empieza tu proyecto</a>
+          <a href="/contacto/" class="btn btn-line" data-contact-open>Hablemos</a>
+          <a href="/servicios/" class="link-arrow">Ver servicios <span class="arr" aria-hidden="true">→</span></a>
         </div>
       </div>
       <div>
@@ -177,9 +155,9 @@ const ramp = [
 
   <!-- 7. Cierre: dos caminos de contacto -->
   <section id="hablamos" class="closing tone-dark section edge">
-    <a href="#hablamos" class="t-mega closing-title">¿Hablamos?</a>
+    <a href="/contacto/" class="t-mega closing-title" data-contact-open>¿Hablamos?</a>
     <div class="closing-paths">
-      <a href="#hablamos" class="path">
+      <a href="/contacto/" class="path" data-contact-open>
         <span class="t-label">Tengo un proyecto concreto</span>
         <span class="t-h2">Cuéntanos qué necesitas <span aria-hidden="true">→</span></span>
         <span class="t-mute">Formulario corto: servicio, presupuesto y plazos.</span>
@@ -191,8 +169,6 @@ const ramp = [
       </a>
     </div>
   </section>
-
-</main>
 
 <style>
   /* 1. Hero */
@@ -347,23 +323,7 @@ const ramp = [
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-  const root = document.documentElement;
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  // Barra superior: logo y menú en blanco sobre secciones oscuras y en negro sobre las claras
-  const topbar = document.querySelector<HTMLElement>(".topbar")!;
-  const sections = Array.from(document.querySelectorAll<HTMLElement>("main > section"));
-  const isLight = (el: HTMLElement) =>
-    el.classList.contains("tone-light") || el.classList.contains("tone-paper") ||
-    (el.classList.contains("tone-base") && root.dataset.base === "light");
-  const updateBar = () => {
-    const y = topbar.offsetHeight / 2;
-    const under = sections.find((s) => { const r = s.getBoundingClientRect(); return r.top <= y && r.bottom > y; });
-    topbar.dataset.on = under && isLight(under) ? "light" : "dark";
-  };
-  addEventListener("scroll", updateBar, { passive: true });
-  addEventListener("resize", updateBar);
-  updateBar();
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -403,5 +363,4 @@ const ramp = [
     });
   }
 </script>
-</body>
-</html>
+</Site>

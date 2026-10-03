@@ -1,0 +1,104 @@
+---
+// Menú a pantalla completa (estilo ICON): secciones en tipografía gigante, en gris, que se encienden
+// al pasar el cursor. Abajo: redes y suscripción a Contraluz.
+import Logo from "../Logo.astro";
+import ContraluzForm from "./ContraluzForm.astro";
+import { routes, menuOrder, features, t, otherLang, type Lang, type PageKey } from "../../i18n/ui";
+import { brand, whatsappUrl } from "../../data/brand";
+
+interface Props { lang: Lang; page?: PageKey }
+const { lang, page } = Astro.props;
+const tr = t(lang);
+const alt = otherLang(lang);
+const altHref = page ? routes[page][alt] : routes.home[alt];
+---
+<div id="site-menu" class="menu tone-dark" role="dialog" aria-modal="true" aria-label={tr("menu")} data-menu hidden>
+  <div class="menu-bar">
+    <a href={routes.home[lang]} class="menu-logo" aria-label={tr("home.aria")}><Logo class="" /></a>
+    <div class="menu-bar-actions">
+      <a href={altHref} hreflang={alt} lang={alt} class="menu-lang">{tr("lang.label")}</a>
+      <button type="button" class="menu-close" data-menu-close aria-label={tr("nav.close")}>
+        <span>{tr("close")}</span><i aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+
+  <nav class="menu-nav" aria-label={tr("nav.main")}>
+    <ul>
+      {menuOrder.map((key) => (
+        <li data-menu-item>
+          <a href={routes[key][lang]} class:list={["menu-link", { "is-current": key === page }]} aria-current={key === page ? "page" : undefined}>
+            <span class="menu-link-text">{tr(`nav.${key}`)}</span>
+            {key === "lab" && <span class="menu-link-sub">{tr("nav.lab.sub")}</span>}
+          </a>
+        </li>
+      ))}
+      <li data-menu-item>
+        <a href={routes.contact[lang]} class="menu-link" data-contact-open>
+          <span class="menu-link-text">{tr("nav.contact")}</span>
+        </a>
+      </li>
+      {features.clientPortal && (
+        <li data-menu-item><a href="#" class="menu-link menu-link-small"><span class="menu-link-text">{tr("nav.portal")}</span></a></li>
+      )}
+    </ul>
+  </nav>
+
+  <div class="menu-foot" data-menu-item>
+    <div class="menu-social">
+      <p class="t-label">{tr("social")}</p>
+      <ul>
+        <li><a href={brand.instagramUrl} target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href={whatsappUrl()} target="_blank" rel="noopener">WhatsApp</a></li>
+        <li><a href={`mailto:${brand.email}`}>{brand.email}</a></li>
+      </ul>
+    </div>
+    <ContraluzForm lang={lang} id="menu" />
+  </div>
+</div>
+
+<style>
+  .menu {
+    position: fixed; inset: 0; z-index: 80; overflow-y: auto; overscroll-behavior: contain;
+    display: flex; flex-direction: column; padding: 0 var(--edge) var(--edge);
+  }
+  .menu[hidden] { display: none; }
+  .menu-bar { height: var(--bar-h); flex: none; display: flex; align-items: center; gap: 1rem; }
+  .menu-logo :global(svg) { height: 22px; width: auto; }
+  .menu-bar-actions { margin-left: auto; display: flex; align-items: center; gap: 1.5rem; }
+  .menu-lang { font-weight: 600; font-size: .9375rem; color: var(--text-mute); transition: color .25s var(--ease-out); }
+  .menu-lang:hover { color: var(--text); }
+  .menu-close { display: inline-flex; align-items: center; gap: .55rem; font-weight: 600; font-size: .9375rem; padding: .7rem .2rem; }
+  .menu-close i { position: relative; width: 22px; height: 22px; }
+  .menu-close i::before, .menu-close i::after {
+    content: ""; position: absolute; left: 0; top: 50%; width: 22px; height: 2px; background: currentColor;
+  }
+  .menu-close i::before { transform: rotate(45deg); }
+  .menu-close i::after { transform: rotate(-45deg); }
+
+  .menu-nav { flex: 1; display: flex; align-items: center; padding-block: clamp(24px, 6vh, 64px); }
+  .menu-nav ul { width: 100%; }
+  .menu-link {
+    display: inline-flex; flex-direction: column;
+    font-family: var(--display); font-weight: 500; font-size: var(--fs-display);
+    line-height: .95; letter-spacing: -.045em; color: var(--text-dim);
+    padding-block: .04em; transition: color .35s var(--ease-out);
+  }
+  .menu-link:hover, .menu-link:focus-visible, .menu-link.is-current { color: var(--text); }
+  @media (max-width: 899px) { .menu-link { font-size: clamp(2.9rem, 14vw, 6rem); } }
+  .menu-link-sub {
+    font-family: var(--sans); font-size: var(--fs-label); font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--text-mute); margin: .9em 0 .4em .2em;
+  }
+  .menu-link:hover .menu-link-sub { color: var(--green); }
+
+  .menu-foot {
+    display: grid; gap: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line);
+  }
+  .menu-social ul { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: .75rem; }
+  .menu-social a { font-weight: 500; transition: color .25s var(--ease-out); }
+  .menu-social a:hover { color: var(--green); }
+  @media (min-width: 900px) {
+    .menu-foot { grid-template-columns: 1fr 1fr; align-items: end; }
+  }
+</style>

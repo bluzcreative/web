@@ -1,0 +1,75 @@
+---
+import Logo from "../Logo.astro";
+import ContraluzForm from "./ContraluzForm.astro";
+import { routes, menuOrder, legalOrder, t, otherLang, type Lang, type PageKey } from "../../i18n/ui";
+import { brand, whatsappUrl } from "../../data/brand";
+
+interface Props { lang: Lang; page?: PageKey }
+const { lang, page } = Astro.props;
+const tr = t(lang);
+const alt = otherLang(lang);
+const year = new Date().getFullYear();
+---
+<footer class="footer tone-dark">
+  <div class="footer-top edge">
+    <div class="footer-brand">
+      <Logo class="footer-logo" label={brand.name} />
+      <p class="t-mute">{tr("footer.tagline")}</p>
+    </div>
+    <nav class="footer-col footer-site" aria-label={tr("footer.site")}>
+      <p class="t-label">{tr("footer.site")}</p>
+      <ul>
+        {menuOrder.map((key) => <li><a href={routes[key][lang]}>{tr(`nav.${key}`)}</a></li>)}
+        <li><a href={routes.contact[lang]} data-contact-open>{tr("nav.contact")}</a></li>
+      </ul>
+    </nav>
+    <div class="footer-col footer-reach">
+      <p class="t-label">{tr("footer.contact")}</p>
+      <ul>
+        <li><a href={`mailto:${brand.email}`}>{brand.email}</a></li>
+        <li><a href={whatsappUrl()} target="_blank" rel="noopener">WhatsApp</a></li>
+        <li><a href={brand.instagramUrl} target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+    </div>
+    <div class="footer-news">
+      <ContraluzForm lang={lang} id="footer" />
+    </div>
+  </div>
+
+  <div class="footer-bottom edge">
+    <p>© {year} {brand.legalName}</p>
+    <ul class="footer-legal" aria-label={tr("footer.legal")}>
+      {legalOrder.map((key) => <li><a href={routes[key][lang]}>{tr(`nav.${key}`)}</a></li>)}
+      <li><button type="button" data-cookies-open>{tr("footer.cookies")}</button></li>
+    </ul>
+    <a href={page ? routes[page][alt] : routes.home[alt]} hreflang={alt} lang={alt} class="footer-lang">{tr("lang.label")}</a>
+  </div>
+</footer>
+
+<style>
+  .footer { border-top: 1px solid var(--line); }
+  .footer-top {
+    display: grid; gap: 2.5rem var(--gutter); padding-block: clamp(56px, 9vw, 120px);
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-brand, .footer-news { grid-column: 1 / -1; }
+  .footer-brand { display: grid; gap: 1rem; max-width: 30ch; }
+  .footer-brand :global(.footer-logo) { height: 26px; width: auto; }
+  .footer-col ul { display: grid; gap: .55rem; margin-top: 1rem; }
+  .footer-col a, .footer-legal a, .footer-legal button { transition: color .25s var(--ease-out); }
+  .footer-col a:hover, .footer-legal a:hover, .footer-legal button:hover, .footer-lang:hover { color: var(--green); }
+  @media (min-width: 900px) {
+    .footer-top { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    .footer-brand { grid-column: 1 / 4; }
+    .footer-site { grid-column: 5 / 7; }
+    .footer-reach { grid-column: 7 / 9; }
+    .footer-news { grid-column: 9 / -1; }
+  }
+  .footer-bottom {
+    display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; align-items: center;
+    padding-block: 1.5rem; border-top: 1px solid var(--line); font-size: .875rem; color: var(--text-mute);
+  }
+  .footer-legal { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; }
+  .footer-legal button { font-size: inherit; color: inherit; padding: 0; }
+  .footer-lang { margin-left: auto; font-weight: 600; color: var(--text); transition: color .25s var(--ease-out); }
+</style>

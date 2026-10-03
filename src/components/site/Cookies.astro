@@ -1,0 +1,32 @@
+---
+// Aviso de cookies. No se carga ninguna analítica ni pixel hasta que la persona acepta.
+// El script guarda la elección y avisa con el evento "bluz:consent" (ver src/scripts/consent.ts).
+import { routes, t, type Lang } from "../../i18n/ui";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = t(lang);
+---
+<div class="cookies tone-light" role="region" aria-label={tr("cookies.title")} data-cookies hidden>
+  <p class="cookies-text">
+    {tr("cookies.text")} <a href={routes.cookies[lang]}>{tr("cookies.more")}</a>
+  </p>
+  <div class="cookies-actions">
+    <button type="button" class="btn btn-line" data-cookies-choice="reject">{tr("cookies.reject")}</button>
+    <button type="button" class="btn btn-dark" data-cookies-choice="accept">{tr("cookies.accept")}</button>
+  </div>
+</div>
+
+<style>
+  .cookies {
+    position: fixed; z-index: 70; left: var(--edge); right: var(--edge); bottom: var(--edge);
+    max-width: 440px; padding: 1.25rem; display: grid; gap: 1rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,.35); font-size: .9375rem; line-height: 1.5;
+  }
+  .cookies[hidden] { display: none; }
+  .cookies a { text-decoration: underline; text-underline-offset: .2em; }
+  .cookies-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .cookies .btn { padding: .8em 1.2em; font-size: .875rem; }
+  .btn-dark { background: var(--black); color: var(--white); }
+  .btn-dark:hover { background: var(--green); color: var(--black); }
+</style>

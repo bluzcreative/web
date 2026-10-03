@@ -1,0 +1,45 @@
+---
+// Suscripción a Contraluz. Por ahora llega a Netlify Forms ("contraluz");
+// cuando se elija la herramienta de newsletter, solo cambia el destino del envío.
+import { t, type Lang } from "../../i18n/ui";
+
+interface Props { lang: Lang; id: string }
+const { lang, id } = Astro.props;
+const tr = t(lang);
+const inputId = `contraluz-${id}`;
+---
+<form class="contraluz" name="contraluz" method="POST" action={lang === "es" ? "/gracias/" : "/en/thanks/"}
+  data-netlify="true" netlify-honeypot="bot-field" data-ajax-form>
+  <input type="hidden" name="form-name" value="contraluz">
+  <input type="hidden" name="idioma" value={lang}>
+  <input type="hidden" name="origen" value={id}>
+  <p class="contraluz-hp" aria-hidden="true"><label>No llenar <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+
+  <div class="contraluz-head">
+    <p class="contraluz-name">Contraluz</p>
+    <p class="t-mute">{tr("contraluz.sub")}</p>
+  </div>
+  <div class="contraluz-row" data-form-body>
+    <label for={inputId} class="sr-only">{tr("contraluz.label")}</label>
+    <input id={inputId} type="email" name="email" required autocomplete="email" placeholder={tr("contraluz.placeholder")}>
+    <button type="submit" class="btn btn-green">{tr("contraluz.cta")}</button>
+  </div>
+  <p class="contraluz-ok" data-form-ok hidden>{tr("contraluz.ok")}</p>
+  <p class="contraluz-error" data-form-error hidden>{tr("form.error")}</p>
+</form>
+
+<style>
+  .contraluz { display: grid; gap: 1rem; }
+  .contraluz-name { font-family: var(--serif); font-style: italic; font-size: 1.75rem; line-height: 1; letter-spacing: -.02em; margin-bottom: .35rem; }
+  .contraluz-row { display: flex; gap: .5rem; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: .5rem; }
+  .contraluz-row:focus-within { border-color: var(--text); }
+  .contraluz input[type="email"] {
+    flex: 1; min-width: 0; background: none; border: 0; color: var(--text); font: inherit; font-size: 1.0625rem;
+    padding: .6rem 0; outline: none;
+  }
+  .contraluz input::placeholder { color: var(--text-mute); }
+  .contraluz .btn { padding: .75em 1.2em; font-size: .875rem; }
+  .contraluz-ok { color: var(--green); font-weight: 500; }
+  .contraluz-error { color: #ff8a7a; font-size: .9375rem; }
+  .contraluz-hp { position: absolute; left: -9999px; }
+</style>

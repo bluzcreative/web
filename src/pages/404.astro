@@ -1,0 +1,20 @@
+---
+import Site from "../layouts/Site.astro";
+---
+<Site lang="es" title="Página no encontrada | Bluz Creative" description="Esta página no existe." noindex>
+  <section class="nf tone-dark edge">
+    <p class="t-label">404</p>
+    <h1 class="t-mega">Esta página no existe.</h1>
+    <p class="t-lead t-mute" lang="en">This page doesn't exist.</p>
+    <div class="nf-links">
+      <a href="/" class="link-arrow">Ir al inicio <span class="arr" aria-hidden="true">→</span></a>
+      <a href="/en/" class="link-arrow" lang="en">Go to home <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+  </section>
+</Site>
+
+<style>
+  .nf { min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; gap: 1.5rem; padding-block: calc(var(--bar-h) + 2rem) clamp(48px, 10vh, 120px); }
+  .nf h1 { margin-left: -.04em; max-width: 12ch; }
+  .nf-links { display: flex; flex-wrap: wrap; gap: 1rem 2rem; }
+</style>

@@ -1,0 +1,56 @@
+---
+// Layout del rediseño. Las páginas pasan a este layout a medida que se rehacen;
+// mientras tanto, las que no se han rehecho siguen en Base.astro.
+import "../styles/system.css";
+import Topbar from "../components/site/Topbar.astro";
+import Menu from "../components/site/Menu.astro";
+import Contact from "../components/site/Contact.astro";
+import Footer from "../components/site/Footer.astro";
+import Cookies from "../components/site/Cookies.astro";
+import { routes, languages, t, type Lang, type PageKey } from "../i18n/ui";
+
+interface Props {
+  lang: Lang;
+  page?: PageKey;       // sin page: página interna, sin versiones en otro idioma
+  title: string;
+  description: string;
+  contactOpen?: boolean; // /contacto/ abre el pop-up desde el servidor
+  noindex?: boolean;
+}
+const { lang, page, title, description, contactOpen = false, noindex = false } = Astro.props;
+const tr = t(lang);
+---
+<!doctype html>
+<html lang={lang} data-base="dark" class:list={{ "has-contact-open": contactOpen }}>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content={description}>
+{noindex && <meta name="robots" content="noindex, nofollow">}
+{page && (Object.keys(languages) as Lang[]).map((l) => (
+  <link rel="alternate" hreflang={l} href={routes[page][l]} />
+))}
+{page && <link rel="alternate" hreflang="x-default" href={routes[page].es} />}
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Fraunces:ital,wght@1,400;1,500&family=Inter:wght@400;500;600;700&display=swap">
+</head>
+<body>
+<a href="#main" class="skip-link">{tr("skip")}</a>
+<div class="site" data-site>
+  <Topbar lang={lang} />
+  <main id="main">
+    <slot />
+  </main>
+  <Footer lang={lang} page={page} />
+</div>
+<Menu lang={lang} page={page} />
+<Contact lang={lang} open={contactOpen} />
+<Cookies lang={lang} />
+<script>
+  import "../scripts/site.ts";
+</script>
+</body>
+</html>
