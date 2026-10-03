@@ -3,8 +3,7 @@
 import { getCollection } from "astro:content";
 import ProjectCard from "../components/site/ProjectCard.astro";
 import Marquee from "../components/site/Marquee.astro";
-import ContraluzForm from "../components/site/ContraluzForm.astro";
-import { routes, t, labKinds, labUrl, type Lang } from "../i18n/ui";
+import { routes, t, type Lang } from "../i18n/ui";
 import { services } from "../data/services";
 import { whatsappUrl } from "../data/brand";
 
@@ -14,8 +13,6 @@ const tr = t(lang);
 
 const featured = (await getCollection("projects", (p) => p.data.featured && !p.data.draft))
   .sort((a, b) => a.data.order - b.data.order).slice(0, 4);
-const labEntries = (await getCollection("lab", (e) => e.data.lang === lang && (import.meta.env.DEV || !e.data.draft)))
-  .sort((a, b) => +b.data.date - +a.data.date).slice(0, 3);
 
 // Textos provisionales: frase del hero y manifiesto pendientes de definir con Bluz
 const copy = {
@@ -32,21 +29,9 @@ const copy = {
     workLink: "Ver todo el trabajo",
     cardCta: "Ver proyecto",
     whoKicker: "Con quiénes",
-    whoTitle: "Worldwide.",
-    whoText: "Trabajamos con marcas de distintos países e industrias, en español y en inglés.",
-    whoLink: "Conócenos",
     manifestoKicker: "Manifiesto",
     manifesto: "Menos ruido. Más luz.",
     manifestoLink: "Cómo trabajamos",
-    labKicker: "El laboratorio",
-    labTitle: "Lo que estamos probando, contado sin rodeos.",
-    labLink: "Entrar a Bluz Lab",
-    labEmpty: {
-      articulo: "Guías y análisis para tomar mejores decisiones de marketing.",
-      descargable: "Plantillas, checklists y reportes listos para usar.",
-      experimento: "Pruebas reales de automatización e IA.",
-      contraluz: "El archivo completo de la newsletter.",
-    },
     closeTitle: "¿Hablamos?",
   },
   en: {
@@ -62,21 +47,9 @@ const copy = {
     workLink: "See all work",
     cardCta: "View project",
     whoKicker: "Who we work with",
-    whoTitle: "Worldwide.",
-    whoText: "We work with brands across countries and industries, in English and Spanish.",
-    whoLink: "Meet us",
     manifestoKicker: "Manifesto",
     manifesto: "Less noise. More light.",
     manifestoLink: "How we work",
-    labKicker: "The lab",
-    labTitle: "What we're testing, told straight.",
-    labLink: "Enter Bluz Lab",
-    labEmpty: {
-      articulo: "Guides and analysis for better marketing decisions.",
-      descargable: "Templates, checklists and reports ready to use.",
-      experimento: "Real automation and AI experiments.",
-      contraluz: "The full newsletter archive.",
-    },
     closeTitle: "Let's talk.",
   },
 }[lang];
@@ -112,7 +85,6 @@ const manifestoWords = copy.manifesto.split(" ");
         <li>
           <a href={`${routes.services[lang]}#${s.slug}`} class="lit-word" data-lit>
             <span class="t-display">{s.name[lang]}</span>
-            <span class="lit-line t-mute">{s.line[lang]}</span>
             <span class="arr" aria-hidden="true">→</span>
           </a>
         </li>
@@ -139,16 +111,8 @@ const manifestoWords = copy.manifesto.split(" ");
   </div>
 </section>
 
-<!-- 4. Con quiénes: logos corriendo y alcance mundial, lleva a Nosotros -->
-<section class="scene who tone-dark section">
-  <div class="who-head edge">
-    <p class="t-label">{copy.whoKicker}</p>
-    <h2 class="t-mega who-title">{copy.whoTitle}</h2>
-    <div class="who-row">
-      <p class="t-lead t-mute">{copy.whoText}</p>
-      <a href={routes.about[lang]} class="link-arrow">{copy.whoLink} <span class="arr" aria-hidden="true">→</span></a>
-    </div>
-  </div>
+<!-- 4. Con quiénes: logos de clientes corriendo -->
+<section class="scene who tone-dark">
   <Marquee label={copy.whoKicker} />
 </section>
 
@@ -160,43 +124,6 @@ const manifestoWords = copy.manifesto.split(" ");
       {manifestoWords.map((w) => <span class="mw" aria-hidden="true">{w} </span>)}
     </p>
     <a href={`${routes.about[lang]}#como-trabajamos`} class="link-arrow">{copy.manifestoLink} <span class="arr" aria-hidden="true">→</span></a>
-  </div>
-</section>
-
-<!-- 6. El laboratorio: lo último de Bluz Lab y la suscripción a Contraluz -->
-<section class="scene lab tone-dark section edge">
-  <div class="scene-head">
-    <div>
-      <p class="t-label">{copy.labKicker}</p>
-      <h2 class="t-h1">{copy.labTitle}</h2>
-    </div>
-    <a href={routes.lab[lang]} class="link-arrow">{copy.labLink} <span class="arr" aria-hidden="true">→</span></a>
-  </div>
-  <div class="lab-grid">
-    <ul class="lab-list">
-      {labEntries.length > 0
-        ? labEntries.map((e) => (
-            <li>
-              <a href={labUrl(lang, e.data.kind, e.data.slug)} class="lab-item">
-                <span class="t-label">{labKinds[e.data.kind].label[lang]}</span>
-                <span class="t-h2">{e.data.title}</span>
-                <span class="arr" aria-hidden="true">→</span>
-              </a>
-            </li>
-          ))
-        : (Object.keys(labKinds) as (keyof typeof labKinds)[]).map((k) => (
-            <li>
-              <a href={`${routes.lab[lang]}#${labKinds[k][lang]}`} class="lab-item">
-                <span class="t-label">{labKinds[k].label[lang]}</span>
-                <span class="t-h2">{copy.labEmpty[k]}</span>
-                <span class="arr" aria-hidden="true">→</span>
-              </a>
-            </li>
-          ))}
-    </ul>
-    <div class="lab-news">
-      <ContraluzForm lang={lang} id="landing" />
-    </div>
   </div>
 </section>
 
@@ -238,7 +165,8 @@ const manifestoWords = copy.manifesto.split(" ");
   /* Comunes de escena */
   .scene-label { grid-column: 1 / -1; margin-bottom: 1.5rem; }
   .scene-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1.5rem; margin-bottom: clamp(32px, 5vw, 72px); }
-  .scene-head > div { display: grid; gap: 1rem; max-width: 22ch; }
+  .scene-head > div { display: grid; gap: 1rem; flex: 1 1 520px; }
+  .scene-head h2 { max-width: 16ch; }
   .scene-foot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1.5rem; margin-top: 2.5rem; }
 
   /* 2. Servicios */
@@ -252,8 +180,7 @@ const manifestoWords = copy.manifesto.split(" ");
     transition: color .35s var(--ease-out);
   }
   .lit-word .t-display { grid-column: 1; font-size: clamp(2rem, 8.4vw, 9.5rem); }
-  .lit-line { grid-column: 1; font-size: .9375rem; max-width: 46ch; }
-  .lit-word .arr { grid-column: 2; grid-row: 1 / span 2; font-size: clamp(1.5rem, 3vw, 3rem); opacity: 0; transform: translateX(-.4em);
+  .lit-word .arr { grid-column: 2; grid-row: 1; font-size: clamp(1.5rem, 3vw, 3rem); opacity: 0; transform: translateX(-.4em);
     transition: opacity .35s var(--ease-out), transform .35s var(--ease-out); color: var(--green); }
   .lit-word:hover { color: var(--text); }
   .lit-word:hover .arr { opacity: 1; transform: none; }
@@ -272,27 +199,13 @@ const manifestoWords = copy.manifesto.split(" ");
   }
 
   /* 4. Con quiénes */
-  .who-head { display: grid; gap: 1rem; margin-bottom: clamp(32px, 5vw, 72px); }
-  .who-title { margin-left: -.04em; }
-  .who-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1.5rem; }
+  .who { padding-block: clamp(24px, 4vw, 64px); }
 
   /* 5. Manifiesto */
   .manifesto { height: 220vh; position: relative; }
   .manifesto-sticky { position: sticky; top: 0; min-height: 100svh; display: grid; align-content: center; gap: 2rem; padding-block: var(--bar-h); }
   .manifesto-text { max-width: 9ch; font-size: var(--fs-mega); line-height: .9; letter-spacing: -.055em; margin-left: -.04em; }
   .mw { --lit: 1; color: color-mix(in srgb, var(--text) calc(var(--lit) * 100%), var(--text-dim)); }
-
-  /* 6. Laboratorio */
-  .lab-grid { display: grid; gap: clamp(40px, 5vw, 80px); }
-  @media (min-width: 1000px) { .lab-grid { grid-template-columns: 7fr 5fr; align-items: start; } }
-  .lab-list li { border-top: 1px solid var(--line); }
-  .lab-list li:last-child { border-bottom: 1px solid var(--line); }
-  .lab-grid > * { min-width: 0; }
-  .lab-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .5rem 1rem; padding-block: 1.5rem; transition: color .3s var(--ease-out); }
-  .lab-item .t-h2 { grid-column: 1; font-size: clamp(1.25rem, 2vw, 1.75rem); }
-  .lab-item .arr { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: 1.5rem; transition: transform .35s var(--ease-out), color .35s var(--ease-out); }
-  .lab-item:hover .arr { transform: translateX(.3em); color: var(--green); }
-  .lab-news { padding: clamp(24px, 3vw, 40px); border: 1px solid var(--line); }
 
   /* 7. Cierre */
   .closing { min-height: 100svh; display: flex; flex-direction: column; justify-content: space-between; gap: 4rem; }
