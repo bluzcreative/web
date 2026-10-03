@@ -1,5 +1,5 @@
 /* =============================================================
-   Bluz Creative — styles.css
+   Bluz Creative · styles.css
    1. Tokens
    2. Reset & base
    3. Utilities
@@ -100,7 +100,7 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.06; letter-spacing: -0.02em;
 .section { padding-block: clamp(3.5rem, 8vw, 7rem); }
 .section-alt { background: var(--bg-2); }
 
-/* Green section — full accent background, black type */
+/* Green section · full accent background, black type */
 .section-green { background: var(--accent); color: var(--ink); }
 .section-green .kicker,
 .section-green .eyebrow,
@@ -136,17 +136,18 @@ h1, h2, h3, h4 { text-wrap: balance; line-height: 1.06; letter-spacing: -0.02em;
 }
 .max-prose { max-width: 62ch; }
 
-/* Reveal-on-scroll — only active once JS confirms it can animate it back in */
-.js .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); }
-.js .reveal.is-revealed { opacity: 1; transform: none; }
+/* Reveal-on-scroll: content starts hidden only while JS is expected to animate it in.
+   If main.js never boots, the head script adds .no-anim and everything shows. */
+.js:not(.no-anim) .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); }
+.js:not(.no-anim) .reveal.is-revealed { opacity: 1; transform: none; }
 
-/* Staggered group reveal — GSAP animates children directly; this is the pre-JS/fallback state */
-.js [data-reveal-group] > * { opacity: 0; transform: translateY(24px); transition: opacity .6s var(--ease-out), transform .6s var(--ease-out); }
-.js [data-reveal-group].is-revealed > * { opacity: 1; transform: none; }
+/* Staggered group reveal · GSAP animates children directly; this is the pre-JS/fallback state */
+.js:not(.no-anim) [data-reveal-group] > * { opacity: 0; transform: translateY(24px); transition: opacity .6s var(--ease-out), transform .6s var(--ease-out); }
+.js:not(.no-anim) [data-reveal-group].is-revealed > * { opacity: 1; transform: none; }
 
-/* Bento-style reveal — same idea as data-reveal-group but with a livelier pop (scale) */
-.js [data-reveal-bento] > * { opacity: 0; transform: translateY(24px) scale(.94); transition: opacity .6s var(--ease-out), transform .6s var(--ease-out); }
-.js [data-reveal-bento].is-revealed > * { opacity: 1; transform: none; }
+/* Bento-style reveal · same idea as data-reveal-group but with a livelier pop (scale) */
+.js:not(.no-anim) [data-reveal-bento] > * { opacity: 0; transform: translateY(24px) scale(.94); transition: opacity .6s var(--ease-out), transform .6s var(--ease-out); }
+.js:not(.no-anim) [data-reveal-bento].is-revealed > * { opacity: 1; transform: none; }
 
 /* =============================================================
    4. Typography
@@ -193,14 +194,19 @@ em, .italic {
 /* Header / Nav */
 .site-header {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(255,255,255,.92);
-  backdrop-filter: blur(10px) saturate(150%);
-  -webkit-backdrop-filter: blur(10px) saturate(150%);
   border-bottom: 1px solid transparent;
   transition: border-color .3s var(--ease-out);
 }
+/* The blur lives on a pseudo-element: backdrop-filter on the header itself would become
+   the containing block for the fixed mobile menu and squash it to the header's height. */
+.site-header::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+}
 @supports not (backdrop-filter: blur(10px)) {
-  .site-header { background: var(--bg); }
+  .site-header::before { background: var(--bg); }
 }
 .site-header.is-scrolled { border-bottom-color: var(--line); }
 .nav-inner {
@@ -223,11 +229,17 @@ em, .italic {
 .nav-link:hover, .nav-link.is-active { color: var(--ink); }
 .nav-link:hover::after, .nav-link.is-active::after { right: 0; }
 
-.nav-cta { display: none; margin-left: auto; }
-.site-nav + .nav-cta { margin-left: 0; }
+.nav-cta { display: none; }
+
+/* Language switch: visible on every size, sits before the CTA / menu toggle */
+.lang-switch {
+  margin-left: auto; font-weight: 600; font-size: .85rem; letter-spacing: .06em;
+  color: var(--ink-soft); padding: .3rem .1rem; transition: color .2s var(--ease-out);
+}
+.lang-switch:hover { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: .3em; }
 
 .nav-toggle {
-  margin-left: auto; width: 40px; height: 40px; display: inline-flex;
+  width: 40px; height: 40px; display: inline-flex;
   flex-direction: column; align-items: center; justify-content: center; gap: 5px;
   flex: none;
 }
@@ -273,7 +285,7 @@ em, .italic {
 .grid-cell-title { font-family: var(--display); font-weight: 700; font-size: 1.15rem; margin-top: 1.1rem; margin-bottom: .5rem; }
 .grid-cell-desc { color: var(--mute); font-size: .95rem; transition: color .3s var(--ease-out); }
 
-/* Cursor-tracking glow — positioned by main.js on mousemove */
+/* Cursor-tracking glow · positioned by main.js on mousemove */
 .cell-halo {
   position: absolute; top: 0; left: 0; width: 240px; height: 240px;
   margin: -120px 0 0 -120px; border-radius: 50%; pointer-events: none;
@@ -281,7 +293,7 @@ em, .italic {
   opacity: 0; z-index: 0;
 }
 
-/* Grid-lines pop variant — green hairlines instead of black */
+/* Grid-lines pop variant · green hairlines instead of black */
 .grid-lines-pop { background: var(--accent); border-color: var(--accent); }
 
 .reason-card {
@@ -391,7 +403,7 @@ em, .italic {
 .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
 .hero-actions .mute { font-size: .9rem; }
 
-/* Hero word-mask reveal — populated by main.js when GSAP is available */
+/* Hero word-mask reveal · populated by main.js when GSAP is available */
 .word-wipe { display: inline-block; overflow: hidden; vertical-align: top; }
 .word-wipe-inner { display: inline-block; will-change: transform; }
 
@@ -469,6 +481,7 @@ em, .italic {
 
 @media (min-width: 960px) {
   .site-nav { display: flex; }
+  .lang-switch { margin-left: 0; }
   .nav-cta { display: inline-flex; }
   .nav-toggle { display: none; }
   .mobile-menu { display: none !important; }
@@ -485,9 +498,9 @@ em, .italic {
 }
 
 /* =============================================================
-   9. Reduced-motion — only intrusive effects gated
+   9. Reduced-motion · only intrusive effects gated
    ============================================================= */
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation-duration: 90s; }
-  .js .reveal { transition-duration: .25s; }
+  .js:not(.no-anim) .reveal { transition-duration: .25s; }
 }

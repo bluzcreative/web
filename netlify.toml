@@ -1,0 +1,27 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Las páginas de la web anterior estaban en inglés: se redirigen a su equivalente en /en/.
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/we-do.html"
+  to = "/en/services/"
+  status = 301
+
+[[redirects]]
+  from = "/portfolio.html"
+  to = "/en/work/"
+  status = 301
+
+[[redirects]]
+  from = "/about.html"
+  to = "/en/about/"
+  status = 301

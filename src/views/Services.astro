@@ -1,0 +1,84 @@
+---
+import { whatsappUrl } from "../data/brand";
+import { t, type Lang } from "../i18n/ui";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = t(lang);
+
+const copy = {
+  es: {
+    kicker: "Servicios",
+    title: "Seis áreas, un solo equipo.",
+    lede: "No trabajamos por piezas sueltas. Cada proyecto pasa por el mismo equipo, así que la estrategia, el diseño, el contenido y la tecnología siempre hablan el mismo idioma.",
+    finalTitle: "¿No sabes qué área le conviene a tu marca ahora?",
+    services: [
+      { title: "Estrategia y Marketing", sub: "Ayudamos a los negocios a crecer con estrategias orientadas a resultados.",
+        tags: ["Estrategias y planes de marketing", "Marketing B2B", "Posicionamiento de marca", "Generación de leads", "Embudos de venta", "Email marketing", "SEO", "Meta Ads y Google Ads"] },
+      { title: "Contenido y Redes Sociales", sub: "Creamos contenido que conecta con la audiencia y fortalece la presencia de la marca.",
+        tags: ["Estrategia de redes sociales", "Community management", "Planificación mensual", "Diseño de feed", "Producción de contenido", "Reels, Shorts y TikToks", "Motion graphics", "Edición de video"] },
+      { title: "Branding y Diseño", sub: "Construimos identidades visuales que transmiten confianza y diferencian a las marcas.",
+        tags: ["Identidad visual", "Manuales de marca", "Diseño de logo", "Packaging", "Material POP", "Flyers y afiches", "Presentaciones corporativas"] },
+      { title: "Web y Presencia Digital", sub: "Desarrollamos experiencias digitales alineadas con los objetivos de cada empresa.",
+        tags: ["Landing pages", "Sitios web corporativos", "Optimización SEO", "Mantenimiento web"] },
+      { title: "Sistemas y Automatización", sub: "Implementamos herramientas y procesos que ayudan a los equipos a operar con más eficiencia.",
+        tags: ["Implementación de CRM", "Pipelines de venta", "Lead scoring", "Integración con WhatsApp", "Segmentación de clientes", "Make, Zapier, Apps Script", "Webhooks e integraciones entre plataformas", "Secuencias de email", "Formularios inteligentes", "Automatizaciones de venta", "Capacitación de equipos", "Optimización de procesos", "Gestión de proyectos", "Documentación"] },
+      { title: "Producción Audiovisual", sub: "Convertimos ideas en piezas visuales que informan, emocionan y conectan.",
+        tags: ["Filmmaking y producción audiovisual", "Postproducción y edición de video", "Motion graphics y animación", "Fotografía de producto", "Renders y visualización 3D"] },
+    ],
+  },
+  en: {
+    kicker: "Services",
+    title: "Six areas, one team.",
+    lede: "We don't work in disconnected pieces. Every project moves through the same team, so strategy, design, content and technology always speak the same language.",
+    finalTitle: "Not sure which area fits your brand right now?",
+    services: [
+      { title: "Strategy and Marketing", sub: "We help businesses grow through results-driven strategy.",
+        tags: ["Marketing strategies and plans", "B2B marketing", "Brand positioning", "Lead generation", "Sales funnels", "Email marketing", "SEO", "Meta Ads and Google Ads"] },
+      { title: "Content and Social Media", sub: "We create content that connects with audiences and strengthens brand presence.",
+        tags: ["Social media strategy", "Community management", "Monthly planning", "Feed design", "Content production", "Reels, Shorts and TikToks", "Motion graphics", "Video editing"] },
+      { title: "Branding and Design", sub: "We build visual identities that convey trust and set brands apart.",
+        tags: ["Visual identity", "Brand manuals", "Logo design", "Packaging", "POP material", "Flyers and posters", "Corporate presentations"] },
+      { title: "Web and Digital Presence", sub: "We build digital experiences aligned with each company's goals.",
+        tags: ["Landing pages", "Corporate websites", "SEO optimization", "Website maintenance"] },
+      { title: "Systems and Automation", sub: "We implement tools and processes that help teams operate more efficiently.",
+        tags: ["CRM implementation", "Sales pipelines", "Lead scoring", "WhatsApp integration", "Customer segmentation", "Make, Zapier, Apps Script", "Webhooks and cross-platform integrations", "Email sequences", "Smart forms", "Sales automations", "Team training", "Process optimization", "Project management", "Documentation"] },
+      { title: "Audiovisual Production", sub: "We turn ideas into visual pieces that inform, move and connect.",
+        tags: ["Filmmaking and audiovisual production", "Postproduction and video editing", "Motion graphics and animation", "Product photography", "3D rendering and visualization"] },
+    ],
+  },
+}[lang];
+---
+<section class="page-hero">
+  <div class="container">
+    <p class="kicker">{copy.kicker}</p>
+    <h1>{copy.title}</h1>
+    <p class="lede max-prose">{copy.lede}</p>
+  </div>
+</section>
+
+<section class="section" style="padding-block:0;">
+  <div class="container">
+    {copy.services.map((s, i) => (
+      <div class="service-row" data-reveal>
+        <div class="service-row-head">
+          <span class="chip-num">{String(i + 1).padStart(2, "0")}</span>
+          <div>
+            <h3>{s.title}</h3>
+            <p class="service-row-sub">{s.sub}</p>
+          </div>
+        </div>
+        <div class="tag-list">
+          {s.tags.map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="container final-cta-inner" data-reveal>
+    <h2>{copy.finalTitle}</h2>
+    <a href={whatsappUrl()} target="_blank" rel="noopener" class="btn btn-primary">{tr("cta.whatsapp")}</a>
+  </div>
+</section>

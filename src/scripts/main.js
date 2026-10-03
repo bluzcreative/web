@@ -1,5 +1,7 @@
-(function () {
-  "use strict";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+{
 
   var $ = function (sel, scope) { return (scope || document).querySelector(sel); };
   var $$ = function (sel, scope) { return Array.prototype.slice.call((scope || document).querySelectorAll(sel)); };
@@ -48,34 +50,7 @@
     });
   }
 
-  // Fallback reveal — used when GSAP/ScrollTrigger aren't available
-  function initRevealFallback() {
-    var singles = $$("[data-reveal]");
-    var groups = $$("[data-reveal-group]").concat($$("[data-reveal-bento]"));
-    var items = singles.concat(groups);
-    if (!items.length || typeof IntersectionObserver === "undefined") return;
-
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-revealed");
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.01, rootMargin: "0px 0px -2% 0px" });
-
-    items.forEach(function (el) { io.observe(el); });
-
-    setTimeout(function () {
-      items.forEach(function (el) {
-        if (!el.classList.contains("is-revealed") && el.getBoundingClientRect().top < window.innerHeight) {
-          el.classList.add("is-revealed");
-        }
-      });
-    }, 6000);
-  }
-
-  // GSAP-powered reveal — richer easing + staggered groups, same trigger points as the fallback
+  // GSAP-powered reveal: richer easing + staggered groups
   function initRevealGSAP() {
     var dur = reduced ? 0.3 : 0.8;
     var groupDur = reduced ? 0.3 : 0.7;
@@ -100,7 +75,7 @@
         });
     });
 
-    // Bento-style reveal — same idea, livelier pop (scale + back-ease) for card grids
+    // Bento-style reveal: same idea, livelier pop (scale + back-ease) for card grids
     $$("[data-reveal-bento]").forEach(function (group) {
       var children = Array.prototype.slice.call(group.children);
       if (!children.length) return;
@@ -114,9 +89,8 @@
     });
   }
 
-  // Cursor-tracking tilt + glow on the "What we do" cards — GSAP only, fine-pointer only.
+  // Cursor-tracking tilt + glow on the "What we do" cards , fine-pointer only.
   function initCardTilt() {
-    if (!window.gsap) return;
     if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
 
     $$(".grid-cell").forEach(function (card) {
@@ -155,8 +129,8 @@
   }
 
   // Wraps each word of a heading in a mask span so it can slide up into view.
-  // Preserves <br> and inline tags (e.g. <em>) instead of flattening them —
-  // the <em> itself is left untouched so it keeps its own underline/entrance.
+  // Preserves <br> and inline tags (e.g. <em>) instead of flattening them.
+  // The <em> itself is left untouched so it keeps its own underline/entrance.
   function splitHeroWords(el) {
     el.setAttribute("aria-label", el.textContent.trim().replace(/\s+/g, " "));
     var wrap = function (text) {
@@ -175,7 +149,7 @@
     return el.querySelectorAll(".word-wipe-inner");
   }
 
-  // Hero entrance — plays once on load, above the fold, GSAP only.
+  // Hero entrance : plays once on load, above the fold.
   // A green rule draws in, the headline rises word-by-word out of a mask,
   // the emphasised word pops in with a slight overshoot, then sub + CTA follow.
   function initHeroEntrance() {
@@ -221,16 +195,10 @@
 
   function boot() {
     safe(initNav, "initNav");
-
-    if (window.gsap && window.ScrollTrigger) {
-      try { gsap.registerPlugin(ScrollTrigger); } catch (_) {}
-      safe(initRevealGSAP, "initRevealGSAP");
-      safe(initHeroEntrance, "initHeroEntrance");
-      safe(initCardTilt, "initCardTilt");
-    } else {
-      safe(initRevealFallback, "initRevealFallback");
-    }
-
+    gsap.registerPlugin(ScrollTrigger);
+    safe(initRevealGSAP, "initRevealGSAP");
+    safe(initHeroEntrance, "initHeroEntrance");
+    safe(initCardTilt, "initCardTilt");
     document.documentElement.classList.add("is-ready");
   }
 
@@ -239,4 +207,4 @@
   } else {
     boot();
   }
-})();
+}

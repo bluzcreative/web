@@ -1,0 +1,105 @@
+---
+import { whatsappUrl } from "../data/brand";
+import { t, type Lang } from "../i18n/ui";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = t(lang);
+
+// Contenido provisional del portafolio actual. En la etapa 5 cada proyecto pasa a su propio archivo de datos.
+type Card = { title: string; tags?: string[]; text: string };
+type Group = { title: string; note: string; cols: 1 | 2 | 3; cards: Card[] };
+
+const copy: { kicker: string; title: string; lede: string; finalTitle: string; groups: Group[] } = {
+  es: {
+    kicker: "Trabajo",
+    title: "Lo que hemos construido con otras marcas.",
+    lede: "Del branding a los sistemas de automatización: una mirada a proyectos reales que hemos hecho para marcas en Venezuela y el mundo.",
+    finalTitle: "¿Quieres ver tu marca aquí?",
+    groups: [
+      { title: "Branding", note: "Identidad y diseño gráfico", cols: 2, cards: [
+        { title: "Incon Container Wholesale", tags: ["Branding", "Diseño gráfico"], text: "Incon entrega contenedores marítimos desmontables y reciclados en cualquier parte del mundo para construir casas, negocios y espacios de almacenamiento. Le dimos a la marca una identidad modular en la que las piezas del logo encajan entre sí, un guiño directo al producto, con una paleta de alto contraste pensada para destacar en vallas y publicidad exterior." },
+        { title: "Baggely Bakery", tags: ["Branding", "Diseño gráfico"], text: "Baggely es una panadería y café enfocada en productos libres de los alérgenos más comunes. Construimos una marca dulce, juvenil y cercana que demuestra que comer distinto no significa renunciar a nada." },
+        { title: "X-Build", tags: ["Branding", "Diseño gráfico", "Redes sociales", "Ads"], text: "X-Build es una startup australiana que desarrolla tecnología de impresión 3D en concreto para vivienda. El reto era posicionarla como una empresa tecnológica de vanguardia dentro de una industria históricamente conservadora. Hoy Bluz se encarga de su identidad visual, redes sociales, pauta y generación de leads." },
+        { title: "Vibrant Architecture Studio", tags: ["Branding", "Diseño gráfico"], text: "Vibrant es un estudio especializado en arquitectura paramétrica. Diseñamos una identidad dinámica que refleja su forma de trabajar: algoritmos y parámetros convertidos en espacios que rompen con lo convencional." },
+      ]},
+      { title: "Contenido y Redes Sociales", note: "Fotografía, edición y dirección", cols: 3, cards: [
+        { title: "Rooties", text: "Una marca venezolana de spray de propóleo creada por mamás. Manejamos sus redes sociales con fotografía, contenido y dirección creativa, mostrando el producto en momentos reales del día a día." },
+        { title: "MioLunetto", text: "Una panadería y café argentino de medialunas. Creamos contenido que mezcla humor cotidiano con fotografía de producto de alta calidad." },
+        { title: "Compremos En China", text: "Una empresa de logística e importación de China a Venezuela. Manejamos sus redes sociales: diseñamos contenido, escribimos guiones de reels y producimos piezas educativas que convierten un proceso complejo, importar un vehículo, en algo fácil de entender." },
+      ]},
+      { title: "Sistemas y Automatización", note: "CRM, automatización y lead scoring", cols: 2, cards: [
+        { title: "Sistema de creación de casilleros", tags: ["Compremos En China"], text: "Diseñamos un sistema automatizado que conecta Wix, Meta, Make y Google Apps Script. Cuando un cliente llena su formulario de registro, el sistema genera su código de casillero, crea los documentos de envío, le manda por correo todo lo que necesita y lo confirma por WhatsApp, sin trabajo manual." },
+        { title: "Sistema de lead scoring", tags: ["Flatpack Container"], text: "Construimos un sistema de lead scoring que clasifica automáticamente a cada prospecto por tipo de cliente, volumen de unidades, presupuesto estimado y necesidad de financiamiento. Segmenta los contactos, asigna tareas al equipo de ventas y envía eventos a Meta para optimizar las campañas." },
+      ]},
+      { title: "Web", note: "Sitios corporativos", cols: 1, cards: [
+        { title: "X-Build y Compremos En China", text: "Construimos los sitios corporativos de ambas marcas, pensados para convertir visitas en leads calificados, con formularios conectados directamente a sus CRM." },
+      ]},
+    ],
+  },
+  en: {
+    kicker: "Work",
+    title: "What we've built with other brands.",
+    lede: "From branding to automation systems, here's a look at real projects we've delivered for brands in Venezuela and around the world.",
+    finalTitle: "Want to see your brand here next?",
+    groups: [
+      { title: "Branding", note: "Identity & graphic design", cols: 2, cards: [
+        { title: "Incon Container Wholesale", tags: ["Branding", "Graphic Design"], text: "Incon delivers demountable, recycled shipping containers anywhere in the world to build homes, businesses and storage spaces. We gave the brand a modular identity where the logo pieces interlock, a direct nod to the product itself, with a high-contrast palette built to stand out on billboards and outdoor advertising." },
+        { title: "Baggely Bakery", tags: ["Branding", "Graphic Design"], text: "Baggely is a bakery and cafe focused on products free from common allergens. We built a sweet, youthful and approachable brand that shows eating differently doesn't mean giving anything up." },
+        { title: "X-Build", tags: ["Branding", "Graphic Design", "Social Media", "Ads"], text: "X-Build is an Australian startup developing 3D concrete printing technology for housing. The challenge was positioning it as a cutting-edge tech company inside a historically conservative industry. Bluz now handles its visual identity, social media, paid ads and lead generation." },
+        { title: "Vibrant Architecture Studio", tags: ["Branding", "Graphic Design"], text: "Vibrant is a studio specialized in parametric architecture. We designed a dynamic identity that mirrors how they work: algorithms and parameters turned into spaces that break from convention." },
+      ]},
+      { title: "Content and Social Media", note: "Photography, editing & direction", cols: 3, cards: [
+        { title: "Rooties", text: "A Venezuelan propolis spray brand created by moms. We manage their social media, handling photography, content and creative direction for their channels, showing the product in real, everyday moments." },
+        { title: "MioLunetto", text: "An Argentine medialunas bakery and cafe. We create content that mixes everyday humor with high-quality product photography." },
+        { title: "Compremos En China", text: "A China-to-Venezuela logistics and import company. We manage their social media: designing content, writing reel scripts and producing educational pieces that break down a complex process, importing a vehicle, into something simple to understand." },
+      ]},
+      { title: "Systems and Automation", note: "CRM, automation & lead scoring", cols: 2, cards: [
+        { title: "Locker creation system", tags: ["Compremos En China"], text: "We designed an automated system that connects Wix, Meta, Make and Google Apps Script. When a customer fills out their registration form, the system generates their locker code, creates the shipping paperwork, emails them everything they need and confirms it all over WhatsApp, no manual work required." },
+        { title: "Lead scoring system", tags: ["Flatpack Container"], text: "We built a lead scoring system that automatically classifies each prospect by customer type, unit volume, estimated budget and financing needs. It segments contacts, assigns tasks to the sales team and sends events back to Meta to optimize campaigns." },
+      ]},
+      { title: "Web", note: "Corporate websites", cols: 1, cards: [
+        { title: "X-Build & Compremos En China", text: "We built the corporate websites for both brands, designed to turn visits into qualified leads, with contact forms tied directly into their CRM systems." },
+      ]},
+    ],
+  },
+}[lang];
+---
+<section class="page-hero">
+  <div class="container">
+    <p class="kicker">{copy.kicker}</p>
+    <h1>{copy.title}</h1>
+    <p class="lede max-prose">{copy.lede}</p>
+  </div>
+</section>
+
+<section style="padding-block:0;">
+  <div class="container">
+    {copy.groups.map((g) => (
+      <div class="portfolio-group" data-reveal>
+        <div class="portfolio-group-head">
+          <h2>{g.title}</h2>
+          <span class="mute" style="font-size:.9rem;">{g.note}</span>
+        </div>
+        <div class:list={["work-grid", { "cols-2": g.cols === 2, "cols-3": g.cols === 3 }]} style={g.cols === 1 ? "grid-template-columns:1fr;" : undefined} data-reveal-group>
+          {g.cards.map((c) => (
+            <article class="work-card">
+              <div class="work-card-head">
+                <h3>{c.title}</h3>
+                {c.tags && <div class="tag-list">{c.tags.map((tag) => <span class="tag">{tag}</span>)}</div>}
+              </div>
+              <p>{c.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="container final-cta-inner" data-reveal>
+    <h2>{copy.finalTitle}</h2>
+    <a href={whatsappUrl()} target="_blank" rel="noopener" class="btn btn-primary">{tr("cta.whatsapp")}</a>
+  </div>
+</section>

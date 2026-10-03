@@ -1,0 +1,103 @@
+---
+import { brand, whatsappUrl } from "../data/brand";
+import type { Lang } from "../i18n/ui";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+
+const copy = {
+  es: {
+    kicker: "Nosotros",
+    titleA: "Creemos que las grandes marcas se construyen en los ", titleEm: "detalles", titleB: ".",
+    lede: "Bluz Creative nació en Caracas, y desde ahí trabajamos con marcas de Venezuela, Latinoamérica y también con empresas de Estados Unidos y Australia. Dónde estamos no nos limita. Cómo trabajamos sí nos define.",
+    intro: "Somos una agencia multidisciplinaria. Eso significa que el mismo equipo que define tu estrategia también diseña, escribe, filma y automatiza. Nada se pierde entre departamentos, porque en realidad no hay departamentos separados.",
+    howKicker: "Cómo trabajamos", howTitle: "Cuatro pasos, un ciclo continuo.",
+    steps: [
+      ["Estrategia", "Definimos objetivos y oportunidades reales, no genéricos."],
+      ["Ejecución", "Creamos campañas y contenido pensados para convertir."],
+      ["Sistemas", "Implementamos herramientas y automatizaciones que sostienen el crecimiento."],
+      ["Optimización", "Medimos, analizamos y ajustamos de forma continua."],
+    ],
+    mattersKicker: "Lo que nos importa",
+    quote: "Reportamos lo que de verdad le importa a tu negocio, no solo lo que se ve bien en un gráfico. Preferimos una conversación honesta sobre resultados que una llena de números inflados.",
+    contactKicker: "Hablemos", contactTitle: "Escríbenos por donde prefieras.",
+  },
+  en: {
+    kicker: "About Us",
+    titleA: "We believe great brands are built in the ", titleEm: "details", titleB: ".",
+    lede: "Bluz Creative was born in Caracas, and from there we work with brands across Venezuela, Latin America, and also with companies in the United States and Australia. Where we're based doesn't limit us. How we work does define us.",
+    intro: "We're a multidisciplinary agency. That means the same team that defines your strategy also designs, writes, films and automates. Nothing gets lost between departments, because there really aren't separate departments.",
+    howKicker: "How we work", howTitle: "Four steps, one continuous loop.",
+    steps: [
+      ["Strategy", "We define real objectives and opportunities, not generic ones."],
+      ["Execution", "We create campaigns and content built to convert."],
+      ["Systems", "We implement tools and automations that support growth."],
+      ["Optimization", "We measure, analyze and adjust continuously."],
+    ],
+    mattersKicker: "What matters to us",
+    quote: "We report what actually matters to your business, not just what looks good on a chart. We'd rather have an honest conversation about results than one full of inflated numbers.",
+    contactKicker: "Let's talk", contactTitle: "Say hello, however you prefer.",
+  },
+}[lang];
+
+const contacts = [
+  { label: "Instagram", detail: brand.instagramHandle, href: brand.instagramUrl, external: true },
+  { label: "Email", detail: brand.email, href: `mailto:${brand.email}`, external: false },
+  { label: "WhatsApp", detail: brand.whatsappDisplay, href: whatsappUrl(), external: true },
+];
+---
+<section class="page-hero">
+  <div class="container">
+    <p class="kicker">{copy.kicker}</p>
+    <h1>{copy.titleA}<em>{copy.titleEm}</em>{copy.titleB}</h1>
+    <p class="lede max-prose">{copy.lede}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" data-reveal>
+    <p class="lede max-prose">{copy.intro}</p>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <p class="kicker">{copy.howKicker}</p>
+      <h2>{copy.howTitle}</h2>
+    </div>
+    <div class="steps-grid" data-reveal-group>
+      {copy.steps.map(([title, desc], i) => (
+        <div class="step">
+          <span class="chip-num">{String(i + 1).padStart(2, "0")}</span>
+          <h3>{title}</h3>
+          <p>{desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="matters">
+  <div class="container" data-reveal>
+    <p class="eyebrow" style="margin-bottom:1.4rem;">{copy.mattersKicker}</p>
+    <p class="pull-quote">"{copy.quote}"</p>
+  </div>
+</section>
+
+<section class="contact-section">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <p class="kicker">{copy.contactKicker}</p>
+      <h2>{copy.contactTitle}</h2>
+    </div>
+    <div data-reveal>
+      {contacts.map((c) => (
+        <a href={c.href} class="contact-link" target={c.external ? "_blank" : undefined} rel={c.external ? "noopener" : undefined}>
+          <span>{c.label}<small>{c.detail}</small></span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
