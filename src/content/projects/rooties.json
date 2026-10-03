@@ -1,0 +1,28 @@
+{
+  "client": "Rooties",
+  "order": 2,
+  "featured": true,
+  "country": { "es": "Venezuela", "en": "Venezuela" },
+  "industry": { "es": "Bienestar natural", "en": "Natural wellness" },
+  "services": ["contenido", "fotografia"],
+  "summary": {
+    "es": "Spray de propóleo creado por mamás, contado desde momentos reales.",
+    "en": "A propolis spray made by moms, told through real moments."
+  },
+  "cover": "../../assets/projects/rooties/kids.jpg",
+  "coverAlt": {
+    "es": "Niño sonriendo en un parque mientras muestra el spray Rooties Kids",
+    "en": "Boy smiling at a playground while showing the Rooties Kids spray"
+  },
+  "gallery": [],
+  "challenge": {
+    "es": "Rooties es una marca venezolana de spray de propóleo creada por mamás. Necesitaba mostrar un producto de bienestar de forma cercana y creíble, lejos del tono de farmacia.",
+    "en": "Rooties is a Venezuelan propolis spray brand created by moms. It needed to show a wellness product in a warm, believable way, far from a pharmacy tone."
+  },
+  "approach": {
+    "es": "Manejamos sus redes sociales con fotografía, contenido y dirección creativa, mostrando el producto en momentos reales del día a día.",
+    "en": "We manage its social media with photography, content and creative direction, showing the product in real, everyday moments."
+  },
+  "results": [],
+  "accent": "#b8e04a"
+}

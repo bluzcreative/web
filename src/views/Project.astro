@@ -1,0 +1,162 @@
+---
+// Plantilla de proyecto (estilo Veintitrés): imágenes a todo lo ancho; al hacer scroll, los textos y las
+// piezas pasan por encima de una imagen fija. Estructura: reto, enfoque, piezas, resultados y testimonio.
+// Las secciones sin contenido (por ejemplo, resultados aún sin cifras) no se muestran.
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { routes, projectUrl, type Lang } from "../i18n/ui";
+import { serviceTags } from "../data/services";
+
+interface Props { project: CollectionEntry<"projects">; next: CollectionEntry<"projects">; lang: Lang }
+const { project, next, lang } = Astro.props;
+const p = project.data;
+const stickyImage = p.gallery[0]?.src ?? p.cover;
+
+const copy = {
+  es: { back: "Trabajo", industry: "Industria", country: "País", services: "Servicios", year: "Año",
+    challenge: "Reto", approach: "Enfoque", pieces: "Piezas", results: "Resultados", next: "Siguiente proyecto",
+    closeTitle: "¿Hablamos de tu marca?", closeCta: "Empieza tu proyecto" },
+  en: { back: "Work", industry: "Industry", country: "Country", services: "Services", year: "Year",
+    challenge: "Challenge", approach: "Approach", pieces: "Pieces", results: "Results", next: "Next project",
+    closeTitle: "Shall we talk about your brand?", closeCta: "Start your project" },
+}[lang];
+---
+<article class="project">
+  <!-- Portada a todo lo ancho -->
+  <header class="p-hero tone-dark">
+    <Image class="p-hero-img" src={p.cover} alt={p.coverAlt[lang]} widths={[800, 1400, 2200]} sizes="100vw" loading="eager" fetchpriority="high" />
+    <span class="p-hero-shade" aria-hidden="true"></span>
+    <div class="p-hero-content edge">
+      <a href={routes.work[lang]} class="t-label p-back">← {copy.back}</a>
+      <h1 class="t-mega">{p.client}</h1>
+      <p class="t-lead">{p.summary[lang]}</p>
+      <dl class="p-meta">
+        <div><dt class="t-label">{copy.industry}</dt><dd>{p.industry[lang]}</dd></div>
+        {p.country && <div><dt class="t-label">{copy.country}</dt><dd>{p.country[lang]}</dd></div>}
+        <div><dt class="t-label">{copy.services}</dt><dd>{p.services.map((s) => serviceTags[s][lang]).join(", ")}</dd></div>
+        {p.year && <div><dt class="t-label">{copy.year}</dt><dd>{p.year}</dd></div>}
+      </dl>
+    </div>
+  </header>
+
+  <!-- Reto y enfoque pasan por encima de una imagen fija -->
+  <section class="p-overlap tone-dark" aria-label={`${copy.challenge}, ${copy.approach}`}>
+    <div class="p-sticky" aria-hidden="true">
+      <Image src={stickyImage} alt="" widths={[800, 1400, 2200]} sizes="100vw" />
+    </div>
+    <div class="p-layers edge">
+      <div class="p-card p-card-a">
+        <p class="t-label">{copy.challenge}</p>
+        <p class="p-text">{p.challenge[lang]}</p>
+      </div>
+      {p.gallery[1] && (
+        <Image class="p-float" src={p.gallery[1].src} alt={p.gallery[1].alt[lang]} widths={[480, 800]} sizes="(min-width: 900px) 30vw, 70vw" />
+      )}
+      <div class="p-card p-card-b">
+        <p class="t-label">{copy.approach}</p>
+        <p class="p-text">{p.approach[lang]}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Piezas -->
+  {p.gallery.length > 2 && (
+    <section class="p-pieces tone-dark section" aria-label={copy.pieces}>
+      <p class="t-label edge">{copy.pieces}</p>
+      <div class="p-gallery">
+        {p.gallery.slice(2).map((g) => (
+          <Image class:list={["p-piece", { "is-wide": g.wide }]} src={g.src} alt={g.alt[lang]} widths={[600, 1200, 2000]}
+            sizes={g.wide ? "100vw" : "(min-width: 900px) 50vw, 100vw"} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Resultados -->
+  {p.results.length > 0 && (
+    <section class="p-results tone-dark section edge">
+      <p class="t-label">{copy.results}</p>
+      <ul>
+        {p.results.map((r) => (
+          <li><span class="t-mega">{r.value}</span><span class="t-label">{r.label[lang]}</span></li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <!-- Testimonio -->
+  {p.testimonial && (
+    <section class="p-quote tone-dark section edge">
+      <blockquote>
+        <p class="t-h1">“{p.testimonial.quote[lang]}”</p>
+        <footer class="t-mute">{p.testimonial.author}{p.testimonial.role && `, ${p.testimonial.role[lang]}`}</footer>
+      </blockquote>
+    </section>
+  )}
+
+  <!-- Siguiente proyecto -->
+  <a href={projectUrl(lang, next.id)} class="p-next tone-dark">
+    <Image class="p-next-img" src={next.data.cover} alt="" widths={[800, 1400]} sizes="100vw" />
+    <span class="p-next-shade" aria-hidden="true"></span>
+    <span class="p-next-content edge">
+      <span class="t-label">{copy.next}</span>
+      <span class="t-mega">{next.data.client} <span aria-hidden="true">→</span></span>
+    </span>
+  </a>
+
+  <section class="p-close tone-dark section edge">
+    <p class="t-h1">{copy.closeTitle}</p>
+    <a href={routes.contact[lang]} class="btn btn-green" data-contact-open>{copy.closeCta}</a>
+  </section>
+</article>
+
+<style>
+  .p-hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; }
+  .p-hero-img, .p-next-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .p-hero-shade, .p-next-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,10,.55), rgba(10,10,10,.45) 35%, rgba(10,10,10,.95) 75%); }
+  .p-hero-content { position: relative; z-index: 1; width: 100%; display: grid; gap: 1.25rem; padding-bottom: clamp(32px, 6vh, 72px); }
+  .p-back { color: rgba(255,255,255,.75); justify-self: start; transition: color .25s var(--ease-out); }
+  .p-back:hover { color: var(--green); }
+  .p-hero h1 { margin-left: -.04em; }
+  .p-hero .t-lead { max-width: 40ch; }
+  .p-meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem var(--gutter); padding-top: 1.25rem; border-top: 1px solid var(--line); }
+  @media (min-width: 900px) { .p-meta { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .p-meta dd { margin-top: .35rem; }
+
+  .p-overlap { position: relative; }
+  .p-sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+  .p-sticky img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.6); }
+  .p-layers { position: relative; z-index: 1; margin-top: -60svh; padding-bottom: 20svh;
+    display: grid; gap: var(--gutter); grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .p-card { grid-column: 1 / -1; display: grid; gap: 1rem; padding: clamp(24px, 4vw, 64px); background: var(--black); }
+  .p-card-b { margin-top: 20svh; }
+  .p-text { font-family: var(--display); font-weight: 500; font-size: clamp(1.25rem, 2.2vw, 2rem); line-height: 1.25; letter-spacing: -.02em; }
+  .p-float { grid-column: 2 / -1; width: 100%; margin-top: 12svh; box-shadow: 0 30px 80px rgba(0,0,0,.5); }
+  @media (min-width: 900px) {
+    .p-layers { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    .p-card-a { grid-column: 1 / 7; }
+    .p-float { grid-column: 8 / 12; margin-top: 30svh; }
+    .p-card-b { grid-column: 6 / 13; margin-top: 10svh; }
+  }
+
+  .p-pieces .t-label { display: block; margin-bottom: 1.5rem; }
+  .p-gallery { display: grid; gap: 4px; }
+  @media (min-width: 900px) { .p-gallery { grid-template-columns: 1fr 1fr; } .p-piece.is-wide { grid-column: 1 / -1; } }
+  .p-piece { width: 100%; height: 100%; object-fit: cover; }
+
+  .p-results ul { display: grid; gap: 2rem var(--gutter); margin-top: 2rem; }
+  @media (min-width: 900px) { .p-results ul { grid-template-columns: repeat(3, 1fr); } }
+  .p-results li { display: grid; gap: .5rem; border-top: 1px solid var(--line); padding-top: 1.5rem; }
+  .p-results .t-mega { color: var(--green); font-size: clamp(3rem, 8vw, 8rem); }
+
+  .p-quote blockquote { display: grid; gap: 1.5rem; max-width: 30ch; }
+
+  .p-next { position: relative; display: flex; align-items: flex-end; min-height: 80svh; overflow: hidden; }
+  .p-next-img { transition: transform 1.2s var(--ease-out); }
+  .p-next:hover .p-next-img { transform: scale(1.04); }
+  .p-next-content { position: relative; z-index: 1; display: grid; gap: .75rem; width: 100%; padding-bottom: clamp(32px, 6vh, 72px); }
+  .p-next-content .t-mega { margin-left: -.04em; transition: color .4s var(--ease-out); }
+  .p-next:hover .t-mega { color: var(--green); }
+
+  .p-close { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; }
+</style>

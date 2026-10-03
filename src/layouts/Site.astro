@@ -1,55 +1,83 @@
 ---
-// Layout del rediseño. Las páginas pasan a este layout a medida que se rehacen;
-// mientras tanto, las que no se han rehecho siguen en Base.astro.
+// Layout de la web: SEO, barra superior, menú, contacto, footer, cookies y medición con consentimiento.
 import "../styles/system.css";
+import { getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import Topbar from "../components/site/Topbar.astro";
 import Menu from "../components/site/Menu.astro";
 import Contact from "../components/site/Contact.astro";
 import Footer from "../components/site/Footer.astro";
 import Cookies from "../components/site/Cookies.astro";
-import { routes, languages, t, type Lang, type PageKey } from "../i18n/ui";
+import { routes, t, type Lang, type PageKey } from "../i18n/ui";
 
 interface Props {
   lang: Lang;
-  page?: PageKey;       // sin page: página interna, sin versiones en otro idioma
+  page?: PageKey;                          // página activa del menú y versiones en otro idioma
+  alternates?: Record<Lang, string>;       // versiones en cada idioma cuando no salen de `page` (proyectos, Lab)
   title: string;
   description: string;
-  contactOpen?: boolean; // /contacto/ abre el pop-up desde el servidor
+  image?: ImageMetadata;                   // imagen para compartir en redes
+  contactOpen?: boolean;                   // /contacto/ abre el pop-up desde el servidor
   noindex?: boolean;
+  type?: "website" | "article";
 }
-const { lang, page, title, description, contactOpen = false, noindex = false } = Astro.props;
+const { lang, page, title, description, image, contactOpen = false, noindex = false, type = "website" } = Astro.props;
+const alternates = Astro.props.alternates ?? (page ? { es: routes[page].es, en: routes[page].en } : undefined);
 const tr = t(lang);
+
+const site = Astro.site ?? new URL(Astro.url.origin);
+const abs = (path: string) => new URL(path, site).href;
+const canonical = abs(Astro.url.pathname);
+const ogImage = image
+  ? abs((await getImage({ src: image, width: 1200, height: 630, fit: "cover", format: "jpg" })).src)
+  : abs("/og-default.jpg");
 ---
 <!doctype html>
-<html lang={lang} data-base="dark" class:list={{ "has-contact-open": contactOpen }}>
+<html lang={lang} data-base="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content={description}>
-{noindex && <meta name="robots" content="noindex, nofollow">}
-{page && (Object.keys(languages) as Lang[]).map((l) => (
-  <link rel="alternate" hreflang={l} href={routes[page][l]} />
-))}
-{page && <link rel="alternate" hreflang="x-default" href={routes[page].es} />}
+{noindex ? <meta name="robots" content="noindex, nofollow"> : <link rel="canonical" href={canonical}>}
+{!noindex && alternates && (
+  <>
+    <link rel="alternate" hreflang="es" href={abs(alternates.es)} />
+    <link rel="alternate" hreflang="en" href={abs(alternates.en)} />
+    <link rel="alternate" hreflang="x-default" href={abs(alternates.es)} />
+  </>
+)}
+<meta property="og:type" content={type}>
+<meta property="og:site_name" content="Bluz Creative">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={canonical}>
+<meta property="og:image" content={ogImage}>
+<meta property="og:locale" content={lang === "es" ? "es_ES" : "en_US"}>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0a0a0a">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="sitemap" href="/sitemap-index.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Fraunces:ital,wght@1,400;1,500&family=Inter:wght@400;500;600;700&display=swap">
 </head>
 <body>
+<slot name="before" />
 <a href="#main" class="skip-link">{tr("skip")}</a>
 <div class="site" data-site>
   <Topbar lang={lang} />
   <main id="main">
     <slot />
   </main>
-  <Footer lang={lang} page={page} />
+  <Footer lang={lang} alternates={alternates} />
 </div>
-<Menu lang={lang} page={page} />
+<Menu lang={lang} page={page} alternates={alternates} />
 <Contact lang={lang} open={contactOpen} />
 <Cookies lang={lang} />
 <script>
+  // tracking primero: así escucha el consentimiento guardado que site.ts anuncia al arrancar
+  import "../scripts/tracking.ts";
   import "../scripts/site.ts";
 </script>
 </body>

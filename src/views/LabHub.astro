@@ -1,0 +1,124 @@
+---
+// Bluz Lab: hub de recursos. Cada sección lista sus entradas; si aún no hay, muestra un "pronto".
+import { getCollection } from "astro:content";
+import ContraluzForm from "../components/site/ContraluzForm.astro";
+import { labKinds, labUrl, type Lang, type LabKind } from "../i18n/ui";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+
+const entries = (await getCollection("lab", (e) => e.data.lang === lang && (import.meta.env.DEV || !e.data.draft)))
+  .sort((a, b) => +b.data.date - +a.data.date);
+const byKind = (k: LabKind) => entries.filter((e) => e.data.kind === k);
+const fmt = new Intl.DateTimeFormat(lang === "es" ? "es" : "en", { day: "numeric", month: "long", year: "numeric" });
+
+const copy = {
+  es: {
+    title: "Bluz Lab",
+    lede: "Recursos de marketing digital, automatización e IA. Lo que probamos con nuestros clientes, contado para que lo puedas usar.",
+    intro: {
+      articulo: "Guías y análisis para tomar mejores decisiones de marketing.",
+      descargable: "Plantillas, checklists y reportes. Déjanos tu correo y son tuyos.",
+      experimento: "Pruebas reales de automatización e IA, con lo que salió bien y lo que no.",
+      contraluz: "Cada edición de la newsletter, para leer cuando quieras.",
+    },
+    soon: "Pronto.",
+    draft: "Borrador",
+    edition: "Edición",
+  },
+  en: {
+    title: "Bluz Lab",
+    lede: "Digital marketing, automation and AI resources. What we test with our clients, written so you can use it.",
+    intro: {
+      articulo: "Guides and analysis for better marketing decisions.",
+      descargable: "Templates, checklists and reports. Leave your email and they're yours.",
+      experimento: "Real automation and AI experiments, with what worked and what didn't.",
+      contraluz: "Every newsletter issue, to read whenever you like.",
+    },
+    soon: "Coming soon.",
+    draft: "Draft",
+    edition: "Issue",
+  },
+}[lang];
+const kinds = Object.keys(labKinds) as LabKind[];
+---
+<section class="lab-hero tone-dark edge">
+  <h1 class="t-mega">{copy.title}</h1>
+  <p class="t-lead t-mute">{copy.lede}</p>
+  <nav class="jump" aria-label={copy.title}>
+    {kinds.map((k) => <a href={`#${labKinds[k][lang]}`}>{labKinds[k].label[lang]}</a>)}
+  </nav>
+</section>
+
+{kinds.filter((k) => k !== "contraluz").map((k) => (
+  <section id={labKinds[k][lang]} class="lab-section tone-dark section edge">
+    <div class="grid">
+      <div class="lab-head">
+        <h2 class="t-h1">{labKinds[k].label[lang]}</h2>
+        <p class="t-mute">{copy.intro[k]}</p>
+      </div>
+      <ul class="lab-list">
+        {byKind(k).length === 0 && <li class="lab-empty t-h2 t-mute">{copy.soon}</li>}
+        {byKind(k).map((e) => (
+          <li>
+            <a href={labUrl(lang, k, e.data.slug)} class="lab-item">
+              <span class="t-label">{fmt.format(e.data.date)}{e.data.draft && ` · ${copy.draft}`}</span>
+              <span class="t-h2">{e.data.title}</span>
+              <span class="t-mute">{e.data.description}</span>
+              <span class="arr" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+))}
+
+<section id={labKinds.contraluz[lang]} class="contraluz tone-dark section edge">
+  <div class="grid">
+    <div class="cl-head">
+      <h2 class="cl-name">Contraluz</h2>
+      <ContraluzForm lang={lang} id="lab" />
+    </div>
+    <ul class="lab-list cl-list">
+      {byKind("contraluz").length === 0 && <li class="lab-empty t-h2 t-mute">{copy.soon}</li>}
+      {byKind("contraluz").map((e) => (
+        <li>
+          <a href={labUrl(lang, "contraluz", e.data.slug)} class="lab-item">
+            <span class="t-label">{copy.edition} {e.data.issue} · {fmt.format(e.data.date)}{e.data.draft && ` · ${copy.draft}`}</span>
+            <span class="t-h2">{e.data.title}</span>
+            <span class="arr" aria-hidden="true">→</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .lab-hero { min-height: 75svh; display: flex; flex-direction: column; justify-content: flex-end; gap: 1.25rem;
+    padding-top: calc(var(--bar-h) + 3rem); padding-bottom: clamp(48px, 8vh, 96px); }
+  .lab-hero h1 { margin-left: -.04em; }
+  .lab-hero .t-lead { max-width: 46ch; }
+  .jump { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+  .jump a { padding: .55em 1em; border: 1px solid var(--line); border-radius: 999px; font-size: .9375rem;
+    transition: background-color .25s var(--ease-out), color .25s var(--ease-out), border-color .25s var(--ease-out); }
+  .jump a:hover { background: var(--green); color: var(--black); border-color: var(--green); }
+
+  .lab-section, .contraluz { border-top: 1px solid var(--line); scroll-margin-top: var(--bar-h); }
+  .lab-head, .cl-head { grid-column: 1 / -1; display: grid; gap: 1rem; align-content: start; margin-bottom: 2rem; }
+  .lab-list { grid-column: 1 / -1; min-width: 0; }
+  @media (min-width: 1000px) {
+    .lab-head, .cl-head { grid-column: 1 / 5; margin: 0; }
+    .lab-list { grid-column: 6 / -1; }
+  }
+  .lab-list li { border-top: 1px solid var(--line); }
+  .lab-list li:last-child { border-bottom: 1px solid var(--line); }
+  .lab-empty { padding-block: 1.5rem; }
+  .lab-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .5rem 1rem; padding-block: 1.5rem; }
+  .lab-item > :not(.arr) { grid-column: 1; }
+  .lab-item .arr { grid-column: 2; grid-row: 1 / span 3; align-self: center; font-size: 1.5rem; transition: transform .35s var(--ease-out), color .35s var(--ease-out); }
+  .lab-item:hover .arr { transform: translateX(.3em); color: var(--green); }
+  .cl-name { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: clamp(3rem, 7vw, 6rem); line-height: 1; letter-spacing: -.03em; }
+  .cl-head :global(.contraluz-name) { display: none; }
+</style>

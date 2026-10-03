@@ -2,7 +2,7 @@
 // Pop-up de contacto con dos caminos: formulario (Netlify Forms, "contacto") o WhatsApp.
 // Se abre desde cualquier [data-contact-open]. En /contacto/ se renderiza abierto desde el servidor,
 // así la URL funciona en anuncios, Instagram y firmas aunque el JavaScript no cargue.
-import { routes, t, contactServices, budgetRanges, type Lang } from "../../i18n/ui";
+import { routes, t, contactServices, type Lang } from "../../i18n/ui";
 import { whatsappUrl } from "../../data/brand";
 
 interface Props { lang: Lang; open?: boolean }
@@ -44,19 +44,19 @@ const tr = t(lang);
         <div class="fields">
           <label class="field">
             <span class="t-label">{tr("form.name")}</span>
-            <input type="text" name="nombre" required autocomplete="name">
+            <input type="text" name="nombre" required autocomplete="name" placeholder={tr("form.name.ph")}>
           </label>
           <label class="field">
             <span class="t-label">{tr("form.email")}</span>
-            <input type="email" name="email" required autocomplete="email">
+            <input type="email" name="email" required autocomplete="email" placeholder={tr("form.email.ph")}>
           </label>
           <label class="field">
             <span class="t-label">{tr("form.company")} <em>({tr("form.optional")})</em></span>
-            <input type="text" name="empresa" autocomplete="organization">
+            <input type="text" name="empresa" autocomplete="organization" placeholder={tr("form.company.ph")}>
           </label>
           <label class="field">
             <span class="t-label">{tr("form.site")} <em>({tr("form.optional")})</em></span>
-            <input type="text" name="web_o_instagram" inputmode="url">
+            <input type="text" name="web_o_instagram" inputmode="url" placeholder={tr("form.site.ph")}>
           </label>
         </div>
 
@@ -70,16 +70,8 @@ const tr = t(lang);
         </fieldset>
 
         <label class="field">
-          <span class="t-label">{tr("form.budget")}</span>
-          <select name="presupuesto">
-            <option value="">{tr("form.budget.choose")}</option>
-            {budgetRanges.map((b) => <option value={b.value}>{b[lang]}</option>)}
-          </select>
-        </label>
-
-        <label class="field">
           <span class="t-label">{tr("form.message")}</span>
-          <textarea name="mensaje" rows="4" required></textarea>
+          <textarea name="mensaje" rows="4" required placeholder={tr("form.message.ph")}></textarea>
         </label>
 
         <div class="form-submit">
@@ -130,17 +122,16 @@ const tr = t(lang);
 
   .field { display: grid; gap: .5rem; border: 0; padding: 0; min-width: 0; }
   .field em { font-style: normal; text-transform: none; letter-spacing: 0; font-weight: 400; }
-  .field input, .field select, .field textarea {
-    width: 100%; background: transparent; color: var(--text); font: inherit; font-size: 1.125rem;
-    border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: .55rem 0; outline: none;
-    transition: border-color .25s var(--ease-out);
+  .field input, .field textarea {
+    width: 100%; background: rgba(255,255,255,.04); color: var(--text); font: inherit; font-size: 1.0625rem;
+    border: 1px solid var(--line); border-radius: 10px; padding: .9rem 1rem; outline: none;
+    transition: border-color .25s var(--ease-out), background-color .25s var(--ease-out);
   }
-  .field textarea { resize: vertical; min-height: 6.5rem; line-height: 1.5; }
-  .field select { appearance: none; cursor: pointer;
-    background: linear-gradient(45deg, transparent 50%, var(--text-mute) 50%) right 6px center / 6px 6px no-repeat,
-                linear-gradient(-45deg, transparent 50%, var(--text-mute) 50%) right 0 center / 6px 6px no-repeat; }
-  .field select option { color: var(--black); }
-  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--green); }
+  .field input::placeholder, .field textarea::placeholder { color: #6b6b6b; }
+  .field input:hover, .field textarea:hover { border-color: rgba(255,255,255,.28); }
+  .field input:focus, .field textarea:focus { border-color: var(--green); background: rgba(123,255,118,.05); }
+  .field textarea { resize: vertical; min-height: 8rem; line-height: 1.5; }
+  .field input:-webkit-autofill { -webkit-text-fill-color: var(--text); -webkit-box-shadow: 0 0 0 100px #161616 inset; }
 
   .chips legend { margin-bottom: .75rem; }
   .chips-list { display: flex; flex-wrap: wrap; gap: .5rem; }

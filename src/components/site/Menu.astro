@@ -6,11 +6,11 @@ import ContraluzForm from "./ContraluzForm.astro";
 import { routes, menuOrder, features, t, otherLang, type Lang, type PageKey } from "../../i18n/ui";
 import { brand, whatsappUrl } from "../../data/brand";
 
-interface Props { lang: Lang; page?: PageKey }
-const { lang, page } = Astro.props;
+interface Props { lang: Lang; page?: PageKey; alternates?: Record<Lang, string> }
+const { lang, page, alternates } = Astro.props;
 const tr = t(lang);
 const alt = otherLang(lang);
-const altHref = page ? routes[page][alt] : routes.home[alt];
+const altHref = alternates ? alternates[alt] : routes.home[alt];
 ---
 <div id="site-menu" class="menu tone-dark" role="dialog" aria-modal="true" aria-label={tr("menu")} data-menu hidden>
   <div class="menu-bar">

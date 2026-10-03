@@ -1,0 +1,36 @@
+---
+// Carrusel de clientes (reutiliza la idea del carrusel de la web anterior): corre solo, se pausa
+// al pasar el cursor y va más lento si la persona pidió menos movimiento.
+import { clients } from "../../data/clients";
+
+interface Props { label: string }
+const { label } = Astro.props;
+---
+<div class="marquee" role="region" aria-label={label}>
+  <ul class="marquee-track">
+    {clients.map((c) => (
+      <li class="marquee-item">{c.logo ? <img src={c.logo} alt={c.name} /> : c.name}</li>
+    ))}
+  </ul>
+  <ul class="marquee-track" aria-hidden="true">
+    {clients.map((c) => (
+      <li class="marquee-item">{c.logo ? <img src={c.logo} alt="" /> : c.name}</li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .marquee { display: flex; overflow: hidden; border-block: 1px solid var(--line); padding-block: clamp(20px, 3vw, 40px);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .marquee-track { flex: none; display: flex; align-items: center; gap: clamp(32px, 5vw, 80px); padding-right: clamp(32px, 5vw, 80px);
+    animation: marquee 40s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  .marquee-item { font-family: var(--display); font-weight: 500; font-size: clamp(1.6rem, 4vw, 3.5rem); letter-spacing: -.035em;
+    white-space: nowrap; color: var(--text-mute); display: inline-flex; align-items: center; gap: clamp(32px, 5vw, 80px);
+    transition: color .3s var(--ease-out); }
+  .marquee-item:hover { color: var(--text); }
+  .marquee-item::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--green); }
+  .marquee-item img { height: clamp(28px, 4vw, 48px); width: auto; filter: brightness(0) invert(1); opacity: .7; }
+  @keyframes marquee { to { transform: translateX(-100%); } }
+  @media (prefers-reduced-motion: reduce) { .marquee-track { animation-duration: 160s !important; animation-iteration-count: infinite !important; } }
+</style>

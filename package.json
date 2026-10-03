@@ -6,9 +6,11 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "docs:pdf": "\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless --disable-gpu --user-data-dir=/tmp/bluz-pdf-chrome --no-first-run --no-default-browser-check --disable-extensions --disable-sync --password-store=basic --use-mock-keychain --no-pdf-header-footer --virtual-time-budget=8000 --print-to-pdf=docs/sistema-visual/Bluz-Sistema-Visual-Web.pdf docs/sistema-visual/sistema-visual.html"
+    "docs:pdf": "\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless --disable-gpu --user-data-dir=/tmp/bluz-pdf-chrome --no-first-run --no-default-browser-check --disable-extensions --disable-sync --password-store=basic --use-mock-keychain --no-pdf-header-footer --virtual-time-budget=8000 --print-to-pdf=docs/sistema-visual/Bluz-Sistema-Visual-Web.pdf docs/sistema-visual/sistema-visual.html",
+    "docs:og": "\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless --disable-gpu --user-data-dir=/tmp/bluz-pdf-chrome --no-first-run --no-default-browser-check --disable-extensions --password-store=basic --use-mock-keychain --hide-scrollbars --virtual-time-budget=6000 --window-size=1200,630 --screenshot=public/og-default.png docs/og/og-default.html && sips -s format jpeg public/og-default.png --out public/og-default.jpg >/dev/null && rm public/og-default.png"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
     "astro": "^7.3.5",
     "gsap": "^3.15.0"
   }

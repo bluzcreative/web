@@ -1,0 +1,60 @@
+---
+// Tarjeta de proyecto estilo Drool: al pasar el cursor, la portada se achica y se despliegan tres imágenes.
+// Usa las tres primeras imágenes de la galería; si el proyecto aún no tiene galería, usa recortes de la portada.
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { projectUrl, type Lang } from "../../i18n/ui";
+import { serviceTags } from "../../data/services";
+
+interface Props { project: CollectionEntry<"projects">; lang: Lang; cta: string; sizes?: string; eager?: boolean }
+const { project, lang, cta, sizes = "(min-width: 900px) 33vw, 100vw", eager = false } = Astro.props;
+const p = project.data;
+const layers = [0, 1, 2].map((i) => p.gallery[i] ?? { src: p.cover, alt: p.coverAlt, crop: true });
+const positions = ["30% 20%", "70% 50%", "50% 85%"];
+---
+<a href={projectUrl(lang, project.id)} class="card" style={p.accent ? `--accent: ${p.accent}` : undefined}>
+  <div class="card-media">
+    <Image class="card-cover" src={p.cover} alt={p.coverAlt[lang]} widths={[480, 800, 1200]} sizes={sizes}
+      loading={eager ? "eager" : "lazy"} />
+    {layers.map((l, i) => (
+      <Image class={`card-layer l${i + 1}`} src={l.src} alt="" aria-hidden="true" widths={[320, 560]} sizes="(min-width: 900px) 16vw, 45vw"
+        style={"crop" in l ? `object-position: ${positions[i]}` : undefined} loading="lazy" />
+    ))}
+    <span class="card-cta" aria-hidden="true">{cta} <span>→</span></span>
+  </div>
+  <div class="card-info">
+    <h3 class="t-h2">{p.client}</h3>
+    <p class="t-mute">{p.industry[lang]}{p.country && ` · ${p.country[lang]}`}</p>
+    <ul class="card-tags">{p.services.map((s) => <li>{serviceTags[s][lang]}</li>)}</ul>
+  </div>
+</a>
+
+<style>
+  .card { position: relative; display: grid; gap: 1.25rem; }
+  .card:hover, .card:focus-visible { z-index: 5; }
+  .card-media { position: relative; aspect-ratio: 4 / 5; isolation: isolate; background: var(--placeholder); }
+  .card-cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;
+    transition: transform .8s var(--ease-out), filter .8s var(--ease-out); }
+  .card-layer { position: absolute; z-index: 3; object-fit: cover; border-radius: 8px; opacity: 0;
+    box-shadow: 0 24px 60px rgba(0,0,0,.45);
+    transition: transform .8s var(--ease-out), opacity .45s var(--ease-out); }
+  .l1 { width: 40%; aspect-ratio: 9 / 16; left: 4%; top: 16%; transform: translate(12%, 10%) scale(.85); border-radius: 16px; }
+  .l2 { width: 48%; aspect-ratio: 1; right: 4%; top: 6%; transform: translate(-10%, 10%) scale(.85); }
+  .l3 { width: 44%; aspect-ratio: 4 / 3; right: 8%; bottom: 6%; transform: translate(-6%, -10%) scale(.85); }
+  .card-cta { position: absolute; z-index: 4; left: 1rem; bottom: 1rem; padding: .7em 1.1em; border-radius: 999px;
+    background: var(--green); color: var(--black); font-weight: 600; font-size: .875rem;
+    opacity: 0; transform: translateY(8px); transition: opacity .35s var(--ease-out), transform .35s var(--ease-out); }
+  .card-info { display: grid; gap: .35rem; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .5rem; }
+  .card-tags li { font-size: .8125rem; padding: .35em .8em; border: 1px solid var(--line); border-radius: 999px; }
+
+  @media (hover: hover) and (pointer: fine) {
+    .card:hover .card-cover { transform: scale(.93); filter: brightness(.55); }
+    .card:hover .card-layer { opacity: 1; }
+    .card:hover .l1 { transform: translate(-6%, -4%) rotate(-6deg); transition-delay: .03s; }
+    .card:hover .l2 { transform: translate(6%, -6%) rotate(4deg); transition-delay: .08s; }
+    .card:hover .l3 { transform: translate(4%, 6%) rotate(-3deg); transition-delay: .13s; }
+    .card:hover .card-cta { opacity: 1; transform: none; }
+  }
+  .card:focus-visible .card-cta { opacity: 1; transform: none; }
+</style>

@@ -1,0 +1,29 @@
+---
+import { legal } from "../../data/legal";
+import type { Lang } from "../../i18n/ui";
+
+interface Props { lang: Lang; doc: keyof typeof legal }
+const { lang, doc } = Astro.props;
+const d = legal[doc][lang];
+---
+<article class="legal tone-dark edge">
+  <header>
+    <h1 class="t-h1">{d.title}</h1>
+    <p class="t-label">{d.updated}</p>
+    <p class="t-lead t-mute">{d.intro}</p>
+  </header>
+  {d.sections.map((s) => (
+    <section>
+      <h2 class="t-h2">{s.h}</h2>
+      {s.p.map((para) => <p>{para}</p>)}
+    </section>
+  ))}
+</article>
+
+<style>
+  .legal { padding-top: calc(var(--bar-h) + clamp(48px, 10vh, 120px)); padding-bottom: var(--section); display: grid; gap: 2.5rem; }
+  .legal > * { max-width: 68ch; }
+  .legal header { display: grid; gap: 1rem; }
+  .legal section { display: grid; gap: .9rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  .legal p { color: #d6d6d6; line-height: 1.7; }
+</style>

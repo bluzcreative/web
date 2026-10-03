@@ -1,0 +1,99 @@
+---
+// Plantilla de entrada de Bluz Lab: artículo, experimento, edición de Contraluz o descargable.
+// Los descargables piden el correo (Netlify Forms, "descargables") y luego muestran el enlace.
+import { Image } from "astro:assets";
+import { render, type CollectionEntry } from "astro:content";
+import ContraluzForm from "../components/site/ContraluzForm.astro";
+import { routes, labKinds, t, type Lang } from "../i18n/ui";
+
+interface Props { entry: CollectionEntry<"lab">; lang: Lang }
+const { entry, lang } = Astro.props;
+const e = entry.data;
+const { Content } = await render(entry);
+const tr = t(lang);
+const fmt = new Intl.DateTimeFormat(lang === "es" ? "es" : "en", { day: "numeric", month: "long", year: "numeric" });
+
+const copy = {
+  es: { back: "Bluz Lab", edition: "Edición", get: "Recibe el descargable", getText: "Déjanos tu correo y te mostramos el enlace. También te sumamos a Contraluz; puedes darte de baja cuando quieras.",
+    send: "Quiero el descargable", ready: "Listo. Aquí lo tienes:", download: "Descargar", draft: "Borrador: no se publica hasta quitar draft: true" },
+  en: { back: "Bluz Lab", edition: "Issue", get: "Get the download", getText: "Leave your email and we'll show you the link. We'll also add you to Contraluz; you can unsubscribe anytime.",
+    send: "Get the download", ready: "Done. Here it is:", download: "Download", draft: "Draft: not published until draft: true is removed" },
+}[lang];
+---
+<article class="entry">
+  <header class="entry-head tone-dark edge">
+    <a href={`${routes.lab[lang]}#${labKinds[e.kind][lang]}`} class="t-label entry-back">← {copy.back} · {labKinds[e.kind].label[lang]}</a>
+    {e.draft && <p class="entry-draft">{copy.draft}</p>}
+    <h1 class="t-h1">{e.title}</h1>
+    <p class="t-lead t-mute">{e.description}</p>
+    <p class="t-label">{e.kind === "contraluz" && e.issue ? `${copy.edition} ${e.issue} · ` : ""}{fmt.format(e.date)}</p>
+  </header>
+
+  {e.cover && (
+    <Image class="entry-cover" src={e.cover} alt="" widths={[800, 1400, 2000]} sizes="100vw" loading="eager" />
+  )}
+
+  <div class="entry-body tone-dark edge">
+    <div class="prose"><Content /></div>
+
+    {e.kind === "descargable" && e.file && (
+      <form class="gate" name="descargables" method="POST" action={routes.thanks[lang]}
+        data-netlify="true" netlify-honeypot="bot-field" data-ajax-form data-lead-form>
+        <input type="hidden" name="form-name" value="descargables">
+        <input type="hidden" name="recurso" value={e.slug}>
+        <input type="hidden" name="idioma" value={lang}>
+        <p class="hp" aria-hidden="true"><label>No llenar <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <p class="t-h2">{copy.get}</p>
+        <p class="t-mute">{copy.getText}</p>
+        <div class="gate-row" data-form-body>
+          <label class="sr-only" for="gate-email">{tr("form.email")}</label>
+          <input id="gate-email" type="email" name="email" required autocomplete="email" placeholder={tr("form.email.ph")}>
+          <button type="submit" class="btn btn-green">{copy.send}</button>
+        </div>
+        <div data-form-ok hidden>
+          <p>{copy.ready}</p>
+          <a href={e.file} class="btn btn-green" download>{copy.download} ↓</a>
+        </div>
+        <p data-form-error hidden role="alert">{tr("form.error")}</p>
+        <noscript><a href={e.file} download>{copy.download}</a></noscript>
+      </form>
+    )}
+  </div>
+
+  <aside class="entry-news tone-dark section edge">
+    <ContraluzForm lang={lang} id={`lab-${e.kind}`} />
+  </aside>
+</article>
+
+<style>
+  .entry-head { display: grid; gap: 1.25rem; padding-top: calc(var(--bar-h) + clamp(48px, 10vh, 120px)); padding-bottom: clamp(40px, 6vh, 80px); }
+  .entry-head h1 { max-width: 18ch; }
+  .entry-head .t-lead { max-width: 52ch; }
+  .entry-back { justify-self: start; transition: color .25s var(--ease-out); }
+  .entry-back:hover { color: var(--green); }
+  .entry-draft { justify-self: start; padding: .4em .8em; border-radius: 999px; background: #ffb547; color: var(--black); font-size: .8125rem; font-weight: 600; }
+  .entry-cover { width: 100%; max-height: 80svh; object-fit: cover; }
+  .entry-body { padding-block: clamp(40px, 6vw, 96px); }
+
+  .prose { max-width: 68ch; margin-inline: auto; font-size: 1.125rem; line-height: 1.7; }
+  .prose :global(h2) { font-family: var(--display); font-weight: 500; font-size: var(--fs-h2); line-height: 1.1; letter-spacing: -.025em; margin: 2.5em 0 .75em; }
+  .prose :global(h3) { font-family: var(--display); font-weight: 500; font-size: 1.375rem; margin: 2em 0 .5em; }
+  .prose :global(p), .prose :global(ul), .prose :global(ol) { margin-bottom: 1.25em; color: #d6d6d6; }
+  .prose :global(ul) { list-style: disc; padding-left: 1.25em; }
+  .prose :global(ol) { padding-left: 1.25em; }
+  .prose :global(li) { margin-bottom: .4em; }
+  .prose :global(a) { color: var(--green); text-decoration: underline; text-underline-offset: .2em; }
+  .prose :global(strong) { color: var(--white); }
+  .prose :global(blockquote) { border-left: 3px solid var(--green); padding-left: 1.25rem; font-family: var(--serif); font-style: italic; font-size: 1.5rem; line-height: 1.4; color: var(--white); margin: 2em 0; }
+  .prose :global(img) { margin: 2em 0; }
+  .prose :global(code) { font-size: .9em; background: #1a1a1a; padding: .1em .35em; border-radius: 4px; }
+
+  .gate { max-width: 68ch; margin: 3rem auto 0; padding: clamp(24px, 3vw, 40px); border: 1px solid var(--line); display: grid; gap: 1rem; }
+  .gate-row { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .gate-row input { flex: 1 1 220px; min-width: 0; background: rgba(255,255,255,.04); color: var(--text); font: inherit; font-size: 1.0625rem;
+    border: 1px solid var(--line); border-radius: 10px; padding: .9rem 1rem; outline: none; }
+  .gate-row input:focus { border-color: var(--green); }
+  .hp { position: absolute; left: -9999px; }
+  .entry-news { border-top: 1px solid var(--line); }
+  .entry-news :global(.contraluz) { max-width: 640px; }
+</style>

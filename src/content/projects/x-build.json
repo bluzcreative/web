@@ -1,0 +1,28 @@
+{
+  "client": "X-Build",
+  "order": 1,
+  "featured": true,
+  "country": { "es": "Australia", "en": "Australia" },
+  "industry": { "es": "Construcción con impresión 3D", "en": "3D printed construction" },
+  "services": ["branding", "paid-media", "contenido", "web"],
+  "summary": {
+    "es": "Una startup de impresión 3D en concreto, posicionada como tecnología de vanguardia.",
+    "en": "A 3D concrete printing startup, positioned as cutting-edge technology."
+  },
+  "cover": "../../assets/projects/x-build/campana.webp",
+  "coverAlt": {
+    "es": "Pieza de campaña de X-Build: brazo robótico naranja imprimiendo en concreto frente a una casa",
+    "en": "X-Build campaign piece: orange robotic arm printing concrete in front of a house"
+  },
+  "gallery": [],
+  "challenge": {
+    "es": "X-Build desarrolla tecnología de impresión 3D en concreto para vivienda en Australia. El reto era posicionarla como una empresa tecnológica de vanguardia dentro de una industria históricamente conservadora.",
+    "en": "X-Build develops 3D concrete printing technology for housing in Australia. The challenge was positioning it as a cutting-edge tech company inside a historically conservative industry."
+  },
+  "approach": {
+    "es": "Construimos su identidad visual y hoy manejamos sus redes sociales, la pauta y la generación de leads, además de su sitio corporativo con formularios conectados a su CRM.",
+    "en": "We built its visual identity and now run its social media, paid ads and lead generation, plus its corporate website with forms connected to its CRM."
+  },
+  "results": [],
+  "accent": "#f28c28"
+}

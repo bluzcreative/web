@@ -1,0 +1,21 @@
+---
+import { getCollection } from "astro:content";
+import Site from "../../../layouts/Site.astro";
+import Project from "../../../views/Project.astro";
+import { projectUrl } from "../../../i18n/ui";
+
+export async function getStaticPaths() {
+  const projects = (await getCollection("projects", (p) => !p.data.draft)).sort((a, b) => a.data.order - b.data.order);
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: { project, next: projects[(i + 1) % projects.length] },
+  }));
+}
+
+const { project, next } = Astro.props;
+const d = project.data;
+---
+<Site lang="en" page="work" alternates={{ es: projectUrl("es", project.id), en: projectUrl("en", project.id) }}
+  title={`${d.client} | Bluz Creative`} description={d.summary.en} image={d.cover}>
+  <Project project={project} next={next} lang="en" />
+</Site>

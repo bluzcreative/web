@@ -21,9 +21,6 @@ export const routes = {
 } as const;
 export type PageKey = keyof typeof routes;
 
-// Navegación de la web anterior (se retira cuando todas las páginas usen el layout nuevo)
-export const navOrder: PageKey[] = ["home", "services", "work", "about"];
-
 // Menú a pantalla completa
 export const menuOrder = ["work", "services", "about", "lab"] as const satisfies readonly PageKey[];
 export const legalOrder = ["privacy", "terms", "cookies"] as const satisfies readonly PageKey[];
@@ -68,7 +65,7 @@ export const ui = {
     "footer.cookies": "Configurar cookies",
     "social": "Redes",
 
-    "contraluz.sub": "El marketing, visto desde otro ángulo.",
+    "contraluz.sub": "Comunicación y tecnología, vistas desde otro ángulo.",
     "contraluz.cta": "Suscribirme",
     "contraluz.placeholder": "tu@correo.com",
     "contraluz.label": "Tu correo para recibir Contraluz",
@@ -84,13 +81,16 @@ export const ui = {
     "contact.chat.message": "Hola Bluz, me gustaría hablar sobre un proyecto.",
     "contact.or": "o",
     "form.name": "Nombre",
+    "form.name.ph": "Tu nombre",
     "form.email": "Correo",
+    "form.email.ph": "tu@correo.com",
     "form.company": "Marca o empresa",
+    "form.company.ph": "Nombre de tu marca",
     "form.site": "Web o Instagram",
+    "form.site.ph": "tumarca.com o @tumarca",
     "form.services": "¿Qué necesitas?",
-    "form.budget": "Presupuesto mensual aproximado",
-    "form.budget.choose": "Elige una opción",
     "form.message": "Cuéntanos sobre el proyecto",
+    "form.message.ph": "Qué quieres lograr, para cuándo y cualquier detalle que nos ayude a entenderlo.",
     "form.optional": "opcional",
     "form.send": "Enviar",
     "form.sending": "Enviando…",
@@ -140,7 +140,7 @@ export const ui = {
     "footer.cookies": "Cookie settings",
     "social": "Social",
 
-    "contraluz.sub": "Marketing, seen from another angle.",
+    "contraluz.sub": "Communication and technology, seen from another angle.",
     "contraluz.cta": "Subscribe",
     "contraluz.placeholder": "you@email.com",
     "contraluz.label": "Your email to get Contraluz",
@@ -156,13 +156,16 @@ export const ui = {
     "contact.chat.message": "Hi Bluz, I'd like to talk about a project.",
     "contact.or": "or",
     "form.name": "Name",
+    "form.name.ph": "Your name",
     "form.email": "Email",
+    "form.email.ph": "you@email.com",
     "form.company": "Brand or company",
+    "form.company.ph": "Your brand name",
     "form.site": "Website or Instagram",
+    "form.site.ph": "yourbrand.com or @yourbrand",
     "form.services": "What do you need?",
-    "form.budget": "Approximate monthly budget",
-    "form.budget.choose": "Choose an option",
     "form.message": "Tell us about the project",
+    "form.message.ph": "What you want to achieve, your timeline and any detail that helps us understand it.",
     "form.optional": "optional",
     "form.send": "Send",
     "form.sending": "Sending…",
@@ -189,16 +192,20 @@ export const otherLang = (lang: Lang): Lang => (lang === "es" ? "en" : "es");
 export const contactServices = [
   { key: "paid_media", es: "Paid media", en: "Paid media" },
   { key: "contenido", es: "Estrategia de contenido", en: "Content strategy" },
+  { key: "branding", es: "Branding", en: "Branding" },
   { key: "web", es: "Diseño web", en: "Web design" },
   { key: "automatizaciones", es: "Automatizaciones", en: "Automations" },
   { key: "otro", es: "Otro", en: "Other" },
 ] as const;
 
-// Rangos de presupuesto mensual en USD (pendiente de confirmar con Bluz)
-export const budgetRanges = [
-  { value: "menos-1000", es: "Menos de USD 1.000", en: "Under USD 1,000" },
-  { value: "1000-3000", es: "USD 1.000 a 3.000", en: "USD 1,000 to 3,000" },
-  { value: "3000-5000", es: "USD 3.000 a 5.000", en: "USD 3,000 to 5,000" },
-  { value: "mas-5000", es: "Más de USD 5.000", en: "Over USD 5,000" },
-  { value: "no-se", es: "Aún no lo sé", en: "Not sure yet" },
-] as const;
+// Rutas dinámicas: páginas de proyecto y entradas de Bluz Lab
+export const projectUrl = (lang: Lang, id: string) => `${routes.work[lang]}${id}/`;
+
+export const labKinds = {
+  articulo:    { es: "articulos",    en: "articles",    label: { es: "Artículos",    en: "Articles" } },
+  descargable: { es: "descargables", en: "downloads",   label: { es: "Descargables", en: "Downloads" } },
+  experimento: { es: "experimentos", en: "experiments", label: { es: "Experimentos", en: "Experiments" } },
+  contraluz:   { es: "contraluz",    en: "contraluz",   label: { es: "Contraluz",    en: "Contraluz" } },
+} as const;
+export type LabKind = keyof typeof labKinds;
+export const labUrl = (lang: Lang, kind: LabKind, slug: string) => `${routes.lab[lang]}${labKinds[kind][lang]}/${slug}/`;

@@ -1,0 +1,27 @@
+{
+  "client": "MioLunetto",
+  "order": 3,
+  "featured": true,
+  "industry": { "es": "Panadería y café", "en": "Bakery and cafe" },
+  "services": ["contenido", "fotografia"],
+  "summary": {
+    "es": "Medialunas argentinas con humor cotidiano y fotografía de producto que da hambre.",
+    "en": "Argentine medialunas with everyday humor and mouth-watering product photography."
+  },
+  "cover": "../../assets/projects/miolunetto/medialunas.jpg",
+  "coverAlt": {
+    "es": "Bandeja de medialunas recién horneadas y glaseadas",
+    "en": "Tray of freshly baked, glazed medialunas"
+  },
+  "gallery": [],
+  "challenge": {
+    "es": "MioLunetto es una panadería y café de medialunas argentinas. Necesitaba un contenido con personalidad propia que hiciera antojar sin caer en lo genérico.",
+    "en": "MioLunetto is a bakery and cafe specialized in Argentine medialunas. It needed content with its own personality that makes people crave it without feeling generic."
+  },
+  "approach": {
+    "es": "Creamos contenido que mezcla humor cotidiano con fotografía de producto de alta calidad.",
+    "en": "We create content that mixes everyday humor with high-quality product photography."
+  },
+  "results": [],
+  "accent": "#e8a33d"
+}

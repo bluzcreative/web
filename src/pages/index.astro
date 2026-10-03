@@ -1,7 +1,14 @@
 ---
-import Base from "../layouts/Base.astro";
+import { getCollection } from "astro:content";
+import Site from "../layouts/Site.astro";
+import Loader from "../components/site/Loader.astro";
 import Home from "../views/Home.astro";
+
+const loaderImages = (await getCollection("projects", (p) => p.data.featured && !p.data.draft))
+  .sort((a, b) => a.data.order - b.data.order).slice(0, 4)
+  .map((p) => ({ src: p.data.cover, alt: p.data.coverAlt.es }));
 ---
-<Base lang="es" page="home" title="Bluz Creative | Estrategia, creatividad y tecnología para marcas en crecimiento" description="Bluz Creative es una agencia con base en Caracas que trabaja con marcas de Venezuela, Latinoamérica y otros mercados. Marketing, contenido, sistemas y producción audiovisual en un mismo equipo.">
+<Site lang="es" page="home" title="Bluz Creative | Paid media, contenido, web y automatizaciones" description="Bluz Creative es una agencia de marketing con clientes en todo el mundo: paid media, estrategia de contenido, diseño web y automatizaciones.">
+  <Loader slot="before" images={loaderImages} />
   <Home lang="es" />
-</Base>
+</Site>

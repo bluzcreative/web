@@ -1,0 +1,26 @@
+---
+import { getCollection } from "astro:content";
+import Site from "../../../../layouts/Site.astro";
+import LabEntry from "../../../../views/LabEntry.astro";
+import { labKinds, labUrl, routes } from "../../../../i18n/ui";
+
+export async function getStaticPaths() {
+  const all = await getCollection("lab", (e) => import.meta.env.DEV || !e.data.draft);
+  return all.filter((e) => e.data.lang === "en").map((entry) => {
+    // Versión en el otro idioma: la entrada con el mismo translationKey, o el hub de Bluz Lab
+    const twin = entry.data.translationKey && all.find((o) => o.data.lang !== "en" && o.data.translationKey === entry.data.translationKey);
+    return {
+      params: { kind: labKinds[entry.data.kind].en, slug: entry.data.slug },
+      props: { entry, twinUrl: twin ? labUrl(twin.data.lang, twin.data.kind, twin.data.slug) : routes.lab["es"] },
+    };
+  });
+}
+
+const { entry, twinUrl } = Astro.props;
+const d = entry.data;
+const self = labUrl("en", d.kind, d.slug);
+---
+<Site lang="en" page="lab" alternates={{ en: self, es: twinUrl } as any}
+  title={`${d.title} | Bluz Lab`} description={d.description} image={d.cover} type="article" noindex={d.draft}>
+  <LabEntry entry={entry} lang="en" />
+</Site>

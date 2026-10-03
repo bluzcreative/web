@@ -1,84 +1,93 @@
 ---
-import { whatsappUrl } from "../data/brand";
-import { t, type Lang } from "../i18n/ui";
+// Página Servicios: un bloque por servicio, cada uno con su ancla (/servicios/#paid-media, etc.).
+import { routes, type Lang } from "../i18n/ui";
+import { services } from "../data/services";
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
-const tr = t(lang);
 
 const copy = {
   es: {
     kicker: "Servicios",
-    title: "Seis áreas, un solo equipo.",
-    lede: "No trabajamos por piezas sueltas. Cada proyecto pasa por el mismo equipo, así que la estrategia, el diseño, el contenido y la tecnología siempre hablan el mismo idioma.",
-    finalTitle: "¿No sabes qué área le conviene a tu marca ahora?",
-    services: [
-      { title: "Estrategia y Marketing", sub: "Ayudamos a los negocios a crecer con estrategias orientadas a resultados.",
-        tags: ["Estrategias y planes de marketing", "Marketing B2B", "Posicionamiento de marca", "Generación de leads", "Embudos de venta", "Email marketing", "SEO", "Meta Ads y Google Ads"] },
-      { title: "Contenido y Redes Sociales", sub: "Creamos contenido que conecta con la audiencia y fortalece la presencia de la marca.",
-        tags: ["Estrategia de redes sociales", "Community management", "Planificación mensual", "Diseño de feed", "Producción de contenido", "Reels, Shorts y TikToks", "Motion graphics", "Edición de video"] },
-      { title: "Branding y Diseño", sub: "Construimos identidades visuales que transmiten confianza y diferencian a las marcas.",
-        tags: ["Identidad visual", "Manuales de marca", "Diseño de logo", "Packaging", "Material POP", "Flyers y afiches", "Presentaciones corporativas"] },
-      { title: "Web y Presencia Digital", sub: "Desarrollamos experiencias digitales alineadas con los objetivos de cada empresa.",
-        tags: ["Landing pages", "Sitios web corporativos", "Optimización SEO", "Mantenimiento web"] },
-      { title: "Sistemas y Automatización", sub: "Implementamos herramientas y procesos que ayudan a los equipos a operar con más eficiencia.",
-        tags: ["Implementación de CRM", "Pipelines de venta", "Lead scoring", "Integración con WhatsApp", "Segmentación de clientes", "Make, Zapier, Apps Script", "Webhooks e integraciones entre plataformas", "Secuencias de email", "Formularios inteligentes", "Automatizaciones de venta", "Capacitación de equipos", "Optimización de procesos", "Gestión de proyectos", "Documentación"] },
-      { title: "Producción Audiovisual", sub: "Convertimos ideas en piezas visuales que informan, emocionan y conectan.",
-        tags: ["Filmmaking y producción audiovisual", "Postproducción y edición de video", "Motion graphics y animación", "Fotografía de producto", "Renders y visualización 3D"] },
-    ],
+    title: "Cinco servicios, un solo equipo.",
+    lede: "No trabajamos por piezas sueltas. El mismo equipo piensa la estrategia, crea, lanza y mide, así nada se pierde entre una cosa y la otra.",
+    includes: "Incluye",
+    ask: "Pregúntanos por esto",
+    closeTitle: "¿No sabes por dónde empezar?",
+    closeText: "Cuéntanos qué quieres lograr y te decimos qué combinación tiene sentido para tu marca.",
+    closeCta: "Empieza tu proyecto",
   },
   en: {
     kicker: "Services",
-    title: "Six areas, one team.",
-    lede: "We don't work in disconnected pieces. Every project moves through the same team, so strategy, design, content and technology always speak the same language.",
-    finalTitle: "Not sure which area fits your brand right now?",
-    services: [
-      { title: "Strategy and Marketing", sub: "We help businesses grow through results-driven strategy.",
-        tags: ["Marketing strategies and plans", "B2B marketing", "Brand positioning", "Lead generation", "Sales funnels", "Email marketing", "SEO", "Meta Ads and Google Ads"] },
-      { title: "Content and Social Media", sub: "We create content that connects with audiences and strengthens brand presence.",
-        tags: ["Social media strategy", "Community management", "Monthly planning", "Feed design", "Content production", "Reels, Shorts and TikToks", "Motion graphics", "Video editing"] },
-      { title: "Branding and Design", sub: "We build visual identities that convey trust and set brands apart.",
-        tags: ["Visual identity", "Brand manuals", "Logo design", "Packaging", "POP material", "Flyers and posters", "Corporate presentations"] },
-      { title: "Web and Digital Presence", sub: "We build digital experiences aligned with each company's goals.",
-        tags: ["Landing pages", "Corporate websites", "SEO optimization", "Website maintenance"] },
-      { title: "Systems and Automation", sub: "We implement tools and processes that help teams operate more efficiently.",
-        tags: ["CRM implementation", "Sales pipelines", "Lead scoring", "WhatsApp integration", "Customer segmentation", "Make, Zapier, Apps Script", "Webhooks and cross-platform integrations", "Email sequences", "Smart forms", "Sales automations", "Team training", "Process optimization", "Project management", "Documentation"] },
-      { title: "Audiovisual Production", sub: "We turn ideas into visual pieces that inform, move and connect.",
-        tags: ["Filmmaking and audiovisual production", "Postproduction and video editing", "Motion graphics and animation", "Product photography", "3D rendering and visualization"] },
-    ],
+    title: "Five services, one team.",
+    lede: "We don't work in disconnected pieces. The same team thinks the strategy, creates, launches and measures, so nothing gets lost in between.",
+    includes: "Includes",
+    ask: "Ask us about this",
+    closeTitle: "Not sure where to start?",
+    closeText: "Tell us what you want to achieve and we'll tell you which mix makes sense for your brand.",
+    closeCta: "Start your project",
   },
 }[lang];
 ---
-<section class="page-hero">
-  <div class="container">
-    <p class="kicker">{copy.kicker}</p>
-    <h1>{copy.title}</h1>
-    <p class="lede max-prose">{copy.lede}</p>
-  </div>
+<section class="page-hero tone-dark edge">
+  <p class="t-label">{copy.kicker}</p>
+  <h1 class="t-mega">{copy.title}</h1>
+  <p class="t-lead t-mute">{copy.lede}</p>
+  <nav class="jump" aria-label={copy.kicker}>
+    {services.map((s) => <a href={`#${s.slug}`}>{s.name[lang]}</a>)}
+  </nav>
 </section>
 
-<section class="section" style="padding-block:0;">
-  <div class="container">
-    {copy.services.map((s, i) => (
-      <div class="service-row" data-reveal>
-        <div class="service-row-head">
-          <span class="chip-num">{String(i + 1).padStart(2, "0")}</span>
-          <div>
-            <h3>{s.title}</h3>
-            <p class="service-row-sub">{s.sub}</p>
-          </div>
-        </div>
-        <div class="tag-list">
-          {s.tags.map((tag) => <span class="tag">{tag}</span>)}
-        </div>
+{services.map((s, i) => (
+  <section id={s.slug} class="service tone-dark section edge">
+    <div class="grid">
+      <span class="t-label service-num">{String(i + 1).padStart(2, "0")}</span>
+      <div class="service-main">
+        <h2 class="t-display">{s.name[lang]}</h2>
+        <p class="t-h2 service-line">{s.line[lang]}</p>
       </div>
-    ))}
-  </div>
+      <div class="service-body">
+        <p class="t-lead t-mute">{s.body[lang]}</p>
+        <p class="t-label">{copy.includes}</p>
+        <ul class="service-items">{s.items[lang].map((it) => <li>{it}</li>)}</ul>
+        <a href={routes.contact[lang]} class="link-arrow" data-contact-open>{copy.ask} <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+))}
+
+<section class="tone-dark section edge closing">
+  <h2 class="t-mega">{copy.closeTitle}</h2>
+  <p class="t-lead t-mute">{copy.closeText}</p>
+  <a href={routes.contact[lang]} class="btn btn-green" data-contact-open>{copy.closeCta}</a>
 </section>
 
-<section class="final-cta">
-  <div class="container final-cta-inner" data-reveal>
-    <h2>{copy.finalTitle}</h2>
-    <a href={whatsappUrl()} target="_blank" rel="noopener" class="btn btn-primary">{tr("cta.whatsapp")}</a>
-  </div>
-</section>
+<style>
+  .page-hero { min-height: 80svh; display: flex; flex-direction: column; justify-content: flex-end; gap: 1.25rem;
+    padding-top: calc(var(--bar-h) + 3rem); padding-bottom: clamp(48px, 8vh, 96px); }
+  .page-hero h1 { margin-left: -.04em; max-width: 11ch; }
+  .page-hero .t-lead { max-width: 46ch; }
+  .jump { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+  .jump a { padding: .55em 1em; border: 1px solid var(--line); border-radius: 999px; font-size: .9375rem;
+    transition: background-color .25s var(--ease-out), color .25s var(--ease-out), border-color .25s var(--ease-out); }
+  .jump a:hover { background: var(--green); color: var(--black); border-color: var(--green); }
+
+  .service { border-top: 1px solid var(--line); scroll-margin-top: var(--bar-h); }
+  .service-num { grid-column: 1 / -1; color: var(--green); }
+  .service-main { grid-column: 1 / -1; display: grid; gap: 1rem; margin-block: 1rem 2rem; }
+  .service-main .t-display { font-size: clamp(2.4rem, 8.4vw, 9.5rem); overflow-wrap: anywhere; }
+  .service-line { max-width: 24ch; color: var(--text-mute); }
+  .service-body { grid-column: 1 / -1; display: grid; gap: 1.25rem; align-content: start; }
+  .service-body .t-lead { max-width: 44ch; }
+  .service-items { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: .75rem; }
+  .service-items li { padding: .5em .95em; border: 1px solid var(--line); border-radius: 999px; font-size: .9375rem; }
+  @media (min-width: 1000px) {
+    .service-num { grid-column: 1 / 2; padding-top: 1.2em; }
+    .service-main { grid-column: 2 / 8; margin: 0; }
+    .service-body { grid-column: 8 / -1; padding-top: 1.2em; }
+  }
+
+  .closing { display: grid; gap: 1.5rem; justify-items: start; border-top: 1px solid var(--line); }
+  .closing h2 { margin-left: -.04em; max-width: 12ch; }
+  .closing .t-lead { max-width: 40ch; }
+</style>

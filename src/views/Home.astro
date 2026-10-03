@@ -1,140 +1,397 @@
 ---
+// Landing con scrolltelling: siete escenas, cada una lleva a otra parte de la web.
+import { getCollection } from "astro:content";
+import ProjectCard from "../components/site/ProjectCard.astro";
+import Marquee from "../components/site/Marquee.astro";
+import ContraluzForm from "../components/site/ContraluzForm.astro";
+import { routes, t, labKinds, labUrl, type Lang } from "../i18n/ui";
+import { services } from "../data/services";
 import { whatsappUrl } from "../data/brand";
-import { t, type Lang } from "../i18n/ui";
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const tr = t(lang);
 
-const clients = ["Rooties", "Lunetto", "Compremos En China", "Disergen", "Prophone", "X-Build", "Flatpack Container"];
+const featured = (await getCollection("projects", (p) => p.data.featured && !p.data.draft))
+  .sort((a, b) => a.data.order - b.data.order).slice(0, 4);
+const labEntries = (await getCollection("lab", (e) => e.data.lang === lang && (import.meta.env.DEV || !e.data.draft)))
+  .sort((a, b) => +b.data.date - +a.data.date).slice(0, 3);
 
+// Textos provisionales: frase del hero y manifiesto pendientes de definir con Bluz
 const copy = {
   es: {
-    kicker: "Bluz Creative · Caracas",
-    titleA: "Estrategia, creatividad y ", titleEm: "tecnología", titleB: " para marcas listas para crecer.",
-    sub: "Somos una agencia con base en Caracas que trabaja con empresas de Venezuela, Latinoamérica y otros mercados. Marketing, contenido, sistemas y producción audiovisual, todo en un mismo equipo.",
-    aboutKicker: "Sobre Bluz",
-    about: "En Bluz Creative combinamos estrategia, creatividad y tecnología para ayudar a los negocios a crecer de forma sostenible. Trabajamos con marcas que buscan fortalecer su presencia digital, ordenar sus procesos y construir sistemas que les permitan vender más sin perder el control de su operación.",
-    doKicker: "Qué hacemos", doTitle: "Seis áreas, trabajando como un solo equipo.",
-    areas: [
-      ["Estrategia y Marketing", "Estrategia orientada a resultados."],
-      ["Contenido y Redes Sociales", "Contenido que conecta y convierte."],
-      ["Branding y Diseño", "Identidad visual y coherencia de marca."],
-      ["Web y Presencia Digital", "Experiencias digitales a la medida."],
-      ["Sistemas y Automatización", "Herramientas para operar mejor."],
-      ["Producción Audiovisual", "Piezas visuales con impacto real."],
-    ],
-    whyKicker: "Por qué trabajar con nosotros", whyTitle: "Servicio integral, sin perder los detalles.",
-    reasons: [
-      ["Enfoque integral", "Estrategia, contenido, sistemas y ejecución en un mismo lugar."],
-      ["Soluciones a la medida", "Cada negocio es distinto, así que trabajamos según tus objetivos reales."],
-      ["Tecnología y automatización", "Sumamos herramientas que hacen que tu operación fluya mejor."],
-      ["Acompañamiento cercano", "Construimos relaciones que duran más allá de un proyecto."],
-    ],
-    trust: "Marcas que confían en Bluz",
-    countries: "Trabajamos con marcas de Venezuela, Estados Unidos, Australia y más.",
-    finalTitle: "Construyamos juntos la próxima etapa de tu marca.",
+    hero: ["No seguimos", "fórmulas.", "Creamos la"], heroEm: "tuya",
+    metaServices: "Paid media · Contenido · Branding · Web · Automatización",
+    metaWorld: "Worldwide",
+    scroll: "Scroll",
+    doKicker: "Qué hacemos",
+    doFoot: "Cinco servicios, un solo equipo que los conecta.",
+    doLink: "Ver servicios",
+    workKicker: "El trabajo",
+    workTitle: "Marcas que ya se ven distinto.",
+    workLink: "Ver todo el trabajo",
+    cardCta: "Ver proyecto",
+    whoKicker: "Con quiénes",
+    whoTitle: "Worldwide.",
+    whoText: "Trabajamos con marcas de distintos países e industrias, en español y en inglés.",
+    whoLink: "Conócenos",
+    manifestoKicker: "Manifiesto",
+    manifesto: "Menos ruido. Más luz.",
+    manifestoLink: "Cómo trabajamos",
+    labKicker: "El laboratorio",
+    labTitle: "Lo que estamos probando, contado sin rodeos.",
+    labLink: "Entrar a Bluz Lab",
+    labEmpty: {
+      articulo: "Guías y análisis para tomar mejores decisiones de marketing.",
+      descargable: "Plantillas, checklists y reportes listos para usar.",
+      experimento: "Pruebas reales de automatización e IA.",
+      contraluz: "El archivo completo de la newsletter.",
+    },
+    closeTitle: "¿Hablamos?",
   },
   en: {
-    kicker: "Bluz Creative · Caracas",
-    titleA: "Strategy, creativity and ", titleEm: "technology", titleB: " for brands ready to grow.",
-    sub: "We're an agency based in Caracas, working with companies across Venezuela, Latin America and beyond. Marketing, content, systems and audiovisual production, all under one team.",
-    aboutKicker: "About Bluz",
-    about: "At Bluz Creative we combine strategy, creativity and technology to help businesses grow sustainably. We work with brands looking to strengthen their digital presence, organize their processes and build systems that let them sell more without losing control of their operation.",
-    doKicker: "What we do", doTitle: "Six areas, working as one team.",
-    areas: [
-      ["Strategy and Marketing", "Results-driven strategy."],
-      ["Content and Social Media", "Content that connects and converts."],
-      ["Branding and Design", "Visual identity and brand consistency."],
-      ["Web and Digital Presence", "Digital experiences built to fit."],
-      ["Systems and Automation", "Tools to help you operate better."],
-      ["Audiovisual Production", "Visual pieces with real impact."],
-    ],
-    whyKicker: "Why work with us", whyTitle: "Full-service, without losing the details.",
-    reasons: [
-      ["Full-service approach", "Strategy, content, systems and execution under one roof."],
-      ["Tailored solutions", "Every business is different, so we work around your actual goals."],
-      ["Technology and automation", "We bring in tools that make your operation run smoother."],
-      ["Close, ongoing support", "We build relationships that last beyond a single project."],
-    ],
-    trust: "Brands that trust Bluz",
-    countries: "We work with brands across Venezuela, the United States and Australia, and more.",
-    finalTitle: "Let's build the next stage of your brand, together.",
+    hero: ["We don't follow", "formulas.", "We create"], heroEm: "yours",
+    metaServices: "Paid media · Content · Branding · Web · Automation",
+    metaWorld: "Worldwide",
+    scroll: "Scroll",
+    doKicker: "What we do",
+    doFoot: "Five services, one team that connects them.",
+    doLink: "See services",
+    workKicker: "The work",
+    workTitle: "Brands that already look different.",
+    workLink: "See all work",
+    cardCta: "View project",
+    whoKicker: "Who we work with",
+    whoTitle: "Worldwide.",
+    whoText: "We work with brands across countries and industries, in English and Spanish.",
+    whoLink: "Meet us",
+    manifestoKicker: "Manifesto",
+    manifesto: "Less noise. More light.",
+    manifestoLink: "How we work",
+    labKicker: "The lab",
+    labTitle: "What we're testing, told straight.",
+    labLink: "Enter Bluz Lab",
+    labEmpty: {
+      articulo: "Guides and analysis for better marketing decisions.",
+      descargable: "Templates, checklists and reports ready to use.",
+      experimento: "Real automation and AI experiments.",
+      contraluz: "The full newsletter archive.",
+    },
+    closeTitle: "Let's talk.",
   },
 }[lang];
+
+const manifestoWords = copy.manifesto.split(" ");
 ---
-<section class="hero">
-  <div class="container hero-inner">
-    <span class="hero-rule" aria-hidden="true"></span>
-    <p class="kicker">{copy.kicker}</p>
-    <h1 class="hero-title">{copy.titleA}<em>{copy.titleEm}</em>{copy.titleB}</h1>
-    <p class="hero-sub lede">{copy.sub}</p>
-    <div class="hero-actions">
-      <a href={whatsappUrl()} target="_blank" rel="noopener" class="btn btn-primary">{tr("cta.talk")}</a>
+<!-- 1. El impacto -->
+<section class="hero tone-dark" data-hero>
+  <!-- Aquí irá el reel de trabajos de Bluz; mientras tanto, fondo oscuro con luz verde que sigue al cursor -->
+  <div class="hero-media" aria-hidden="true">
+    <span class="hero-ambient"></span>
+    <span class="hero-glow" data-glow></span>
+  </div>
+  <div class="hero-content edge">
+    <div class="hero-meta" data-hero-meta>
+      <span class="t-label">{copy.metaServices}</span>
+      <span class="t-label">{copy.metaWorld}</span>
     </div>
+    <h1 class="t-mega hero-title" aria-label={`${copy.hero.join(" ")} ${copy.heroEm}.`}>
+      <span class="line"><span>{copy.hero[0]}</span></span>
+      <span class="line"><span>{copy.hero[1]}</span></span>
+      <span class="line"><span>{copy.hero[2]} <em class="t-serif">{copy.heroEm}</em>.</span></span>
+    </h1>
   </div>
 </section>
 
-<section class="section section-green">
-  <div class="container about-statement-block" data-reveal-group>
-    <p class="kicker">{copy.aboutKicker}</p>
-    <p class="about-statement">{copy.about}</p>
-  </div>
-</section>
-
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-head" data-reveal>
-      <p class="kicker">{copy.doKicker}</p>
-      <h2>{copy.doTitle}</h2>
-    </div>
-    <div class="grid-lines cols-3 grid-lines-pop" data-reveal-bento>
-      {copy.areas.map(([title, desc], i) => (
-        <div class="grid-cell">
-          <span class="chip-num">{String(i + 1).padStart(2, "0")}</span>
-          <h3 class="grid-cell-title">{title}</h3>
-          <p class="grid-cell-desc">{desc}</p>
-        </div>
+<!-- 2. Qué hacemos: cada servicio se enciende con el scroll y lleva a Servicios -->
+<section class="scene services tone-dark section edge">
+  <div class="grid">
+    <p class="t-label scene-label">{copy.doKicker}</p>
+    <ul class="services-list">
+      {services.map((s) => (
+        <li>
+          <a href={`${routes.services[lang]}#${s.slug}`} class="lit-word" data-lit>
+            <span class="t-display">{s.name[lang]}</span>
+            <span class="lit-line t-mute">{s.line[lang]}</span>
+            <span class="arr" aria-hidden="true">→</span>
+          </a>
+        </li>
       ))}
+    </ul>
+    <div class="scene-foot">
+      <p class="t-lead t-mute">{copy.doFoot}</p>
+      <a href={routes.services[lang]} class="link-arrow">{copy.doLink} <span class="arr" aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>
 
-<section class="section section-green">
-  <div class="container">
-    <div class="section-head" data-reveal>
-      <p class="kicker">{copy.whyKicker}</p>
-      <h2>{copy.whyTitle}</h2>
+<!-- 3. El trabajo: tarjetas que cobran vida y llevan a Trabajo -->
+<section class="scene work tone-dark section edge">
+  <div class="scene-head">
+    <div>
+      <p class="t-label">{copy.workKicker}</p>
+      <h2 class="t-h1">{copy.workTitle}</h2>
     </div>
-    <div class="reasons-grid" data-reveal-group>
-      {copy.reasons.map(([title, desc]) => (
-        <div class="reason-card">
-          <h3>{title}</h3>
-          <p>{desc}</p>
-        </div>
-      ))}
+    <a href={routes.work[lang]} class="link-arrow">{copy.workLink} <span class="arr" aria-hidden="true">→</span></a>
+  </div>
+  <div class="work-grid">
+    {featured.map((p) => <ProjectCard project={p} lang={lang} cta={copy.cardCta} />)}
+  </div>
+</section>
+
+<!-- 4. Con quiénes: logos corriendo y alcance mundial, lleva a Nosotros -->
+<section class="scene who tone-dark section">
+  <div class="who-head edge">
+    <p class="t-label">{copy.whoKicker}</p>
+    <h2 class="t-mega who-title">{copy.whoTitle}</h2>
+    <div class="who-row">
+      <p class="t-lead t-mute">{copy.whoText}</p>
+      <a href={routes.about[lang]} class="link-arrow">{copy.whoLink} <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+  <Marquee label={copy.whoKicker} />
+</section>
+
+<!-- 5. El manifiesto: la frase se va escribiendo con el scroll, lleva a Nosotros -->
+<section class="scene manifesto tone-dark edge" data-manifesto>
+  <div class="manifesto-sticky">
+    <p class="t-label">{copy.manifestoKicker}</p>
+    <p class="t-h1 manifesto-text" aria-label={copy.manifesto}>
+      {manifestoWords.map((w) => <span class="mw" aria-hidden="true">{w} </span>)}
+    </p>
+    <a href={`${routes.about[lang]}#como-trabajamos`} class="link-arrow">{copy.manifestoLink} <span class="arr" aria-hidden="true">→</span></a>
+  </div>
+</section>
+
+<!-- 6. El laboratorio: lo último de Bluz Lab y la suscripción a Contraluz -->
+<section class="scene lab tone-dark section edge">
+  <div class="scene-head">
+    <div>
+      <p class="t-label">{copy.labKicker}</p>
+      <h2 class="t-h1">{copy.labTitle}</h2>
+    </div>
+    <a href={routes.lab[lang]} class="link-arrow">{copy.labLink} <span class="arr" aria-hidden="true">→</span></a>
+  </div>
+  <div class="lab-grid">
+    <ul class="lab-list">
+      {labEntries.length > 0
+        ? labEntries.map((e) => (
+            <li>
+              <a href={labUrl(lang, e.data.kind, e.data.slug)} class="lab-item">
+                <span class="t-label">{labKinds[e.data.kind].label[lang]}</span>
+                <span class="t-h2">{e.data.title}</span>
+                <span class="arr" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))
+        : (Object.keys(labKinds) as (keyof typeof labKinds)[]).map((k) => (
+            <li>
+              <a href={`${routes.lab[lang]}#${labKinds[k][lang]}`} class="lab-item">
+                <span class="t-label">{labKinds[k].label[lang]}</span>
+                <span class="t-h2">{copy.labEmpty[k]}</span>
+                <span class="arr" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))}
+    </ul>
+    <div class="lab-news">
+      <ContraluzForm lang={lang} id="landing" />
     </div>
   </div>
 </section>
 
-<section class="section-alt">
-  <div class="container" data-reveal>
-    <p class="eyebrow" style="margin-bottom:1.4rem;">{copy.trust}</p>
-  </div>
-  <div class="marquee" data-reveal>
-    <div class="marquee-track">
-      {clients.map((name) => <span class="marquee-item">{name}</span>)}
-      {clients.map((name) => <span class="marquee-item" aria-hidden="true">{name}</span>)}
-    </div>
-  </div>
-  <div class="container" style="padding-top:1.2rem;">
-    <p class="mute" style="font-size:.9rem;">{copy.countries}</p>
+<!-- 7. El cierre: abre el pop-up de contacto -->
+<section class="scene closing tone-dark section edge">
+  <a href={routes.contact[lang]} class="t-mega closing-title" data-contact-open>{copy.closeTitle}</a>
+  <div class="closing-paths">
+    <a href={routes.contact[lang]} class="path" data-contact-open>
+      <span class="t-label">{tr("contact.form.kicker")}</span>
+      <span class="t-h2">{tr("contact.form.title")} <span aria-hidden="true">→</span></span>
+    </a>
+    <a href={whatsappUrl(tr("contact.chat.message"))} target="_blank" rel="noopener" class="path">
+      <span class="t-label">{tr("contact.chat.kicker")}</span>
+      <span class="t-h2">{tr("contact.chat.title")} <span aria-hidden="true">↗</span></span>
+    </a>
   </div>
 </section>
 
-<section class="final-cta section-green">
-  <div class="container final-cta-inner" data-reveal>
-    <h2>{copy.finalTitle}</h2>
-    <a href={whatsappUrl()} target="_blank" rel="noopener" class="btn btn-primary">{tr("cta.whatsapp")}</a>
-  </div>
-</section>
+<style>
+  /* 1. Hero */
+  .hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; }
+  .hero-media { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(70% 60% at 50% 45%, #171717, var(--black) 75%); }
+  .hero-ambient { position: absolute; inset: -20%;
+    background: radial-gradient(35% 30% at 20% 80%, rgba(123,255,118,.10), transparent 70%);
+    animation: drift 14s ease-in-out infinite alternate; }
+  @keyframes drift { to { transform: translate3d(-6%, 4%, 0) scale(1.08); } }
+  .hero-glow { position: absolute; left: 0; top: 0; width: 70vmax; height: 70vmax; margin: -35vmax 0 0 -35vmax;
+    border-radius: 50%; pointer-events: none;
+    background: radial-gradient(closest-side, rgba(123,255,118,.30), rgba(123,255,118,.10) 45%, transparent);
+    transform: translate(70vw, 30vh); will-change: transform; }
+  .hero-content { position: relative; z-index: 1; width: 100%; padding-top: calc(var(--bar-h) + 1rem); padding-bottom: clamp(32px, 7vh, 80px); }
+  .hero-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 2rem; margin-bottom: clamp(12px, 2vh, 32px); }
+  .hero-meta .t-label { color: rgba(255,255,255,.62); }
+  .hero-title { margin-left: -.04em; font-size: clamp(3rem, 10.5vw, 12.5rem); }
+  .hero-title .line { display: block; overflow: hidden; padding-bottom: .24em; margin-bottom: -.24em; }
+  .hero-title .line > span { display: block; }
+  .hero-title em { color: var(--green); }
+
+  /* Comunes de escena */
+  .scene-label { grid-column: 1 / -1; margin-bottom: 1.5rem; }
+  .scene-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1.5rem; margin-bottom: clamp(32px, 5vw, 72px); }
+  .scene-head > div { display: grid; gap: 1rem; max-width: 22ch; }
+  .scene-foot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1.5rem; margin-top: 2.5rem; }
+
+  /* 2. Servicios */
+  .services-list { grid-column: 1 / -1; }
+  .services-list li { border-top: 1px solid var(--line); }
+  .services-list li:last-child { border-bottom: 1px solid var(--line); }
+  .lit-word {
+    --lit: 1;
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: .25rem 1rem; padding-block: .25em .3em;
+    color: color-mix(in srgb, var(--text) calc(var(--lit) * 100%), var(--text-dim));
+    transition: color .35s var(--ease-out);
+  }
+  .lit-word .t-display { grid-column: 1; font-size: clamp(2rem, 8.4vw, 9.5rem); }
+  .lit-line { grid-column: 1; font-size: .9375rem; max-width: 46ch; }
+  .lit-word .arr { grid-column: 2; grid-row: 1 / span 2; font-size: clamp(1.5rem, 3vw, 3rem); opacity: 0; transform: translateX(-.4em);
+    transition: opacity .35s var(--ease-out), transform .35s var(--ease-out); color: var(--green); }
+  .lit-word:hover { color: var(--text); }
+  .lit-word:hover .arr { opacity: 1; transform: none; }
+  @media (min-width: 900px) {
+    .scene-label { grid-column: 1 / 4; margin: .9em 0 0; }
+    .services-list, .scene-foot { grid-column: 4 / -1; }
+  }
+
+  /* 3. Trabajo */
+  .work-grid { display: grid; gap: clamp(48px, 6vw, 96px) var(--gutter); }
+  @media (min-width: 700px) { .work-grid { grid-template-columns: 1fr 1fr; } .work-grid > :nth-child(even) { margin-top: 14vh; } }
+  @media (min-width: 1200px) {
+    .work-grid { grid-template-columns: repeat(3, 1fr); }
+    .work-grid > :nth-child(even) { margin-top: 0; }
+    .work-grid > :nth-child(3n + 2) { margin-top: 16vh; }
+  }
+
+  /* 4. Con quiénes */
+  .who-head { display: grid; gap: 1rem; margin-bottom: clamp(32px, 5vw, 72px); }
+  .who-title { margin-left: -.04em; }
+  .who-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1.5rem; }
+
+  /* 5. Manifiesto */
+  .manifesto { height: 220vh; position: relative; }
+  .manifesto-sticky { position: sticky; top: 0; min-height: 100svh; display: grid; align-content: center; gap: 2rem; padding-block: var(--bar-h); }
+  .manifesto-text { max-width: 9ch; font-size: var(--fs-mega); line-height: .9; letter-spacing: -.055em; margin-left: -.04em; }
+  .mw { --lit: 1; color: color-mix(in srgb, var(--text) calc(var(--lit) * 100%), var(--text-dim)); }
+
+  /* 6. Laboratorio */
+  .lab-grid { display: grid; gap: clamp(40px, 5vw, 80px); }
+  @media (min-width: 1000px) { .lab-grid { grid-template-columns: 7fr 5fr; align-items: start; } }
+  .lab-list li { border-top: 1px solid var(--line); }
+  .lab-list li:last-child { border-bottom: 1px solid var(--line); }
+  .lab-grid > * { min-width: 0; }
+  .lab-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .5rem 1rem; padding-block: 1.5rem; transition: color .3s var(--ease-out); }
+  .lab-item .t-h2 { grid-column: 1; font-size: clamp(1.25rem, 2vw, 1.75rem); }
+  .lab-item .arr { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: 1.5rem; transition: transform .35s var(--ease-out), color .35s var(--ease-out); }
+  .lab-item:hover .arr { transform: translateX(.3em); color: var(--green); }
+  .lab-news { padding: clamp(24px, 3vw, 40px); border: 1px solid var(--line); }
+
+  /* 7. Cierre */
+  .closing { min-height: 100svh; display: flex; flex-direction: column; justify-content: space-between; gap: 4rem; }
+  .closing-title { display: block; margin-left: -.04em; transition: color .4s var(--ease-out); }
+  .closing-title:hover { color: var(--green); }
+  .closing-paths { display: grid; gap: var(--gutter); }
+  @media (min-width: 900px) { .closing-paths { grid-template-columns: 1fr 1fr; } }
+  .path { display: grid; gap: .75rem; padding: clamp(24px, 3vw, 48px); border: 1px solid var(--line);
+    transition: background-color .35s var(--ease-out), color .35s var(--ease-out), border-color .35s var(--ease-out); }
+  .path:hover { background: var(--green); color: var(--black); border-color: var(--green); }
+  .path:hover .t-label { color: rgba(10,10,10,.7); }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+  const root = document.documentElement;
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  /* Luz verde que sigue al cursor */
+  const hero = document.querySelector<HTMLElement>("[data-hero]");
+  const glow = document.querySelector<HTMLElement>("[data-glow]");
+  if (hero && glow && fine && !reduced) {
+    const toX = gsap.quickTo(glow, "x", { duration: 1.2, ease: "power3.out" });
+    const toY = gsap.quickTo(glow, "y", { duration: 1.2, ease: "power3.out" });
+    gsap.set(glow, { x: innerWidth * 0.7, y: innerHeight * 0.3 });
+    hero.addEventListener("pointermove", (e) => { const r = hero.getBoundingClientRect(); toX(e.clientX - r.left); toY(e.clientY - r.top); });
+    hero.addEventListener("pointerleave", () => { toX(hero.offsetWidth * 0.7); toY(hero.offsetHeight * 0.3); });
+  }
+
+  /* Entrada del hero (después de la pantalla de carga, si la hay) */
+  const heroIn = () => {
+    if (reduced) return;
+    gsap.from(".hero-title .line > span", { yPercent: 105, duration: 1.1, ease: "power4.out", stagger: 0.1 });
+    gsap.from("[data-hero-meta]", { opacity: 0, y: 12, duration: 0.8, ease: "power3.out", stagger: 0.1, delay: 0.35 });
+  };
+
+  /* Pantalla de carga */
+  const loader = document.querySelector<HTMLElement>("[data-loader]");
+  if (loader && root.classList.contains("intro")) {
+    const imgs = Array.from(loader.querySelectorAll<HTMLElement>("[data-loader-img]"));
+    const count = loader.querySelector<HTMLElement>("[data-loader-count]")!;
+    const frame = loader.querySelector<HTMLElement>("[data-loader-frame]")!;
+    const texts = loader.querySelectorAll<HTMLElement>("[data-loader-text]");
+    let i = 0;
+    const flip = setInterval(() => {
+      if (imgs.length < 2) return;
+      imgs[i].classList.remove("is-on");
+      i = (i + 1) % imgs.length;
+      imgs[i].classList.add("is-on");
+    }, 220);
+    const counter = { v: 0 };
+    const tl = gsap.timeline({
+      onComplete: () => {
+        root.classList.remove("intro");
+        try { sessionStorage.setItem("bluz-intro", "1"); } catch { /* sin almacenamiento: se mostrará otra vez */ }
+        ScrollTrigger.refresh();
+      },
+    });
+    tl.to(counter, { v: 100, duration: 2.4, ease: "power2.inOut", onUpdate: () => { count.textContent = String(Math.round(counter.v)); } })
+      .add(() => {
+        clearInterval(flip);
+      })
+      .to(texts, { yPercent: 110, duration: 0.5, ease: "power3.in", stagger: 0.05 })
+      .to(frame, {
+        width: () => innerWidth, height: () => innerHeight, duration: 1.1, ease: "expo.inOut",
+        onStart: () => {
+          const r = frame.getBoundingClientRect();
+          gsap.set(frame, { position: "fixed", left: r.left, top: r.top, width: r.width, height: r.height, aspectRatio: "auto" });
+          gsap.to(frame, { left: 0, top: 0, duration: 1.1, ease: "expo.inOut" });
+        },
+      }, "-=0.1")
+      .to(frame, { opacity: 0, duration: 0.6, ease: "power2.out" }, "-=0.15")
+      .add(heroIn, "-=0.45")
+      .to(loader, { opacity: 0, duration: 0.4, ease: "power2.out" }, "-=0.3");
+  } else {
+    heroIn();
+  }
+
+  if (!reduced) {
+    /* Escena 2: cada servicio se enciende al cruzar la pantalla (sin JavaScript quedan encendidos) */
+    document.querySelectorAll<HTMLElement>("[data-lit]").forEach((el) => {
+      gsap.fromTo(el, { "--lit": 0 }, { "--lit": 1, ease: "none", scrollTrigger: { trigger: el, start: "top 85%", end: "top 45%", scrub: true } });
+    });
+
+    /* Escena 5: el manifiesto se escribe palabra por palabra mientras la sección queda fija */
+    const words = document.querySelectorAll<HTMLElement>("[data-manifesto] .mw");
+    if (words.length) {
+      gsap.fromTo(words, { "--lit": 0 }, {
+        "--lit": 1, ease: "none", stagger: 0.5,
+        scrollTrigger: { trigger: "[data-manifesto]", start: "top top", end: "bottom bottom", scrub: true },
+      });
+    }
+
+    /* Escena 7: el cierre crece al entrar */
+    gsap.from(".closing-title", { scale: 0.9, transformOrigin: "left bottom", ease: "none",
+      scrollTrigger: { trigger: ".closing", start: "top bottom", end: "top 30%", scrub: true } });
+  }
+</script>

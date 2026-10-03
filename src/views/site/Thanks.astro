@@ -8,7 +8,7 @@ const copy = {
   en: { title: "Got it.", text: "Thanks for reaching out. We'll review your message and reply by email.", back: "Back to home" },
 }[lang];
 ---
-<section class="thanks tone-dark edge">
+<section class="thanks tone-dark edge" data-thanks>
   <h1 class="t-mega">{copy.title}</h1>
   <p class="t-lead t-mute">{copy.text}</p>
   <a href={routes.home[lang]} class="link-arrow">{copy.back} <span class="arr" aria-hidden="true">→</span></a>

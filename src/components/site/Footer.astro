@@ -1,11 +1,11 @@
 ---
 import Logo from "../Logo.astro";
 import ContraluzForm from "./ContraluzForm.astro";
-import { routes, menuOrder, legalOrder, t, otherLang, type Lang, type PageKey } from "../../i18n/ui";
+import { routes, menuOrder, legalOrder, t, otherLang, type Lang } from "../../i18n/ui";
 import { brand, whatsappUrl } from "../../data/brand";
 
-interface Props { lang: Lang; page?: PageKey }
-const { lang, page } = Astro.props;
+interface Props { lang: Lang; alternates?: Record<Lang, string> }
+const { lang, alternates } = Astro.props;
 const tr = t(lang);
 const alt = otherLang(lang);
 const year = new Date().getFullYear();
@@ -42,7 +42,7 @@ const year = new Date().getFullYear();
       {legalOrder.map((key) => <li><a href={routes[key][lang]}>{tr(`nav.${key}`)}</a></li>)}
       <li><button type="button" data-cookies-open>{tr("footer.cookies")}</button></li>
     </ul>
-    <a href={page ? routes[page][alt] : routes.home[alt]} hreflang={alt} lang={alt} class="footer-lang">{tr("lang.label")}</a>
+    <a href={alternates ? alternates[alt] : routes.home[alt]} hreflang={alt} lang={alt} class="footer-lang">{tr("lang.label")}</a>
   </div>
 </footer>
 
