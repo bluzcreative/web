@@ -1,0 +1,185 @@
+/* =============================================================
+   Bluz Creative · sistema visual del rediseño (etapa 1)
+   Colores de marca intactos; lo nuevo es la escala, el espacio y el ritmo.
+   1. Tokens
+   2. Tonos (oscuro / claro / papel)
+   3. Base
+   4. Tipografía
+   5. Layout
+   6. Componentes
+   7. Movimiento
+   ============================================================= */
+
+/* 1. Tokens ---------------------------------------------------- */
+:root {
+  /* Marca */
+  --black: #0a0a0a;
+  --white: #ffffff;
+  --paper: #f6f6f4;
+  --green: #7bff76;
+
+  /* Familias */
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --display: "Space Grotesk", var(--sans);
+  --serif: "Fraunces", Georgia, serif;
+
+  /* Escala tipográfica fluida: de móvil (375px) a escritorio grande (1920px) */
+  --fs-mega:    clamp(3.4rem, 14.5vw, 16rem);   /* frases protagonistas: hero, cierre */
+  --fs-display: clamp(2.6rem, 8.4vw, 9.5rem);   /* servicios, menú */
+  --fs-h1:      clamp(2.2rem, 5.2vw, 5.6rem);
+  --fs-h2:      clamp(1.6rem, 3vw, 3rem);
+  --fs-lead:    clamp(1.125rem, 1.5vw, 1.5rem);
+  --fs-body:    1.0625rem;
+  --fs-label:   .75rem;
+
+  /* Espacio: márgenes mínimos a los lados, mucho aire vertical */
+  --edge:    clamp(16px, 2.4vw, 40px);
+  --gutter:  clamp(12px, 1.6vw, 24px);
+  --section: clamp(96px, 16vh, 220px);
+  --bar-h:   72px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 2. Tonos ----------------------------------------------------- */
+/* .tone-base sigue al interruptor de la muestra (data-base en <html>); los demás son fijos. */
+.tone-dark,
+:root[data-base="dark"] .tone-base {
+  --surface: var(--black);
+  --text: var(--white);
+  --text-dim: #3b3b3b;      /* palabras "apagadas" que se iluminan con el cursor o el scroll */
+  --text-mute: #9a9a9a;
+  --line: rgba(255, 255, 255, .14);
+  --placeholder: #161616;
+}
+.tone-light,
+:root[data-base="light"] .tone-base {
+  --surface: var(--white);
+  --text: var(--black);
+  --text-dim: #cfcfcb;
+  --text-mute: #6e6e6e;
+  --line: rgba(10, 10, 10, .14);
+  --placeholder: #ececea;
+}
+.tone-paper {
+  --surface: var(--paper);
+  --text: var(--black);
+  --text-dim: #cbcbc6;
+  --text-mute: #6e6e6e;
+  --line: rgba(10, 10, 10, .14);
+  --placeholder: #e6e6e2;
+}
+.tone-dark, .tone-light, .tone-paper, .tone-base {
+  background: var(--surface);
+  color: var(--text);
+  transition: background-color .5s var(--ease-out), color .5s var(--ease-out);
+}
+
+/* 3. Base ------------------------------------------------------ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--sans); font-size: var(--fs-body); line-height: 1.6;
+  background: var(--black); color: var(--white);
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+img, svg, video { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+ul { list-style: none; padding: 0; }
+:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
+::selection { background: var(--green); color: var(--black); }
+
+/* 4. Tipografía ------------------------------------------------ */
+.t-mega, .t-display, .t-h1, .t-h2 { font-family: var(--display); font-weight: 500; text-wrap: balance; }
+.t-mega    { font-size: var(--fs-mega);    line-height: .88; letter-spacing: -.055em; }
+.t-display { font-size: var(--fs-display); line-height: .92; letter-spacing: -.045em; }
+.t-h1      { font-size: var(--fs-h1);      line-height: 1;   letter-spacing: -.035em; }
+.t-h2      { font-size: var(--fs-h2);      line-height: 1.08; letter-spacing: -.025em; }
+.t-lead    { font-size: var(--fs-lead);    line-height: 1.45; letter-spacing: -.01em; max-width: 34ch; text-wrap: pretty; }
+.t-label {
+  font-size: var(--fs-label); font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-mute);
+}
+.t-serif { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -.02em; }
+.t-mute { color: var(--text-mute); }
+
+/* 5. Layout ---------------------------------------------------- */
+.edge { padding-inline: var(--edge); }
+.section { padding-block: var(--section); }
+.grid {
+  display: grid; gap: var(--gutter);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+@media (min-width: 900px) {
+  .grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+}
+.rule { border: 0; border-top: 1px solid var(--line); }
+
+/* 6. Componentes ----------------------------------------------- */
+
+/* Botones */
+.btn {
+  display: inline-flex; align-items: center; gap: .6em;
+  padding: .95em 1.5em; border-radius: 999px;
+  font-weight: 600; font-size: .9375rem; line-height: 1; white-space: nowrap;
+  border: 1px solid transparent;
+  transition: background-color .25s var(--ease-out), color .25s var(--ease-out), border-color .25s var(--ease-out), transform .25s var(--ease-out);
+}
+.btn:active { transform: scale(.97); }
+.btn-green { background: var(--green); color: var(--black); }
+.btn-green:hover { background: var(--text); color: var(--surface); }
+.btn-line { border-color: var(--line); color: var(--text); }
+.btn-line:hover { border-color: var(--text); }
+.link-arrow {
+  display: inline-flex; align-items: center; gap: .5em; font-weight: 600;
+  background: linear-gradient(var(--green), var(--green)) 0 100% / 0 2px no-repeat;
+  padding-bottom: .2em; transition: background-size .4s var(--ease-out);
+}
+.link-arrow:hover { background-size: 100% 2px; }
+.link-arrow .arr { transition: transform .4s var(--ease-out); }
+.link-arrow:hover .arr { transform: translateX(.3em); }
+
+/* Barra superior: logo a la izquierda; "Empieza tu proyecto" y menú fijos a la derecha */
+.topbar {
+  position: fixed; inset: 0 0 auto 0; z-index: 50; height: var(--bar-h);
+  display: flex; align-items: center; gap: 1rem; padding-inline: var(--edge);
+  pointer-events: none;
+}
+.topbar > * { pointer-events: auto; }
+.topbar-logo, .topbar-menu { color: var(--white); transition: color .3s var(--ease-out); }
+/* Sobre secciones claras el script marca data-on="light" y el logo y el menú pasan a negro */
+.topbar[data-on="light"] .topbar-logo,
+.topbar[data-on="light"] .topbar-menu { color: var(--black); }
+.topbar-logo svg { height: 22px; width: auto; }
+.topbar-actions { margin-left: auto; display: flex; align-items: center; gap: .75rem; }
+.topbar-menu {
+  display: inline-flex; align-items: center; gap: .55rem; font-weight: 600; font-size: .9375rem;
+  padding: .7rem .2rem;
+}
+.topbar-menu i { display: grid; gap: 5px; }
+.topbar-menu i::before, .topbar-menu i::after { content: ""; width: 22px; height: 2px; background: currentColor; }
+.topbar .btn { padding: .8em 1.25em; font-size: .875rem; }
+@media (max-width: 599px) {
+  .topbar .btn-label-long { display: none; }
+  .topbar-menu span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+}
+@media (min-width: 600px) { .topbar .btn-label-short { display: none; } }
+
+/* Marcadores de imagen y video (hasta tener material real) */
+.ph {
+  position: relative; overflow: hidden; background: var(--placeholder);
+  display: flex; align-items: flex-end; padding: 1rem;
+}
+.ph-tag {
+  position: relative; z-index: 1;
+  font-size: .6875rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  padding: .45em .8em; border-radius: 999px; background: rgba(10,10,10,.55); color: var(--white);
+  backdrop-filter: blur(6px);
+}
+
+/* 7. Movimiento ------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}

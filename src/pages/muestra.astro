@@ -1,0 +1,407 @@
+---
+// Etapa 1 · Dirección de arte. Página interna para validar el sistema visual antes de aplicarlo
+// a las páginas reales. No se indexa y no aparece en el menú. Textos e imágenes son provisionales.
+import "../styles/system.css";
+import Logo from "../components/Logo.astro";
+import { whatsappUrl } from "../data/brand";
+
+const services = ["Paid media", "Estrategia de contenido", "Diseño web", "Automatizaciones"];
+
+const projects = [
+  { client: "X-Build", industry: "Construcción con impresión 3D", country: "Australia", services: ["Branding", "Paid media", "Contenido"], look: "a" },
+  { client: "Rooties", industry: "Bienestar natural", country: "Venezuela", services: ["Contenido", "Fotografía", "Dirección creativa"], look: "b" },
+];
+
+const swatches = [
+  { name: "Negro", hex: "#0A0A0A", cls: "sw-black" },
+  { name: "Blanco", hex: "#FFFFFF", cls: "sw-white" },
+  { name: "Papel", hex: "#F6F6F4", cls: "sw-paper" },
+  { name: "Verde Bluz", hex: "#7BFF76", cls: "sw-green" },
+];
+
+const ramp = [
+  { name: "Mega", cls: "t-mega", spec: "Space Grotesk 500 · 54 a 256 px", sample: "¿Hablamos?" },
+  { name: "Display", cls: "t-display", spec: "Space Grotesk 500 · 42 a 152 px", sample: "Paid media" },
+  { name: "Título 1", cls: "t-h1", spec: "Space Grotesk 500 · 35 a 90 px", sample: "Lo que hacemos, medido." },
+  { name: "Título 2", cls: "t-h2", spec: "Space Grotesk 500 · 26 a 48 px", sample: "Reto, enfoque, piezas y resultados" },
+  { name: "Entrada", cls: "t-lead", spec: "Inter 400 · 18 a 24 px", sample: "Texto de apoyo con aire suficiente para leerse sin esfuerzo, incluso sobre una imagen." },
+  { name: "Etiqueta", cls: "t-label", spec: "Inter 600 · 12 px · mayúsculas", sample: "Paid media · Estados Unidos" },
+];
+---
+<!doctype html>
+<html lang="es" data-base="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Muestra visual | Bluz Creative</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Fraunces:ital,wght@1,400;1,500&family=Inter:wght@400;500;600;700&display=swap">
+</head>
+<body>
+
+<header class="topbar">
+  <a href="/" class="topbar-logo" aria-label="Bluz Creative, inicio"><Logo class="" /></a>
+  <div class="topbar-actions">
+    <a href="#hablamos" class="btn btn-green"><span class="btn-label-long">Empieza tu proyecto</span><span class="btn-label-short">Empieza</span></a>
+    <button class="topbar-menu" type="button" aria-label="Abrir menú"><span>Menú</span><i aria-hidden="true"></i></button>
+  </div>
+</header>
+
+<main>
+
+  <!-- 1. Impacto: frase gigante a todo lo ancho sobre video -->
+  <section class="hero tone-dark">
+    <!-- Aquí irá el reel de trabajos de Bluz; mientras tanto, fondo oscuro con luz verde que sigue al cursor -->
+    <div class="hero-media" aria-hidden="true">
+      <span class="hero-ambient"></span>
+      <span class="hero-glow" data-glow></span>
+    </div>
+    <div class="hero-content edge">
+      <div class="hero-meta">
+        <span class="t-label">Paid media · Contenido · Web · Automatización</span>
+        <span class="t-label">EE. UU. · Canadá · Australia · Latinoamérica</span>
+      </div>
+      <h1 class="t-mega hero-title">
+        <span class="line"><span>Marketing</span></span>
+        <span class="line"><span>visto desde</span></span>
+        <span class="line"><span>otro <em class="t-serif">ángulo</em>.</span></span>
+      </h1>
+    </div>
+  </section>
+
+  <!-- 2. Qué hacemos: palabras que se encienden con el scroll -->
+  <section class="services tone-base section edge">
+    <div class="grid">
+      <p class="t-label services-label">Qué hacemos</p>
+      <ul class="services-list">
+        {services.map((s) => (
+          <li><a href="/servicios/" class="t-display lit-word" data-lit>{s}<span class="arr" aria-hidden="true">→</span></a></li>
+        ))}
+      </ul>
+      <div class="services-foot">
+        <p class="t-lead t-mute">Cuatro servicios, un solo equipo. Pasa el cursor o haz scroll: cada palabra se enciende.</p>
+        <a href="/servicios/" class="link-arrow">Ver servicios <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Superposición estilo Veintitrés: la imagen se queda y el contenido pasa por encima -->
+  <section class="overlap tone-dark" aria-label="Ejemplo de página de proyecto">
+    <div class="overlap-media ph" aria-hidden="true"><span class="ph-tag">Imagen a todo lo ancho</span></div>
+    <div class="overlap-layers edge">
+      <article class="overlap-card tone-base">
+        <p class="t-label">Reto</p>
+        <h2 class="t-h1">Una industria conservadora, una marca de vanguardia.</h2>
+        <p class="t-lead t-mute">Los textos, mockups e imágenes se superponen sobre la foto principal al hacer scroll, como en las páginas de proyecto de Veintitrés.</p>
+      </article>
+      <div class="overlap-phone ph" aria-hidden="true"><span class="ph-tag">Mockup</span></div>
+      <div class="overlap-stats tone-base">
+        <div><span class="t-h1">-38%</span><span class="t-label">CPA</span></div>
+        <div><span class="t-h1">4,2x</span><span class="t-label">ROAS</span></div>
+        <div><span class="t-h1">+120%</span><span class="t-label">Leads</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Tarjetas de portafolio estilo Drool -->
+  <section class="work tone-base section edge">
+    <div class="work-head">
+      <p class="t-label">El trabajo</p>
+      <a href="/trabajo/" class="link-arrow">Ver todo el trabajo <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+    <div class="work-grid">
+      {projects.map((p) => (
+        <a href="/trabajo/" class:list={["card", `look-${p.look}`]}>
+          <div class="card-media">
+            <div class="card-cover ph"><span class="ph-tag">Portada</span></div>
+            <div class="card-layer l1 ph" aria-hidden="true"></div>
+            <div class="card-layer l2 ph" aria-hidden="true"></div>
+            <div class="card-layer l3 ph" aria-hidden="true"></div>
+            <span class="card-cta">Ver proyecto <span aria-hidden="true">→</span></span>
+          </div>
+          <div class="card-info">
+            <h3 class="t-h2">{p.client}</h3>
+            <p class="t-mute">{p.industry} · {p.country}</p>
+            <ul class="card-tags">{p.services.map((s) => <li>{s}</li>)}</ul>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- 5. El sistema: referencia para las siguientes etapas -->
+  <section class="system tone-paper section edge" aria-labelledby="sistema">
+    <div class="system-head">
+      <p class="t-label">Sistema visual</p>
+      <h2 id="sistema" class="t-h1">Los colores de siempre, a otra escala.</h2>
+    </div>
+
+    <div class="swatches">
+      {swatches.map((s) => (
+        <div class:list={["swatch", s.cls]}>
+          <span class="swatch-name">{s.name}</span>
+          <span class="swatch-hex">{s.hex}</span>
+        </div>
+      ))}
+    </div>
+
+    <ul class="ramp">
+      {ramp.map((r) => (
+        <li>
+          <div class="ramp-spec"><span class="t-label">{r.name}</span><span class="t-mute">{r.spec}</span></div>
+          <p class={r.cls}>{r.sample}</p>
+        </li>
+      ))}
+    </ul>
+
+    <div class="system-row">
+      <div>
+        <p class="t-label">Botones y enlaces</p>
+        <div class="buttons">
+          <a href="#hablamos" class="btn btn-green">Empieza tu proyecto</a>
+          <a href="#hablamos" class="btn btn-line">Hablemos</a>
+          <a href="#hablamos" class="link-arrow">Ver servicios <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <div>
+        <p class="t-label">Grilla: 12 columnas en escritorio, 4 en móvil, márgenes laterales de 16 a 40 px</p>
+        <div class="grid grid-demo" aria-hidden="true">
+          {Array.from({ length: 12 }, () => <span></span>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Cierre: dos caminos de contacto -->
+  <section id="hablamos" class="closing tone-dark section edge">
+    <a href="#hablamos" class="t-mega closing-title">¿Hablamos?</a>
+    <div class="closing-paths">
+      <a href="#hablamos" class="path">
+        <span class="t-label">Tengo un proyecto concreto</span>
+        <span class="t-h2">Cuéntanos qué necesitas <span aria-hidden="true">→</span></span>
+        <span class="t-mute">Formulario corto: servicio, presupuesto y plazos.</span>
+      </a>
+      <a href={whatsappUrl()} target="_blank" rel="noopener" class="path">
+        <span class="t-label">Prefiero conversar</span>
+        <span class="t-h2">Let's talk por WhatsApp <span aria-hidden="true">↗</span></span>
+        <span class="t-mute">Te respondemos el mismo día hábil.</span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<style>
+  /* 1. Hero */
+  .hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; }
+  .hero-media { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(70% 60% at 50% 45%, #171717, var(--black) 75%); }
+  .hero-ambient {
+    position: absolute; inset: -20%;
+    background: radial-gradient(35% 30% at 20% 80%, rgba(123,255,118,.10), transparent 70%);
+    animation: drift 14s ease-in-out infinite alternate;
+  }
+  @keyframes drift { to { transform: translate3d(-6%, 4%, 0) scale(1.08); } }
+  /* Luz verde: el script la mueve hacia el cursor; sin cursor (táctil) se queda arriba a la derecha */
+  .hero-glow {
+    position: absolute; left: 0; top: 0; width: 70vmax; height: 70vmax;
+    margin: -35vmax 0 0 -35vmax; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(closest-side, rgba(123,255,118,.30), rgba(123,255,118,.10) 45%, transparent);
+    transform: translate(70vw, 30vh); will-change: transform;
+  }
+  .hero-content { position: relative; z-index: 1; width: 100%; padding-bottom: clamp(32px, 7vh, 80px); }
+  .hero-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 2rem; margin-bottom: clamp(16px, 3vh, 40px); }
+  .hero-meta .t-label { color: rgba(255,255,255,.62); }
+  .hero-title { margin-left: -.04em; }
+  .hero-title .line { display: block; overflow: hidden; padding-bottom: .24em; margin-bottom: -.24em; }
+  .hero-title .line > span { display: block; }
+  .hero-title em { color: var(--green); }
+
+  /* 2. Servicios */
+  .services-label { grid-column: 1 / -1; margin-bottom: 1.5rem; }
+  .services-list { grid-column: 1 / -1; }
+  .services-list li { border-top: 1px solid var(--line); }
+  .services-list li:last-child { border-bottom: 1px solid var(--line); }
+  .lit-word {
+    --lit: 1;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding-block: .12em .08em;
+    color: color-mix(in srgb, var(--text) calc(var(--lit) * 100%), var(--text-dim));
+    transition: color .35s var(--ease-out);
+  }
+  .lit-word .arr { font-size: .5em; opacity: 0; transform: translateX(-.4em); transition: opacity .35s var(--ease-out), transform .35s var(--ease-out); }
+  .lit-word:hover { color: var(--text); }
+  .lit-word:hover .arr { opacity: 1; transform: none; color: var(--green); }
+  .services-foot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1.5rem; margin-top: 2.5rem; }
+  @media (min-width: 900px) {
+    .services-label { grid-column: 1 / 4; margin: .9em 0 0; }
+    .services-list { grid-column: 4 / -1; }
+    .services-foot { grid-column: 4 / -1; }
+  }
+
+  /* 3. Superposición */
+  .overlap { position: relative; }
+  .overlap-media { position: sticky; top: 0; height: 100svh; align-items: flex-end; padding: var(--edge);
+    background: linear-gradient(160deg, #1d1d1d, #0d0d0d 55%), #111; }
+  .overlap-media::after { content: ""; position: absolute; inset: 18% 12% 22% 40%; border-radius: 4px;
+    background: linear-gradient(135deg, rgba(123,255,118,.5), rgba(123,255,118,.05)); filter: blur(2px); }
+  .overlap-layers { position: relative; z-index: 1; margin-top: -70svh; padding-bottom: 20svh;
+    display: grid; gap: var(--gutter); grid-template-columns: repeat(4, minmax(0,1fr)); }
+  .overlap-card { grid-column: 1 / -1; padding: clamp(24px, 4vw, 64px); display: grid; gap: 1.25rem; align-content: start; }
+  .overlap-phone { grid-column: 2 / -1; aspect-ratio: 9 / 16; margin-top: 10svh; border-radius: 28px;
+    background: linear-gradient(180deg, var(--green), #2c8f29); max-height: 80svh; }
+  .overlap-stats { grid-column: 1 / -1; margin-top: 10svh; padding: clamp(24px, 4vw, 64px);
+    display: grid; gap: 1.5rem; grid-template-columns: repeat(3, 1fr); }
+  .overlap-stats div { display: grid; gap: .5rem; }
+  @media (min-width: 900px) {
+    .overlap-layers { grid-template-columns: repeat(12, minmax(0,1fr)); }
+    .overlap-card { grid-column: 1 / 7; }
+    .overlap-phone { grid-column: 9 / 12; margin-top: 40svh; }
+    .overlap-stats { grid-column: 3 / 11; margin-top: 0; }
+  }
+
+  /* 4. Tarjetas */
+  .work-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 2rem; }
+  .work-grid { display: grid; gap: clamp(48px, 6vw, 96px) var(--gutter); }
+  @media (min-width: 900px) { .work-grid { grid-template-columns: 1fr 1fr; } .card:nth-child(2) { margin-top: 18vh; } }
+  .card { position: relative; display: grid; gap: 1.25rem; }
+  .card:hover, .card:focus-visible { z-index: 5; }
+  .card-media { position: relative; aspect-ratio: 4 / 5; isolation: isolate; }
+  .card-cover { position: absolute; inset: 0; z-index: 2; transition: transform .7s var(--ease-out), filter .7s var(--ease-out); }
+  .card-layer { position: absolute; z-index: 3; border-radius: 6px; opacity: 0; box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    transition: transform .7s var(--ease-out), opacity .45s var(--ease-out); }
+  .card-layer.l1 { width: 42%; aspect-ratio: 9 / 16; left: 6%; top: 18%; transform: translate(10%, 12%) rotate(0deg) scale(.85); border-radius: 18px; }
+  .card-layer.l2 { width: 52%; aspect-ratio: 1; right: 6%; top: 8%; transform: translate(-10%, 10%) scale(.85); }
+  .card-layer.l3 { width: 46%; aspect-ratio: 4 / 3; right: 10%; bottom: 8%; transform: translate(-6%, -10%) scale(.85); }
+  .card-cta { position: absolute; z-index: 4; left: 1rem; bottom: 1rem; padding: .7em 1.1em; border-radius: 999px;
+    background: var(--green); color: var(--black); font-weight: 600; font-size: .875rem;
+    opacity: 0; transform: translateY(8px); transition: opacity .35s var(--ease-out), transform .35s var(--ease-out); }
+  .card-info { display: grid; gap: .35rem; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .5rem; }
+  .card-tags li { font-size: .8125rem; padding: .35em .8em; border: 1px solid var(--line); border-radius: 999px; }
+
+  /* Looks de marcador por proyecto */
+  .look-a .card-cover { background: linear-gradient(150deg, #1b1b1b, #0a0a0a); }
+  .look-a .l1 { background: linear-gradient(180deg, #7bff76, #3fbf3b); }
+  .look-a .l2 { background: #f6f6f4; }
+  .look-a .l3 { background: #2a2a2a; }
+  .look-b .card-cover { background: linear-gradient(150deg, #e9f9e7, #c9f5c6); }
+  .look-b .l1 { background: #0a0a0a; }
+  .look-b .l2 { background: linear-gradient(135deg, #7bff76, #d4ffd2); }
+  .look-b .l3 { background: #ffffff; }
+
+  @media (hover: hover) and (pointer: fine) {
+    .card:hover .card-cover { transform: scale(.94); filter: brightness(.7); }
+    .card:hover .card-layer { opacity: 1; }
+    .card:hover .l1 { transform: translate(-6%, -4%) rotate(-6deg) scale(1); transition-delay: .03s; }
+    .card:hover .l2 { transform: translate(6%, -6%) rotate(4deg) scale(1); transition-delay: .08s; }
+    .card:hover .l3 { transform: translate(4%, 6%) rotate(-3deg) scale(1); transition-delay: .13s; }
+    .card:hover .card-cta { opacity: 1; transform: none; }
+  }
+  /* En pantallas táctiles no hay hover: los mockups se muestran asomados de forma fija */
+  @media (hover: none) {
+    .card-layer { opacity: 1; }
+    .card-cover { transform: scale(.94); }
+    .l1 { transform: translate(-8%, 0) rotate(-5deg) scale(.95) !important; }
+    .l2, .l3 { opacity: 0 !important; }
+  }
+
+  /* 5. Sistema */
+  .system-head { display: grid; gap: 1rem; margin-bottom: clamp(40px, 6vw, 80px); max-width: 18ch; }
+  .system-head .t-h1 { max-width: 14ch; }
+  .swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gutter); margin-bottom: clamp(56px, 8vw, 120px); }
+  @media (min-width: 900px) { .swatches { grid-template-columns: repeat(4, 1fr); } }
+  .swatch { aspect-ratio: 4 / 3; padding: 1rem; display: flex; flex-direction: column; justify-content: flex-end; gap: .2rem; border: 1px solid var(--line); }
+  .swatch-name { font-weight: 600; }
+  .swatch-hex { font-size: .8125rem; opacity: .7; font-variant-numeric: tabular-nums; }
+  .sw-black { background: #0a0a0a; color: #fff; }
+  .sw-white { background: #fff; }
+  .sw-paper { background: #f6f6f4; }
+  .sw-green { background: #7bff76; }
+  .ramp li { display: grid; gap: .75rem; padding-block: clamp(20px, 3vw, 40px); border-top: 1px solid var(--line); }
+  .ramp-spec { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; font-size: .8125rem; }
+  .ramp p { overflow-wrap: anywhere; }
+  .system-row { display: grid; gap: 3rem; margin-top: clamp(56px, 8vw, 120px); }
+  @media (min-width: 900px) { .system-row { grid-template-columns: 1fr 1fr; } }
+  .buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 1.25rem; }
+  .grid-demo { margin-top: 1.25rem; height: 120px; }
+  .grid-demo span { background: rgba(123,255,118,.35); outline: 1px solid rgba(10,10,10,.12); }
+  .grid-demo span:nth-child(n+5) { display: none; }
+  @media (min-width: 900px) { .grid-demo span:nth-child(n+5) { display: block; } }
+
+  /* 7. Cierre */
+  .closing { min-height: 100svh; display: flex; flex-direction: column; justify-content: space-between; gap: 4rem; }
+  .closing-title { display: block; margin-left: -.04em; color: var(--text); transition: color .4s var(--ease-out); }
+  .closing-title:hover { color: var(--green); }
+  .closing-paths { display: grid; gap: var(--gutter); }
+  @media (min-width: 900px) { .closing-paths { grid-template-columns: 1fr 1fr; } }
+  .path { display: grid; gap: .75rem; padding: clamp(24px, 3vw, 48px); border: 1px solid var(--line);
+    transition: background-color .35s var(--ease-out), color .35s var(--ease-out), border-color .35s var(--ease-out); }
+  .path:hover { background: var(--green); color: var(--black); border-color: var(--green); }
+  .path:hover .t-label, .path:hover .t-mute { color: rgba(10,10,10,.7); }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  const root = document.documentElement;
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Barra superior: logo y menú en blanco sobre secciones oscuras y en negro sobre las claras
+  const topbar = document.querySelector<HTMLElement>(".topbar")!;
+  const sections = Array.from(document.querySelectorAll<HTMLElement>("main > section"));
+  const isLight = (el: HTMLElement) =>
+    el.classList.contains("tone-light") || el.classList.contains("tone-paper") ||
+    (el.classList.contains("tone-base") && root.dataset.base === "light");
+  const updateBar = () => {
+    const y = topbar.offsetHeight / 2;
+    const under = sections.find((s) => { const r = s.getBoundingClientRect(); return r.top <= y && r.bottom > y; });
+    topbar.dataset.on = under && isLight(under) ? "light" : "dark";
+  };
+  addEventListener("scroll", updateBar, { passive: true });
+  addEventListener("resize", updateBar);
+  updateBar();
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Luz verde del hero: sigue al cursor con un poco de retraso
+  const hero = document.querySelector<HTMLElement>(".hero");
+  const glow = document.querySelector<HTMLElement>("[data-glow]");
+  if (hero && glow && !reduced && matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    const toX = gsap.quickTo(glow, "x", { duration: 1.2, ease: "power3.out" });
+    const toY = gsap.quickTo(glow, "y", { duration: 1.2, ease: "power3.out" });
+    gsap.set(glow, { x: innerWidth * 0.7, y: innerHeight * 0.3 });
+    hero.addEventListener("pointermove", (e) => {
+      const r = hero.getBoundingClientRect();
+      toX(e.clientX - r.left);
+      toY(e.clientY - r.top);
+    });
+    hero.addEventListener("pointerleave", () => { toX(hero.offsetWidth * 0.7); toY(hero.offsetHeight * 0.3); });
+  }
+
+  if (!reduced) {
+    // Entrada del hero: cada línea sube desde su máscara
+    gsap.from(".hero-title .line > span", { yPercent: 105, duration: 1.1, ease: "power4.out", stagger: 0.1, delay: 0.15 });
+    gsap.from(".hero-meta .t-label", { opacity: 0, y: 10, duration: 0.8, ease: "power3.out", stagger: 0.1, delay: 0.6 });
+
+    // Escena 2: cada palabra pasa de apagada a encendida mientras cruza la pantalla.
+    // Sin JavaScript las palabras quedan encendidas (--lit: 1 en el CSS).
+    document.querySelectorAll<HTMLElement>("[data-lit]").forEach((el) => {
+      gsap.fromTo(el, { "--lit": 0 }, {
+        "--lit": 1, ease: "none",
+        scrollTrigger: { trigger: el, start: "top 85%", end: "top 45%", scrub: true },
+      });
+    });
+
+    // Cierre: el "¿Hablamos?" crece ligeramente al entrar
+    gsap.from(".closing-title", {
+      scale: 0.92, transformOrigin: "left bottom", ease: "none",
+      scrollTrigger: { trigger: ".closing", start: "top bottom", end: "top 30%", scrub: true },
+    });
+  }
+</script>
+</body>
+</html>

@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "docs:pdf": "\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless --disable-gpu --user-data-dir=/tmp/bluz-pdf-chrome --no-first-run --no-default-browser-check --disable-extensions --disable-sync --password-store=basic --use-mock-keychain --no-pdf-header-footer --virtual-time-budget=8000 --print-to-pdf=docs/sistema-visual/Bluz-Sistema-Visual-Web.pdf docs/sistema-visual/sistema-visual.html"
   },
   "dependencies": {
     "astro": "^7.3.5",

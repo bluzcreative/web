@@ -1,0 +1,328 @@
+<!doctype html>
+<!--
+  Guía del sistema visual de la web de Bluz Creative.
+  Para regenerar el PDF después de editar este archivo:
+    npm run docs:pdf
+-->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Bluz Creative · Sistema visual web</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Fraunces:ital,wght@1,400;1,500&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  @page { size: 297mm 210mm; margin: 0; }
+  :root {
+    --black: #0a0a0a; --white: #ffffff; --paper: #f6f6f4; --green: #7bff76;
+    --dim: #3b3b3b; --mute: #9a9a9a; --mute-light: #6e6e6e;
+    --display: "Space Grotesk", sans-serif; --sans: "Inter", sans-serif; --serif: "Fraunces", serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: var(--sans); font-size: 10.5pt; line-height: 1.5; color: var(--black); background: #ddd; }
+
+  .page {
+    width: 297mm; height: 210mm; padding: 16mm 18mm 14mm; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; page-break-after: always; break-after: page;
+    background: var(--white);
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+  .dark { background: var(--black); color: var(--white); }
+  .paper { background: var(--paper); }
+
+  /* Encabezado y pie de cada página */
+  .head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10mm; }
+  .label { font-size: 7.5pt; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--mute-light); }
+  .dark .label { color: var(--mute); }
+  .foot { margin-top: auto; display: flex; justify-content: space-between; padding-top: 5mm; border-top: 1px solid rgba(10,10,10,.14); }
+  .dark .foot { border-color: rgba(255,255,255,.14); }
+
+  h1, h2, h3 { font-family: var(--display); font-weight: 500; letter-spacing: -.04em; line-height: .95; }
+  h2 { font-size: 40pt; margin-bottom: 8mm; max-width: 16ch; }
+  h3 { font-size: 13pt; letter-spacing: -.02em; line-height: 1.15; margin-bottom: 2mm; }
+  .lead { font-size: 12pt; line-height: 1.45; max-width: 60ch; color: #2b2b2b; }
+  .dark .lead { color: #cfcfcf; }
+  .mute { color: var(--mute-light); }
+  .dark .mute { color: var(--mute); }
+  em.serif { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -.02em; }
+  .green { color: var(--green); }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em; }
+
+  /* Portada */
+  .cover { justify-content: space-between; }
+  .cover-logo { height: 9mm; width: auto; align-self: flex-start; filter: invert(1); }
+  .cover h1 { font-size: 110pt; line-height: .86; letter-spacing: -.055em; }
+  .cover-glow { position: absolute; width: 200mm; height: 200mm; right: -50mm; top: -60mm; border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(123,255,118,.32), rgba(123,255,118,.08) 50%, transparent); }
+  .cover > :not(.cover-glow) { position: relative; }
+  .cover-meta { display: flex; gap: 14mm; }
+
+  /* Grillas de contenido */
+  .cols { display: grid; gap: 8mm; }
+  .cols-2 { grid-template-columns: 1fr 1fr; }
+  .cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .item { border-top: 1px solid rgba(10,10,10,.14); padding-top: 4mm; }
+  .dark .item { border-color: rgba(255,255,255,.14); }
+  .item .num { font-family: var(--display); font-size: 9pt; color: var(--mute-light); margin-bottom: 3mm; display: block; }
+  .dark .item .num { color: var(--green); }
+  .item p { font-size: 9.5pt; }
+
+  /* Color */
+  .swatch { height: 62mm; padding: 5mm; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(10,10,10,.12); }
+  .swatch strong { font-family: var(--display); font-weight: 500; font-size: 15pt; letter-spacing: -.02em; }
+  .swatch span { font-size: 8.5pt; }
+  .swatch .use { margin-top: 3mm; font-size: 8.5pt; opacity: .8; }
+  .sub-swatches { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4mm; margin-top: 8mm; }
+  .sub { display: flex; gap: 3mm; align-items: center; font-size: 8.5pt; }
+  .sub i { width: 10mm; height: 10mm; flex: none; border: 1px solid rgba(10,10,10,.12); }
+  .ratio { display: flex; height: 8mm; margin-top: 8mm; border: 1px solid rgba(10,10,10,.12); }
+  .ratio span { display: flex; align-items: center; padding-left: 3mm; font-size: 7.5pt; font-weight: 600; }
+
+  /* Tipografía */
+  .families { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 8mm; }
+  .item .family-sample { font-size: 54pt; line-height: 1; letter-spacing: -.05em; margin-block: 3mm 3mm; }
+  table { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
+  th { text-align: left; font-size: 7pt; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--mute-light); padding: 0 3mm 2.5mm 0; }
+  td { padding: 2.6mm 3mm 2.6mm 0; border-top: 1px solid rgba(10,10,10,.14); vertical-align: baseline; }
+  .dark td { border-color: rgba(255,255,255,.14); }
+  .dark th { color: var(--mute); }
+  .ramp-sample { font-family: var(--display); font-weight: 500; letter-spacing: -.04em; line-height: 1; white-space: nowrap; }
+
+  /* Espacio y grilla */
+  .grid-demo { display: grid; grid-template-columns: repeat(12, 1fr); gap: 2.2mm; height: 34mm; margin: 4mm 0 2mm; }
+  .grid-demo span { background: rgba(123,255,118,.45); }
+  .grid-demo.m { grid-template-columns: repeat(4, 1fr); width: 32%; }
+  .space-row { display: flex; align-items: center; gap: 4mm; font-size: 9pt; padding: 2.2mm 0; border-top: 1px solid rgba(10,10,10,.14); }
+  .space-row b { width: 30mm; font-weight: 600; }
+  .bar { height: 3mm; background: var(--green); }
+
+  /* Componentes */
+  .btn { display: inline-flex; align-items: center; gap: .5em; padding: .85em 1.35em; border-radius: 999px; font-weight: 600; font-size: 9.5pt; line-height: 1; }
+  .btn-green { background: var(--green); color: var(--black); }
+  .btn-line { border: 1px solid rgba(255,255,255,.3); color: var(--white); }
+  .link { font-weight: 600; font-size: 9.5pt; border-bottom: 2px solid var(--green); padding-bottom: 1mm; }
+  .tag { display: inline-block; font-size: 8pt; padding: .35em .8em; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; margin: 0 1mm 1mm 0; }
+  .demo { display: flex; flex-wrap: wrap; gap: 4mm; align-items: center; margin: 3mm 0 4mm; min-height: 12mm; }
+  .item .lit { font-family: var(--display); font-weight: 500; font-size: 30pt; letter-spacing: -.045em; line-height: 1.02; }
+  .item .lit .off { color: var(--dim); }
+  .card-demo { position: relative; height: 40mm; margin: 3mm 0 4mm; }
+  .card-demo i { position: absolute; border-radius: 2mm; }
+
+  /* Reglas */
+  .rules li { list-style: none; display: grid; grid-template-columns: 9mm 1fr; padding: 2.6mm 0; border-top: 1px solid rgba(10,10,10,.14); font-size: 9.5pt; }
+  .rules .y { color: #1f8f1b; font-weight: 700; }
+  .rules .n { color: #c23b22; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- 1. Portada -->
+<section class="page dark cover">
+  <span class="cover-glow"></span>
+  <img class="cover-logo" src="../../public/assets/logo.svg" alt="Bluz Creative">
+  <h1>Sistema<br>visual <em class="serif green">web</em></h1>
+  <div class="cover-meta">
+    <div><p class="label">Proyecto</p><p>Rediseño de bluzcreative.com</p></div>
+    <div><p class="label">Versión</p><p>1.0 · Octubre 2026</p></div>
+    <div><p class="label">Uso</p><p>Referencia para diseño, desarrollo y contenido</p></div>
+  </div>
+</section>
+
+<!-- 2. Principios -->
+<section class="page">
+  <div class="head"><span class="label">01 · Principios</span><span class="label">Sistema visual web</span></div>
+  <h2>Los colores de siempre, a otra escala.</h2>
+  <div class="cols cols-3">
+    <div class="item"><span class="num">01</span><h3>La frase es la protagonista</h3><p>Tipografía enorme, pocas palabras y mucho aire alrededor. Cada escena dice una sola cosa.</p></div>
+    <div class="item"><span class="num">02</span><h3>Oscuro como base</h3><p>El negro es el fondo general. El blanco y el papel aparecen como respiro, nunca como norma.</p></div>
+    <div class="item"><span class="num">03</span><h3>El verde es luz, no relleno</h3><p>El verde Bluz marca lo importante: botones, acentos, la luz que sigue al cursor. No se usa para pintar secciones enteras.</p></div>
+    <div class="item"><span class="num">04</span><h3>Imágenes de borde a borde</h3><p>Márgenes mínimos a los lados. Las fotos y videos ocupan todo el ancho y el texto pasa por encima.</p></div>
+    <div class="item"><span class="num">05</span><h3>Movimiento con intención</h3><p>Cada animación guía hacia otra parte de la web. Si algo falla, el contenido se lee igual.</p></div>
+    <div class="item"><span class="num">06</span><h3>Móvil con composición propia</h3><p>En el teléfono la página se recompone para esa pantalla; no es el escritorio comprimido.</p></div>
+  </div>
+  <div class="foot"><span class="label">Bluz Creative LLC</span><span class="label">2</span></div>
+</section>
+
+<!-- 3. Color -->
+<section class="page">
+  <div class="head"><span class="label">02 · Color</span><span class="label">Sistema visual web</span></div>
+  <div class="cols cols-4">
+    <div class="swatch" style="background:#0a0a0a;color:#fff"><strong>Negro</strong><span>#0A0A0A · RGB 10 10 10</span><span class="use">Fondo general, texto sobre claro.</span></div>
+    <div class="swatch" style="background:#fff"><strong>Blanco</strong><span>#FFFFFF · RGB 255 255 255</span><span class="use">Texto sobre negro, secciones claras puntuales.</span></div>
+    <div class="swatch" style="background:#f6f6f4"><strong>Papel</strong><span>#F6F6F4 · RGB 246 246 244</span><span class="use">Bloques de referencia y lectura larga.</span></div>
+    <div class="swatch" style="background:#7bff76"><strong>Verde Bluz</strong><span>#7BFF76 · RGB 123 255 118</span><span class="use">Botones, acentos, luz. Texto verde solo sobre negro.</span></div>
+  </div>
+  <div class="sub-swatches">
+    <div class="sub"><i style="background:#3b3b3b"></i><div><b>#3B3B3B</b><br><span class="mute">Palabra apagada</span></div></div>
+    <div class="sub"><i style="background:#9a9a9a"></i><div><b>#9A9A9A</b><br><span class="mute">Texto secundario en oscuro</span></div></div>
+    <div class="sub"><i style="background:#6e6e6e"></i><div><b>#6E6E6E</b><br><span class="mute">Texto secundario en claro</span></div></div>
+    <div class="sub"><i style="background:#161616"></i><div><b>#161616</b><br><span class="mute">Superficie elevada</span></div></div>
+    <div class="sub"><i style="background:rgba(255,255,255,.14);background-color:#2f2f2f"></i><div><b>Blanco 14%</b><br><span class="mute">Líneas en oscuro</span></div></div>
+  </div>
+  <p class="label" style="margin-top:9mm">Proporción aproximada en pantalla</p>
+  <div class="ratio">
+    <span style="width:70%;background:#0a0a0a;color:#fff">Negro 70%</span>
+    <span style="width:18%;background:#fff">Blanco 18%</span>
+    <span style="width:7%;background:#f6f6f4">Papel</span>
+    <span style="width:5%;background:#7bff76"></span>
+  </div>
+  <div class="cols cols-3" style="margin-top:8mm">
+    <div class="item"><h3>Contraste verde sobre negro: 15,5 a 1</h3><p class="mute">Cumple de sobra para cualquier tamaño de texto.</p></div>
+    <div class="item"><h3>Verde sobre blanco: 1,3 a 1</h3><p class="mute">No se usa para texto. Sobre blanco, el verde solo va como fondo de botón con texto negro.</p></div>
+    <div class="item"><h3>Gris apagado: 1,8 a 1</h3><p class="mute">Solo como estado inicial de palabras que se encienden. El texto final siempre queda en blanco.</p></div>
+  </div>
+  <div class="foot"><span class="label">Bluz Creative LLC</span><span class="label">3</span></div>
+</section>
+
+<!-- 4. Tipografía: familias -->
+<section class="page dark">
+  <div class="head"><span class="label">03 · Tipografía</span><span class="label">Sistema visual web</span></div>
+  <div class="families">
+    <div class="item">
+      <p class="label">Display</p>
+      <p class="family-sample" style="font-family:var(--display);font-weight:500">Space Grotesk</p>
+      <p class="mute">Peso 500 (Medium). Titulares, frases protagonistas, menú, cifras. Interletrado negativo: entre -2,5% y -5,5% según el tamaño.</p>
+    </div>
+    <div class="item">
+      <p class="label">Texto</p>
+      <p class="family-sample" style="font-family:var(--sans);font-size:40pt;letter-spacing:-.03em">Inter</p>
+      <p class="mute">Pesos 400, 500, 600. Párrafos, etiquetas, botones y formularios. Interlineado 1,45 a 1,6.</p>
+    </div>
+    <div class="item">
+      <p class="label">Acento</p>
+      <p class="family-sample" style="font-family:var(--serif);font-style:italic;font-size:44pt;letter-spacing:-.03em">Fraunces</p>
+      <p class="mute">Itálica 400. Una palabra por frase, como mucho, para dar giro. Puede ir en verde sobre negro.</p>
+    </div>
+  </div>
+  <p style="font-family:var(--display);font-weight:500;font-size:64pt;letter-spacing:-.055em;line-height:.9;margin-top:auto">Marketing visto desde<br>otro <em class="serif green">ángulo</em>.</p>
+  <div class="foot"><span class="label">Bluz Creative LLC</span><span class="label">4</span></div>
+</section>
+
+<!-- 5. Tipografía: escala -->
+<section class="page">
+  <div class="head"><span class="label">03 · Escala tipográfica</span><span class="label">Sistema visual web</span></div>
+  <h2 style="font-size:30pt;margin-bottom:6mm">Escala fluida: crece con la pantalla, de 375 a 1920 px.</h2>
+  <table>
+    <thead><tr><th>Nivel</th><th>Muestra</th><th>Móvil</th><th>Escritorio</th><th>Interlineado</th><th>Interletrado</th><th>Uso</th><th>Variable CSS</th></tr></thead>
+    <tbody>
+      <tr><td><b>Mega</b></td><td><span class="ramp-sample" style="font-size:30pt">¿Hablamos?</span></td><td>54 px</td><td>256 px</td><td>0,88</td><td>-5,5%</td><td>Hero, cierre</td><td><code>--fs-mega</code></td></tr>
+      <tr><td><b>Display</b></td><td><span class="ramp-sample" style="font-size:22pt">Paid media</span></td><td>42 px</td><td>152 px</td><td>0,92</td><td>-4,5%</td><td>Servicios, menú</td><td><code>--fs-display</code></td></tr>
+      <tr><td><b>Título 1</b></td><td><span class="ramp-sample" style="font-size:16pt">Lo que hacemos, medido.</span></td><td>35 px</td><td>90 px</td><td>1</td><td>-3,5%</td><td>Títulos de sección, cifras</td><td><code>--fs-h1</code></td></tr>
+      <tr><td><b>Título 2</b></td><td><span class="ramp-sample" style="font-size:12pt">Reto, enfoque y resultados</span></td><td>26 px</td><td>48 px</td><td>1,08</td><td>-2,5%</td><td>Tarjetas, subtítulos</td><td><code>--fs-h2</code></td></tr>
+      <tr><td><b>Entrada</b></td><td style="font-size:11pt">Texto de apoyo con aire.</td><td>18 px</td><td>24 px</td><td>1,45</td><td>-1%</td><td>Bajadas, introducciones</td><td><code>--fs-lead</code></td></tr>
+      <tr><td><b>Cuerpo</b></td><td style="font-size:9.5pt">Párrafos y formularios.</td><td>17 px</td><td>17 px</td><td>1,6</td><td>0</td><td>Texto corrido</td><td><code>--fs-body</code></td></tr>
+      <tr><td><b>Etiqueta</b></td><td><span class="label" style="color:#0a0a0a">Paid media · EE. UU.</span></td><td>12 px</td><td>12 px</td><td>1,6</td><td>+10%</td><td>Rótulos, metadatos</td><td><code>--fs-label</code></td></tr>
+    </tbody>
+  </table>
+  <div class="foot"><span class="label">Bluz Creative LLC</span><span class="label">5</span></div>
+</section>
+
+<!-- 6. Espacio y grilla -->
+<section class="page paper">
+  <div class="head"><span class="label">04 · Espacio y grilla</span><span class="label">Sistema visual web</span></div>
+  <div class="cols cols-2" style="gap:14mm">
+    <div>
+      <h2 style="font-size:30pt">Casi sin márgenes a los lados, mucho aire arriba y abajo.</h2>
+      <div class="space-row"><b>Margen lateral</b><span class="bar" style="width:8mm"></span><span>16 a 40 px · <code>--edge</code></span></div>
+      <div class="space-row"><b>Separación</b><span class="bar" style="width:6mm"></span><span>12 a 24 px · <code>--gutter</code></span></div>
+      <div class="space-row"><b>Entre secciones</b><span class="bar" style="width:44mm"></span><span>96 a 220 px · <code>--section</code></span></div>
+      <div class="space-row"><b>Barra superior</b><span class="bar" style="width:15mm"></span><span>72 px de alto, fija</span></div>
+    </div>
+    <div>
+      <p class="label">Escritorio · 12 columnas</p>
+      <div class="grid-demo">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <p class="mute" style="font-size:9pt;margin-bottom:7mm">Desde 900 px. Patrón habitual: rótulo en columnas 1 a 3, contenido en 4 a 12.</p>
+      <p class="label">Móvil · 4 columnas</p>
+      <div class="grid-demo m"><span></span><span></span><span></span><span></span></div>
+      <p class="mute" style="font-size:9pt">Todo a ancho completo; las imágenes y tarjetas se apilan.</p>
+    </div>
+  </div>
+  <div class="foot"><span class="label">Bluz Creative LLC</span><span class="label">6</span></div>
+</section>
+
+<!-- 7. Componentes -->
+<section class="page dark">
+  <div class="head"><span class="label">05 · Componentes</span><span class="label">Sistema visual web</span></div>
+  <div class="cols cols-3" style="gap:10mm">
+    <div class="item">
+      <h3>Botones y enlaces</h3>
+      <div class="demo"><span class="btn btn-green">Empieza tu proyecto</span><span class="btn btn-line">Hablemos</span></div>
+      <div class="demo"><span class="link">Ver servicios →</span></div>
+      <p class="mute">Píldora verde para la acción principal (una por pantalla). Píldora con borde para la secundaria. Enlace con subrayado verde que se dibuja al pasar el cursor.</p>
+    </div>
+    <div class="item">
+      <h3>Barra superior</h3>
+      <div class="demo" style="justify-content:space-between;border:1px solid rgba(255,255,255,.14);padding:3mm 4mm">
+        <img src="../../public/assets/logo.svg" alt="" style="height:4mm;filter:invert(1)">
+        <span style="display:flex;gap:3mm;align-items:center"><span class="btn btn-green" style="font-size:8pt">Empieza tu proyecto</span><b style="font-size:8.5pt">Menú ≡</b></span>
+      </div>
+      <p class="mute">Fija en toda la web. El logo y "Menú" cambian a negro sobre secciones claras. El botón verde abre el contacto.</p>
+    </div>
+    <div class="item">
+      <h3>Etiquetas</h3>
+      <div class="demo"><span class="tag">Branding</span><span class="tag">Paid media</span><span class="tag">Contenido</span></div>
+      <p class="label" style="margin-bottom:2mm">Rótulo de sección</p>
+      <p class="mute">Píldoras con borde para servicios de cada proyecto. Rótulos en mayúsculas, gris, 12 px.</p>
+    </div>
+    <div class="item">
+      <h3>Palabras que se encienden</h3>
+      <p class="lit">Paid media<br><span class="off">Diseño web</span></p>
+      <p class="mute" style="margin-top:3mm">Pasan de gris apagado a blanco con el scroll o el cursor. Sin JavaScript se ven encendidas.</p>
+    </div>
+    <div class="item">
+      <h3>Tarjeta de proyecto</h3>
+      <div class="card-demo">
+        <i style="inset:0 30% 0 0;background:#1c1c1c"></i>
+        <i style="width:22%;height:80%;left:4%;top:12%;background:var(--green);transform:rotate(-6deg)"></i>
+        <i style="width:30%;height:55%;left:38%;top:-4%;background:#f6f6f4;transform:rotate(4deg)"></i>
+      </div>
+      <p class="mute">Al pasar el cursor, la portada se achica y se despliegan tres mockups. Cliente, industria, país y servicios debajo.</p>
+    </div>
+    <div class="item">
+      <h3>Luz verde</h3>
+      <div class="card-demo" style="background:#0a0a0a;border:1px solid rgba(255,255,255,.14);overflow:hidden">
+        <i style="width:60mm;height:60mm;left:20%;top:-20%;border-radius:50%;background:radial-gradient(closest-side, rgba(123,255,118,.35), transparent)"></i>
+      </div>
+      <p class="mute">Un resplandor verde que sigue al cursor en el hero. En el teléfono queda fijo arriba a la derecha.</p>
+    </div>
+  </div>
+  <div class="foot"><span class="label">Bluz Creative LLC</span><span class="label">7</span></div>
+</section>
+
+<!-- 8. Movimiento y reglas -->
+<section class="page">
+  <div class="head"><span class="label">06 · Movimiento y reglas</span><span class="label">Sistema visual web</span></div>
+  <div class="cols cols-2" style="gap:14mm">
+    <div>
+      <h2 style="font-size:30pt">Movimiento</h2>
+      <ul class="rules">
+        <li><span class="y">→</span><span><b>Entrada del hero:</b> las líneas suben desde una máscara, una tras otra.</span></li>
+        <li><span class="y">→</span><span><b>Scroll:</b> palabras que se encienden, textos que se escriben, contenido que pasa sobre imágenes fijas.</span></li>
+        <li><span class="y">→</span><span><b>Cursor:</b> luz verde en el hero y tarjetas que se despliegan. Solo en dispositivos con mouse.</span></li>
+        <li><span class="y">→</span><span><b>Curva de animación:</b> salida suave (<code>cubic-bezier(0.16, 1, 0.3, 1)</code>), entre 0,3 y 1,2 s.</span></li>
+        <li><span class="y">→</span><span><b>Movimiento reducido:</b> si la persona lo pide en su sistema, las animaciones se desactivan.</span></li>
+        <li><span class="y">→</span><span><b>Sin JavaScript:</b> todo el contenido queda visible y legible.</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2 style="font-size:30pt">Sí y no</h2>
+      <ul class="rules">
+        <li><span class="y">Sí</span><span>Una acción principal verde por pantalla.</span></li>
+        <li><span class="y">Sí</span><span>Una sola palabra en Fraunces itálica por frase, como mucho.</span></li>
+        <li><span class="y">Sí</span><span>Todo texto visible en español y en inglés.</span></li>
+        <li><span class="n">No</span><span>Secciones enteras pintadas de verde.</span></li>
+        <li><span class="n">No</span><span>Texto verde sobre fondo blanco o papel.</span></li>
+        <li><span class="n">No</span><span>Guion largo (em dash) en ningún texto de la web.</span></li>
+        <li><span class="n">No</span><span>Animaciones que retrasen la lectura del contenido.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span class="label">Bluz Creative LLC</span><span class="label">8</span></div>
+</section>
+
+</body>
+</html>
