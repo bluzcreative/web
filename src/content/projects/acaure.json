@@ -1,0 +1,226 @@
+{
+  "client": "Acaure",
+  "order": 6,
+  "featured": false,
+  "country": {
+    "es": "Venezuela",
+    "en": "Venezuela"
+  },
+  "industry": {
+    "es": "Carnes de libre pastoreo",
+    "en": "Pasture-raised beef"
+  },
+  "services": [
+    "contenido",
+    "diseno",
+    "redes"
+  ],
+  "summary": {
+    "es": "La voz de una marca de carnes que va del llano venezolano a la mesa de las familias.",
+    "en": "The voice of a beef brand that goes from the Venezuelan plains to family tables."
+  },
+  "cover": "../../assets/projects/acaure/portada.jpg",
+  "coverFocus": "50% 55%",
+  "coverAlt": {
+    "es": "Ganado de Acaure pastando en el llano",
+    "en": "Acaure cattle grazing on the plains"
+  },
+  "gallery": [
+    {
+      "src": "../../assets/projects/acaure/post-atajos.jpg",
+      "alt": {
+        "es": "Post En Acaure no hay atajos",
+        "en": "In Acaure there are no shortcuts post"
+      }
+    },
+    {
+      "src": "../../assets/projects/acaure/receta-4-empaque.jpg",
+      "alt": {
+        "es": "Empaque de medallones de lomito Acaure",
+        "en": "Acaure tenderloin medallions pack"
+      }
+    },
+    {
+      "src": "../../assets/projects/acaure/traza-3-corte.jpg",
+      "alt": {
+        "es": "Post del cuidado en el corte",
+        "en": "Post about care at the cut"
+      }
+    }
+  ],
+  "blocks": [
+    {
+      "type": "statement",
+      "title": {
+        "es": "Carnes, llano y familia: una sola historia.",
+        "en": "Beef, plains and family: one single story."
+      },
+      "body": {
+        "es": "Acaure cría su ganado en libertad en el llano portugueseño, con ganadería regenerativa, y lo lleva hasta la puerta de las familias en Caracas sin que pase por otras manos. Controla toda la cadena, de la finca a la mesa, y eso tenía que notarse en cómo habla.",
+        "en": "Acaure raises its cattle free range on the plains of Portuguesa, with regenerative ranching, and takes it to families' doors in Caracas without it changing hands. It controls the whole chain, from farm to table, and that had to show in the way it speaks."
+      }
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "es": "Estrategia de contenido",
+          "en": "Content strategy"
+        },
+        {
+          "es": "Diseño",
+          "en": "Design"
+        },
+        {
+          "es": "Manejo de redes sociales",
+          "en": "Social media management"
+        }
+      ]
+    },
+    {
+      "type": "statement",
+      "title": {
+        "es": "El reto: encontrar su voz después de mucho tiempo.",
+        "en": "The challenge: finding its voice after a long time."
+      },
+      "body": {
+        "es": "Acaure sabía muy bien quién es. El llano, la carne y la familia son un todo que representa a Venezuela y a su gente. Nuestro trabajo fue convertir eso en contenido que se recuerde por sus valores, publicando por calidad y no por cantidad, y mostrar que la carne de calidad es accesible y está a tu alcance. Lejos del fondo negro y el fuego de casi todas las marcas de carne: más cerca de una etiqueta de vino, con una historia detrás.",
+        "en": "Acaure knew exactly who it is. The plains, the beef and the family are one whole that represents Venezuela and its people. Our job was to turn that into content remembered for its values, posting for quality rather than quantity, and to show that quality beef is affordable and within reach. Far from the black backgrounds and flames of almost every meat brand: closer to a wine label, with a story behind it."
+      }
+    },
+    {
+      "type": "feature",
+      "src": "/projects/acaure/llano.mp4",
+      "poster": "/projects/acaure/llano.jpg",
+      "ratio": "4 / 5",
+      "alt": {
+        "es": "Video de marca de Acaure: ganado, carne, llano y familia",
+        "en": "Acaure brand video: cattle, beef, plains and family"
+      },
+      "kicker": {
+        "es": "Video de marca",
+        "en": "Brand video"
+      },
+      "title": {
+        "es": "Acaure. Carne. Llano. Y familia.",
+        "en": "Acaure. Beef. Plains. And family."
+      },
+      "body": {
+        "es": "Cuatro palabras y un solo ritmo: lento, calmado, sin la urgencia típica de las redes de comida.",
+        "en": "Four words and a single rhythm: slow, calm, without the usual urgency of food social media."
+      }
+    },
+    {
+      "type": "carousel",
+      "title": {
+        "es": "De la finca a tu mesa, paso por paso.",
+        "en": "From the farm to your table, step by step."
+      },
+      "body": {
+        "es": "Un carrusel para contar la trazabilidad sin tecnicismos: dónde nace la carne, quién la cuida, cómo viaja hasta Caracas y por qué nunca cambia de manos.",
+        "en": "A carousel that explains traceability without jargon: where the beef comes from, who looks after it, how it travels to Caracas and why it never changes hands."
+      },
+      "slides": [
+        {
+          "video": "/projects/acaure/traza-1.mp4",
+          "poster": "/projects/acaure/traza-1.jpg",
+          "alt": {
+            "es": "De la finca a tu mesa: así es la trazabilidad en Acaure",
+            "en": "From the farm to your table: traceability at Acaure"
+          }
+        },
+        {
+          "src": "../../assets/projects/acaure/traza-2-finca.jpg",
+          "alt": {
+            "es": "En el llano portugueseño está nuestra finca",
+            "en": "Our farm is on the plains of Portuguesa"
+          }
+        },
+        {
+          "src": "../../assets/projects/acaure/traza-3-corte.jpg",
+          "alt": {
+            "es": "El mismo cuidado con que criamos, lo llevamos al corte",
+            "en": "The same care we raise with goes into the cut"
+          }
+        },
+        {
+          "src": "../../assets/projects/acaure/traza-4-ruta.jpg",
+          "alt": {
+            "es": "De la finca al almacén en Acarigua y de ahí a Caracas",
+            "en": "From the farm to the Acarigua warehouse and on to Caracas"
+          }
+        },
+        {
+          "src": "../../assets/projects/acaure/traza-5-cadena.jpg",
+          "alt": {
+            "es": "En ningún punto de esta cadena tu carne pasa por otras manos",
+            "en": "At no point in this chain does your beef change hands"
+          }
+        }
+      ]
+    },
+    {
+      "type": "mosaic",
+      "images": [
+        {
+          "src": "../../assets/projects/acaure/post-atajos.jpg",
+          "alt": {
+            "es": "En Acaure no hay atajos",
+            "en": "In Acaure there are no shortcuts"
+          }
+        },
+        {
+          "src": "../../assets/projects/acaure/post-llano.jpg",
+          "alt": {
+            "es": "Desde el llano venezolano hasta tu mesa",
+            "en": "From the Venezuelan plains to your table"
+          }
+        }
+      ]
+    },
+    {
+      "type": "carousel",
+      "reverse": true,
+      "title": {
+        "es": "Una buena carne no necesita mucho.",
+        "en": "Good beef doesn't need much."
+      },
+      "body": {
+        "es": "Recetas simples que ponen al producto en el centro, enseñan a cocinar cada corte y terminan donde tienen que terminar: en un pedido.",
+        "en": "Simple recipes that put the product at the center, teach how to cook each cut and end where they should: with an order."
+      },
+      "slides": [
+        {
+          "src": "../../assets/projects/acaure/receta-1-portada.jpg",
+          "alt": {
+            "es": "Receta: medallones de lomito",
+            "en": "Recipe: tenderloin medallions"
+          }
+        },
+        {
+          "src": "../../assets/projects/acaure/receta-2-ingredientes.jpg",
+          "alt": {
+            "es": "Ingredientes de la receta",
+            "en": "Recipe ingredients"
+          }
+        },
+        {
+          "src": "../../assets/projects/acaure/receta-3-preparacion.jpg",
+          "alt": {
+            "es": "Preparación paso a paso",
+            "en": "Step by step preparation"
+          }
+        },
+        {
+          "src": "../../assets/projects/acaure/receta-4-empaque.jpg",
+          "alt": {
+            "es": "Empaque Acaure: buena carne, pocos ingredientes, buena compañía",
+            "en": "Acaure pack: good beef, few ingredients, good company"
+          }
+        }
+      ]
+    }
+  ],
+  "results": [],
+  "accent": "#e8602c"
+}

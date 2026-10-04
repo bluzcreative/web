@@ -160,6 +160,31 @@ const copy = {
           ))}
         </section>
       );
+      if (b.type === "carousel") return (
+        <section class:list={["b-carousel tone-dark edge", { "is-reverse": b.reverse }]} data-carousel>
+          <div class="car-text">
+            <p class="p-lead">{b.title[lang]}</p>
+            {b.body && <p class="t-lead t-mute">{b.body[lang]}</p>}
+            <div class="car-nav">
+              <button type="button" class="car-btn" data-car-prev aria-label={lang === "es" ? "Anterior" : "Previous"}>←</button>
+              <span class="car-count" aria-live="polite"><span data-car-now>1</span> / {b.slides.length}</span>
+              <button type="button" class="car-btn" data-car-next aria-label={lang === "es" ? "Siguiente" : "Next"}>→</button>
+            </div>
+          </div>
+          <div class="car-frame">
+            <div class="car-track" data-car-track tabindex="0" aria-label={b.title[lang]}>
+              {b.slides.map((sl) => (
+                <div class="car-slide">
+                  {sl.video
+                    ? <video src={sl.video} poster={sl.poster} muted loop playsinline preload="metadata" aria-label={sl.alt[lang]} data-autoplay></video>
+                    : sl.src && <Image src={sl.src} alt={sl.alt[lang]} widths={[500, 800, 1200]} sizes="(min-width: 900px) 40vw, 90vw" />}
+                </div>
+              ))}
+            </div>
+            <div class="car-dots" aria-hidden="true">{b.slides.map((_, i) => <span class:list={{ "is-on": i === 0 }}></span>)}</div>
+          </div>
+        </section>
+      );
       if (b.type === "flow") return (
         <section class="b-flow tone-dark edge" data-flow>
           <div class="flow-head">
@@ -195,7 +220,7 @@ const copy = {
       );
       if (b.type === "feature") return (
         <section class:list={["b-feature tone-dark edge", { "is-reverse": b.reverse }]}>
-          <video src={b.src} poster={b.poster} muted loop playsinline preload="metadata" aria-label={b.alt[lang]} data-autoplay></video>
+          <video src={b.src} poster={b.poster} muted loop playsinline preload="metadata" aria-label={b.alt[lang]} data-autoplay style={b.ratio ? `aspect-ratio: ${b.ratio}` : undefined}></video>
           <div class="b-feature-text">
             {b.kicker && <p class="t-mute">{b.kicker[lang]}</p>}
             <h2 class="t-h1">{b.title[lang]}</h2>
@@ -353,6 +378,29 @@ const copy = {
   .type-credit { font-size: .875rem; opacity: .7; }
   .type-img { width: 100%; height: auto; max-width: 620px; align-self: center; }
 
+  /* Carruseles: diapositivas 4:5 que se deslizan */
+  .b-carousel { display: grid; gap: clamp(32px, 5vw, 96px); align-items: center; padding-block: var(--section); }
+  .car-text { display: grid; gap: 1.5rem; align-content: center; }
+  .car-text .t-lead { max-width: 44ch; }
+  .car-nav { display: flex; align-items: center; gap: 1rem; margin-top: .5rem; }
+  .car-btn { width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid var(--line); color: inherit; background: none; font-size: 1.1rem; cursor: pointer;
+    transition: background .3s var(--ease-out), color .3s var(--ease-out), border-color .3s var(--ease-out); }
+  .car-btn:hover { background: var(--green); color: var(--black); border-color: var(--green); }
+  .car-count { font-size: .875rem; opacity: .7; min-width: 3.5em; text-align: center; }
+  .car-frame { display: grid; gap: 1rem; width: 100%; max-width: 560px; justify-self: center; }
+  .car-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; aspect-ratio: 4 / 5; background: #111; outline-offset: 4px; }
+  .car-track::-webkit-scrollbar { display: none; }
+  .car-slide { flex: 0 0 100%; scroll-snap-align: start; }
+  .car-slide img, .car-slide video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .car-dots { display: flex; justify-content: center; gap: .45rem; }
+  .car-dots span { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .3; transition: opacity .3s, transform .3s; }
+  .car-dots span.is-on { opacity: 1; transform: scale(1.3); }
+  @media (min-width: 900px) {
+    .b-carousel { grid-template-columns: 5fr 6fr; }
+    .b-carousel.is-reverse { grid-template-columns: 6fr 5fr; }
+    .b-carousel.is-reverse .car-text { order: 2; }
+  }
+
   /* Flujo de automatización */
   .b-flow { display: grid; gap: clamp(40px, 6vw, 96px); padding-block: var(--section); }
   .flow-head { display: grid; gap: 1.25rem; max-width: 40rem; }
@@ -495,6 +543,32 @@ const copy = {
         steps.forEach((s, i) => s.classList.toggle("is-on", progress >= i / Math.max(1, steps.length - 1) - 0.001));
       },
     });
+  });
+
+  // Carruseles: avanzan solos mientras se ven; se pausan cuando la persona los toca
+  document.querySelectorAll<HTMLElement>("[data-carousel]").forEach((car) => {
+    const track = car.querySelector<HTMLElement>("[data-car-track]")!;
+    const slides = Array.from(track.children) as HTMLElement[];
+    const now = car.querySelector<HTMLElement>("[data-car-now]");
+    const dots = Array.from(car.querySelectorAll<HTMLElement>(".car-dots span"));
+    const index = () => Math.round(track.scrollLeft / track.clientWidth);
+    const go = (i: number) => track.scrollTo({ left: ((i + slides.length) % slides.length) * track.clientWidth, behavior: "smooth" });
+    let paused = false, visible = false;
+    track.addEventListener("scroll", () => {
+      const i = index();
+      if (now) now.textContent = String(i + 1);
+      dots.forEach((d, k) => d.classList.toggle("is-on", k === i));
+    }, { passive: true });
+    const stop = () => { paused = true; };
+    car.querySelector("[data-car-prev]")?.addEventListener("click", () => { stop(); go(index() - 1); });
+    car.querySelector("[data-car-next]")?.addEventListener("click", () => { stop(); go(index() + 1); });
+    track.addEventListener("pointerdown", stop);
+    track.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") { stop(); go(index() + 1); }
+      if (e.key === "ArrowLeft") { stop(); go(index() - 1); }
+    });
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { threshold: 0.4 }).observe(track);
+    if (!reduced) setInterval(() => { if (visible && !paused && !document.hidden) go(index() + 1); }, 3800);
   });
 
   // Brochures: las páginas se turnan, cada brochure con un pequeño desfase

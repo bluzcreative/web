@@ -65,7 +65,10 @@ const projects = defineCollection({
           items: z.array(z.object({ src: image(), alt: t, title: t, body: t })) }),
         // Video destacado: un video vertical grande junto a su historia (reverse: video a la derecha)
         z.object({ type: z.literal("feature"), src: z.string(), poster: z.string().optional(), alt: t,
-          kicker: t.optional(), title: t, body: t, reverse: z.boolean().default(false) }),
+          kicker: t.optional(), title: t, body: t, reverse: z.boolean().default(false), ratio: z.string().optional() }),
+        // Carrusel: diapositivas de un post que se deslizan solas, con flechas y gesto de deslizar
+        z.object({ type: z.literal("carousel"), title: t, body: t.optional(), reverse: z.boolean().default(false),
+          slides: z.array(z.object({ src: image().optional(), video: z.string().optional(), poster: z.string().optional(), alt: t })) }),
         // Reels: varios videos verticales propios en fila, sin audio
         z.object({ type: z.literal("reels"), videos: z.array(z.object({ src: z.string(), poster: z.string().optional(), alt: t })) }),
         // Brochures: vista previa breve de algunas páginas, sin descarga
