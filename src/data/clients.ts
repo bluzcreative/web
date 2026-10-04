@@ -25,4 +25,5 @@ export const moreWork: Work[] = [
   { client: "Worldwide Solutions", what: rrss },
   { client: "Decolux", what: rrss },
   { client: "Teraled", what: rrss },
+  { client: "ProPhone", what: { es: "Redes sociales y paid media", en: "Social media and paid media" } },
 ];
