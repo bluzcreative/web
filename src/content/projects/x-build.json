@@ -28,24 +28,24 @@
   },
   "gallery": [
     {
-      "src": "../../assets/projects/x-build/render-sillas.webp",
+      "src": "../../assets/projects/x-build/obra-muro.jpg",
       "alt": {
-        "es": "Render de sillas impresas en concreto",
-        "en": "Render of concrete printed chairs"
-      }
-    },
-    {
-      "src": "../../assets/projects/x-build/pendon.jpg",
-      "alt": {
-        "es": "Pendón de X-Build en Startup Alley",
-        "en": "X-Build roll-up banner at Startup Alley"
+        "es": "Brazo robótico imprimiendo un muro curvo",
+        "en": "Robotic arm printing a curved wall"
       }
     },
     {
       "src": "../../assets/projects/x-build/render-materas.webp",
       "alt": {
-        "es": "Render de la serie de materas de concreto",
-        "en": "Render of the concrete planter series"
+        "es": "Diseño de la serie de materas de concreto",
+        "en": "Concrete planter series design"
+      }
+    },
+    {
+      "src": "../../assets/projects/x-build/render-sillas.webp",
+      "alt": {
+        "es": "Render de sillas impresas en concreto",
+        "en": "Render of concrete printed chairs"
       }
     }
   ],
@@ -95,6 +95,33 @@
       ]
     },
     {
+      "type": "mosaic",
+      "images": [
+        {
+          "src": "../../assets/projects/x-build/obra-robots.jpg",
+          "alt": {
+            "es": "Dos impresoras de X-Build frente a su galpón",
+            "en": "Two X-Build printers outside their warehouse"
+          },
+          "wide": true
+        },
+        {
+          "src": "../../assets/projects/x-build/obra-muro.jpg",
+          "alt": {
+            "es": "Brazo robótico imprimiendo un muro curvo en obra",
+            "en": "Robotic arm printing a curved wall on site"
+          }
+        },
+        {
+          "src": "../../assets/projects/x-build/obra-capas.jpg",
+          "alt": {
+            "es": "Detalle de las capas de concreto impreso",
+            "en": "Close-up of the printed concrete layers"
+          }
+        }
+      ]
+    },
+    {
       "type": "video",
       "src": "/projects/x-build/impresora.mp4",
       "poster": "/projects/x-build/impresora-poster.jpg",
@@ -102,6 +129,33 @@
         "es": "Video de la impresora de X-Build trabajando",
         "en": "Video of the X-Build printer at work"
       }
+    },
+    {
+      "type": "mosaic",
+      "images": [
+        {
+          "src": "../../assets/projects/x-build/obra-aerea.jpg",
+          "alt": {
+            "es": "Vista aérea de la impresora trabajando en una obra",
+            "en": "Aerial view of the printer working on a site"
+          }
+        },
+        {
+          "src": "../../assets/projects/x-build/obra-brazo.jpg",
+          "alt": {
+            "es": "Operario configurando la impresora en obra",
+            "en": "Operator setting up the printer on site"
+          }
+        },
+        {
+          "src": "../../assets/projects/x-build/obra-operario.jpg",
+          "wide": true,
+          "alt": {
+            "es": "Operario junto a la impresora de X-Build",
+            "en": "Operator next to the X-Build printer"
+          }
+        }
+      ]
     },
     {
       "type": "social",
@@ -128,7 +182,7 @@
     },
     {
       "type": "site",
-      "url": "https://xbuild.com.au/",
+      "url": "https://x-build.com.au/",
       "shots": [
         {
           "src": "../../assets/projects/x-build/web-inicio.webp",
@@ -200,13 +254,6 @@
           }
         },
         {
-          "src": "../../assets/projects/x-build/render-materas.webp",
-          "alt": {
-            "es": "Serie de materas de concreto",
-            "en": "Concrete planter series"
-          }
-        },
-        {
           "src": "../../assets/projects/x-build/render-sillas.webp",
           "alt": {
             "es": "Sillas y mesa impresas en una terraza",
@@ -216,21 +263,73 @@
       ]
     },
     {
-      "type": "mosaic",
-      "images": [
+      "type": "statement",
+      "title": {
+        "es": "Piezas para cada mercado y cada feria: municipios, vivienda regional, mobiliario y la propia tecnología.",
+        "en": "Pieces for every market and every trade show: councils, regional housing, furniture and the technology itself."
+      }
+    },
+    {
+      "type": "brochures",
+      "items": [
         {
-          "src": "../../assets/projects/x-build/pendon.jpg",
-          "alt": {
-            "es": "Pendón de X-Build en el stand de Startup Alley",
-            "en": "X-Build roll-up banner at the Startup Alley booth"
-          }
+          "title": {
+            "es": "Impresión 3D en concreto",
+            "en": "3D concrete printing"
+          },
+          "pages": [
+            "../../assets/projects/x-build/brochures/avenco-01.jpg",
+            "../../assets/projects/x-build/brochures/avenco-03.jpg",
+            "../../assets/projects/x-build/brochures/avenco-05.jpg",
+            "../../assets/projects/x-build/brochures/avenco-08.jpg",
+            "../../assets/projects/x-build/brochures/avenco-10.jpg"
+          ]
         },
         {
-          "src": "../../assets/projects/x-build/brochure.png",
-          "alt": {
-            "es": "Brochure de X-Build",
-            "en": "X-Build brochure"
-          }
+          "title": {
+            "es": "Municipios",
+            "en": "Councils"
+          },
+          "pages": [
+            "../../assets/projects/x-build/brochures/councils-01.jpg",
+            "../../assets/projects/x-build/brochures/councils-03.jpg",
+            "../../assets/projects/x-build/brochures/councils-04.jpg",
+            "../../assets/projects/x-build/brochures/councils-05.jpg"
+          ]
+        },
+        {
+          "title": {
+            "es": "Mobiliario exterior",
+            "en": "Outdoor furniture"
+          },
+          "pages": [
+            "../../assets/projects/x-build/brochures/furniture-01.jpg",
+            "../../assets/projects/x-build/brochures/furniture-03.jpg",
+            "../../assets/projects/x-build/brochures/furniture-07.jpg",
+            "../../assets/projects/x-build/brochures/furniture-10.jpg",
+            "../../assets/projects/x-build/brochures/furniture-14.jpg"
+          ]
+        },
+        {
+          "title": {
+            "es": "Vivienda regional",
+            "en": "Regional housing"
+          },
+          "pages": [
+            "../../assets/projects/x-build/brochures/regional-01.jpg",
+            "../../assets/projects/x-build/brochures/regional-02.jpg",
+            "../../assets/projects/x-build/brochures/regional-07.jpg",
+            "../../assets/projects/x-build/brochures/regional-10.jpg"
+          ]
+        },
+        {
+          "title": {
+            "es": "Pendón para ferias",
+            "en": "Trade show banner"
+          },
+          "pages": [
+            "../../assets/projects/x-build/pendon.jpg"
+          ]
         }
       ]
     }

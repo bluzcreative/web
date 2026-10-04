@@ -42,6 +42,8 @@ const projects = defineCollection({
         z.object({ type: z.literal("mosaic"), images: z.array(z.object({ src: image(), alt: t, wide: z.boolean().default(false) })) }),
         // Sitio web: capturas de escritorio en una ventana de navegador que enlaza al sitio
         z.object({ type: z.literal("site"), url: z.string().url(), shots: z.array(z.object({ src: image(), alt: t })) }),
+        // Brochures: vista previa breve de algunas páginas, sin descarga
+        z.object({ type: z.literal("brochures"), items: z.array(z.object({ title: t, pages: z.array(image()) })) }),
         // Redes: texto, enlaces y un video opcional
         z.object({ type: z.literal("social"), text: t, links: z.array(z.object({ label: z.string(), url: z.string().url() })),
           video: z.string().optional(), poster: z.string().optional(), videoAlt: t.optional() }),
