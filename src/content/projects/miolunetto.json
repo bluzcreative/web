@@ -92,7 +92,8 @@
     },
     {
       "type": "video",
-      "youtube": "PH9286ob_F4",
+      "src": "/projects/miolunetto/cocina.mp4",
+      "poster": "/projects/miolunetto/cocina-poster.jpg",
       "alt": {
         "es": "Video de la cocina de Lunetto preparando medialunas",
         "en": "Video of the Lunetto kitchen making medialunas"
