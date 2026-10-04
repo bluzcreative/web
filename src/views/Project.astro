@@ -22,6 +22,11 @@ const allBlocks: Block[] = p.blocks.length > 0 ? p.blocks : [
 const intro = allBlocks[0]?.type === "statement" ? allBlocks[0] : undefined;
 const blocks = intro ? allBlocks.slice(1) : allBlocks;
 
+const isLightHex = (hex: string) => {
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b > 150;
+};
+
 const copy = {
   es: { client: "Cliente", industry: "Industria", country: "País", services: "Servicios", year: "Año",
     visit: "Ver el sitio", next: "Siguiente", closeTitle: "¿Hablamos de tu marca?", closeCta: "Empieza tu proyecto" },
@@ -100,6 +105,53 @@ const copy = {
               ))}
             </span>
           </a>
+        </section>
+      );
+      if (b.type === "tiles") return (
+        <section class="b-tiles" style={`--cols: ${b.columns}; ${b.background ? `background: ${b.background}` : ""}`}>
+          {b.images.map((im) => (
+            <Image src={im.src} alt={im.alt[lang]} widths={[400, 700, 1000]} sizes={`(min-width: 900px) ${Math.round(100 / b.columns)}vw, 50vw`} />
+          ))}
+        </section>
+      );
+      if (b.type === "palette") return (
+        <section class="b-palette" data-palette>
+          <div class="palette-track" data-palette-track>
+            {b.intro && <div class="palette-intro tone-dark"><p class="p-lead">{b.intro[lang]}</p></div>}
+            {b.colors.map((c) => {
+              const [r, g, bl] = [1, 3, 5].map((i) => parseInt(c.hex.slice(i, i + 2), 16));
+              const light = 0.2126 * r + 0.7152 * g + 0.0722 * bl > 150;
+              return (
+                <div class:list={["swatch", { "is-main": c.main }]} data-tone={light ? "light" : "dark"} style={`background: ${c.hex}; color: ${light ? "#0a0a0a" : "#ffffff"}`}>
+                  {c.name && <p class="swatch-name">{c.name[lang]}</p>}
+                  <dl>
+                    <div><dt>HEX</dt><dd>{c.hex.toUpperCase()}</dd></div>
+                    {c.rgb && <div><dt>RGB</dt><dd>{c.rgb}</dd></div>}
+                    {c.cmyk && <div><dt>CMYK</dt><dd>{c.cmyk}</dd></div>}
+                  </dl>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      );
+      if (b.type === "typography") return (
+        <section class="b-type">
+          {b.fonts.map((f) => (
+            <div class="type-panel" data-tone={isLightHex(f.background) ? "light" : "dark"} style={`background: ${f.background}; color: ${f.color}`}>
+              <p class="type-role">{f.role[lang]}</p>
+              {f.image
+                ? <Image class="type-img" src={f.image} alt={`${f.name}: Aa, abecedario y números`} widths={[600, 944]} sizes="(min-width: 900px) 40vw, 80vw" />
+                : (
+                  <div class="type-live" style={`font-family: '${f.family}', sans-serif`}>
+                    <style set:html={`@font-face { font-family: '${f.family}'; src: url('${f.file}'); font-display: swap; }`}></style>
+                    <p class="type-name">{f.name}</p>
+                    <p class="type-aa" aria-hidden="true">Aa</p>
+                    <p class="type-chars">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ<br />abcdefghijklmnñopqrstuvwxyz<br />0123456789 ¿?¡! @ # % &amp;</p>
+                  </div>
+                )}
+            </div>
+          ))}
         </section>
       );
       if (b.type === "feature") return (
@@ -233,6 +285,35 @@ const copy = {
   .b-mosaic.is-small { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gutter); padding-block: clamp(32px, 5vw, 72px); }
   @media (min-width: 900px) { .b-mosaic.is-small { grid-template-columns: repeat(3, minmax(0, 1fr)); padding-inline: calc(var(--edge) + 8.333%); } }
 
+  /* Piezas cuadradas (logos, íconos) */
+  .b-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding-bottom: 6px; }
+  @media (min-width: 900px) { .b-tiles { grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); } }
+  .b-tiles img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; display: block; }
+
+  /* Paleta: paneles de color que se deslizan en horizontal (sin JavaScript, se desplaza con el dedo o el trackpad) */
+  .b-palette { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; padding-bottom: 6px; }
+  .b-palette::-webkit-scrollbar { display: none; }
+  .b-palette.is-pinned { overflow: hidden; }
+  .palette-track { display: flex; gap: 6px; width: max-content; height: min(100svh, 900px); }
+  .palette-intro { width: min(80vw, 640px); display: flex; align-items: flex-end; padding: var(--edge); }
+  .swatch { width: clamp(180px, 22vw, 360px); display: flex; flex-direction: column; justify-content: space-between; padding: clamp(20px, 2.5vw, 40px); }
+  .swatch.is-main { width: clamp(280px, 46vw, 760px); }
+  .swatch-name { font-family: var(--display); font-weight: 500; font-size: clamp(1.6rem, 3.4vw, 3.6rem); line-height: 1; letter-spacing: -.03em; }
+  .swatch dl { display: grid; gap: .6rem; font-size: .875rem; }
+  .swatch dl div { display: grid; grid-template-columns: 4.5em 1fr; gap: .5rem; }
+  .swatch dt { opacity: .7; }
+
+  /* Tipografías */
+  .b-type { display: grid; gap: 6px; padding-bottom: 6px; }
+  @media (min-width: 900px) { .b-type { grid-template-columns: 1fr 1fr; } }
+  .type-panel { display: grid; gap: 2rem; align-content: space-between; padding: clamp(24px, 4vw, 64px); }
+  @media (min-width: 900px) { .type-panel { min-height: min(100svh, 860px); } }
+  .type-role { font-size: .9375rem; opacity: .75; }
+  .type-name { font-size: clamp(1.5rem, 2.4vw, 2.4rem); }
+  .type-aa { font-size: clamp(8rem, 20vw, 20rem); line-height: .9; }
+  .type-chars { font-size: clamp(1rem, 1.6vw, 1.6rem); line-height: 1.5; overflow-wrap: anywhere; }
+  .type-img { width: 100%; height: auto; max-width: 640px; }
+
   /* Video destacado: vertical, grande, junto a su historia */
   .b-feature { display: grid; gap: clamp(32px, 5vw, 96px); align-items: center; padding-block: var(--section); }
   .b-feature video { width: 100%; max-width: 520px; max-height: 88svh; aspect-ratio: 9 / 16; object-fit: cover; background: #111; justify-self: center; }
@@ -300,6 +381,9 @@ const copy = {
 </style>
 
 <script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // Videos propios: sin audio, en bucle, solo mientras se ven. Con movimiento reducido, con controles.
@@ -310,6 +394,18 @@ const copy = {
       else v.pause();
     }, { threshold: 0.25 });
     io.observe(v);
+  });
+
+  // Paleta: en escritorio, la sección queda fija y los colores se deslizan en horizontal con el scroll
+  document.querySelectorAll<HTMLElement>("[data-palette]").forEach((section) => {
+    const track = section.querySelector<HTMLElement>("[data-palette-track]");
+    if (!track || reduced || !matchMedia("(min-width: 900px)").matches) return;
+    section.classList.add("is-pinned");
+    const distance = () => Math.max(0, track.scrollWidth - innerWidth);
+    gsap.to(track, {
+      x: () => -distance(), ease: "none",
+      scrollTrigger: { trigger: section, start: "top top", end: () => `+=${distance()}`, pin: true, scrub: 0.6, invalidateOnRefresh: true },
+    });
   });
 
   // Brochures: las páginas se turnan, cada brochure con un pequeño desfase

@@ -1,0 +1,390 @@
+{
+  "client": "Volumi",
+  "order": 4,
+  "featured": true,
+  "country": {
+    "es": "Venezuela",
+    "en": "Venezuela"
+  },
+  "industry": {
+    "es": "Logística y almacenamiento",
+    "en": "Logistics and storage"
+  },
+  "services": [
+    "branding",
+    "diseno"
+  ],
+  "summary": {
+    "es": "Una identidad para que la logística profesional se sienta simple, cercana y confiable.",
+    "en": "An identity that makes professional logistics feel simple, approachable and reliable."
+  },
+  "cover": "../../assets/projects/volumi/m1-01.jpg",
+  "coverAlt": {
+    "es": "Logo de Volumi en naranja sobre fondo azul",
+    "en": "Volumi logo in orange on a blue background"
+  },
+  "gallery": [
+    {
+      "src": "../../assets/projects/volumi/m14-14.jpg",
+      "alt": {
+        "es": "Furgoneta de Volumi",
+        "en": "Volumi van"
+      }
+    },
+    {
+      "src": "../../assets/projects/volumi/m11-11.jpg",
+      "alt": {
+        "es": "Casco de seguridad con el logo de Volumi",
+        "en": "Hard hat with the Volumi logo"
+      }
+    },
+    {
+      "src": "../../assets/projects/volumi/m16-16.jpg",
+      "alt": {
+        "es": "Cajas con la marca Volumi",
+        "en": "Volumi branded boxes"
+      }
+    }
+  ],
+  "blocks": [
+    {
+      "type": "statement",
+      "title": {
+        "es": "Logística profesional para pymes y e-commerce, con una marca tan simple como el servicio.",
+        "en": "Professional logistics for small businesses and e-commerce, with a brand as simple as the service."
+      },
+      "body": {
+        "es": "Volumi alquila almacenamiento modular desde 1 m², controla el inventario en tiempo real desde el teléfono, prepara los pedidos y los envía el mismo día. Diseñamos una identidad que transmite confianza, orden y eficiencia, sin la frialdad de un depósito: formas redondeadas que se sienten cercanas y fluidas, y una paleta de azul, naranja y blanco grisáceo que habla de agilidad e innovación.",
+        "en": "Volumi rents modular storage from 1 m², tracks inventory in real time from your phone, prepares orders and ships them the same day. We designed an identity that conveys trust, order and efficiency without the coldness of a warehouse: rounded shapes that feel close and fluid, and a palette of blue, orange and warm white that speaks of agility and innovation."
+      }
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "es": "Identidad visual",
+          "en": "Visual identity"
+        },
+        {
+          "es": "Manual de marca",
+          "en": "Brand guidelines"
+        },
+        {
+          "es": "Sistema de íconos",
+          "en": "Icon system"
+        },
+        {
+          "es": "Aplicaciones de marca",
+          "en": "Brand applications"
+        }
+      ]
+    },
+    {
+      "type": "tiles",
+      "columns": 3,
+      "images": [
+        {
+          "src": "../../assets/projects/volumi/logo-azul-naranja.jpg",
+          "alt": {
+            "es": "Logo naranja sobre azul",
+            "en": "Orange logo on blue"
+          }
+        },
+        {
+          "src": "../../assets/projects/volumi/logo-crema.jpg",
+          "alt": {
+            "es": "Logo azul sobre crema",
+            "en": "Blue logo on cream"
+          }
+        },
+        {
+          "src": "../../assets/projects/volumi/logo-naranja.jpg",
+          "alt": {
+            "es": "Logo azul sobre naranja",
+            "en": "Blue logo on orange"
+          }
+        },
+        {
+          "src": "../../assets/projects/volumi/logo-azul.jpg",
+          "alt": {
+            "es": "Logo blanco sobre azul",
+            "en": "White logo on blue"
+          }
+        },
+        {
+          "src": "../../assets/projects/volumi/logo-negro.jpg",
+          "alt": {
+            "es": "Logo crema sobre negro",
+            "en": "Cream logo on black"
+          }
+        },
+        {
+          "src": "../../assets/projects/volumi/m1-01.jpg",
+          "alt": {
+            "es": "Portada del manual de Volumi",
+            "en": "Volumi brand guidelines cover"
+          }
+        }
+      ]
+    },
+    {
+      "type": "mosaic",
+      "images": [
+        {
+          "src": "../../assets/projects/volumi/m3-03.jpg",
+          "alt": {
+            "es": "Construcción del logo de Volumi",
+            "en": "Volumi logo construction"
+          },
+          "wide": true
+        }
+      ]
+    },
+    {
+      "type": "palette",
+      "intro": {
+        "es": "Azul para la confianza, naranja para la agilidad y un blanco grisáceo que ordena todo.",
+        "en": "Blue for trust, orange for agility and a warm white that keeps everything in order."
+      },
+      "colors": [
+        {
+          "hex": "#ed531d",
+          "rgb": "237 83 29",
+          "cmyk": "0 80 100 0",
+          "main": true,
+          "name": {
+            "es": "Naranja Volumi",
+            "en": "Volumi orange"
+          }
+        },
+        {
+          "hex": "#d33d0d",
+          "rgb": "211 61 13",
+          "cmyk": "0 76 95 45",
+          "main": false
+        },
+        {
+          "hex": "#b6300a",
+          "rgb": "182 48 10",
+          "cmyk": "0 74 95 29",
+          "main": false
+        },
+        {
+          "hex": "#8b2107",
+          "rgb": "139 33 7",
+          "cmyk": "0 76 95 45",
+          "main": false
+        },
+        {
+          "hex": "#0f4aaa",
+          "rgb": "15 74 170",
+          "cmyk": "96 80 0 0",
+          "main": true,
+          "name": {
+            "es": "Azul Volumi",
+            "en": "Volumi blue"
+          }
+        },
+        {
+          "hex": "#07398c",
+          "rgb": "7 57 140",
+          "cmyk": "95 59 0 45",
+          "main": false
+        },
+        {
+          "hex": "#072766",
+          "rgb": "7 39 102",
+          "cmyk": "93 62 0 60",
+          "main": false
+        },
+        {
+          "hex": "#05183e",
+          "rgb": "5 24 62",
+          "cmyk": "92 61 0 76",
+          "main": false
+        },
+        {
+          "hex": "#f2eee6",
+          "rgb": "242 238 230",
+          "cmyk": "4 4 8 0",
+          "main": true,
+          "name": {
+            "es": "Crema Volumi",
+            "en": "Volumi cream"
+          }
+        },
+        {
+          "hex": "#e4e1db",
+          "rgb": "228 225 219",
+          "cmyk": "0 1 4 11",
+          "main": false
+        },
+        {
+          "hex": "#d3cec6",
+          "rgb": "211 206 198",
+          "cmyk": "0 2 6 17",
+          "main": false
+        },
+        {
+          "hex": "#bdbab3",
+          "rgb": "189 186 179",
+          "cmyk": "0 2 5 26",
+          "main": false
+        }
+      ]
+    },
+    {
+      "type": "typography",
+      "fonts": [
+        {
+          "name": "Varela Round",
+          "role": {
+            "es": "Títulos",
+            "en": "Headlines"
+          },
+          "background": "#f2eee6",
+          "color": "#ed531d",
+          "family": "Varela Round Volumi",
+          "file": "/projects/volumi/fonts/VarelaRound-Regular.ttf"
+        },
+        {
+          "name": "Canva Sans",
+          "role": {
+            "es": "Textos",
+            "en": "Body text"
+          },
+          "background": "#0f4aaa",
+          "color": "#f2eee6",
+          "image": "../../assets/projects/volumi/tipo-canva-sans.png"
+        }
+      ]
+    },
+    {
+      "type": "statement",
+      "title": {
+        "es": "Reglas claras para que la marca se vea igual en cualquier lugar.",
+        "en": "Clear rules so the brand looks the same everywhere."
+      }
+    },
+    {
+      "type": "mosaic",
+      "images": [
+        {
+          "src": "../../assets/projects/volumi/m6-06.jpg",
+          "alt": {
+            "es": "Usos correctos del logo",
+            "en": "Correct logo uses"
+          },
+          "wide": true
+        },
+        {
+          "src": "../../assets/projects/volumi/m7-07.jpg",
+          "alt": {
+            "es": "Usos incorrectos del logo",
+            "en": "Incorrect logo uses"
+          },
+          "wide": true
+        },
+        {
+          "src": "../../assets/projects/volumi/m8-08.jpg",
+          "alt": {
+            "es": "Área de seguridad del logo",
+            "en": "Logo clear space"
+          },
+          "wide": true
+        }
+      ]
+    },
+    {
+      "type": "tiles",
+      "columns": 2,
+      "background": "#ffffff",
+      "images": [
+        {
+          "src": "../../assets/projects/volumi/icono-estanteria.jpg",
+          "alt": {
+            "es": "Ícono de estantería con cajas",
+            "en": "Shelving with boxes icon"
+          }
+        },
+        {
+          "src": "../../assets/projects/volumi/icono-almacen.jpg",
+          "alt": {
+            "es": "Ícono de almacén",
+            "en": "Warehouse icon"
+          }
+        }
+      ]
+    },
+    {
+      "type": "statement",
+      "title": {
+        "es": "Del manual a la calle.",
+        "en": "From the guidelines to the street."
+      }
+    },
+    {
+      "type": "mosaic",
+      "images": [
+        {
+          "src": "../../assets/projects/volumi/m14-14.jpg",
+          "alt": {
+            "es": "Furgoneta de Volumi",
+            "en": "Volumi van"
+          },
+          "wide": true
+        },
+        {
+          "src": "../../assets/projects/volumi/m10-10.jpg",
+          "alt": {
+            "es": "Perfil de Instagram y valla de Volumi",
+            "en": "Volumi Instagram profile and billboard"
+          },
+          "wide": true
+        },
+        {
+          "src": "../../assets/projects/volumi/m11-11.jpg",
+          "alt": {
+            "es": "Casco de seguridad e ícono de app de Volumi",
+            "en": "Volumi hard hat and app icon"
+          },
+          "wide": true
+        },
+        {
+          "src": "../../assets/projects/volumi/m12-12.jpg",
+          "alt": {
+            "es": "Piezas impresas de Volumi",
+            "en": "Volumi printed pieces"
+          },
+          "wide": true
+        },
+        {
+          "src": "../../assets/projects/volumi/m13-13.jpg",
+          "alt": {
+            "es": "Contenedor con la marca Volumi",
+            "en": "Volumi branded container"
+          },
+          "wide": true
+        },
+        {
+          "src": "../../assets/projects/volumi/m15-15.jpg",
+          "alt": {
+            "es": "Fachada del almacén de Volumi",
+            "en": "Volumi warehouse facade"
+          },
+          "wide": true
+        },
+        {
+          "src": "../../assets/projects/volumi/m16-16.jpg",
+          "alt": {
+            "es": "Cajas con la marca Volumi",
+            "en": "Volumi branded boxes"
+          },
+          "wide": true
+        }
+      ]
+    }
+  ],
+  "results": [],
+  "accent": "#0f4aaa"
+}

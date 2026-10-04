@@ -166,13 +166,14 @@ function initForms() {
 function initTopbar() {
   const bar = document.querySelector<HTMLElement>("[data-topbar]");
   if (!bar) return;
-  const zones = Array.from(document.querySelectorAll<HTMLElement>("main > section, main > article, footer"));
+  const zones = Array.from(document.querySelectorAll<HTMLElement>("main > section, main > article, footer, [data-tone]"));
   const isLight = (el: HTMLElement) =>
-    el.classList.contains("tone-light") || el.classList.contains("tone-paper") ||
+    el.dataset.tone === "light" || el.classList.contains("tone-light") || el.classList.contains("tone-paper") ||
     (el.classList.contains("tone-base") && root.dataset.base === "light");
   const update = () => {
     const y = bar.offsetHeight / 2;
-    const under = zones.find((z) => { const r = z.getBoundingClientRect(); return r.top <= y && r.bottom > y; });
+    // La zona más interna bajo la barra manda (por ejemplo, un panel claro dentro de una página oscura)
+    const under = zones.filter((z) => { const r = z.getBoundingClientRect(); return r.top <= y && r.bottom > y && r.left <= 40 && r.right > 40; }).pop();
     bar.dataset.on = under && isLight(under) ? "light" : "dark";
   };
   addEventListener("scroll", update, { passive: true });

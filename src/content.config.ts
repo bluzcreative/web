@@ -46,6 +46,16 @@ const projects = defineCollection({
           images: z.array(z.object({ src: image(), alt: t, wide: z.boolean().default(false), focus: z.string().optional() })) }),
         // Sitio web: capturas de escritorio en una ventana de navegador que enlaza al sitio
         z.object({ type: z.literal("site"), url: z.string().url(), shots: z.array(z.object({ src: image(), alt: t })) }),
+        // Grilla de piezas cuadradas (logos, íconos) sobre un fondo propio
+        z.object({ type: z.literal("tiles"), columns: z.number().default(3), background: z.string().optional(),
+          images: z.array(z.object({ src: image(), alt: t })) }),
+        // Paleta de colores que se desliza en horizontal; main: color principal (panel más ancho)
+        z.object({ type: z.literal("palette"), intro: t.optional(), colors: z.array(z.object({
+          name: t.optional(), hex: z.string(), cmyk: z.string().optional(), rgb: z.string().optional(), main: z.boolean().default(false) })) }),
+        // Tipografías: muestra en vivo (font + file en /public) o como imagen
+        z.object({ type: z.literal("typography"), fonts: z.array(z.object({
+          name: z.string(), role: t, background: z.string(), color: z.string(),
+          family: z.string().optional(), file: z.string().optional(), image: image().optional() })) }),
         // Video destacado: un video vertical grande junto a su historia (reverse: video a la derecha)
         z.object({ type: z.literal("feature"), src: z.string(), poster: z.string().optional(), alt: t,
           kicker: t.optional(), title: t, body: t, reverse: z.boolean().default(false) }),
