@@ -187,33 +187,6 @@
       ]
     },
     {
-      "type": "typography",
-      "fonts": [
-        {
-          "name": "Varela Round",
-          "background": "#f2eee6",
-          "color": "#ed531d",
-          "family": "Varela Round Volumi",
-          "file": "/projects/volumi/fonts/VarelaRound-Regular.ttf",
-          "text": {
-            "es": "Tu espacio, en orden.",
-            "en": "Your space, in order."
-          }
-        },
-        {
-          "name": "Canva Sans",
-          "background": "#0f4aaa",
-          "color": "#f2eee6",
-          "image": "../../assets/projects/volumi/texto-canva-sans-es.png",
-          "imageEn": "../../assets/projects/volumi/texto-canva-sans-en.png",
-          "alt": {
-            "es": "Guardamos tu mercancía, contamos cada unidad, preparamos los pedidos y los enviamos el mismo día. Tú solo vendes.",
-            "en": "We store your goods, count every unit, pack the orders and ship them the same day. You just sell."
-          }
-        }
-      ]
-    },
-    {
       "type": "icons",
       "background": "#ffffff",
       "color": "#0f4aaa",
