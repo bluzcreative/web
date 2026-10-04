@@ -135,7 +135,7 @@ const manifestoWords = copy.manifesto.split(" ");
 
 <style>
   /* 1. Hero */
-  .hero { position: relative; min-height: 100svh; display: flex; align-items: flex-start; overflow: hidden; }
+  .hero { position: relative; min-height: 100svh; display: flex; align-items: center; overflow: hidden; }
   .hero-media { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(70% 60% at 50% 45%, #171717, var(--black) 75%); }
   .hero-ambient { position: absolute; inset: -20%;
     background: radial-gradient(35% 30% at 20% 80%, rgba(123,255,118,.10), transparent 70%);
@@ -146,10 +146,10 @@ const manifestoWords = copy.manifesto.split(" ");
     background: radial-gradient(closest-side, rgba(123,255,118,.30), rgba(123,255,118,.10) 45%, transparent);
     transform: translate(70vw, 30vh); will-change: transform; }
   .hero-content { position: relative; z-index: 1; width: 100%; padding-top: calc(var(--bar-h) + clamp(16px, 4vh, 48px)); padding-bottom: clamp(32px, 7vh, 80px); }
-  .hero-title { font-size: clamp(3.2rem, 10.5vw, 12.5rem); line-height: 1; text-align: center; }
+  .hero-title { margin-left: -.04em; font-size: clamp(3.2rem, 10.5vw, 12.5rem); line-height: 1.05; }
   @media (max-width: 699px) {
     /* Móvil: hero más bajo, frase más grande y centrada en el alto para que no quede aire de sobra */
-    .hero { min-height: 72svh; align-items: center; }
+    .hero { min-height: 72svh; }
     .hero-title { font-size: clamp(3.2rem, 15vw, 5rem); }
     .hero-content { padding-bottom: 0; }
   }
@@ -282,7 +282,7 @@ const manifestoWords = copy.manifesto.split(" ");
   if (!reduced) {
     /* Escena 1: el texto del hero baja mientras se hace scroll */
     gsap.to("[data-hero-content]", {
-      y: () => (document.querySelector<HTMLElement>("[data-hero]")?.offsetHeight ?? innerHeight) * 0.6, ease: "none",
+      y: () => (document.querySelector<HTMLElement>("[data-hero]")?.offsetHeight ?? innerHeight) * 0.4, ease: "none",
       scrollTrigger: { trigger: "[data-hero]", start: "top top", end: "bottom top", scrub: true, invalidateOnRefresh: true },
     });
 
