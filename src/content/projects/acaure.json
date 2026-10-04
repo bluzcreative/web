@@ -219,8 +219,37 @@
           }
         }
       ]
+    },
+    {
+      "type": "social",
+      "text": {
+        "es": "Manejamos las redes de Acaure con un ritmo propio: menos posts, más historia. Así se ve la marca en su Instagram.",
+        "en": "We run Acaure's social media at its own pace: fewer posts, more story. This is how the brand looks on its Instagram."
+      },
+      "links": [
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/acaure.ve/"
+        }
+      ]
     }
   ],
-  "results": [],
-  "accent": "#e8602c"
+  "results": [
+    {
+      "value": "+31",
+      "label": {
+        "es": "Seguidores nuevos en los primeros 14 días",
+        "en": "New followers in the first 14 days"
+      }
+    },
+    {
+      "value": "7k",
+      "label": {
+        "es": "Visualizaciones en uno de los posts",
+        "en": "Views on a single post"
+      }
+    }
+  ],
+  "accent": "#e8602c",
+  "coverVideo": "/projects/acaure/llano.mp4"
 }
