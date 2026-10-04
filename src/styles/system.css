@@ -166,6 +166,12 @@ ul { list-style: none; padding: 0; }
 .topbar[data-on="light"] .topbar-menu { color: var(--black); }
 .topbar-logo svg { height: 22px; width: auto; }
 .topbar-actions { margin-left: auto; display: flex; align-items: center; gap: .75rem; }
+.topbar-lang { display: flex; align-items: center; gap: .15rem; margin-right: .5rem; font-size: .8125rem; font-weight: 600; letter-spacing: .06em;
+  color: var(--white); transition: color .3s var(--ease-out); }
+.topbar-lang > * { padding: .4em .45em; }
+.topbar-lang a { opacity: .45; transition: opacity .25s var(--ease-out); }
+.topbar-lang a:hover { opacity: 1; }
+.topbar[data-on="light"] .topbar-lang { color: var(--black); }
 .topbar-menu {
   display: inline-flex; align-items: center; gap: .55rem; font-weight: 600; font-size: .9375rem;
   padding: .7rem .2rem;

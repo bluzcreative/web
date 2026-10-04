@@ -3,20 +3,17 @@
 // al pasar el cursor. Abajo: redes y suscripción a Contraluz.
 import Logo from "../Logo.astro";
 import ContraluzForm from "./ContraluzForm.astro";
-import { routes, menuOrder, features, t, otherLang, type Lang, type PageKey } from "../../i18n/ui";
+import { routes, menuOrder, features, t, type Lang, type PageKey } from "../../i18n/ui";
 import { brand } from "../../data/brand";
 
 interface Props { lang: Lang; page?: PageKey; alternates?: Record<Lang, string> }
 const { lang, page, alternates } = Astro.props;
 const tr = t(lang);
-const alt = otherLang(lang);
-const altHref = alternates ? alternates[alt] : routes.home[alt];
 ---
 <div id="site-menu" class="menu tone-dark" role="dialog" aria-modal="true" aria-label={tr("menu")} data-menu hidden>
   <div class="menu-bar">
     <a href={routes.home[lang]} class="menu-logo" aria-label={tr("home.aria")}><Logo class="" /></a>
     <div class="menu-bar-actions">
-      <a href={altHref} hreflang={alt} lang={alt} class="menu-lang">{tr("lang.label")}</a>
       <button type="button" class="menu-close" data-menu-close aria-label={tr("nav.close")}>
         <span>{tr("close")}</span><i aria-hidden="true"></i>
       </button>
@@ -65,8 +62,6 @@ const altHref = alternates ? alternates[alt] : routes.home[alt];
   .menu-bar { height: var(--bar-h); flex: none; display: flex; align-items: center; gap: 1rem; }
   .menu-logo :global(svg) { height: 22px; width: auto; }
   .menu-bar-actions { margin-left: auto; display: flex; align-items: center; gap: 1.5rem; }
-  .menu-lang { font-weight: 600; font-size: .9375rem; color: var(--text-mute); transition: color .25s var(--ease-out); }
-  .menu-lang:hover { color: var(--text); }
   .menu-close { display: inline-flex; align-items: center; gap: .55rem; font-weight: 600; font-size: .9375rem; padding: .7rem .2rem; }
   .menu-close i { position: relative; width: 22px; height: 22px; }
   .menu-close i::before, .menu-close i::after {
