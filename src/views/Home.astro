@@ -20,8 +20,8 @@ const copy = {
     hero: ["No seguimos", "fórmulas.", "Creamos la"], heroEm: "tuya",
     scroll: "Scroll",
     doKicker: "Qué hacemos",
-    doFoot: "Cinco servicios, un solo equipo que los conecta.",
-    doLink: "Ver servicios",
+    doFoot: "Y más.",
+    doLink: "Ver todos los servicios",
     workKicker: "El trabajo",
     workTitle: "Marcas que ya se ven distinto.",
     workLink: "Ver todo el trabajo",
@@ -36,8 +36,8 @@ const copy = {
     hero: ["We don't follow", "formulas.", "We create"], heroEm: "yours",
     scroll: "Scroll",
     doKicker: "What we do",
-    doFoot: "Five services, one team that connects them.",
-    doLink: "See services",
+    doFoot: "And more.",
+    doLink: "See all services",
     workKicker: "The work",
     workTitle: "Brands that already look different.",
     workLink: "See all work",
@@ -72,7 +72,7 @@ const manifestoWords = copy.manifesto.split(" ");
 <section class="scene services tone-dark section edge">
   <div class="grid">
     <ul class="services-list">
-      {services.map((s) => (
+      {services.filter((s) => !("secondary" in s)).map((s) => (
         <li>
           <a href={`${routes.services[lang]}#${s.slug}`} class="lit-word" data-lit>
             <span class="t-display">{s.name[lang]}</span>
@@ -197,7 +197,10 @@ const manifestoWords = copy.manifesto.split(" ");
   .mw { --lit: 1; color: color-mix(in srgb, var(--text) calc(var(--lit) * 100%), var(--text-dim)); }
 
   /* 7. Cierre */
-  .closing { min-height: 100svh; display: flex; flex-direction: column; justify-content: space-between; gap: 4rem; }
+  .closing { display: flex; flex-direction: column; gap: 1.5rem; padding-block: clamp(56px, 10vw, 96px); }
+  @media (min-width: 900px) {
+    .closing { min-height: 100svh; justify-content: space-between; gap: 4rem; padding-block: var(--section); }
+  }
   .closing-title { display: block; margin-left: -.04em; transition: color .4s var(--ease-out); }
   .closing-title:hover { color: var(--green); }
   .closing-paths { display: grid; gap: var(--gutter); }

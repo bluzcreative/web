@@ -5,6 +5,7 @@ import { services } from "../data/services";
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
+const isSecondary = (s: (typeof services)[number]) => "secondary" in s;
 
 const copy = {
   es: {
@@ -38,11 +39,11 @@ const copy = {
 </section>
 
 {services.map((s, i) => (
-  <section id={s.slug} class="service tone-dark section edge">
+  <section id={s.slug} class:list={["service tone-dark section edge", { "is-secondary": isSecondary(s) }]}>
     <div class="grid">
       <span class="t-label service-num">{String(i + 1).padStart(2, "0")}</span>
       <div class="service-main">
-        <h2 class="t-display">{s.name[lang]}</h2>
+        <h2 class:list={[isSecondary(s) ? "t-h1" : "t-display"]}>{s.name[lang]}</h2>
         <p class="t-h2 service-line">{s.line[lang]}</p>
       </div>
       <div class="service-body">
@@ -84,6 +85,10 @@ const copy = {
     .service-main { grid-column: 2 / 8; margin: 0; }
     .service-body { grid-column: 8 / -1; padding-top: 1.2em; }
   }
+
+  /* Servicio secundario (paid media): mismo contenido, en formato más chico */
+  .service.is-secondary { padding-block: clamp(56px, 8vw, 112px); }
+  .service.is-secondary .service-line { font-size: var(--fs-lead); }
 
   .closing { display: grid; gap: 1.5rem; justify-items: start; border-top: 1px solid var(--line); }
   .closing h2 { margin-left: -.04em; max-width: 12ch; }

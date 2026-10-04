@@ -1,21 +1,5 @@
-// Los cinco servicios de Bluz. Se usan en la landing (escena 2), en Servicios y en las etiquetas de proyectos.
+// Servicios de Bluz. Los principales aparecen en la landing; los marcados secondary solo al final de Servicios.
 export const services = [
-  {
-    slug: "paid-media",
-    name: { es: "Paid media", en: "Paid media" },
-    line: {
-      es: "Campañas que se miden en ventas, no en likes.",
-      en: "Campaigns measured in sales, not likes.",
-    },
-    body: {
-      es: "Planificamos, lanzamos y optimizamos campañas en Meta y Google con un objetivo de negocio claro. Cada semana revisamos qué funciona, movemos presupuesto hacia ahí y te mostramos el porqué.",
-      en: "We plan, launch and optimize Meta and Google campaigns around a clear business goal. Every week we check what's working, shift budget toward it and show you why.",
-    },
-    items: {
-      es: ["Meta Ads", "Google Ads", "Estrategia de campañas", "Generación de leads", "Embudos de venta", "Píxel y eventos de conversión", "Reportes de rendimiento"],
-      en: ["Meta Ads", "Google Ads", "Campaign strategy", "Lead generation", "Sales funnels", "Pixel and conversion events", "Performance reports"],
-    },
-  },
   {
     slug: "contenido",
     name: { es: "Estrategia de contenido", en: "Content strategy" },
@@ -34,18 +18,34 @@ export const services = [
   },
   {
     slug: "branding",
-    name: { es: "Branding", en: "Branding" },
+    name: { es: "Branding y diseño gráfico", en: "Branding and graphic design" },
     line: {
       es: "Identidades que se reconocen antes de leer el nombre.",
       en: "Identities people recognize before reading the name.",
     },
     body: {
-      es: "Construimos marcas desde el porqué hasta el último detalle visual: posicionamiento, logo, paleta, tipografía y un manual para que todo el equipo las use bien.",
-      en: "We build brands from the why down to the last visual detail: positioning, logo, palette, typography and a guide so the whole team uses them right.",
+      es: "Construimos marcas desde el porqué hasta el último detalle visual: posicionamiento, logo, paleta, tipografía y un manual para que todo el equipo las use bien. Y diseñamos todo lo que la marca necesita para salir al mundo, de un brochure a un stand.",
+      en: "We build brands from the why down to the last visual detail: positioning, logo, palette, typography and a guide so the whole team uses them right. And we design everything the brand needs out in the world, from a brochure to a booth.",
     },
     items: {
-      es: ["Posicionamiento de marca", "Identidad visual", "Diseño de logo", "Manual de marca", "Packaging", "Material POP", "Presentaciones corporativas"],
-      en: ["Brand positioning", "Visual identity", "Logo design", "Brand guidelines", "Packaging", "Point-of-sale materials", "Corporate presentations"],
+      es: ["Posicionamiento de marca", "Identidad visual", "Diseño de logo", "Manual de marca", "Diseño gráfico", "Packaging", "Material POP", "Brochures y pop up banners", "Presentaciones corporativas"],
+      en: ["Brand positioning", "Visual identity", "Logo design", "Brand guidelines", "Graphic design", "Packaging", "Point-of-sale materials", "Brochures and pop up banners", "Corporate presentations"],
+    },
+  },
+  {
+    slug: "audiovisual",
+    name: { es: "Producción audiovisual", en: "Audiovisual production" },
+    line: {
+      es: "Video, motion y fotografía que se detienen a mirar.",
+      en: "Video, motion and photography people stop to watch.",
+    },
+    body: {
+      es: "Producimos de principio a fin: idea, guion, rodaje, fotografía, edición y motion graphics. Piezas para redes, campañas, lanzamientos y presentaciones de empresa.",
+      en: "We produce end to end: idea, script, shoot, photography, editing and motion graphics. Pieces for social, campaigns, launches and company presentations.",
+    },
+    items: {
+      es: ["Producción de video", "Reels y videos para redes", "Motion graphics y animación", "Fotografía de producto", "Edición y postproducción", "Renders y visualización 3D"],
+      en: ["Video production", "Reels and social videos", "Motion graphics and animation", "Product photography", "Editing and post-production", "3D renders and visualization"],
     },
   },
   {
@@ -80,6 +80,23 @@ export const services = [
       en: ["CRM implementation", "Lead scoring", "Make, Zapier and Apps Script", "WhatsApp integration", "Email sequences", "AI automations", "Team training"],
     },
   },
+  {
+    slug: "paid-media",
+    secondary: true, // servicio secundario: no aparece en la landing, va al final de Servicios
+    name: { es: "Paid media", en: "Paid media" },
+    line: {
+      es: "Campañas que se miden en ventas, no en likes.",
+      en: "Campaigns measured in sales, not likes.",
+    },
+    body: {
+      es: "Planificamos, lanzamos y optimizamos campañas en Meta y Google con un objetivo de negocio claro. Cada semana revisamos qué funciona, movemos presupuesto hacia ahí y te mostramos el porqué.",
+      en: "We plan, launch and optimize Meta and Google campaigns around a clear business goal. Every week we check what's working, shift budget toward it and show you why.",
+    },
+    items: {
+      es: ["Meta Ads", "Google Ads", "Estrategia de campañas", "Generación de leads", "Embudos de venta", "Píxel y eventos de conversión", "Reportes de rendimiento"],
+      en: ["Meta Ads", "Google Ads", "Campaign strategy", "Lead generation", "Sales funnels", "Pixel and conversion events", "Performance reports"],
+    },
+  },
 ] as const;
 
 // Etiquetas para los servicios que aparecen en los proyectos
@@ -89,6 +106,7 @@ export const serviceTags = {
   web: { es: "Web", en: "Web" },
   automatizaciones: { es: "Automatización", en: "Automation" },
   branding: { es: "Branding", en: "Branding" },
+  audiovisual: { es: "Producción audiovisual", en: "Audiovisual production" },
   fotografia: { es: "Fotografía", en: "Photography" },
   video: { es: "Video", en: "Video" },
 } as const;

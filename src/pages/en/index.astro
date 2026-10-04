@@ -8,7 +8,7 @@ const loaderImages = (await getCollection("projects", (p) => p.data.featured && 
   .sort((a, b) => a.data.order - b.data.order).slice(0, 4)
   .map((p) => ({ src: p.data.cover, alt: p.data.coverAlt.en }));
 ---
-<Site lang="en" page="home" title="Bluz Creative | Paid media, content, web and automations" description="Bluz Creative is a marketing agency working with brands worldwide: paid media, content strategy, web design and automations.">
+<Site lang="en" page="home" title="Bluz Creative | Content, branding, audiovisual, web and automations" description="Bluz Creative is a marketing agency working with brands worldwide: content strategy, branding and design, audiovisual production, web design, automations and paid media.">
   <Loader slot="before" images={loaderImages} />
   <Home lang="en" />
 </Site>

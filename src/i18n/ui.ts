@@ -192,7 +192,8 @@ export const otherLang = (lang: Lang): Lang => (lang === "es" ? "en" : "es");
 export const contactServices = [
   { key: "paid_media", es: "Paid media", en: "Paid media" },
   { key: "contenido", es: "Estrategia de contenido", en: "Content strategy" },
-  { key: "branding", es: "Branding", en: "Branding" },
+  { key: "branding", es: "Branding y diseño", en: "Branding and design" },
+  { key: "audiovisual", es: "Producción audiovisual", en: "Audiovisual production" },
   { key: "web", es: "Diseño web", en: "Web design" },
   { key: "automatizaciones", es: "Automatizaciones", en: "Automations" },
   { key: "otro", es: "Otro", en: "Other" },
