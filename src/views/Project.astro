@@ -10,7 +10,13 @@ import { serviceTags } from "../data/services";
 interface Props { project: CollectionEntry<"projects">; next: CollectionEntry<"projects">; lang: Lang }
 const { project, next, lang } = Astro.props;
 const p = project.data;
-const stickyImage = p.gallery[0]?.src ?? p.cover;
+const stickyImage = p.presentation ?? p.cover;
+const stickyAlt = p.presentation && p.presentationAlt ? p.presentationAlt[lang] : "";
+// La primera captura de móvil (o la primera imagen) flota sobre la presentación; el resto va en Piezas
+const float = p.gallery.find((g) => g.phone) ?? p.gallery[0];
+const pieces = p.gallery.filter((g) => g !== float);
+const phones = pieces.filter((g) => g.phone);
+const others = pieces.filter((g) => !g.phone);
 
 const copy = {
   es: { back: "Trabajo", industry: "Industria", country: "País", services: "Servicios", year: "Año",
@@ -41,16 +47,16 @@ const copy = {
 
   <!-- Reto y enfoque pasan por encima de una imagen fija -->
   <section class="p-overlap tone-dark" aria-label={`${copy.challenge}, ${copy.approach}`}>
-    <div class="p-sticky" aria-hidden="true">
-      <Image src={stickyImage} alt="" widths={[800, 1400, 2200]} sizes="100vw" />
+    <div class="p-sticky" aria-hidden={stickyAlt ? undefined : "true"}>
+      <Image src={stickyImage} alt={stickyAlt} widths={[800, 1400, 2200]} sizes="100vw" />
     </div>
     <div class="p-layers edge">
       <div class="p-card p-card-a">
         <p class="t-label">{copy.challenge}</p>
         <p class="p-text">{p.challenge[lang]}</p>
       </div>
-      {p.gallery[1] && (
-        <Image class="p-float" src={p.gallery[1].src} alt={p.gallery[1].alt[lang]} widths={[480, 800]} sizes="(min-width: 900px) 30vw, 70vw" />
+      {float && (
+        <Image class:list={["p-float", { "is-phone": float.phone }]} src={float.src} alt={float.alt[lang]} widths={[480, 800]} sizes="(min-width: 900px) 25vw, 60vw" />
       )}
       <div class="p-card p-card-b">
         <p class="t-label">{copy.approach}</p>
@@ -60,15 +66,24 @@ const copy = {
   </section>
 
   <!-- Piezas -->
-  {p.gallery.length > 2 && (
+  {pieces.length > 0 && (
     <section class="p-pieces tone-dark section" aria-label={copy.pieces}>
       <p class="t-label edge">{copy.pieces}</p>
-      <div class="p-gallery">
-        {p.gallery.slice(2).map((g) => (
-          <Image class:list={["p-piece", { "is-wide": g.wide }]} src={g.src} alt={g.alt[lang]} widths={[600, 1200, 2000]}
-            sizes={g.wide ? "100vw" : "(min-width: 900px) 50vw, 100vw"} />
-        ))}
-      </div>
+      {phones.length > 0 && (
+        <div class="p-phones edge">
+          {phones.map((g) => (
+            <Image class="p-phone" src={g.src} alt={g.alt[lang]} widths={[400, 700]} sizes="(min-width: 900px) 28vw, 80vw" />
+          ))}
+        </div>
+      )}
+      {others.length > 0 && (
+        <div class="p-gallery">
+          {others.map((g) => (
+            <Image class:list={["p-piece", { "is-wide": g.wide }]} src={g.src} alt={g.alt[lang]} widths={[600, 1200, 2000]}
+              sizes={g.wide ? "100vw" : "(min-width: 900px) 50vw, 100vw"} />
+          ))}
+        </div>
+      )}
     </section>
   )}
 
@@ -131,11 +146,14 @@ const copy = {
   .p-card { grid-column: 1 / -1; display: grid; gap: 1rem; padding: clamp(24px, 4vw, 64px); background: var(--black); }
   .p-card-b { margin-top: 20svh; }
   .p-text { font-family: var(--display); font-weight: 500; font-size: clamp(1.25rem, 2.2vw, 2rem); line-height: 1.25; letter-spacing: -.02em; }
-  .p-float { grid-column: 2 / -1; width: 100%; margin-top: 12svh; box-shadow: 0 30px 80px rgba(0,0,0,.5); }
+  .p-float { grid-column: 2 / -1; width: 100%; height: auto; margin-top: 12svh; box-shadow: 0 30px 80px rgba(0,0,0,.5); }
+  .p-float.is-phone, .p-phone { border-radius: 28px; border: 6px solid #1c1c1c; }
+  .p-float.is-phone { grid-column: 2 / 4; }
   @media (min-width: 900px) {
     .p-layers { grid-template-columns: repeat(12, minmax(0, 1fr)); }
     .p-card-a { grid-column: 1 / 7; }
     .p-float { grid-column: 8 / 12; margin-top: 30svh; }
+    .p-float.is-phone { grid-column: 9 / 12; }
     .p-card-b { grid-column: 6 / 13; margin-top: 10svh; }
   }
 
@@ -143,6 +161,8 @@ const copy = {
   .p-gallery { display: grid; gap: 4px; }
   @media (min-width: 900px) { .p-gallery { grid-template-columns: 1fr 1fr; } .p-piece.is-wide { grid-column: 1 / -1; } }
   .p-piece { width: 100%; height: 100%; object-fit: cover; }
+  .p-phones { display: grid; gap: clamp(16px, 3vw, 48px); grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-bottom: clamp(40px, 6vw, 96px); }
+  .p-phone { width: 100%; height: auto; max-width: 420px; justify-self: center; }
 
   .p-results ul { display: grid; gap: 2rem var(--gutter); margin-top: 2rem; }
   @media (min-width: 900px) { .p-results ul { grid-template-columns: repeat(3, 1fr); } }

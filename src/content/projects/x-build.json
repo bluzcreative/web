@@ -2,9 +2,20 @@
   "client": "X-Build",
   "order": 1,
   "featured": true,
-  "country": { "es": "Australia", "en": "Australia" },
-  "industry": { "es": "Construcción con impresión 3D", "en": "3D printed construction" },
-  "services": ["branding", "paid-media", "contenido", "web"],
+  "country": {
+    "es": "Australia",
+    "en": "Australia"
+  },
+  "industry": {
+    "es": "Construcción con impresión 3D",
+    "en": "3D printed construction"
+  },
+  "services": [
+    "branding",
+    "paid-media",
+    "contenido",
+    "web"
+  ],
   "summary": {
     "es": "Una startup de impresión 3D en concreto, posicionada como tecnología de vanguardia.",
     "en": "A 3D concrete printing startup, positioned as cutting-edge technology."
@@ -14,7 +25,46 @@
     "es": "Pieza de campaña de X-Build: brazo robótico naranja imprimiendo en concreto frente a una casa",
     "en": "X-Build campaign piece: orange robotic arm printing concrete in front of a house"
   },
-  "gallery": [],
+  "gallery": [
+    {
+      "src": "../../assets/projects/x-build/web-inicio.webp",
+      "phone": true,
+      "alt": {
+        "es": "Sitio web de X-Build en móvil: portada con video de una casa impresa en 3D",
+        "en": "X-Build website on mobile: hero with video of a 3D printed house"
+      }
+    },
+    {
+      "src": "../../assets/projects/x-build/pendon.jpg",
+      "alt": {
+        "es": "Pendón de X-Build diseñado por Bluz en el stand de Startup Alley",
+        "en": "X-Build roll-up banner designed by Bluz at the Startup Alley booth"
+      }
+    },
+    {
+      "src": "../../assets/projects/x-build/brochure.png",
+      "alt": {
+        "es": "Brochure de X-Build: impresión 3D industrial de concreto",
+        "en": "X-Build brochure: industrial 3D concrete printing"
+      }
+    },
+    {
+      "src": "../../assets/projects/x-build/web-ventaja.webp",
+      "phone": true,
+      "alt": {
+        "es": "Sitio web de X-Build en móvil: sección xPlore. xPand. xBuild.",
+        "en": "X-Build website on mobile: xPlore. xPand. xBuild. section"
+      }
+    },
+    {
+      "src": "../../assets/projects/x-build/web-proceso.webp",
+      "phone": true,
+      "alt": {
+        "es": "Sitio web de X-Build en móvil: línea de tiempo del proceso de impresión",
+        "en": "X-Build website on mobile: printing process timeline"
+      }
+    }
+  ],
   "challenge": {
     "es": "X-Build desarrolla tecnología de impresión 3D en concreto para vivienda en Australia. El reto era posicionarla como una empresa tecnológica de vanguardia dentro de una industria históricamente conservadora.",
     "en": "X-Build develops 3D concrete printing technology for housing in Australia. The challenge was positioning it as a cutting-edge tech company inside a historically conservative industry."
@@ -24,5 +74,10 @@
     "en": "We built its visual identity and now run its social media, paid ads and lead generation, plus its corporate website with forms connected to its CRM."
   },
   "results": [],
-  "accent": "#f28c28"
+  "accent": "#f28c28",
+  "presentation": "../../assets/projects/x-build/impresora.jpg",
+  "presentationAlt": {
+    "es": "Impresora 3D de concreto de X-Build: brazo robótico naranja sobre orugas en un galpón",
+    "en": "X-Build 3D concrete printer: orange robotic arm on tracks inside a warehouse"
+  }
 }

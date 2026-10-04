@@ -22,8 +22,12 @@ const projects = defineCollection({
       summary: t, // una línea para la tarjeta
       cover: image(),
       coverAlt: t,
+      // Imagen de presentación de la empresa: queda fija detrás del reto y el enfoque
+      presentation: image().optional(),
+      presentationAlt: t.optional(),
       // Imágenes que se despliegan en la tarjeta al pasar el cursor y que llenan la página del proyecto
-      gallery: z.array(z.object({ src: image(), alt: t, wide: z.boolean().default(false) })).default([]),
+      // phone: captura de móvil, se muestra como pantalla de teléfono; wide: pieza a todo lo ancho
+      gallery: z.array(z.object({ src: image(), alt: t, wide: z.boolean().default(false), phone: z.boolean().default(false) })).default([]),
       challenge: t,
       approach: t,
       results: z.array(z.object({ value: z.string(), label: t })).default([]),
