@@ -14,7 +14,6 @@ export const clients: Client[] = [
 
 // Trabajos sin página propia todavía: aparecen como lista en Trabajo
 export const moreWork = [
-  { client: "Compremos En China", what: { es: "Redes sociales, guiones de reels, web y sistema automatizado de casilleros", en: "Social media, reel scripts, website and automated locker system" } },
   { client: "Flatpack Container", what: { es: "Sistema de lead scoring conectado a Meta", en: "Lead scoring system connected to Meta" } },
   { client: "Incon Container Wholesale", what: { es: "Identidad visual modular", en: "Modular visual identity" } },
   { client: "Baggely Bakery", what: { es: "Branding y diseño gráfico", en: "Branding and graphic design" } },

@@ -1,0 +1,245 @@
+{
+  "client": "Compremos En China",
+  "order": 5,
+  "featured": false,
+  "country": {
+    "es": "Venezuela",
+    "en": "Venezuela"
+  },
+  "industry": {
+    "es": "Importación desde China",
+    "en": "Importing from China"
+  },
+  "services": [
+    "branding",
+    "paid-media",
+    "automatizaciones",
+    "web",
+    "diseno",
+    "redes"
+  ],
+  "summary": {
+    "es": "Marca, web y un sistema que abre casilleros solo para una empresa que acerca China a Venezuela.",
+    "en": "Brand, website and a system that opens lockers on its own for a company bringing China closer to Venezuela."
+  },
+  "cover": "../../assets/projects/compremos-en-china/portada.jpg",
+  "coverFill": "#ff0012",
+  "coverAlt": {
+    "es": "Logo de Compremos en China en blanco y amarillo sobre rojo",
+    "en": "Compremos en China logo in white and yellow on red"
+  },
+  "gallery": [
+    {
+      "src": "../../assets/projects/compremos-en-china/web-inicio.jpg",
+      "alt": {
+        "es": "Portada del sitio de Compremos en China",
+        "en": "Compremos en China website home page"
+      }
+    },
+    {
+      "src": "../../assets/projects/compremos-en-china/web-calculadora.jpg",
+      "alt": {
+        "es": "Calculadora de flete del sitio",
+        "en": "Freight calculator on the website"
+      }
+    },
+    {
+      "src": "../../assets/projects/compremos-en-china/web-casillero.jpg",
+      "alt": {
+        "es": "Formulario para crear un casillero",
+        "en": "Form to open a locker"
+      }
+    }
+  ],
+  "blocks": [
+    {
+      "type": "statement",
+      "title": {
+        "es": "Importar desde China, con seguridad y sin enredos.",
+        "en": "Importing from China, safely and without the hassle."
+      },
+      "body": {
+        "es": "Compremos en China ayuda a emprendedores y negocios en Venezuela a comprar directo a proveedores chinos: un casillero propio, envíos aéreos y marítimos y acompañamiento en cada paso. Le dimos una marca reconocible, una web que trabaja y un sistema que recibe a cada cliente nuevo sin que nadie tenga que hacerlo a mano.",
+        "en": "Compremos en China helps entrepreneurs and businesses in Venezuela buy directly from Chinese suppliers: their own locker, air and sea shipping and support at every step. We gave it a recognizable brand, a website that works and a system that welcomes every new client without anyone doing it by hand."
+      }
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "es": "Logo",
+          "en": "Logo"
+        },
+        {
+          "es": "Paid media",
+          "en": "Paid media"
+        },
+        {
+          "es": "Automatizaciones",
+          "en": "Automations"
+        },
+        {
+          "es": "Sitio web",
+          "en": "Website"
+        },
+        {
+          "es": "Diseño y redes sociales",
+          "en": "Design and social media"
+        }
+      ]
+    },
+    {
+      "type": "tiles",
+      "columns": 2,
+      "images": [
+        {
+          "src": "../../assets/projects/compremos-en-china/logo-rojo.jpg",
+          "alt": {
+            "es": "Logo horizontal sobre rojo",
+            "en": "Horizontal logo on red"
+          }
+        },
+        {
+          "src": "../../assets/projects/compremos-en-china/logo-blanco.jpg",
+          "alt": {
+            "es": "Logo horizontal en rojo sobre blanco",
+            "en": "Horizontal logo in red on white"
+          }
+        },
+        {
+          "src": "../../assets/projects/compremos-en-china/logo-vertical-negro.jpg",
+          "alt": {
+            "es": "Logo vertical sobre negro",
+            "en": "Vertical logo on black"
+          }
+        },
+        {
+          "src": "../../assets/projects/compremos-en-china/logo-vertical-blanco.jpg",
+          "alt": {
+            "es": "Logo vertical en rojo sobre blanco",
+            "en": "Vertical logo in red on white"
+          }
+        }
+      ]
+    },
+    {
+      "type": "statement",
+      "title": {
+        "es": "Una web que calcula el flete y abre casilleros.",
+        "en": "A website that quotes freight and opens lockers."
+      },
+      "body": {
+        "es": "La calculadora da un estimado del envío aéreo o marítimo hasta la ciudad del cliente, y el formulario de casillero pone en marcha todo lo demás.",
+        "en": "The calculator gives an estimate for air or sea shipping to the client's city, and the locker form sets everything else in motion."
+      }
+    },
+    {
+      "type": "site",
+      "url": "https://www.compremosenchina.com/",
+      "shots": [
+        {
+          "src": "../../assets/projects/compremos-en-china/web-inicio.jpg",
+          "alt": {
+            "es": "Portada del sitio de Compremos en China",
+            "en": "Compremos en China website home page"
+          }
+        },
+        {
+          "src": "../../assets/projects/compremos-en-china/web-calculadora.jpg",
+          "alt": {
+            "es": "Calculadora de flete marítimo",
+            "en": "Sea freight calculator"
+          }
+        },
+        {
+          "src": "../../assets/projects/compremos-en-china/web-casillero.jpg",
+          "alt": {
+            "es": "Formulario Crea tu casillero",
+            "en": "Open your locker form"
+          }
+        }
+      ]
+    },
+    {
+      "type": "flow",
+      "title": {
+        "es": "Un cliente nuevo, atendido en segundos.",
+        "en": "A new client, taken care of in seconds."
+      },
+      "intro": {
+        "es": "Así funciona por dentro el formulario de casillero. Nadie del equipo tiene que mover un dedo.",
+        "en": "This is how the locker form works behind the scenes. Nobody on the team has to lift a finger."
+      },
+      "steps": [
+        {
+          "icon": "form",
+          "title": {
+            "es": "Pide su casillero",
+            "en": "Asks for a locker"
+          },
+          "body": {
+            "es": "El cliente llena el formulario en la web en menos de un minuto.",
+            "en": "The client fills in the form on the website in under a minute."
+          }
+        },
+        {
+          "icon": "sheet",
+          "title": {
+            "es": "Queda registrado",
+            "en": "Gets registered"
+          },
+          "body": {
+            "es": "Sus datos llegan solos a la base de clientes. Nada se copia a mano.",
+            "en": "Their details land in the client database on their own. Nothing is copied by hand."
+          }
+        },
+        {
+          "icon": "folder",
+          "title": {
+            "es": "Sus cotizadores, listos",
+            "en": "Quotes ready to go"
+          },
+          "body": {
+            "es": "Se preparan sus plantillas de envío aéreo y marítimo, a su nombre.",
+            "en": "Their air and sea shipping templates are prepared in their name."
+          }
+        },
+        {
+          "icon": "box",
+          "title": {
+            "es": "Su casillero, asignado",
+            "en": "Locker assigned"
+          },
+          "body": {
+            "es": "Se actualiza el registro de casilleros con su número.",
+            "en": "The locker register is updated with their number."
+          }
+        },
+        {
+          "icon": "mail",
+          "title": {
+            "es": "Correo de bienvenida",
+            "en": "Welcome email"
+          },
+          "body": {
+            "es": "Recibe su información y los pasos para empezar a comprar.",
+            "en": "They get their details and the steps to start buying."
+          }
+        },
+        {
+          "icon": "whatsapp",
+          "title": {
+            "es": "Y un WhatsApp",
+            "en": "And a WhatsApp"
+          },
+          "body": {
+            "es": "Le escribimos por WhatsApp Business para seguir la conversación.",
+            "en": "We message them on WhatsApp Business to keep the conversation going."
+          }
+        }
+      ]
+    }
+  ],
+  "results": [],
+  "accent": "#ff0012"
+}
