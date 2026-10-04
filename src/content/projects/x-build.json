@@ -96,7 +96,8 @@
     },
     {
       "type": "video",
-      "youtube": "rC9MvjsUHhY",
+      "src": "/projects/x-build/impresora.mp4",
+      "poster": "/projects/x-build/impresora-poster.jpg",
       "alt": {
         "es": "Video de la impresora de X-Build trabajando",
         "en": "Video of the X-Build printer at work"
