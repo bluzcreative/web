@@ -14,7 +14,8 @@
     "contenido",
     "fotografia",
     "audiovisual",
-    "web"
+    "web",
+    "paid-media"
   ],
   "summary": {
     "es": "Medialunas argentinas en Caracas, contadas con humor y fotografía que da hambre.",
@@ -56,8 +57,8 @@
         "en": "Lunetto speaks like a man with a personality of its own. The challenge: connecting through that voice without putting a face on anyone."
       },
       "body": {
-        "es": "Llevamos el contenido de Lunetto de punta a punta, cuidando que la estética y la forma de hablar sean siempre las mismas: fotografía de producto, reels con humor cotidiano y una web donde se pide, se arma una caja y se cotiza el catering.",
-        "en": "We run Lunetto's content end to end, keeping its look and its way of talking consistent everywhere: product photography, reels with everyday humor and a website to order, build a box and get a catering quote."
+        "es": "Llevamos el contenido de Lunetto de punta a punta, cuidando que la estética y la forma de hablar sean siempre las mismas: fotografía de producto, reels con humor cotidiano y una web donde se pide y se cotiza el catering.",
+        "en": "We run Lunetto's content end to end, keeping its look and its way of talking consistent everywhere: product photography, reels with everyday humor and a website to order and get a catering quote."
       }
     },
     {
@@ -76,16 +77,16 @@
           "en": "Reels and video"
         },
         {
-          "es": "Sitio web con pedidos",
-          "en": "Website with ordering"
+          "es": "Sitio web",
+          "en": "Website"
         },
         {
-          "es": "Armador de cajas Lunetto Box",
-          "en": "Lunetto Box builder"
+          "es": "Paid media",
+          "en": "Paid media"
         },
         {
-          "es": "Dossier de catering",
-          "en": "Catering dossier"
+          "es": "Diseño integral",
+          "en": "Full design"
         }
       ]
     },
@@ -213,13 +214,6 @@
           "alt": {
             "es": "Café de Lunetto frente a la máquina de espresso",
             "en": "Lunetto coffee in front of the espresso machine"
-          }
-        },
-        {
-          "src": "../../assets/projects/miolunetto/chocolate-cafe.jpg",
-          "alt": {
-            "es": "Medialuna bañada en chocolate y café",
-            "en": "Chocolate-dipped medialuna and coffee"
           }
         },
         {
