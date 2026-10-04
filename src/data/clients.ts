@@ -10,10 +10,6 @@ export const clients: Client[] = [
   { name: "Prophone", logo: "/logos/prophone.png" },
   { name: "Flatpack Container", logo: "/logos/flatpack-container.png" },
   { name: "The Bridge", logo: "/logos/the-bridge.png" },
-  { name: "Disergen" },
-  { name: "Incon Container Wholesale" },
-  { name: "Baggely Bakery" },
-  { name: "Vibrant Architecture Studio" },
 ]
 
 // Trabajos sin página propia todavía: aparecen como lista en Trabajo

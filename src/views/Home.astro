@@ -18,8 +18,6 @@ const featured = (await getCollection("projects", (p) => p.data.featured && !p.d
 const copy = {
   es: {
     hero: ["No seguimos", "fórmulas.", "Creamos la"], heroEm: "tuya",
-    metaServices: "Paid media · Contenido · Branding · Web · Automatización",
-    metaWorld: "Worldwide",
     scroll: "Scroll",
     doKicker: "Qué hacemos",
     doFoot: "Cinco servicios, un solo equipo que los conecta.",
@@ -36,8 +34,6 @@ const copy = {
   },
   en: {
     hero: ["We don't follow", "formulas.", "We create"], heroEm: "yours",
-    metaServices: "Paid media · Content · Branding · Web · Automation",
-    metaWorld: "Worldwide",
     scroll: "Scroll",
     doKicker: "What we do",
     doFoot: "Five services, one team that connects them.",
@@ -63,11 +59,7 @@ const manifestoWords = copy.manifesto.split(" ");
     <span class="hero-ambient"></span>
     <span class="hero-glow" data-glow></span>
   </div>
-  <div class="hero-content edge">
-    <div class="hero-meta" data-hero-meta>
-      <span class="t-label">{copy.metaServices}</span>
-      <span class="t-label">{copy.metaWorld}</span>
-    </div>
+  <div class="hero-content edge" data-hero-content>
     <h1 class="t-mega hero-title" aria-label={`${copy.hero.join(" ")} ${copy.heroEm}.`}>
       <span class="line"><span>{copy.hero[0]}</span></span>
       <span class="line"><span>{copy.hero[1]}</span></span>
@@ -143,7 +135,7 @@ const manifestoWords = copy.manifesto.split(" ");
 
 <style>
   /* 1. Hero */
-  .hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; }
+  .hero { position: relative; min-height: 100svh; display: flex; align-items: flex-start; overflow: hidden; }
   .hero-media { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(70% 60% at 50% 45%, #171717, var(--black) 75%); }
   .hero-ambient { position: absolute; inset: -20%;
     background: radial-gradient(35% 30% at 20% 80%, rgba(123,255,118,.10), transparent 70%);
@@ -153,9 +145,7 @@ const manifestoWords = copy.manifesto.split(" ");
     border-radius: 50%; pointer-events: none;
     background: radial-gradient(closest-side, rgba(123,255,118,.30), rgba(123,255,118,.10) 45%, transparent);
     transform: translate(70vw, 30vh); will-change: transform; }
-  .hero-content { position: relative; z-index: 1; width: 100%; padding-top: calc(var(--bar-h) + 1rem); padding-bottom: clamp(32px, 7vh, 80px); }
-  .hero-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 2rem; margin-bottom: clamp(12px, 2vh, 32px); }
-  .hero-meta .t-label { color: rgba(255,255,255,.62); }
+  .hero-content { position: relative; z-index: 1; width: 100%; padding-top: calc(var(--bar-h) + clamp(16px, 4vh, 48px)); padding-bottom: clamp(32px, 7vh, 80px); }
   .hero-title { margin-left: -.04em; font-size: clamp(3rem, 10.5vw, 12.5rem); }
   .hero-title .line { display: block; overflow: hidden; padding-bottom: .24em; margin-bottom: -.24em; }
   .hero-title .line > span { display: block; }
@@ -239,7 +229,6 @@ const manifestoWords = copy.manifesto.split(" ");
   const heroIn = () => {
     if (reduced) return;
     gsap.from(".hero-title .line > span", { yPercent: 105, duration: 1.1, ease: "power4.out", stagger: 0.1 });
-    gsap.from("[data-hero-meta]", { opacity: 0, y: 12, duration: 0.8, ease: "power3.out", stagger: 0.1, delay: 0.35 });
   };
 
   /* Pantalla de carga */
@@ -285,6 +274,12 @@ const manifestoWords = copy.manifesto.split(" ");
   }
 
   if (!reduced) {
+    /* Escena 1: el texto del hero baja mientras se hace scroll */
+    gsap.to("[data-hero-content]", {
+      y: () => innerHeight * 0.7, ease: "none",
+      scrollTrigger: { trigger: "[data-hero]", start: "top top", end: "bottom top", scrub: true, invalidateOnRefresh: true },
+    });
+
     /* Escena 2: cada servicio se enciende al cruzar la pantalla (sin JavaScript quedan encendidos) */
     document.querySelectorAll<HTMLElement>("[data-lit]").forEach((el) => {
       gsap.fromTo(el, { "--lit": 0 }, { "--lit": 1, ease: "none", scrollTrigger: { trigger: el, start: "top 85%", end: "top 45%", scrub: true } });
