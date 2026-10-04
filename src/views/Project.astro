@@ -48,7 +48,7 @@ const copy = {
 ---
 <article class="project">
   <!-- 1. Portada fija -->
-  <header class="p-cover tone-dark">
+  <header class:list={["p-cover tone-dark", { "is-light": p.coverFill && isLightHex(p.coverFill) }]}>
     <Image src={p.cover} alt={p.coverAlt[lang]} class:list={["p-cover-img", { "is-fill": p.coverFill }]} style={[p.coverFocus && `object-position: ${p.coverFocus}`, p.coverFill && `background: ${p.coverFill}`].filter(Boolean).join(";") || undefined} widths={[800, 1400, 2200]} sizes="100vw" loading="eager" fetchpriority="high" />
     {p.coverVideo && <video class="p-cover-video" src={p.coverVideo} muted loop playsinline preload="auto" aria-hidden="true" data-autoplay></video>}
     <span class="p-cover-shade" aria-hidden="true"></span>
@@ -109,6 +109,7 @@ const copy = {
       );
       if (b.type === "site") return (
         <section class="b-site">
+          <p class="block-kicker t-label edge">{lang === "es" ? "Sitio web" : "Website"}</p>
           <a href={b.url} target="_blank" rel="noopener" class="browser" aria-label={`${copy.visit}: ${new URL(b.url).hostname}`}>
             <span class="browser-bar" aria-hidden="true">
               <i></i><i></i><i></i>
@@ -192,6 +193,7 @@ const copy = {
       if (b.type === "flow") return (
         <section class="b-flow tone-dark edge" data-flow>
           <div class="flow-head">
+            {b.kicker && <p class="block-kicker t-label">{b.kicker[lang]}</p>}
             <p class="p-lead">{b.title[lang]}</p>
             {b.intro && <p class="t-lead t-mute">{b.intro[lang]}</p>}
           </div>
@@ -310,6 +312,7 @@ const copy = {
   /* En pantallas verticales angostas el video se ve completo, sin recortar los textos */
   @media (max-aspect-ratio: 3/4) { .p-cover-video { object-fit: contain; background: var(--black); } }
   .p-cover-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,10,.35) 0%, transparent 25%, transparent 55%, rgba(10,10,10,.75) 100%); }
+  .p-cover.is-light .p-cover-shade { background: linear-gradient(180deg, rgba(10,10,10,.25) 0%, transparent 20%, transparent 45%, rgba(10,10,10,.7) 68%, rgba(10,10,10,.95) 100%); }
   .p-title { position: relative; z-index: 1; margin-left: -.04em; padding-bottom: clamp(16px, 4vh, 40px); }
 
   /* El resto de la página sube por encima de la portada */
@@ -348,6 +351,8 @@ const copy = {
 
   /* Galería de borde a borde con separaciones mínimas */
   .b-video, .b-site, .b-mosaic { padding-bottom: 6px; }
+  .block-kicker { color: var(--green); }
+  .b-site .block-kicker { padding-block: clamp(40px, 5vw, 72px) 1.25rem; }
   /* Aire entre una galería de fotos y la web que la sigue */
   .b-mosaic + .b-site { margin-top: clamp(64px, 10vw, 160px); }
   .b-video video { display: block; width: 100%; height: auto; max-height: 100svh; object-fit: cover; background: #111; }

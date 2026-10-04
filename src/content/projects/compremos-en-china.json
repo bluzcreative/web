@@ -89,40 +89,6 @@
       ]
     },
     {
-      "type": "tiles",
-      "columns": 2,
-      "images": [
-        {
-          "src": "../../assets/projects/compremos-en-china/logo-rojo.jpg",
-          "alt": {
-            "es": "Logo horizontal sobre rojo",
-            "en": "Horizontal logo on red"
-          }
-        },
-        {
-          "src": "../../assets/projects/compremos-en-china/logo-blanco.jpg",
-          "alt": {
-            "es": "Logo horizontal en rojo sobre blanco",
-            "en": "Horizontal logo in red on white"
-          }
-        },
-        {
-          "src": "../../assets/projects/compremos-en-china/logo-vertical-negro.jpg",
-          "alt": {
-            "es": "Logo vertical sobre negro",
-            "en": "Vertical logo on black"
-          }
-        },
-        {
-          "src": "../../assets/projects/compremos-en-china/logo-vertical-blanco.jpg",
-          "alt": {
-            "es": "Logo vertical en rojo sobre blanco",
-            "en": "Vertical logo in red on white"
-          }
-        }
-      ]
-    },
-    {
       "type": "statement",
       "title": {
         "es": "Una web que calcula el flete y abre casilleros.",
@@ -237,7 +203,11 @@
             "en": "We message them on WhatsApp Business to keep the conversation going."
           }
         }
-      ]
+      ],
+      "kicker": {
+        "es": "Automatización",
+        "en": "Automation"
+      }
     }
   ],
   "results": [

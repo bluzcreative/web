@@ -59,7 +59,7 @@ const projects = defineCollection({
           name: z.string(), role: t.optional(), text: t.optional(), background: z.string(), color: z.string(),
           family: z.string().optional(), file: z.string().optional(), image: image().optional(), imageEn: image().optional(), alt: t.optional() })) }),
         // Flujo: una automatización explicada en pasos simples, que se van encendiendo con el scroll
-        z.object({ type: z.literal("flow"), title: t, intro: t.optional(),
+        z.object({ type: z.literal("flow"), kicker: t.optional(), title: t, intro: t.optional(),
           steps: z.array(z.object({ icon: z.enum(["form", "sheet", "box", "folder", "mail", "whatsapp", "calc", "check"]), title: t, body: t })) }),
         // Íconos con un texto que explica la marca, en filas alternadas
         z.object({ type: z.literal("icons"), background: z.string(), color: z.string(), family: z.string().optional(), file: z.string().optional(),
