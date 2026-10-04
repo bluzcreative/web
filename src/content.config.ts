@@ -23,6 +23,7 @@ const projects = defineCollection({
       cover: image(),
       coverAlt: t,
       coverFocus: z.string().optional(), // punto de la portada que se mantiene al recortar, ej. "50% 65%"
+      coverFill: z.string().optional(), // color de fondo para mostrar la portada completa, sin recortar (ej. un logo)
       // Imagen de presentación de la empresa: queda fija detrás del reto y el enfoque
       presentation: image().optional(),
       presentationAlt: t.optional(),

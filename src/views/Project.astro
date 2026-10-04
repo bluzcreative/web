@@ -37,7 +37,7 @@ const copy = {
 <article class="project">
   <!-- 1. Portada fija -->
   <header class="p-cover tone-dark">
-    <Image class="p-cover-img" src={p.cover} alt={p.coverAlt[lang]} style={p.coverFocus ? `object-position: ${p.coverFocus}` : undefined} widths={[800, 1400, 2200]} sizes="100vw" loading="eager" fetchpriority="high" />
+    <Image src={p.cover} alt={p.coverAlt[lang]} class:list={["p-cover-img", { "is-fill": p.coverFill }]} style={[p.coverFocus && `object-position: ${p.coverFocus}`, p.coverFill && `background: ${p.coverFill}`].filter(Boolean).join(";") || undefined} widths={[800, 1400, 2200]} sizes="100vw" loading="eager" fetchpriority="high" />
     <span class="p-cover-shade" aria-hidden="true"></span>
     <h1 class="t-mega p-title edge">{p.client}</h1>
   </header>
@@ -236,6 +236,8 @@ const copy = {
   /* 1. Portada fija a pantalla completa */
   .p-cover { position: sticky; top: 0; height: 100svh; overflow: hidden; display: flex; align-items: flex-end; }
   .p-cover-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  /* Portadas que deben verse completas (logos): en pantallas verticales se ajustan sin recortar sobre su color */
+  @media (max-aspect-ratio: 1/1) { .p-cover-img.is-fill { object-fit: contain; } }
   .p-cover-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,10,.35) 0%, transparent 25%, transparent 55%, rgba(10,10,10,.75) 100%); }
   .p-title { position: relative; z-index: 1; margin-left: -.04em; padding-bottom: clamp(16px, 4vh, 40px); }
 

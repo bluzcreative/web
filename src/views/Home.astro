@@ -96,7 +96,7 @@ const manifestoWords = copy.manifesto.split(" ");
     <a href={routes.work[lang]} class="link-arrow">{copy.workLink} <span class="arr" aria-hidden="true">→</span></a>
   </div>
   <div class="work-grid">
-    {featured.map((p) => <ProjectCard project={p} lang={lang} cta={copy.cardCta} />)}
+    {featured.map((p) => <ProjectCard project={p} lang={lang} cta={copy.cardCta} sizes="(min-width: 1200px) 25vw, (min-width: 700px) 50vw, 100vw" />)}
   </div>
 </section>
 
@@ -180,11 +180,10 @@ const manifestoWords = copy.manifesto.split(" ");
 
   /* 3. Trabajo */
   .work-grid { display: grid; gap: clamp(48px, 6vw, 96px) var(--gutter); }
-  @media (min-width: 700px) { .work-grid { grid-template-columns: 1fr 1fr; } .work-grid > :nth-child(even) { margin-top: 14vh; } }
+  @media (min-width: 700px) { .work-grid { grid-template-columns: 1fr 1fr; } .work-grid > :global(:nth-child(even)) { margin-top: 14vh; } }
   @media (min-width: 1200px) {
-    .work-grid { grid-template-columns: repeat(3, 1fr); }
-    .work-grid > :nth-child(even) { margin-top: 0; }
-    .work-grid > :nth-child(3n + 2) { margin-top: 16vh; }
+    .work-grid { grid-template-columns: repeat(4, 1fr); }
+    .work-grid > :global(:nth-child(even)) { margin-top: 12vh; }
   }
 
   /* 4. Con quiénes */

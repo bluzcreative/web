@@ -14,7 +14,8 @@ const positions = ["30% 20%", "70% 50%", "50% 85%"];
 ---
 <a href={projectUrl(lang, project.id)} class="card" style={p.accent ? `--accent: ${p.accent}` : undefined}>
   <div class="card-media">
-    <Image class="card-cover" src={p.cover} alt={p.coverAlt[lang]} widths={[480, 800, 1200]} sizes={sizes}
+    <Image class:list={["card-cover", { "is-fill": p.coverFill }]} src={p.cover} alt={p.coverAlt[lang]}
+      style={p.coverFill ? `background: ${p.coverFill}` : undefined} widths={[480, 800, 1200]} sizes={sizes}
       loading={eager ? "eager" : "lazy"} />
     {layers.map((l, i) => (
       <Image class={`card-layer l${i + 1}`} src={l.src} alt="" aria-hidden="true" widths={[320, 560]} sizes="(min-width: 900px) 16vw, 45vw"
@@ -35,6 +36,7 @@ const positions = ["30% 20%", "70% 50%", "50% 85%"];
   .card-media { position: relative; aspect-ratio: 4 / 5; isolation: isolate; background: var(--black); }
   .card-cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;
     transition: opacity .5s var(--ease-out); }
+  .card-cover.is-fill { object-fit: contain; }
   .card-layer { position: absolute; z-index: 3; height: auto; object-fit: cover; border-radius: 0; opacity: 0;
     box-shadow: 0 24px 60px rgba(0,0,0,.45);
     transition: transform .8s var(--ease-out), opacity .45s var(--ease-out); }
