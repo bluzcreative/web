@@ -28,10 +28,10 @@
   },
   "gallery": [
     {
-      "src": "../../assets/projects/x-build/obra-muro.jpg",
+      "src": "../../assets/projects/x-build/web-sistema-robotico.jpg",
       "alt": {
-        "es": "Brazo robótico imprimiendo un muro curvo",
-        "en": "Robotic arm printing a curved wall"
+        "es": "Sitio de X-Build: sección del sistema robótico",
+        "en": "X-Build website: robotic system section"
       }
     },
     {
