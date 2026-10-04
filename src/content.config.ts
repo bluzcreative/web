@@ -18,7 +18,7 @@ const projects = defineCollection({
       year: z.number().optional(),
       country: t.optional(),
       industry: t,
-      services: z.array(z.enum(["paid-media", "contenido", "web", "automatizaciones", "branding", "audiovisual", "fotografia", "video"])),
+      services: z.array(z.enum(["paid-media", "contenido", "web", "automatizaciones", "branding", "audiovisual", "fotografia", "video", "diseno", "redes"])),
       summary: t, // una línea para la tarjeta
       cover: image(),
       coverAlt: t,
@@ -46,6 +46,9 @@ const projects = defineCollection({
           images: z.array(z.object({ src: image(), alt: t, wide: z.boolean().default(false), focus: z.string().optional() })) }),
         // Sitio web: capturas de escritorio en una ventana de navegador que enlaza al sitio
         z.object({ type: z.literal("site"), url: z.string().url(), shots: z.array(z.object({ src: image(), alt: t })) }),
+        // Video destacado: un video vertical grande junto a su historia (reverse: video a la derecha)
+        z.object({ type: z.literal("feature"), src: z.string(), poster: z.string().optional(), alt: t,
+          kicker: t.optional(), title: t, body: t, reverse: z.boolean().default(false) }),
         // Reels: varios videos verticales propios en fila, sin audio
         z.object({ type: z.literal("reels"), videos: z.array(z.object({ src: z.string(), poster: z.string().optional(), alt: t })) }),
         // Brochures: vista previa breve de algunas páginas, sin descarga

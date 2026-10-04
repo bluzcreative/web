@@ -109,4 +109,6 @@ export const serviceTags = {
   audiovisual: { es: "Producción audiovisual", en: "Audiovisual production" },
   fotografia: { es: "Fotografía", en: "Photography" },
   video: { es: "Video", en: "Video" },
+  diseno: { es: "Diseño estratégico", en: "Strategic design" },
+  redes: { es: "Redes sociales", en: "Social media" },
 } as const;

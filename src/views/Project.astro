@@ -102,6 +102,16 @@ const copy = {
           </a>
         </section>
       );
+      if (b.type === "feature") return (
+        <section class:list={["b-feature tone-dark edge", { "is-reverse": b.reverse }]}>
+          <video src={b.src} poster={b.poster} muted loop playsinline preload="metadata" aria-label={b.alt[lang]} data-autoplay></video>
+          <div class="b-feature-text">
+            {b.kicker && <p class="t-mute">{b.kicker[lang]}</p>}
+            <h2 class="t-h1">{b.title[lang]}</h2>
+            <p class="t-lead t-mute">{b.body[lang]}</p>
+          </div>
+        </section>
+      );
       if (b.type === "reels") return (
         <section class="b-reels tone-dark">
           {b.videos.map((v) => (
@@ -222,6 +232,18 @@ const copy = {
   /* Imágenes de contexto: más chicas, con márgenes y separación */
   .b-mosaic.is-small { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gutter); padding-block: clamp(32px, 5vw, 72px); }
   @media (min-width: 900px) { .b-mosaic.is-small { grid-template-columns: repeat(3, minmax(0, 1fr)); padding-inline: calc(var(--edge) + 8.333%); } }
+
+  /* Video destacado: vertical, grande, junto a su historia */
+  .b-feature { display: grid; gap: clamp(32px, 5vw, 96px); align-items: center; padding-block: var(--section); }
+  .b-feature video { width: 100%; max-width: 520px; max-height: 88svh; aspect-ratio: 9 / 16; object-fit: cover; background: #111; justify-self: center; }
+  .b-feature-text { display: grid; gap: 1.5rem; align-content: center; }
+  .b-feature-text .t-h1 { max-width: 16ch; }
+  .b-feature-text .t-lead { max-width: 44ch; }
+  @media (min-width: 900px) {
+    .b-feature { grid-template-columns: 5fr 7fr; }
+    .b-feature.is-reverse { grid-template-columns: 7fr 5fr; }
+    .b-feature.is-reverse video { order: 2; }
+  }
 
   /* Reels: videos verticales en fila */
   .b-reels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding-bottom: 6px; }
