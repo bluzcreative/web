@@ -1,7 +1,15 @@
 ---
 // Carrusel de clientes (reutiliza la idea del carrusel de la web anterior): corre solo, se pausa
 // al pasar el cursor y va más lento si la persona pidió menos movimiento.
+import { readFileSync } from "node:fs";
 import { clients } from "../../data/clients";
+
+// Todos los logos con un peso visual parecido: los alargados más bajos, los compactos más altos
+const scale = (logo: string) => {
+  const png = readFileSync(new URL(`../../../public${logo}`, import.meta.url));
+  const ratio = png.readUInt32BE(16) / png.readUInt32BE(20);
+  return Math.min(1.5, Math.max(0.55, Math.sqrt(3.4 / ratio))).toFixed(2);
+};
 
 interface Props { label: string }
 const { label } = Astro.props;
@@ -9,12 +17,12 @@ const { label } = Astro.props;
 <div class="marquee" role="region" aria-label={label}>
   <ul class="marquee-track">
     {clients.map((c) => (
-      <li class="marquee-item">{c.logo ? <img src={c.logo} alt={c.name} /> : c.name}</li>
+      <li class="marquee-item">{c.logo ? <img src={c.logo} alt={c.name} style={`--s: ${scale(c.logo)}`} /> : c.name}</li>
     ))}
   </ul>
   <ul class="marquee-track" aria-hidden="true">
     {clients.map((c) => (
-      <li class="marquee-item">{c.logo ? <img src={c.logo} alt="" /> : c.name}</li>
+      <li class="marquee-item">{c.logo ? <img src={c.logo} alt="" style={`--s: ${scale(c.logo)}`} /> : c.name}</li>
     ))}
   </ul>
 </div>
@@ -30,7 +38,7 @@ const { label } = Astro.props;
     transition: color .3s var(--ease-out); }
   .marquee-item:hover { color: var(--text); }
   .marquee-item::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--green); }
-  .marquee-item img { height: clamp(26px, 3.2vw, 44px); width: auto; max-width: none; opacity: .75; transition: opacity .3s var(--ease-out); }
+  .marquee-item img { height: calc(clamp(26px, 3.2vw, 44px) * var(--s, 1)); width: auto; max-width: none; opacity: .75; transition: opacity .3s var(--ease-out); }
   .marquee-item:hover img { opacity: 1; }
   @keyframes marquee { to { transform: translateX(-100%); } }
   @media (prefers-reduced-motion: reduce) { .marquee-track { animation-duration: 160s !important; animation-iteration-count: infinite !important; } }

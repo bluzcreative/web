@@ -6,11 +6,16 @@ export const clients: Client[] = [
   { name: "Rooties", logo: "/logos/rooties.png" },
   { name: "MioLunetto", logo: "/logos/miolunetto.png" },
   { name: "X-Build", logo: "/logos/x-build.png" },
+  { name: "Volumi", logo: "/logos/volumi.png" },
+  { name: "Acaure", logo: "/logos/acaure.png" },
   { name: "Compremos En China", logo: "/logos/compremos-en-china.png" },
-  { name: "Prophone", logo: "/logos/prophone.png" },
-  { name: "Flatpack Container", logo: "/logos/flatpack-container.png" },
+  { name: "ProPhone", logo: "/logos/prophone.png" },
+  { name: "Flat-Pack Container", logo: "/logos/flatpack-container.png" },
+  { name: "Offsite Advisory", logo: "/logos/offsite-advisory.png" },
+  { name: "AreMind", logo: "/logos/aremind.png" },
   { name: "The Bridge", logo: "/logos/the-bridge.png" },
-]
+  { name: "Worldwide Solutions", logo: "/logos/worldwide-solutions.png" },
+];
 
 // Trabajos sin página propia todavía: aparecen como lista en Trabajo. Con `url`, el nombre lleva a la web del cliente.
 type Work = { client: string; what?: { es: string; en: string }; url?: string };
