@@ -232,20 +232,6 @@
             "es": "About Rooties",
             "en": "About Rooties"
           }
-        },
-        {
-          "src": "../../assets/projects/rooties/habito.jpg",
-          "alt": {
-            "es": "Tu bienestar se construye todos los días",
-            "en": "Your wellbeing is built every day"
-          }
-        },
-        {
-          "src": "../../assets/projects/rooties/constancia.jpg",
-          "alt": {
-            "es": "Tu sistema inmune agradece la constancia",
-            "en": "Your immune system appreciates consistency"
-          }
         }
       ]
     }
