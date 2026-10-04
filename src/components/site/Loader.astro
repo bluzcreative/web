@@ -7,7 +7,7 @@ import type { ImageMetadata } from "astro";
 
 interface Props { images: { src: ImageMetadata; alt: string }[] }
 const { images } = Astro.props;
-const frames = await Promise.all(images.map(async (i) => (await getImage({ src: i.src, width: 720, format: "webp" })).src));
+const frames = await Promise.all(images.map(async (i) => (await getImage({ src: i.src, width: 600, format: "webp" })).src));
 ---
 <script is:inline>
   (function (d) {

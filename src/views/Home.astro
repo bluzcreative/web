@@ -249,7 +249,7 @@ const manifestoWords = copy.manifesto.split(" ");
       imgs[i].classList.remove("is-on");
       i = (i + 1) % imgs.length;
       imgs[i].classList.add("is-on");
-    }, 220);
+    }, 140);
     const counter = { v: 0 };
     const tl = gsap.timeline({
       onComplete: () => {
@@ -258,7 +258,7 @@ const manifestoWords = copy.manifesto.split(" ");
         ScrollTrigger.refresh();
       },
     });
-    tl.to(counter, { v: 100, duration: 2.4, ease: "power2.inOut", onUpdate: () => { count.textContent = String(Math.round(counter.v)); } })
+    tl.to(counter, { v: 100, duration: 2.8, ease: "power2.inOut", onUpdate: () => { count.textContent = String(Math.round(counter.v)); } })
       .add(() => {
         clearInterval(flip);
       })

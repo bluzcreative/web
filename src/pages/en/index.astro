@@ -1,14 +1,12 @@
 ---
-import { getCollection } from "astro:content";
 import Site from "../../layouts/Site.astro";
+import { loaderImages } from "../../lib/loader-images";
 import Loader from "../../components/site/Loader.astro";
 import Home from "../../views/Home.astro";
 
-const loaderImages = (await getCollection("projects", (p) => p.data.featured && !p.data.draft))
-  .sort((a, b) => a.data.order - b.data.order).slice(0, 4)
-  .map((p) => ({ src: p.data.cover, alt: p.data.coverAlt.en }));
+const images = await loaderImages("en");
 ---
 <Site lang="en" page="home" title="Bluz Creative | Content, branding, audiovisual, web and automations" description="Bluz Creative is a marketing agency working with brands worldwide: content strategy, branding and design, audiovisual production, web design, automations and paid media.">
-  <Loader slot="before" images={loaderImages} />
+  <Loader slot="before" images={images} />
   <Home lang="en" />
 </Site>
