@@ -22,11 +22,11 @@
     "es": "Marca, web y un sistema que abre casilleros solo para una empresa que acerca China a Venezuela.",
     "en": "Brand, website and a system that opens lockers on its own for a company bringing China closer to Venezuela."
   },
-  "cover": "../../assets/projects/compremos-en-china/portada.jpg",
-  "coverFill": "#ff0012",
+  "cover": "../../assets/projects/compremos-en-china/portada-blanco.jpg",
+  "coverFill": "#ffffff",
   "coverAlt": {
-    "es": "Logo de Compremos en China en blanco y amarillo sobre rojo",
-    "en": "Compremos en China logo in white and yellow on red"
+    "es": "Logo de Compremos en China en rojo sobre blanco",
+    "en": "Compremos en China logo in red on white"
   },
   "gallery": [
     {

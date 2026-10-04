@@ -78,17 +78,6 @@
       ]
     },
     {
-      "type": "statement",
-      "title": {
-        "es": "El reto: encontrar su voz después de mucho tiempo.",
-        "en": "The challenge: finding its voice after a long time."
-      },
-      "body": {
-        "es": "Acaure sabía muy bien quién es. El llano, la carne y la familia son un todo que representa a Venezuela y a su gente. Nuestro trabajo fue convertir eso en contenido que se recuerde por sus valores, publicando por calidad y no por cantidad, y mostrar que la carne de calidad es accesible y está a tu alcance. Lejos del fondo negro y el fuego de casi todas las marcas de carne: más cerca de una etiqueta de vino, con una historia detrás.",
-        "en": "Acaure knew exactly who it is. The plains, the beef and the family are one whole that represents Venezuela and its people. Our job was to turn that into content remembered for its values, posting for quality rather than quantity, and to show that quality beef is affordable and within reach. Far from the black backgrounds and flames of almost every meat brand: closer to a wine label, with a story behind it."
-      }
-    },
-    {
       "type": "feature",
       "src": "/projects/acaure/llano.mp4",
       "poster": "/projects/acaure/llano.jpg",
@@ -97,17 +86,13 @@
         "es": "Video de marca de Acaure: ganado, carne, llano y familia",
         "en": "Acaure brand video: cattle, beef, plains and family"
       },
-      "kicker": {
-        "es": "Video de marca",
-        "en": "Brand video"
-      },
       "title": {
-        "es": "Acaure. Carne. Llano. Y familia.",
-        "en": "Acaure. Beef. Plains. And family."
+        "es": "El reto: encontrar su voz después de mucho tiempo.",
+        "en": "The challenge: finding its voice after a long time."
       },
       "body": {
-        "es": "Cuatro palabras y un solo ritmo: lento, calmado, sin la urgencia típica de las redes de comida.",
-        "en": "Four words and a single rhythm: slow, calm, without the usual urgency of food social media."
+        "es": "Acaure sabía muy bien quién es. El llano, la carne y la familia son un todo que representa a Venezuela y a su gente. Nuestro trabajo fue convertir eso en contenido que se recuerde por sus valores, publicando por calidad y no por cantidad, y mostrar que la carne de calidad es accesible y está a tu alcance. Lejos del fondo negro y el fuego de casi todas las marcas de carne: más cerca de una etiqueta de vino, con una historia detrás.",
+        "en": "Acaure knew exactly who it is. The plains, the beef and the family are one whole that represents Venezuela and its people. Our job was to turn that into content remembered for its values, posting for quality rather than quantity, and to show that quality beef is affordable and within reach. Far from the black backgrounds and flames of almost every meat brand: closer to a wine label, with a story behind it."
       }
     },
     {
@@ -223,8 +208,8 @@
     {
       "type": "social",
       "text": {
-        "es": "Manejamos las redes de Acaure con un ritmo propio: menos posts, más historia. Así se ve la marca en su Instagram.",
-        "en": "We run Acaure's social media at its own pace: fewer posts, more story. This is how the brand looks on its Instagram."
+        "es": "Menos posts, más calidad. La misma esencia de la carne, trasladada a su feed.",
+        "en": "Fewer posts, more quality. The same essence as the beef, carried over to its feed."
       },
       "links": [
         {

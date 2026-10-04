@@ -92,8 +92,7 @@
     },
     {
       "type": "video",
-      "src": "/projects/miolunetto/cocina.mp4",
-      "poster": "/projects/miolunetto/cocina-poster.jpg",
+      "youtube": "PH9286ob_F4",
       "alt": {
         "es": "Video de la cocina de Lunetto preparando medialunas",
         "en": "Video of the Lunetto kitchen making medialunas"
@@ -199,8 +198,7 @@
           "alt": {
             "es": "Medialunas saladas y jugo en una mesa",
             "en": "Savory medialunas and juice on a table"
-          },
-          "wide": true
+          }
         },
         {
           "src": "../../assets/projects/miolunetto/mostrador.jpg",
@@ -249,31 +247,6 @@
             "es": "Página de catering de Lunetto",
             "en": "Lunetto catering page"
           }
-        }
-      ]
-    },
-    {
-      "type": "statement",
-      "title": {
-        "es": "Un dossier para vender el catering en una sola conversación.",
-        "en": "A dossier to sell catering in a single conversation."
-      }
-    },
-    {
-      "type": "brochures",
-      "items": [
-        {
-          "title": {
-            "es": "Dossier de catering",
-            "en": "Catering dossier"
-          },
-          "pages": [
-            "../../assets/projects/miolunetto/dossier/p1-01.jpg",
-            "../../assets/projects/miolunetto/dossier/p3-03.jpg",
-            "../../assets/projects/miolunetto/dossier/p4-04.jpg",
-            "../../assets/projects/miolunetto/dossier/p6-06.jpg",
-            "../../assets/projects/miolunetto/dossier/p9-09.jpg"
-          ]
         }
       ]
     }

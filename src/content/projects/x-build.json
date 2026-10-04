@@ -96,8 +96,7 @@
     },
     {
       "type": "video",
-      "src": "/projects/x-build/impresora.mp4",
-      "poster": "/projects/x-build/impresora-poster.jpg",
+      "youtube": "rC9MvjsUHhY",
       "alt": {
         "es": "Video de la impresora de X-Build trabajando",
         "en": "Video of the X-Build printer at work"
@@ -213,7 +212,6 @@
       "images": [
         {
           "src": "../../assets/projects/x-build/render-interior.webp",
-          "wide": true,
           "alt": {
             "es": "Render de un interior con muros impresos en 3D",
             "en": "Render of an interior with 3D printed walls"
@@ -253,10 +251,10 @@
             "es": "Sillas y mesa impresas en una terraza",
             "en": "Printed chairs and table on a terrace"
           },
-          "wide": true,
           "focus": "50% 65%"
         }
-      ]
+      ],
+      "small": true
     },
     {
       "type": "statement",

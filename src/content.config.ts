@@ -40,7 +40,7 @@ const projects = defineCollection({
         // Lista de lo que hizo Bluz, en tipografía grande
         z.object({ type: z.literal("list"), items: z.array(t) }),
         // Video propio, sin audio, en bucle (archivo en /public)
-        z.object({ type: z.literal("video"), src: z.string(), poster: z.string().optional(), vertical: z.boolean().default(false), alt: t }),
+        z.object({ type: z.literal("video"), src: z.string().optional(), youtube: z.string().optional(), poster: z.string().optional(), vertical: z.boolean().default(false), alt: t }),
         // Mosaico de imágenes
         // small: imágenes de contexto (no hechas por Bluz) en una grilla más chica, con márgenes
         // focus: punto de la imagen que se mantiene al recortar (por ejemplo "50% 70%")

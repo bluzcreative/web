@@ -86,7 +86,10 @@ const copy = {
       );
       if (b.type === "video") return (
         <section class:list={["b-video", { "is-vertical": b.vertical }]}>
-          <video src={b.src} poster={b.poster} muted loop playsinline preload="metadata" aria-label={b.alt[lang]} data-autoplay></video>
+          {b.youtube
+            ? <div class="yt"><iframe src={`https://www.youtube-nocookie.com/embed/${b.youtube}?autoplay=1&mute=1&loop=1&playlist=${b.youtube}&controls=0&playsinline=1&rel=0&modestbranding=1`}
+                title={b.alt[lang]} allow="autoplay; encrypted-media; picture-in-picture" loading="lazy" allowfullscreen></iframe></div>
+            : <video src={b.src} poster={b.poster} muted loop playsinline preload="metadata" aria-label={b.alt[lang]} data-autoplay></video>}
         </section>
       );
       if (b.type === "social") return (
@@ -337,11 +340,18 @@ const copy = {
     letter-spacing: -.04em; padding-block: .2em; border-top: 1px solid var(--line); transition: color .3s var(--ease-out); }
   .b-list li:last-child { border-bottom: 1px solid var(--line); }
   .b-list li:hover { color: var(--green); }
+  /* En escritorio, todos los servicios de un vistazo: columnas y texto más pequeño */
+  @media (min-width: 900px) {
+    .b-list ul { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--gutter); }
+    .b-list li { font-size: clamp(1.25rem, 1.7vw, 1.9rem); padding-block: .9rem; border-bottom: 1px solid var(--line); }
+  }
 
   /* Galería de borde a borde con separaciones mínimas */
   .b-video, .b-site, .b-mosaic { padding-bottom: 6px; }
   .b-video video { display: block; width: 100%; height: auto; max-height: 100svh; object-fit: cover; background: #111; }
   .b-video.is-vertical { display: flex; justify-content: center; }
+  .yt { position: relative; aspect-ratio: 16 / 9; background: #111; }
+  .yt iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
   .b-video.is-vertical video { width: min(480px, 100%); }
 
   .b-mosaic { display: grid; gap: 6px; }
@@ -358,7 +368,7 @@ const copy = {
   /* Piezas cuadradas (logos, íconos) */
   .b-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding-bottom: 6px; }
   @media (min-width: 900px) { .b-tiles { grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); } }
-  .b-tiles img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; display: block; }
+  .b-tiles img { width: 100%; height: auto; display: block; }
 
   /* Paleta: paneles de color que se deslizan en horizontal (sin JavaScript, se desplaza con el dedo o el trackpad) */
   .b-palette { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; padding-bottom: 6px; }
