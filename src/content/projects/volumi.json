@@ -81,54 +81,6 @@
       ]
     },
     {
-      "type": "tiles",
-      "columns": 3,
-      "images": [
-        {
-          "src": "../../assets/projects/volumi/logo-azul-naranja.jpg",
-          "alt": {
-            "es": "Logo naranja sobre azul",
-            "en": "Orange logo on blue"
-          }
-        },
-        {
-          "src": "../../assets/projects/volumi/logo-crema.jpg",
-          "alt": {
-            "es": "Logo azul sobre crema",
-            "en": "Blue logo on cream"
-          }
-        },
-        {
-          "src": "../../assets/projects/volumi/logo-naranja.jpg",
-          "alt": {
-            "es": "Logo azul sobre naranja",
-            "en": "Blue logo on orange"
-          }
-        },
-        {
-          "src": "../../assets/projects/volumi/logo-azul.jpg",
-          "alt": {
-            "es": "Logo blanco sobre azul",
-            "en": "White logo on blue"
-          }
-        },
-        {
-          "src": "../../assets/projects/volumi/logo-negro.jpg",
-          "alt": {
-            "es": "Logo crema sobre negro",
-            "en": "Cream logo on black"
-          }
-        },
-        {
-          "src": "../../assets/projects/volumi/m1-01.jpg",
-          "alt": {
-            "es": "Portada del manual de Volumi",
-            "en": "Volumi brand guidelines cover"
-          }
-        }
-      ]
-    },
-    {
       "type": "mosaic",
       "images": [
         {
