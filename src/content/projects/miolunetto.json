@@ -2,26 +2,310 @@
   "client": "MioLunetto",
   "order": 3,
   "featured": true,
-  "industry": { "es": "Panadería y café", "en": "Bakery and cafe" },
-  "services": ["contenido", "fotografia"],
+  "country": {
+    "es": "Venezuela",
+    "en": "Venezuela"
+  },
+  "industry": {
+    "es": "Panadería y café",
+    "en": "Bakery and cafe"
+  },
+  "services": [
+    "contenido",
+    "fotografia",
+    "audiovisual",
+    "web"
+  ],
   "summary": {
-    "es": "Medialunas argentinas con humor cotidiano y fotografía de producto que da hambre.",
-    "en": "Argentine medialunas with everyday humor and mouth-watering product photography."
+    "es": "Medialunas argentinas en Caracas, contadas con humor y fotografía que da hambre.",
+    "en": "Argentine medialunas in Caracas, told with humor and mouth-watering photography."
   },
   "cover": "../../assets/projects/miolunetto/medialunas.jpg",
   "coverAlt": {
     "es": "Bandeja de medialunas recién horneadas y glaseadas",
     "en": "Tray of freshly baked, glazed medialunas"
   },
-  "gallery": [],
-  "challenge": {
-    "es": "MioLunetto es una panadería y café de medialunas argentinas. Necesitaba un contenido con personalidad propia que hiciera antojar sin caer en lo genérico.",
-    "en": "MioLunetto is a bakery and cafe specialized in Argentine medialunas. It needed content with its own personality that makes people crave it without feeling generic."
-  },
-  "approach": {
-    "es": "Creamos contenido que mezcla humor cotidiano con fotografía de producto de alta calidad.",
-    "en": "We create content that mixes everyday humor with high-quality product photography."
-  },
-  "results": [],
-  "accent": "#e8a33d"
+  "gallery": [
+    {
+      "src": "../../assets/projects/miolunetto/vitrina-chocolate.jpg",
+      "alt": {
+        "es": "Medialuna con chocolate en la vitrina de Lunetto",
+        "en": "Chocolate-drizzled medialuna in the Lunetto display"
+      }
+    },
+    {
+      "src": "../../assets/projects/miolunetto/aviso.jpg",
+      "alt": {
+        "es": "Aviso de Lunetto, Tu Media Luna",
+        "en": "Lunetto sign, Tu Media Luna"
+      }
+    },
+    {
+      "src": "../../assets/projects/miolunetto/caja-verde.jpg",
+      "alt": {
+        "es": "Caja verde de Lunetto y café para llevar",
+        "en": "Green Lunetto box and coffee to go"
+      }
+    }
+  ],
+  "blocks": [
+    {
+      "type": "statement",
+      "title": {
+        "es": "Lunetto habla como un hombre con personalidad propia. El reto: conectar con esa voz sin ponerle cara a nadie.",
+        "en": "Lunetto speaks like a man with a personality of its own. The challenge: connecting through that voice without putting a face on anyone."
+      },
+      "body": {
+        "es": "Llevamos el contenido de Lunetto de punta a punta, cuidando que la estética y la forma de hablar sean siempre las mismas: fotografía de producto, reels con humor cotidiano y una web donde se pide, se arma una caja y se cotiza el catering.",
+        "en": "We run Lunetto's content end to end, keeping its look and its way of talking consistent everywhere: product photography, reels with everyday humor and a website to order, build a box and get a catering quote."
+      }
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "es": "Estrategia de contenido",
+          "en": "Content strategy"
+        },
+        {
+          "es": "Fotografía de producto",
+          "en": "Product photography"
+        },
+        {
+          "es": "Reels y video",
+          "en": "Reels and video"
+        },
+        {
+          "es": "Sitio web con pedidos",
+          "en": "Website with ordering"
+        },
+        {
+          "es": "Armador de cajas Lunetto Box",
+          "en": "Lunetto Box builder"
+        },
+        {
+          "es": "Dossier de catering",
+          "en": "Catering dossier"
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "src": "/projects/miolunetto/cocina.mp4",
+      "poster": "/projects/miolunetto/cocina-poster.jpg",
+      "alt": {
+        "es": "Video de la cocina de Lunetto preparando medialunas",
+        "en": "Video of the Lunetto kitchen making medialunas"
+      }
+    },
+    {
+      "type": "mosaic",
+      "images": [
+        {
+          "src": "../../assets/projects/miolunetto/medialunas-detalle.jpg",
+          "alt": {
+            "es": "Medialunas glaseadas de cerca",
+            "en": "Close-up of glazed medialunas"
+          },
+          "wide": true
+        },
+        {
+          "src": "../../assets/projects/miolunetto/caja-verde.jpg",
+          "alt": {
+            "es": "Caja verde de Lunetto y café para llevar",
+            "en": "Green Lunetto box and coffee to go"
+          }
+        },
+        {
+          "src": "../../assets/projects/miolunetto/bolsa.jpg",
+          "alt": {
+            "es": "Medialuna en la bolsa de papel de Lunetto",
+            "en": "Medialuna in a Lunetto paper bag"
+          }
+        },
+        {
+          "src": "../../assets/projects/miolunetto/pistacho.jpg",
+          "alt": {
+            "es": "Medialuna con crema de pistacho",
+            "en": "Medialuna with pistachio cream"
+          }
+        },
+        {
+          "src": "../../assets/projects/miolunetto/vitrina-chocolate.jpg",
+          "alt": {
+            "es": "Medialuna con chocolate en la vitrina",
+            "en": "Chocolate-drizzled medialuna in the display"
+          }
+        }
+      ]
+    },
+    {
+      "type": "reels",
+      "videos": [
+        {
+          "src": "/projects/miolunetto/alfajores.mp4",
+          "poster": "/projects/miolunetto/alfajores-poster.jpg",
+          "alt": {
+            "es": "Reel: el arte detrás de un alfajor",
+            "en": "Reel: the craft behind an alfajor"
+          }
+        },
+        {
+          "src": "/projects/miolunetto/box.mp4",
+          "poster": "/projects/miolunetto/box-poster.jpg",
+          "alt": {
+            "es": "Reel: Lunetto Box del Día de las Madres",
+            "en": "Reel: Mother's Day Lunetto Box"
+          }
+        },
+        {
+          "src": "/projects/miolunetto/local.mp4",
+          "poster": "/projects/miolunetto/local-poster.jpg",
+          "alt": {
+            "es": "Reel: el local de Lunetto",
+            "en": "Reel: the Lunetto shop"
+          }
+        },
+        {
+          "src": "/projects/miolunetto/mejor.mp4",
+          "poster": "/projects/miolunetto/mejor-poster.jpg",
+          "alt": {
+            "es": "Reel: ahh, mucho mejor",
+            "en": "Reel: ahh, much better"
+          }
+        }
+      ]
+    },
+    {
+      "type": "mosaic",
+      "images": [
+        {
+          "src": "../../assets/projects/miolunetto/aviso.jpg",
+          "alt": {
+            "es": "Aviso de Lunetto, Tu Media Luna",
+            "en": "Lunetto sign, Tu Media Luna"
+          }
+        },
+        {
+          "src": "../../assets/projects/miolunetto/vaso.jpg",
+          "alt": {
+            "es": "Vaso de Lunetto en mano",
+            "en": "Lunetto cup in hand"
+          }
+        },
+        {
+          "src": "../../assets/projects/miolunetto/salados.jpg",
+          "alt": {
+            "es": "Medialunas saladas y jugo en una mesa",
+            "en": "Savory medialunas and juice on a table"
+          },
+          "wide": true
+        },
+        {
+          "src": "../../assets/projects/miolunetto/mostrador.jpg",
+          "alt": {
+            "es": "Mostrador con alfajores y café de Lunetto",
+            "en": "Counter with Lunetto alfajores and coffee"
+          }
+        },
+        {
+          "src": "../../assets/projects/miolunetto/cafe-maquina.jpg",
+          "alt": {
+            "es": "Café de Lunetto frente a la máquina de espresso",
+            "en": "Lunetto coffee in front of the espresso machine"
+          }
+        },
+        {
+          "src": "../../assets/projects/miolunetto/chocolate-cafe.jpg",
+          "alt": {
+            "es": "Medialuna bañada en chocolate y café",
+            "en": "Chocolate-dipped medialuna and coffee"
+          }
+        },
+        {
+          "src": "../../assets/projects/miolunetto/vitrina-salados.jpg",
+          "alt": {
+            "es": "Vitrina de medialunas saladas",
+            "en": "Display of savory medialunas"
+          }
+        }
+      ]
+    },
+    {
+      "type": "site",
+      "url": "https://miolunetto.com/",
+      "shots": [
+        {
+          "src": "../../assets/projects/miolunetto/web-inicio.jpg",
+          "alt": {
+            "es": "Portada del sitio de Lunetto",
+            "en": "Lunetto website home page"
+          }
+        },
+        {
+          "src": "../../assets/projects/miolunetto/web-box.jpg",
+          "alt": {
+            "es": "Armador de cajas Lunetto Box",
+            "en": "Lunetto Box builder"
+          }
+        },
+        {
+          "src": "../../assets/projects/miolunetto/web-catering.jpg",
+          "alt": {
+            "es": "Página de catering de Lunetto",
+            "en": "Lunetto catering page"
+          }
+        }
+      ]
+    },
+    {
+      "type": "statement",
+      "title": {
+        "es": "Un dossier para vender el catering en una sola conversación.",
+        "en": "A dossier to sell catering in a single conversation."
+      }
+    },
+    {
+      "type": "brochures",
+      "items": [
+        {
+          "title": {
+            "es": "Dossier de catering",
+            "en": "Catering dossier"
+          },
+          "pages": [
+            "../../assets/projects/miolunetto/dossier/p1-01.jpg",
+            "../../assets/projects/miolunetto/dossier/p3-03.jpg",
+            "../../assets/projects/miolunetto/dossier/p4-04.jpg",
+            "../../assets/projects/miolunetto/dossier/p6-06.jpg",
+            "../../assets/projects/miolunetto/dossier/p9-09.jpg"
+          ]
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "value": "21,3k",
+      "label": {
+        "es": "Seguidores en octubre de 2026",
+        "en": "Followers in October 2026"
+      }
+    },
+    {
+      "value": "+3,3k",
+      "label": {
+        "es": "Nuevos seguidores desde abril de 2026, cuando eran 18k",
+        "en": "New followers since April 2026, up from 18k"
+      }
+    },
+    {
+      "value": "+18%",
+      "label": {
+        "es": "Crecimiento en seis meses con nuestra gestión",
+        "en": "Growth in six months under our management"
+      }
+    }
+  ],
+  "accent": "#1f4d36"
 }

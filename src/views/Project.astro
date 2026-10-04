@@ -94,7 +94,7 @@ const copy = {
               <span class="browser-url">{new URL(b.url).hostname.replace(/^www\./, "")}</span>
               <span class="browser-cta">{copy.visit} ↗</span>
             </span>
-            <span class="browser-screen" data-shots>
+            <span class="browser-screen" data-shots style={`aspect-ratio: ${b.shots[0].src.width} / ${b.shots[0].src.height}`}>
               {b.shots.map((s, i) => (
                 <Image class:list={["browser-shot", { "is-on": i === 0 }]} src={s.src} alt={s.alt[lang]} widths={[800, 1400, 1849]} sizes="100vw" />
               ))}
@@ -102,11 +102,18 @@ const copy = {
           </a>
         </section>
       );
+      if (b.type === "reels") return (
+        <section class="b-reels tone-dark">
+          {b.videos.map((v) => (
+            <video src={v.src} poster={v.poster} muted loop playsinline preload="metadata" aria-label={v.alt[lang]} data-autoplay></video>
+          ))}
+        </section>
+      );
       if (b.type === "brochures") return (
         <section class="b-brochures tone-dark">
           {b.items.map((it, k) => (
             <figure class="brochure" data-pages>
-              <span class="brochure-pages">
+              <span class="brochure-pages" style={`aspect-ratio: ${it.pages[0].width} / ${it.pages[0].height}`}>
                 {it.pages.map((pg, i) => (
                   <Image class:list={["brochure-page", { "is-on": i === 0 }]} src={pg} alt={i === 0 ? it.title[lang] : ""}
                     widths={[400, 700]} sizes="(min-width: 900px) 25vw, 50vw" draggable="false" />
@@ -216,6 +223,11 @@ const copy = {
   .b-mosaic.is-small { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gutter); padding-block: clamp(32px, 5vw, 72px); }
   @media (min-width: 900px) { .b-mosaic.is-small { grid-template-columns: repeat(3, minmax(0, 1fr)); padding-inline: calc(var(--edge) + 8.333%); } }
 
+  /* Reels: videos verticales en fila */
+  .b-reels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding-bottom: 6px; }
+  @media (min-width: 900px) { .b-reels { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .b-reels video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; background: #111; display: block; }
+
   /* Brochures: cada uno pasa sus páginas solo, como una vista previa breve */
   .b-brochures { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 45%), 1fr)); gap: 6px; padding-bottom: 6px; }
   .brochure { margin: 0; display: grid; gap: .75rem; background: #141414; padding: clamp(16px, 2.5vw, 40px) clamp(16px, 2.5vw, 40px) 1rem; }
@@ -224,6 +236,8 @@ const copy = {
     transition: opacity .6s var(--ease-out); user-select: none; -webkit-user-drag: none; }
   .brochure-page.is-on { opacity: 1; }
   .brochure figcaption { font-size: .875rem; }
+  /* Un solo brochure (por ejemplo, un dossier horizontal): centrado y con aire a los lados */
+  .brochure:only-child { padding-inline: clamp(16px, 14vw, 260px); }
   @media (max-width: 899px) { .brochure:last-child:nth-child(odd) { grid-column: 1 / -1; } .brochure:last-child:nth-child(odd) .brochure-pages { max-height: 70svh; } }
 
   /* Redes: texto a un lado, video al otro */
