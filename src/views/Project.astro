@@ -88,7 +88,7 @@ const copy = {
         <section class:list={["b-video", { "is-vertical": b.vertical }]}>
           {b.youtube
             ? <div class="yt"><iframe src={`https://www.youtube-nocookie.com/embed/${b.youtube}?autoplay=1&mute=1&loop=1&playlist=${b.youtube}&controls=0&playsinline=1&rel=0&modestbranding=1`}
-                title={b.alt[lang]} allow="autoplay; encrypted-media; picture-in-picture" loading="lazy" allowfullscreen></iframe></div>
+                title={b.alt[lang]} allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
             : <video src={b.src} poster={b.poster} muted loop playsinline preload="metadata" aria-label={b.alt[lang]} data-autoplay></video>}
         </section>
       );
