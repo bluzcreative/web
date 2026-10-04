@@ -52,8 +52,10 @@ const copy = {
     <ul class="more-list">
       {moreWork.map((w) => (
         <li>
-          <span class="t-h2">{w.client}</span>
-          <span class="t-mute">{w.what[lang]}</span>
+          {w.url
+            ? <a class="t-h2 more-link" href={w.url} target="_blank" rel="noopener">{w.client} <span aria-hidden="true">↗</span></a>
+            : <span class="t-h2">{w.client}</span>}
+          {w.what && <span class="t-mute">{w.what[lang]}</span>}
         </li>
       ))}
     </ul>
@@ -78,6 +80,8 @@ const copy = {
   .more-head { grid-column: 1 / -1; display: grid; gap: 1rem; margin-bottom: 2rem; }
   .more-list { grid-column: 1 / -1; }
   .more-list li { display: grid; gap: .35rem 2rem; padding-block: 1.5rem; border-top: 1px solid var(--line); }
+  .more-link { transition: color .3s var(--ease-out); }
+  .more-link:hover { color: var(--green); }
   .more-list li:last-child { border-bottom: 1px solid var(--line); }
   @media (min-width: 900px) {
     .more-head { grid-column: 1 / 5; align-content: start; }

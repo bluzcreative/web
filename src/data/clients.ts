@@ -12,10 +12,17 @@ export const clients: Client[] = [
   { name: "The Bridge", logo: "/logos/the-bridge.png" },
 ]
 
-// Trabajos sin página propia todavía: aparecen como lista en Trabajo
-export const moreWork = [
-  { client: "Flatpack Container", what: { es: "Sistema de lead scoring conectado a Meta", en: "Lead scoring system connected to Meta" } },
-  { client: "Incon Container Wholesale", what: { es: "Identidad visual modular", en: "Modular visual identity" } },
-  { client: "Baggely Bakery", what: { es: "Branding y diseño gráfico", en: "Branding and graphic design" } },
-  { client: "Vibrant Architecture Studio", what: { es: "Identidad visual dinámica", en: "Dynamic visual identity" } },
+// Trabajos sin página propia todavía: aparecen como lista en Trabajo. Con `url`, el nombre lleva a la web del cliente.
+type Work = { client: string; what?: { es: string; en: string }; url?: string };
+const rrss = { es: "Redes sociales", en: "Social media" };
+export const moreWork: Work[] = [
+  { client: "Flat-Pack Container", what: { es: "Sistema de lead scoring conectado a Meta", en: "Lead scoring system connected to Meta" } },
+  { client: "Disergen" },
+  { client: "Miel ApiAngostura", what: rrss },
+  { client: "Offsite Advisory", what: { es: "Diseño web", en: "Web design" }, url: "https://www.offsiteadvisory.com" },
+  { client: "Aremind", what: { es: "Identidad visual", en: "Visual identity" } },
+  { client: "The Bridge", what: rrss },
+  { client: "Worldwide Solutions", what: rrss },
+  { client: "Decolux", what: rrss },
+  { client: "Teraled", what: rrss },
 ];
