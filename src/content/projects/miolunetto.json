@@ -20,10 +20,10 @@
     "es": "Medialunas argentinas en Caracas, contadas con humor y fotografía que da hambre.",
     "en": "Argentine medialunas in Caracas, told with humor and mouth-watering photography."
   },
-  "cover": "../../assets/projects/miolunetto/medialunas.jpg",
+  "cover": "../../assets/projects/miolunetto/aviso.jpg",
   "coverAlt": {
-    "es": "Bandeja de medialunas recién horneadas y glaseadas",
-    "en": "Tray of freshly baked, glazed medialunas"
+    "es": "Aviso de Lunetto, Tu Media Luna, bajo el toldo verde y blanco",
+    "en": "Lunetto sign, Tu Media Luna, under the green and white awning"
   },
   "gallery": [
     {
@@ -34,10 +34,10 @@
       }
     },
     {
-      "src": "../../assets/projects/miolunetto/aviso.jpg",
+      "src": "../../assets/projects/miolunetto/medialunas.jpg",
       "alt": {
-        "es": "Aviso de Lunetto, Tu Media Luna",
-        "en": "Lunetto sign, Tu Media Luna"
+        "es": "Bandeja de medialunas recién horneadas",
+        "en": "Tray of freshly baked medialunas"
       }
     },
     {
@@ -307,5 +307,6 @@
       }
     }
   ],
-  "accent": "#1f4d36"
+  "accent": "#1f4d36",
+  "coverFocus": "50% 62%"
 }

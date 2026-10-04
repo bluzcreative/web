@@ -32,7 +32,7 @@ const copy = {
 <article class="project">
   <!-- 1. Portada fija -->
   <header class="p-cover tone-dark">
-    <Image class="p-cover-img" src={p.cover} alt={p.coverAlt[lang]} widths={[800, 1400, 2200]} sizes="100vw" loading="eager" fetchpriority="high" />
+    <Image class="p-cover-img" src={p.cover} alt={p.coverAlt[lang]} style={p.coverFocus ? `object-position: ${p.coverFocus}` : undefined} widths={[800, 1400, 2200]} sizes="100vw" loading="eager" fetchpriority="high" />
     <span class="p-cover-shade" aria-hidden="true"></span>
     <h1 class="t-mega p-title edge">{p.client}</h1>
   </header>
