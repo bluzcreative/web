@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Bluz Creative · Cómo funciona la web</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Fraunces:ital,wght@1,400;1,500&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  @page { size: 210mm 297mm; margin: 0; }
+  :root {
+    --black: #0a0a0a; --white: #ffffff; --paper: #f6f6f4; --green: #7bff76; --green-ink: #1f8a1b;
+    --mute: #9a9a9a; --mute-light: #6e6e6e; --line: rgba(10,10,10,.14);
+    --display: "Space Grotesk", sans-serif; --sans: "Inter", sans-serif; --serif: "Fraunces", serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: var(--sans); font-size: 9.6pt; line-height: 1.5; color: var(--black); background: #ddd; }
+  .page { width: 210mm; height: 297mm; padding: 16mm 17mm 13mm; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; break-after: page; background: var(--white); }
+  .page:last-child { break-after: auto; }
+  .dark { background: var(--black); color: var(--white); }
+  .paper { background: var(--paper); }
+  .head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 9mm; }
+  .label { font-size: 7pt; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--mute-light); }
+  .dark .label { color: var(--mute); }
+  .foot { margin-top: auto; display: flex; justify-content: space-between; padding-top: 4mm; border-top: 1px solid var(--line); }
+  .dark .foot { border-color: rgba(255,255,255,.14); }
+  h1, h2, h3 { font-family: var(--display); font-weight: 500; letter-spacing: -.035em; line-height: .98; }
+  h2 { font-size: 30pt; margin-bottom: 5mm; max-width: 18ch; }
+  h3 { font-size: 12pt; letter-spacing: -.015em; line-height: 1.2; margin: 6mm 0 2mm; }
+  p + p { margin-top: 2mm; }
+  .lead { font-size: 11pt; line-height: 1.45; max-width: 62ch; color: #2b2b2b; margin-bottom: 6mm; }
+  .dark .lead { color: #cfcfcf; }
+  .mute { color: var(--mute-light); }
+  em.serif { font-family: var(--serif); font-style: italic; font-weight: 400; }
+  code { font-family: ui-monospace, Menlo, monospace; font-size: .9em; background: rgba(10,10,10,.06); padding: .05em .35em; border-radius: 3px; }
+  b, strong { font-weight: 600; }
+
+  ol.steps { list-style: none; counter-reset: s; display: grid; gap: 2.6mm; }
+  ol.steps > li { counter-increment: s; position: relative; padding-left: 9mm; }
+  ol.steps > li::before { content: counter(s); position: absolute; left: 0; top: -.1mm; width: 6mm; height: 6mm; border-radius: 50%;
+    background: var(--black); color: var(--green); font: 600 7.5pt/6mm var(--sans); text-align: center; }
+  ul.dots { list-style: none; display: grid; gap: 1.6mm; }
+  ul.dots li { padding-left: 4.5mm; position: relative; }
+  ul.dots li::before { content: ""; position: absolute; left: 0; top: 2.1mm; width: 1.6mm; height: 1.6mm; border-radius: 50%; background: var(--green-ink); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 8.8pt; margin: 2mm 0 4mm; }
+  th { text-align: left; font-size: 6.8pt; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--mute-light);
+    padding: 0 3mm 2mm 0; border-bottom: 1px solid var(--black); }
+  td { padding: 2mm 3mm 2mm 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  td:first-child { font-weight: 600; white-space: nowrap; }
+
+  .note { border-left: 3px solid var(--green-ink); background: rgba(123,255,118,.12); padding: 3mm 4mm; margin: 3mm 0; font-size: 9pt; }
+  .warn { border-left-color: #c26b00; background: rgba(255,170,60,.13); }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 7mm; }
+
+  /* Portada */
+  .cover { justify-content: space-between; }
+  .cover h1 { font-size: 64pt; line-height: .9; letter-spacing: -.05em; max-width: 9ch; }
+  .cover-glow { position: absolute; width: 190mm; height: 190mm; right: -70mm; top: -50mm; border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(123,255,118,.3), rgba(123,255,118,.07) 55%, transparent); }
+  .cover > :not(.cover-glow) { position: relative; }
+  .toc { display: grid; gap: 2mm; font-size: 10pt; }
+  .toc span { color: var(--green); font-family: var(--display); margin-right: 4mm; }
+
+  /* Mapa */
+  .map { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin: 4mm 0 6mm; }
+  .node { border: 1px solid var(--black); border-radius: 3mm; padding: 3.5mm 4mm; background: var(--white); }
+  .node b { font-family: var(--display); font-size: 11pt; font-weight: 500; display: block; margin-bottom: 1mm; }
+  .node small { font-size: 8pt; color: var(--mute-light); display: block; line-height: 1.4; }
+  .node.hub { background: var(--black); color: var(--white); }
+  .node.hub small { color: #bdbdbd; }
+  .flow { display: grid; gap: 3mm; }
+  .flow-row { display: flex; align-items: center; gap: 2.5mm; font-size: 8.8pt; }
+  .flow-row .chip { border: 1px solid var(--line); border-radius: 99px; padding: 1.2mm 3.2mm; background: var(--white); white-space: nowrap; }
+  .flow-row .chip.g { background: var(--green); border-color: var(--green); }
+  .flow-row .arr { color: var(--mute-light); }
+  .flow-row .what { margin-left: 2mm; color: var(--mute-light); font-size: 8pt; }
+</style>
+</head>
+<body>
+
+<!-- 1. Portada -->
+<section class="page dark cover">
+  <span class="cover-glow" aria-hidden="true"></span>
+  <div class="head"><span class="label">Bluz Creative · Guía interna</span><span class="label">Octubre 2026</span></div>
+  <div>
+    <h1>Cómo funciona la web.</h1>
+    <p class="lead" style="margin-top:7mm">Dónde vive cada cosa, cómo publicar en Bluz Lab desde Notion, a dónde llegan los correos y cómo pasar el dominio a Netlify. Para leer una vez y tener a mano.</p>
+  </div>
+  <div class="toc">
+    <div><span>01</span>El mapa</div>
+    <div><span>02</span>Netlify y el plan</div>
+    <div><span>03</span>Publicar en Bluz Lab con Notion</div>
+    <div><span>04</span>Configuración única: Notion y Make</div>
+    <div><span>05</span>Correos: contacto, Contraluz y descargables con Kit</div>
+    <div><span>06</span>Pasar el dominio de Vercel a Netlify</div>
+    <div><span>07</span>GitHub y lista para el lanzamiento</div>
+  </div>
+  <div class="foot"><span class="label">bluzcreative.com</span><span class="label">Menos ruido. Más luz.</span></div>
+</section>
+
+<!-- 2. El mapa -->
+<section class="page paper">
+  <div class="head"><span class="label">01 · El mapa</span><span class="label">Bluz Creative</span></div>
+  <h2>Cinco piezas, cada una con un solo trabajo.</h2>
+  <p class="lead">La web es un sitio estático: rápido, seguro y barato. No tiene panel de administración propio; el contenido que cambia seguido vive en Notion y los correos viven en Kit.</p>
+  <div class="map">
+    <div class="node"><b>GitHub</b><small>Guarda el código de la web (repositorio bluzcreative/web). Cada cambio de diseño pasa por aquí.</small></div>
+    <div class="node hub"><b>Netlify</b><small>Construye y publica la web. Recibe los formularios. Aquí se conecta el dominio.</small></div>
+    <div class="node"><b>Notion</b><small>Base "Bluz Lab" en Bap's board: artículos, descargables, experimentos y ediciones de Contraluz.</small></div>
+    <div class="node"><b>Make</b><small>Cuenta de Bluz (bluzcreative@gmail.com). Une las piezas: avisa a Netlify y pasa correos a Kit.</small></div>
+    <div class="node"><b>Kit</b><small>Lista de suscriptores, envío de descargables por correo y newsletter Contraluz.</small></div>
+    <div class="node"><b>GoDaddy</b><small>Donde está registrado bluzcreative.com. Solo se toca para apuntar el dominio a Netlify.</small></div>
+  </div>
+  <h3>Lo que pasa en cada caso</h3>
+  <div class="flow">
+    <div class="flow-row"><span class="chip">Notion</span><span class="arr">→</span><span class="chip">Make</span><span class="arr">→</span><span class="chip g">Netlify reconstruye</span><span class="what">Marcas "Actualizar web" y en unos minutos la entrada está publicada.</span></div>
+    <div class="flow-row"><span class="chip">Formulario de contacto</span><span class="arr">→</span><span class="chip g">Netlify Forms</span><span class="arr">→</span><span class="chip">Tu correo</span><span class="what">Cada mensaje te llega por email y queda guardado.</span></div>
+    <div class="flow-row"><span class="chip">Contraluz</span><span class="arr">→</span><span class="chip">Netlify Forms</span><span class="arr">→</span><span class="chip">Make</span><span class="arr">→</span><span class="chip g">Kit</span><span class="what">Queda suscrito a la newsletter.</span></div>
+    <div class="flow-row"><span class="chip">Descargable</span><span class="arr">→</span><span class="chip">Netlify Forms</span><span class="arr">→</span><span class="chip">Make</span><span class="arr">→</span><span class="chip g">Kit</span><span class="what">Recibe el archivo por correo y queda suscrito.</span></div>
+    <div class="flow-row"><span class="chip">Cambio de diseño</span><span class="arr">→</span><span class="chip">GitHub</span><span class="arr">→</span><span class="chip g">Netlify reconstruye</span><span class="what">Lo hacemos nosotras con el código, como hasta ahora.</span></div>
+  </div>
+  <div class="note" style="margin-top:6mm"><b>Por qué así:</b> nadie toca código para publicar contenido, los correos quedan en una herramienta hecha para enviarlos, y la web solo se reconstruye cuando de verdad hay algo nuevo, que es lo que gasta créditos en Netlify.</div>
+  <div class="foot"><span class="label">Cómo funciona la web</span><span class="label">02</span></div>
+</section>
+
+<!-- 3. Netlify y el plan -->
+<section class="page">
+  <div class="head"><span class="label">02 · Netlify y el plan</span><span class="label">Bluz Creative</span></div>
+  <h2>Hoy alcanza el plan gratis. Para el lanzamiento, Personal.</h2>
+  <p class="lead">Netlify cobra en créditos. Cada mes trae una cantidad y cada acción gasta una parte. Si se acaban en el plan gratis, la web se pausa hasta el mes siguiente.</p>
+  <table>
+    <tr><th>Plan</th><th>Precio</th><th>Créditos al mes</th><th>Para qué alcanza</th></tr>
+    <tr><td>Free</td><td>0 USD</td><td>300</td><td>Etapa de revisión: pocos deploys y pocas visitas.</td></tr>
+    <tr><td>Personal</td><td>9 USD</td><td>1.000</td><td>La web publicada con el dominio, publicaciones semanales y tráfico normal de agencia.</td></tr>
+    <tr><td>Pro</td><td>20 USD</td><td>3.000</td><td>Solo si las campañas traen mucho tráfico o se suman más personas al equipo.</td></tr>
+  </table>
+  <table>
+    <tr><th>Qué gasta créditos</th><th>Cuánto</th><th>En la práctica</th></tr>
+    <tr><td>Publicar (deploy)</td><td>15</td><td>Cada vez que la web se reconstruye: un cambio de diseño o un "Actualizar web" desde Notion.</td></tr>
+    <tr><td>Tráfico (bandwidth)</td><td>20 por GB</td><td>Lo que más pesa son los videos de los proyectos. Una visita que mira varios proyectos puede descargar entre 20 y 40 MB.</td></tr>
+    <tr><td>Visitas (requests)</td><td>2 por cada 10.000</td><td>Casi nada.</td></tr>
+  </table>
+  <h3>Mi recomendación</h3>
+  <ul class="dots">
+    <li><b>Ahora:</b> seguir en Free. Este mes llevamos 0 de 300 créditos y la web ya está publicada en bluz-web.netlify.app (con acceso solo para el equipo).</li>
+    <li><b>El día que conectemos bluzcreative.com:</b> pasar a <b>Personal (9 USD al mes)</b>. Con 1.000 créditos caben unos 20 deploys al mes y unos 35 GB de tráfico, que son entre 1.000 y 1.500 visitas que miran videos.</li>
+    <li><b>Si una campaña dispara las visitas:</b> Netlify avisa por correo al acercarse al límite. Se puede comprar un paquete de créditos sin cambiar de plan.</li>
+    <li><b>Para gastar menos:</b> publicar las entradas de Notion juntas (una sola actualización por tanda) y no subir videos más pesados de lo necesario.</li>
+  </ul>
+  <div class="note warn"><b>Acceso restringido:</b> hoy la web en Netlify solo la ven las personas con sesión en el equipo de Netlify. Eso se quita el día del lanzamiento (Configuración del proyecto → Access & security → Visitor access).</div>
+  <div class="foot"><span class="label">Cómo funciona la web</span><span class="label">03</span></div>
+</section>
+
+<!-- 4. Publicar con Notion -->
+<section class="page paper">
+  <div class="head"><span class="label">03 · Publicar en Bluz Lab con Notion</span><span class="label">Bluz Creative</span></div>
+  <h2>Escribes en Notion, marcas dos casillas y listo.</h2>
+  <p class="lead">Cada fila de la base "Bluz Lab" es una entrada. Lo que escribes dentro de la página (títulos, párrafos, listas, citas, imágenes) se convierte en el artículo.</p>
+  <table>
+    <tr><th>Campo en Notion</th><th>Tipo</th><th>Para qué sirve</th></tr>
+    <tr><td>Título</td><td>Título</td><td>El título de la entrada.</td></tr>
+    <tr><td>Tipo</td><td>Selección</td><td>Artículo, Descargable, Experimento o Contraluz. Define en qué sección aparece.</td></tr>
+    <tr><td>Idioma</td><td>Selección</td><td>ES o EN. Cada idioma es una fila distinta.</td></tr>
+    <tr><td>Resumen</td><td>Texto</td><td>Una o dos líneas: aparece en el listado y en Google.</td></tr>
+    <tr><td>Fecha</td><td>Fecha</td><td>Fecha de publicación. Ordena el listado.</td></tr>
+    <tr><td>Publicado</td><td>Casilla</td><td>Marcada: la entrada está en la web. Desmarcada: no aparece.</td></tr>
+    <tr><td>Actualizar web</td><td>Casilla</td><td>El botón de publicar. Al marcarla, Make reconstruye la web y la desmarca sola.</td></tr>
+    <tr><td>Portada</td><td>Archivo</td><td>Opcional. Imagen de cabecera.</td></tr>
+    <tr><td>Archivo</td><td>Archivo</td><td>Solo descargables: el PDF o un enlace (Drive, Canva).</td></tr>
+    <tr><td>Slug</td><td>Texto</td><td>Opcional. La dirección de la página. Si lo dejas vacío se arma con el título.</td></tr>
+    <tr><td>Traducción</td><td>Texto</td><td>Opcional. Una palabra igual en la versión ES y EN para unirlas (ej. <code>guia-meta-ads</code>).</td></tr>
+    <tr><td>Edición</td><td>Número</td><td>Solo Contraluz: número de la edición.</td></tr>
+    <tr><td>Etiquetas</td><td>Selección múltiple</td><td>Opcional, para ordenar.</td></tr>
+  </table>
+  <div class="cols">
+    <div>
+      <h3>Publicar una entrada</h3>
+      <ol class="steps">
+        <li>Crea una fila nueva y escribe dentro de la página.</li>
+        <li>Completa Tipo, Idioma, Resumen y Fecha.</li>
+        <li>Marca <b>Publicado</b>.</li>
+        <li>Marca <b>Actualizar web</b>. En 2 a 5 minutos está en línea.</li>
+      </ol>
+    </div>
+    <div>
+      <h3>Corregir o quitar</h3>
+      <ol class="steps">
+        <li><b>Corregir:</b> edita la página y marca Actualizar web.</li>
+        <li><b>Quitar de la web:</b> desmarca Publicado y marca Actualizar web. Queda guardada en Notion.</li>
+        <li><b>Si borras la fila:</b> también desaparece de la web, en la siguiente actualización.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="note"><b>Imágenes y archivos:</b> los que subes a Notion se copian a la web al publicar, porque los enlaces de Notion caducan en una hora. Usa imágenes de hasta 2 MB para que la página cargue rápido.</div>
+  <div class="foot"><span class="label">Cómo funciona la web</span><span class="label">04</span></div>
+</section>
+
+<!-- 5. Configuración Notion + Make -->
+<section class="page">
+  <div class="head"><span class="label">04 · Configuración única: Notion y Make</span><span class="label">Bluz Creative</span></div>
+  <h2>Se hace una sola vez.</h2>
+  <h3>A. Darle a la web permiso para leer Notion</h3>
+  <ol class="steps">
+    <li>Entra a <code>notion.so/profile/integrations</code> con la cuenta del workspace donde está Bap's board y crea una integración interna llamada <b>Bluz Web</b>, con permiso solo de lectura.</li>
+    <li>Copia el <b>token secreto</b> que te muestra (empieza con <code>ntn_</code>).</li>
+    <li>Abre la base <b>Bluz Lab</b> en Notion → menú ••• → Conexiones → agrega <b>Bluz Web</b>.</li>
+    <li>Copia el <b>id de la base</b>: es la parte larga de la dirección de la base, antes del <code>?v=</code>.</li>
+    <li>En Netlify: proyecto bluz-web → Project configuration → Environment variables. Crea <code>NOTION_TOKEN</code> con el token y <code>NOTION_LAB_DB</code> con el id. Son privadas: no quedan en el código.</li>
+  </ol>
+  <h3>B. El aviso de publicar (escenario en Make)</h3>
+  <ol class="steps">
+    <li>En Netlify: Project configuration → Build &amp; deploy → <b>Build hooks</b> → Add build hook, nombre "Notion", rama de producción. Copia la URL.</li>
+    <li>En Make (cuenta de Bluz), escenario nuevo <b>"Bluz Lab · Actualizar web"</b>:
+      <ul class="dots" style="margin-top:1.5mm">
+        <li><b>Notion · Watch Database Items</b> sobre Bluz Lab, cada 15 minutos.</li>
+        <li><b>Filtro:</b> Actualizar web = sí.</li>
+        <li><b>HTTP · Make a request:</b> método POST a la URL del build hook.</li>
+        <li><b>Notion · Update a Database Item:</b> desmarca Actualizar web en esa fila.</li>
+      </ul>
+    </li>
+    <li>Activa el escenario. Para probar, marca Actualizar web en una entrada de prueba y mira en Netlify → Deploys que aparezca una nueva publicación.</li>
+  </ol>
+  <div class="note"><b>Por qué una casilla y no automático al editar:</b> Notion guarda cada letra que escribes. Si cada edición reconstruyera la web, una tarde de correcciones gastaría todos los créditos del mes. La casilla te deja decidir cuándo publicar.</div>
+  <div class="note warn"><b>Requisito:</b> el build hook solo existe cuando Netlify construye la web desde GitHub. Por eso primero hay que subir el código a GitHub y conectar el repositorio (sección 07).</div>
+  <div class="foot"><span class="label">Cómo funciona la web</span><span class="label">05</span></div>
+</section>
+
+<!-- 6. Correos con Kit -->
+<section class="page paper">
+  <div class="head"><span class="label">05 · Correos con Kit</span><span class="label">Bluz Creative</span></div>
+  <h2>Cada correo llega a su lugar.</h2>
+  <table>
+    <tr><th>Formulario</th><th>Dónde queda</th><th>Qué pasa después</th></tr>
+    <tr><td>Contacto</td><td>Netlify Forms</td><td>Te llega un email con el mensaje. No pasa a Kit: es una conversación de venta, no un suscriptor.</td></tr>
+    <tr><td>Contraluz</td><td>Netlify Forms y Kit</td><td>Queda suscrito a Contraluz en Kit.</td></tr>
+    <tr><td>Descargables</td><td>Netlify Forms y Kit</td><td>Ve el enlace en pantalla, recibe el archivo por correo y queda suscrito a Contraluz.</td></tr>
+  </table>
+  <div class="cols">
+    <div>
+      <h3>A. En Kit (plan gratis, hasta 10.000 suscriptores)</h3>
+      <ol class="steps">
+        <li>Crea la cuenta con bluzcreative@gmail.com.</li>
+        <li>Crea un formulario <b>Contraluz</b> (no hace falta ponerlo en la web: lo usamos de puerta de entrada).</li>
+        <li>Por cada descargable, crea un formulario con su nombre y activa el <b>incentive email</b> con el archivo adjunto o el enlace. Kit lo envía solo al confirmar el correo.</li>
+        <li>Settings → Developer: copia la <b>API key</b> para Make.</li>
+      </ol>
+    </div>
+    <div>
+      <h3>B. En Netlify y Make</h3>
+      <ol class="steps">
+        <li>Make: escenario <b>"Web · Suscriptores a Kit"</b> que empieza con un <b>Custom webhook</b>. Copia su URL.</li>
+        <li>Netlify → Forms → Form notifications → <b>Outgoing webhook</b> para los formularios contraluz y descargables, con esa URL.</li>
+        <li>En Make, un <b>router</b>: si el formulario es contraluz, Kit · Add subscriber to form "Contraluz"; si es descargables, al formulario de ese recurso (llega en el campo <code>recurso</code>) y también a "Contraluz".</li>
+        <li>Netlify → Forms → Form notifications → <b>Email notification</b> del formulario contacto a bluzcreative@gmail.com.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="note"><b>¿Hay que conectar algo más para guardar los correos?</b> No. Netlify guarda todos los envíos (los ves en la pestaña Forms y se pueden exportar a CSV) y Kit guarda la lista de suscriptores. Si más adelante quieren un CRM o una hoja de cálculo, se agrega un paso en el mismo escenario de Make.</div>
+  <div class="note"><b>Textos legales:</b> la política de privacidad ya nombra a Kit como la herramienta que envía Contraluz y los descargables.</div>
+  <div class="foot"><span class="label">Cómo funciona la web</span><span class="label">06</span></div>
+</section>
+
+<!-- 7. Dominio -->
+<section class="page">
+  <div class="head"><span class="label">06 · Pasar el dominio de Vercel a Netlify</span><span class="label">Bluz Creative</span></div>
+  <h2>El dominio no se mueve: solo cambia a dónde apunta.</h2>
+  <p class="lead">bluzcreative.com está registrado en GoDaddy y hoy apunta a Vercel. No hay que transferirlo: se cambian dos registros en GoDaddy para que apunte a Netlify. El dominio no tiene correo configurado (no hay registros MX), así que el cambio no afecta ningún email.</p>
+  <ol class="steps">
+    <li><b>Netlify:</b> proyecto bluz-web → Domain management → Add a domain → <code>bluzcreative.com</code>. Elige <b>www.bluzcreative.com</b> como dominio principal y que el otro redirija a ese.</li>
+    <li><b>GoDaddy → Mis productos → bluzcreative.com → Nameservers:</b> deja los servidores de GoDaddy por defecto (<code>ns31</code> y <code>ns32.domaincontrol.com</code>). Hoy también figuran los de Vercel (<code>ns1</code> y <code>ns2.vercel-dns.com</code>) y hay que quitarlos.</li>
+    <li><b>GoDaddy → DNS:</b> borra los registros A y CNAME que apuntan a Vercel (las IP que empiezan con <code>216.198.79</code> o <code>64.29.17</code>, y cualquier <code>cname.vercel-dns.com</code>).</li>
+    <li>Crea estos dos registros:
+      <table style="margin-top:2mm">
+        <tr><th>Tipo</th><th>Nombre</th><th>Valor</th><th>TTL</th></tr>
+        <tr><td>A</td><td>@</td><td><code>75.2.60.5</code></td><td>1 hora</td></tr>
+        <tr><td>CNAME</td><td>www</td><td><code>bluz-web.netlify.app</code></td><td>1 hora</td></tr>
+      </table>
+    </li>
+    <li><b>Espera</b> entre 15 minutos y unas horas. En Netlify, Domain management muestra "Netlify DNS propagated" y luego crea el certificado HTTPS solo. Si no lo hace en un par de horas, ahí mismo hay un botón "Verify DNS configuration".</li>
+    <li><b>Vercel:</b> cuando bluzcreative.com ya cargue la web nueva, entra al proyecto viejo → Settings → Domains y quita el dominio. Puedes dejar el proyecto archivado unas semanas por si hace falta volver.</li>
+    <li><b>Quitar el acceso restringido</b> en Netlify (Access &amp; security → Visitor access) y publicar una vez más, para que las direcciones de Google y de compartir usen el dominio nuevo.</li>
+  </ol>
+  <div class="note"><b>Las direcciones viejas no se pierden:</b> la web ya tiene redirecciones de las páginas antiguas (las que terminaban en .html) a las nuevas, así que los enlaces viejos y Google siguen funcionando.</div>
+  <div class="foot"><span class="label">Cómo funciona la web</span><span class="label">07</span></div>
+</section>
+
+<!-- 8. GitHub y lanzamiento -->
+<section class="page paper">
+  <div class="head"><span class="label">07 · GitHub y lanzamiento</span><span class="label">Bluz Creative</span></div>
+  <h2>Lista para el día del lanzamiento.</h2>
+  <h3>Subir el código a GitHub (una vez)</h3>
+  <ol class="steps">
+    <li>GitHub Desktop → File → <b>Add Local Repository</b> → carpeta <code>Documents/GitHub/bluz web</code>.</li>
+    <li>Rama <b>rediseno</b> → <b>Push origin</b>. Sube todo el trabajo del rediseño.</li>
+    <li>En GitHub, abre un Pull Request de <b>rediseno</b> a <b>main</b> y únelo (Merge). Así main pasa a ser la web nueva.</li>
+    <li>Netlify → proyecto bluz-web → Project configuration → Build &amp; deploy → <b>Link repository</b> → GitHub → bluzcreative/web, rama <b>main</b>. El comando y la carpeta ya están en el archivo netlify.toml.</li>
+  </ol>
+  <h3>Antes de abrir la web al público</h3>
+  <ul class="dots">
+    <li>Plan Personal activo en Netlify.</li>
+    <li>Variables en Netlify: <code>NOTION_TOKEN</code>, <code>NOTION_LAB_DB</code> y, para medir, <code>PUBLIC_GA_ID</code> (Google Analytics) y <code>PUBLIC_META_PIXEL_ID</code> (Meta). La analítica solo se carga si la persona acepta cookies.</li>
+    <li>Dominio apuntando a Netlify y con HTTPS.</li>
+    <li>Escenarios de Make activos: "Bluz Lab · Actualizar web" y "Web · Suscriptores a Kit".</li>
+    <li>Notificación por email del formulario de contacto.</li>
+    <li>Revisar los textos legales (privacidad, términos y cookies) y los datos de Nosotros, que son borradores.</li>
+    <li>Quitar el acceso restringido y hacer una prueba completa: enviar el formulario de contacto, suscribirse a Contraluz y bajar un descargable.</li>
+  </ul>
+  <h3>Qué no cambia</h3>
+  <p>Los proyectos, servicios y textos de la web siguen en el código. Para cambiarlos me escribes y lo hacemos juntas, como hasta ahora; al subirlo a GitHub, Netlify publica solo.</p>
+  <div class="foot"><span class="label">Cómo funciona la web</span><span class="label">08</span></div>
+</section>
+
+</body>
+</html>

@@ -23,7 +23,7 @@ export const legal: Record<"privacy" | "terms" | "cookies", Record<"es" | "en", 
           "No vendemos tus datos a terceros.",
         ] },
         { h: "Con quién los compartimos", p: [
-          "Con proveedores que nos ayudan a operar el sitio: Netlify (alojamiento y formularios), Google (analítica) y Meta (medición de campañas), y la herramienta de newsletter que usemos. Cada uno trata los datos según sus propias políticas.",
+          "Con proveedores que nos ayudan a operar el sitio: Netlify (alojamiento y formularios), Google (analítica) y Meta (medición de campañas) y Kit (envío de Contraluz y de los descargables). Cada uno trata los datos según sus propias políticas.",
         ] },
         { h: "Cuánto tiempo los guardamos", p: [
           "Los datos de contacto, mientras dure la relación comercial o hasta que nos pidas borrarlos. La suscripción a Contraluz, hasta que te des de baja.",
@@ -48,7 +48,7 @@ export const legal: Record<"privacy" | "terms" | "cookies", Record<"es" | "en", 
           "We don't sell your data to third parties.",
         ] },
         { h: "Who we share it with", p: [
-          "Providers that help us run the site: Netlify (hosting and forms), Google (analytics) and Meta (campaign measurement), plus our newsletter tool. Each processes data under its own policies.",
+          "Providers that help us run the site: Netlify (hosting and forms), Google (analytics) and Meta (campaign measurement) and Kit (sending Contraluz and downloads). Each processes data under its own policies.",
         ] },
         { h: "How long we keep it", p: [
           "Contact data, for as long as the business relationship lasts or until you ask us to delete it. Contraluz subscriptions, until you unsubscribe.",

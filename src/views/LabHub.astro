@@ -95,6 +95,12 @@ const kinds = Object.keys(labKinds) as LabKind[];
   </div>
 </section>
 
+<!-- Registro del formulario de descargables para Netlify, aunque todavía no haya ninguno publicado -->
+<form name="descargables" data-netlify="true" netlify-honeypot="bot-field" hidden aria-hidden="true">
+  <input type="hidden" name="form-name" value="descargables">
+  <input name="recurso"><input name="idioma"><input name="email" type="email"><input name="bot-field">
+</form>
+
 <style>
   .lab-hero { min-height: 75svh; display: flex; flex-direction: column; justify-content: flex-end; gap: 1.25rem;
     padding-top: calc(var(--bar-h) + 3rem); padding-bottom: clamp(48px, 8vh, 96px); }
