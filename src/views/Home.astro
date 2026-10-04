@@ -85,7 +85,6 @@ const manifestoWords = copy.manifesto.split(" ");
         <li>
           <a href={`${routes.services[lang]}#${s.slug}`} class="lit-word" data-lit>
             <span class="t-display">{s.name[lang]}</span>
-            <span class="arr" aria-hidden="true">→</span>
           </a>
         </li>
       ))}
@@ -175,15 +174,12 @@ const manifestoWords = copy.manifesto.split(" ");
   .services-list li:last-child { border-bottom: 1px solid var(--line); }
   .lit-word {
     --lit: 1;
-    display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: .25rem 1rem; padding-block: .25em .3em;
+    display: block; padding-block: .25em .3em;
     color: color-mix(in srgb, var(--text) calc(var(--lit) * 100%), var(--text-dim));
     transition: color .35s var(--ease-out);
   }
   .lit-word .t-display { grid-column: 1; font-size: clamp(2rem, 8.4vw, 9.5rem); }
-  .lit-word .arr { grid-column: 2; grid-row: 1; font-size: clamp(1.5rem, 3vw, 3rem); opacity: 0; transform: translateX(-.4em);
-    transition: opacity .35s var(--ease-out), transform .35s var(--ease-out); color: var(--green); }
-  .lit-word:hover { color: var(--text); }
-  .lit-word:hover .arr { opacity: 1; transform: none; }
+  .lit-word:hover, .lit-word:focus-visible { color: var(--green); }
   @media (min-width: 900px) {
     .scene-label { grid-column: 1 / 4; margin: .9em 0 0; }
     .services-list, .scene-foot { grid-column: 4 / -1; }

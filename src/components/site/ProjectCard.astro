@@ -32,13 +32,13 @@ const positions = ["30% 20%", "70% 50%", "50% 85%"];
 <style>
   .card { position: relative; display: grid; gap: 1.25rem; }
   .card:hover, .card:focus-visible { z-index: 5; }
-  .card-media { position: relative; aspect-ratio: 4 / 5; isolation: isolate; background: var(--placeholder); }
+  .card-media { position: relative; aspect-ratio: 4 / 5; isolation: isolate; background: var(--black); }
   .card-cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;
-    transition: transform .8s var(--ease-out), filter .8s var(--ease-out); }
-  .card-layer { position: absolute; z-index: 3; height: auto; object-fit: cover; border-radius: 8px; opacity: 0;
+    transition: opacity .5s var(--ease-out); }
+  .card-layer { position: absolute; z-index: 3; height: auto; object-fit: cover; border-radius: 0; opacity: 0;
     box-shadow: 0 24px 60px rgba(0,0,0,.45);
     transition: transform .8s var(--ease-out), opacity .45s var(--ease-out); }
-  .l1 { width: 40%; aspect-ratio: 9 / 16; left: 4%; top: 16%; transform: translate(12%, 10%) scale(.85); border-radius: 16px; }
+  .l1 { width: 40%; aspect-ratio: 9 / 16; left: 4%; top: 16%; transform: translate(12%, 10%) scale(.85); }
   .l2 { width: 48%; aspect-ratio: 1; right: 4%; top: 6%; transform: translate(-10%, 10%) scale(.85); }
   .l3 { width: 44%; aspect-ratio: 4 / 3; right: 8%; bottom: 6%; transform: translate(-6%, -10%) scale(.85); }
   .card-cta { position: absolute; z-index: 4; left: 1rem; bottom: 1rem; padding: .7em 1.1em; border-radius: 999px;
@@ -49,7 +49,7 @@ const positions = ["30% 20%", "70% 50%", "50% 85%"];
   .card-tags li { font-size: .8125rem; padding: .35em .8em; border: 1px solid var(--line); border-radius: 999px; }
 
   @media (hover: hover) and (pointer: fine) {
-    .card:hover .card-cover { transform: scale(.93); filter: brightness(.55); }
+    .card:hover .card-cover { opacity: 0; }
     .card:hover .card-layer { opacity: 1; }
     .card:hover .l1 { transform: translate(-6%, -4%) rotate(-6deg); transition-delay: .03s; }
     .card:hover .l2 { transform: translate(6%, -6%) rotate(4deg); transition-delay: .08s; }

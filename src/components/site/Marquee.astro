@@ -30,7 +30,8 @@ const { label } = Astro.props;
     transition: color .3s var(--ease-out); }
   .marquee-item:hover { color: var(--text); }
   .marquee-item::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--green); }
-  .marquee-item img { height: clamp(28px, 4vw, 48px); width: auto; filter: brightness(0) invert(1); opacity: .7; }
+  .marquee-item img { height: clamp(26px, 3.2vw, 44px); width: auto; max-width: none; opacity: .75; transition: opacity .3s var(--ease-out); }
+  .marquee-item:hover img { opacity: 1; }
   @keyframes marquee { to { transform: translateX(-100%); } }
   @media (prefers-reduced-motion: reduce) { .marquee-track { animation-duration: 160s !important; animation-iteration-count: infinite !important; } }
 </style>
