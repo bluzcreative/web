@@ -7,6 +7,7 @@ export const brand = {
   whatsappDisplay: "+58 424 140 13 83",
   instagramHandle: "@bluzcreative",
   instagramUrl: "https://instagram.com/bluzcreative",
+  linkedinUrl: "https://www.linkedin.com/company/bluzcreative", // confirmar la URL exacta de la página de empresa
 };
 
 export const whatsappUrl = (message?: string) =>

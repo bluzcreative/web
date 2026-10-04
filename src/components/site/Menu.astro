@@ -4,7 +4,7 @@
 import Logo from "../Logo.astro";
 import ContraluzForm from "./ContraluzForm.astro";
 import { routes, menuOrder, features, t, otherLang, type Lang, type PageKey } from "../../i18n/ui";
-import { brand, whatsappUrl } from "../../data/brand";
+import { brand } from "../../data/brand";
 
 interface Props { lang: Lang; page?: PageKey; alternates?: Record<Lang, string> }
 const { lang, page, alternates } = Astro.props;
@@ -49,8 +49,7 @@ const altHref = alternates ? alternates[alt] : routes.home[alt];
       <p class="t-label">{tr("social")}</p>
       <ul>
         <li><a href={brand.instagramUrl} target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href={whatsappUrl()} target="_blank" rel="noopener">WhatsApp</a></li>
-        <li><a href={`mailto:${brand.email}`}>{brand.email}</a></li>
+        <li><a href={brand.linkedinUrl} target="_blank" rel="noopener">LinkedIn</a></li>
       </ul>
     </div>
     <ContraluzForm lang={lang} id="menu" />
