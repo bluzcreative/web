@@ -196,12 +196,12 @@
         {
           "icon": "folder",
           "title": {
-            "es": "Sus cotizadores, listos",
-            "en": "Quotes ready to go"
+            "es": "Sus instrucciones de envío",
+            "en": "Shipping instructions"
           },
           "body": {
-            "es": "Se preparan sus plantillas de envío aéreo y marítimo, a su nombre.",
-            "en": "Their air and sea shipping templates are prepared in their name."
+            "es": "Se preparan las plantillas que el cliente le pasa a sus proveedores en China, con la dirección de su casillero y los datos del envío aéreo o marítimo.",
+            "en": "The templates the client sends to their suppliers in China are prepared, with their locker address and the details for air or sea shipping."
           }
         },
         {
