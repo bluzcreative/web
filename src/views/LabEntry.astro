@@ -32,6 +32,7 @@ const copy = {
   {e.cover && (
     <Image class="entry-cover" src={e.cover} alt="" widths={[800, 1400, 2000]} sizes="100vw" loading="eager" />
   )}
+  {!e.cover && e.coverUrl && <img class="entry-cover" src={e.coverUrl} alt="" loading="eager" />}
 
   <div class="entry-body tone-dark edge">
     <div class="prose"><Content /></div>

@@ -3,6 +3,7 @@
 // - lab: artículos, descargables, experimentos y ediciones de Contraluz en Markdown (src/content/lab).
 import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
+import { loadNotionLab } from "./lib/notion-lab";
 import { z } from "astro/zod";
 
 const t = z.object({ es: z.string(), en: z.string() });
@@ -84,8 +85,23 @@ const projects = defineCollection({
     }),
 });
 
+// Bluz Lab mezcla los archivos Markdown del proyecto con las entradas publicadas en Notion
+// (si están configuradas NOTION_TOKEN y NOTION_LAB_DB). Las de Notion llegan ya en HTML.
+const markdownLab = glob({ pattern: "**/*.md", base: "./src/content/lab" });
 const lab = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/lab" }),
+  loader: {
+    name: "bluz-lab",
+    async load(context) {
+      await markdownLab.load(context);
+      const token = process.env.NOTION_TOKEN, db = process.env.NOTION_LAB_DB;
+      if (!token || !db) return;
+      for (const entry of await loadNotionLab(token, db)) {
+        const data = await context.parseData({ id: entry.id, data: entry.data });
+        context.store.set({ id: entry.id, data, rendered: { html: entry.html } });
+      }
+      context.logger.info("Entradas de Notion cargadas en Bluz Lab");
+    },
+  },
   schema: ({ image }) =>
     z.object({
       kind: z.enum(["articulo", "descargable", "experimento", "contraluz"]),
@@ -97,6 +113,7 @@ const lab = defineCollection({
       draft: z.boolean().default(false),
       translationKey: z.string().optional(), // une la versión en español con la versión en inglés
       cover: image().optional(),
+      coverUrl: z.string().optional(), // portada que viene de Notion (ya copiada a /lab-media)
       issue: z.number().optional(), // número de edición de Contraluz
       file: z.string().optional(), // ruta del descargable dentro de /public
       tags: z.array(z.string()).default([]),
