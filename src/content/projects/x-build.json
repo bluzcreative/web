@@ -167,11 +167,11 @@
           "url": "https://www.instagram.com/xbuild3d/"
         }
       ],
-      "video": "/projects/x-build/linkedin.mp4",
-      "poster": "/projects/x-build/linkedin-poster.jpg",
+      "video": "/projects/x-build/obra.mp4",
+      "poster": "/projects/x-build/obra-poster.jpg",
       "videoAlt": {
-        "es": "Video de X-Build para LinkedIn",
-        "en": "X-Build video for LinkedIn"
+        "es": "Video de X-Build: el brazo robótico imprime un muro de concreto en obra",
+        "en": "X-Build video: the robotic arm prints a concrete wall on site"
       }
     },
     {
