@@ -240,6 +240,21 @@
       ]
     }
   ],
-  "results": [],
+  "results": [
+    {
+      "value": "30 min",
+      "label": {
+        "es": "Ahorrados en cada casillero nuevo, que ahora se abre en segundos",
+        "en": "Saved on every new locker, which now opens in seconds"
+      }
+    },
+    {
+      "value": "24/7",
+      "label": {
+        "es": "El cliente recibe todo al instante, aunque sea de noche o fin de semana",
+        "en": "Clients get everything instantly, even at night or on weekends"
+      }
+    }
+  ],
   "accent": "#ff0012"
 }
