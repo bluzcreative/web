@@ -95,15 +95,24 @@
       ]
     },
     {
+      "type": "video",
+      "src": "/projects/x-build/impresora.mp4",
+      "poster": "/projects/x-build/impresora-poster.jpg",
+      "alt": {
+        "es": "Video de la impresora de X-Build trabajando",
+        "en": "Video of the X-Build printer at work"
+      }
+    },
+    {
       "type": "mosaic",
+      "small": true,
       "images": [
         {
           "src": "../../assets/projects/x-build/obra-robots.jpg",
           "alt": {
             "es": "Dos impresoras de X-Build frente a su galpón",
             "en": "Two X-Build printers outside their warehouse"
-          },
-          "wide": true
+          }
         },
         {
           "src": "../../assets/projects/x-build/obra-muro.jpg",
@@ -118,21 +127,7 @@
             "es": "Detalle de las capas de concreto impreso",
             "en": "Close-up of the printed concrete layers"
           }
-        }
-      ]
-    },
-    {
-      "type": "video",
-      "src": "/projects/x-build/impresora.mp4",
-      "poster": "/projects/x-build/impresora-poster.jpg",
-      "alt": {
-        "es": "Video de la impresora de X-Build trabajando",
-        "en": "Video of the X-Build printer at work"
-      }
-    },
-    {
-      "type": "mosaic",
-      "images": [
+        },
         {
           "src": "../../assets/projects/x-build/obra-aerea.jpg",
           "alt": {
@@ -149,7 +144,6 @@
         },
         {
           "src": "../../assets/projects/x-build/obra-operario.jpg",
-          "wide": true,
           "alt": {
             "es": "Operario junto a la impresora de X-Build",
             "en": "Operator next to the X-Build printer"
@@ -258,7 +252,9 @@
           "alt": {
             "es": "Sillas y mesa impresas en una terraza",
             "en": "Printed chairs and table on a terrace"
-          }
+          },
+          "wide": true,
+          "focus": "50% 65%"
         }
       ]
     },

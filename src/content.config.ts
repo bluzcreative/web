@@ -39,7 +39,10 @@ const projects = defineCollection({
         // Video propio, sin audio, en bucle (archivo en /public)
         z.object({ type: z.literal("video"), src: z.string(), poster: z.string().optional(), vertical: z.boolean().default(false), alt: t }),
         // Mosaico de imágenes
-        z.object({ type: z.literal("mosaic"), images: z.array(z.object({ src: image(), alt: t, wide: z.boolean().default(false) })) }),
+        // small: imágenes de contexto (no hechas por Bluz) en una grilla más chica, con márgenes
+        // focus: punto de la imagen que se mantiene al recortar (por ejemplo "50% 70%")
+        z.object({ type: z.literal("mosaic"), small: z.boolean().default(false),
+          images: z.array(z.object({ src: image(), alt: t, wide: z.boolean().default(false), focus: z.string().optional() })) }),
         // Sitio web: capturas de escritorio en una ventana de navegador que enlaza al sitio
         z.object({ type: z.literal("site"), url: z.string().url(), shots: z.array(z.object({ src: image(), alt: t })) }),
         // Brochures: vista previa breve de algunas páginas, sin descarga

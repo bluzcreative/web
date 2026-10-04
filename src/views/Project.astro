@@ -118,10 +118,11 @@ const copy = {
         </section>
       );
       if (b.type === "mosaic") return (
-        <section class="b-mosaic">
+        <section class:list={["b-mosaic", { "is-small tone-dark edge": b.small }]}>
           {b.images.map((im) => (
-            <Image class:list={["m-img", { "is-wide": im.wide }]} src={im.src} alt={im.alt[lang]} widths={[600, 1000, 1600, 2200]}
-              sizes={im.wide ? "100vw" : "(min-width: 700px) 50vw, 100vw"} />
+            <Image class:list={["m-img", { "is-wide": im.wide && !b.small }]} src={im.src} alt={im.alt[lang]} widths={[400, 600, 1000, 1600, 2200]}
+              sizes={b.small ? "(min-width: 900px) 25vw, 50vw" : im.wide ? "100vw" : "(min-width: 700px) 50vw, 100vw"}
+              style={im.focus ? `object-position: ${im.focus}` : undefined} />
           ))}
         </section>
       );
@@ -211,6 +212,9 @@ const copy = {
     .b-mosaic { grid-template-columns: 1fr 1fr; }
     .m-img.is-wide { grid-column: 1 / -1; }
   }
+  /* Imágenes de contexto: más chicas, con márgenes y separación */
+  .b-mosaic.is-small { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gutter); padding-block: clamp(32px, 5vw, 72px); }
+  @media (min-width: 900px) { .b-mosaic.is-small { grid-template-columns: repeat(3, minmax(0, 1fr)); padding-inline: calc(var(--edge) + 8.333%); } }
 
   /* Brochures: cada uno pasa sus páginas solo, como una vista previa breve */
   .b-brochures { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 45%), 1fr)); gap: 6px; padding-bottom: 6px; }
