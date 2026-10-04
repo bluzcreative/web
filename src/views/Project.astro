@@ -139,17 +139,25 @@ const copy = {
         <section class="b-type">
           {b.fonts.map((f) => (
             <div class="type-panel" data-tone={isLightHex(f.background) ? "light" : "dark"} style={`background: ${f.background}; color: ${f.color}`}>
-              <p class="type-role">{f.role[lang]}</p>
-              {f.image
-                ? <Image class="type-img" src={f.image} alt={`${f.name}: Aa, abecedario y números`} widths={[600, 944]} sizes="(min-width: 900px) 40vw, 80vw" />
-                : (
-                  <div class="type-live" style={`font-family: '${f.family}', sans-serif`}>
-                    <style set:html={`@font-face { font-family: '${f.family}'; src: url('${f.file}'); font-display: swap; }`}></style>
-                    <p class="type-name">{f.name}</p>
-                    <p class="type-aa" aria-hidden="true">Aa</p>
-                    <p class="type-chars">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ<br />abcdefghijklmnñopqrstuvwxyz<br />0123456789 ¿?¡! @ # % &amp;</p>
-                  </div>
-                )}
+              {f.file && <style set:html={`@font-face { font-family: '${f.family}'; src: url('${f.file}'); font-display: swap; }`}></style>}
+              {f.text && f.family
+                ? <p class="type-say" style={`font-family: '${f.family}', sans-serif`}>{f.text[lang]}</p>
+                : f.image && <Image class="type-img" src={lang === "en" && f.imageEn ? f.imageEn : f.image} alt={f.alt ? f.alt[lang] : f.name} widths={[600, 1000, 1500]} sizes="(min-width: 900px) 40vw, 80vw" />}
+              <p class="type-credit">{f.role && `${f.role[lang]} · `}{f.name}</p>
+            </div>
+          ))}
+        </section>
+      );
+      if (b.type === "icons") return (
+        <section class="b-icons" data-tone={isLightHex(b.background) ? "light" : "dark"} style={`background: ${b.background}; color: ${b.color}`}>
+          {b.file && <style set:html={`@font-face { font-family: '${b.family}'; src: url('${b.file}'); font-display: swap; }`}></style>}
+          {b.items.map((it, i) => (
+            <div class:list={["icon-row", { "is-reverse": i % 2 === 1 }]}>
+              <Image class="icon-img" src={it.src} alt={it.alt[lang]} widths={[400, 700, 1000]} sizes="(min-width: 900px) 40vw, 80vw" />
+              <div class="icon-text">
+                <h2 style={b.family ? `font-family: '${b.family}', sans-serif` : undefined}>{it.title[lang]}</h2>
+                <p>{it.body[lang]}</p>
+              </div>
             </div>
           ))}
         </section>
@@ -310,11 +318,21 @@ const copy = {
   @media (min-width: 900px) { .b-type { grid-template-columns: 1fr 1fr; } }
   .type-panel { display: grid; gap: 2rem; align-content: space-between; padding: clamp(24px, 4vw, 64px); }
   @media (min-width: 900px) { .type-panel { min-height: min(100svh, 860px); } }
-  .type-role { font-size: .9375rem; opacity: .75; }
-  .type-name { font-size: clamp(1.5rem, 2.4vw, 2.4rem); }
-  .type-aa { font-size: clamp(8rem, 20vw, 20rem); line-height: .9; }
-  .type-chars { font-size: clamp(1rem, 1.6vw, 1.6rem); line-height: 1.5; overflow-wrap: anywhere; }
-  .type-img { width: 100%; height: auto; max-width: 640px; }
+  .type-say { font-size: clamp(3rem, 7.5vw, 8.5rem); line-height: .98; letter-spacing: -.02em; max-width: 9ch; align-self: center; }
+  .type-credit { font-size: .875rem; opacity: .7; }
+  .type-img { width: 100%; height: auto; max-width: 620px; align-self: center; }
+
+  /* Íconos con texto de marca */
+  .b-icons { display: grid; gap: clamp(48px, 8vw, 140px); padding: var(--section) var(--edge); }
+  .icon-row { display: grid; gap: clamp(24px, 4vw, 72px); align-items: center; }
+  .icon-img { width: 100%; max-width: 520px; height: auto; justify-self: center; }
+  .icon-text { display: grid; gap: 1.25rem; max-width: 34rem; }
+  .icon-text h2 { font-size: clamp(2.2rem, 4.6vw, 4.8rem); line-height: 1; letter-spacing: -.02em; }
+  .icon-text p { font-size: var(--fs-lead); line-height: 1.5; opacity: .85; }
+  @media (min-width: 900px) {
+    .icon-row { grid-template-columns: 1fr 1fr; }
+    .icon-row.is-reverse .icon-img { order: 2; }
+  }
 
   /* Video destacado: vertical, grande, junto a su historia */
   .b-feature { display: grid; gap: clamp(32px, 5vw, 96px); align-items: center; padding-block: var(--section); }

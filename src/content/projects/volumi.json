@@ -239,73 +239,48 @@
       "fonts": [
         {
           "name": "Varela Round",
-          "role": {
-            "es": "Títulos",
-            "en": "Headlines"
-          },
           "background": "#f2eee6",
           "color": "#ed531d",
           "family": "Varela Round Volumi",
-          "file": "/projects/volumi/fonts/VarelaRound-Regular.ttf"
+          "file": "/projects/volumi/fonts/VarelaRound-Regular.ttf",
+          "text": {
+            "es": "Tu espacio, en orden.",
+            "en": "Your space, in order."
+          }
         },
         {
           "name": "Canva Sans",
-          "role": {
-            "es": "Textos",
-            "en": "Body text"
-          },
           "background": "#0f4aaa",
           "color": "#f2eee6",
-          "image": "../../assets/projects/volumi/tipo-canva-sans.png"
+          "image": "../../assets/projects/volumi/texto-canva-sans-es.png",
+          "imageEn": "../../assets/projects/volumi/texto-canva-sans-en.png",
+          "alt": {
+            "es": "Guardamos tu mercancía, contamos cada unidad, preparamos los pedidos y los enviamos el mismo día. Tú solo vendes.",
+            "en": "We store your goods, count every unit, pack the orders and ship them the same day. You just sell."
+          }
         }
       ]
     },
     {
-      "type": "statement",
-      "title": {
-        "es": "Reglas claras para que la marca se vea igual en cualquier lugar.",
-        "en": "Clear rules so the brand looks the same everywhere."
-      }
-    },
-    {
-      "type": "mosaic",
-      "images": [
-        {
-          "src": "../../assets/projects/volumi/m6-06.jpg",
-          "alt": {
-            "es": "Usos correctos del logo",
-            "en": "Correct logo uses"
-          },
-          "wide": true
-        },
-        {
-          "src": "../../assets/projects/volumi/m7-07.jpg",
-          "alt": {
-            "es": "Usos incorrectos del logo",
-            "en": "Incorrect logo uses"
-          },
-          "wide": true
-        },
-        {
-          "src": "../../assets/projects/volumi/m8-08.jpg",
-          "alt": {
-            "es": "Área de seguridad del logo",
-            "en": "Logo clear space"
-          },
-          "wide": true
-        }
-      ]
-    },
-    {
-      "type": "tiles",
-      "columns": 2,
+      "type": "icons",
       "background": "#ffffff",
-      "images": [
+      "color": "#0f4aaa",
+      "family": "Varela Round Volumi",
+      "file": "/projects/volumi/fonts/VarelaRound-Regular.ttf",
+      "items": [
         {
           "src": "../../assets/projects/volumi/icono-estanteria.jpg",
           "alt": {
             "es": "Ícono de estantería con cajas",
             "en": "Shelving with boxes icon"
+          },
+          "title": {
+            "es": "Todo en su sitio.",
+            "en": "Everything in its place."
+          },
+          "body": {
+            "es": "Cajas que se apilan con orden y sin esfuerzo. La estantería resume la promesa de Volumi: tu inventario a la vista, siempre donde lo dejaste.",
+            "en": "Boxes stacked neatly, without effort. The shelf sums up Volumi's promise: your inventory in plain sight, always where you left it."
           }
         },
         {
@@ -313,16 +288,17 @@
           "alt": {
             "es": "Ícono de almacén",
             "en": "Warehouse icon"
+          },
+          "title": {
+            "es": "Un almacén que se siente cerca.",
+            "en": "A warehouse that feels close."
+          },
+          "body": {
+            "es": "Líneas redondeadas y un techo que recuerda a una casa. Guardar tu mercancía con Volumi tiene que sentirse tan seguro como tenerla contigo.",
+            "en": "Rounded lines and a roof that recalls a home. Storing your goods with Volumi should feel as safe as keeping them with you."
           }
         }
       ]
-    },
-    {
-      "type": "statement",
-      "title": {
-        "es": "Del manual a la calle.",
-        "en": "From the guidelines to the street."
-      }
     },
     {
       "type": "mosaic",

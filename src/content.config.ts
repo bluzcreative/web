@@ -55,8 +55,11 @@ const projects = defineCollection({
           name: t.optional(), hex: z.string(), cmyk: z.string().optional(), rgb: z.string().optional(), main: z.boolean().default(false) })) }),
         // Tipografías: muestra en vivo (font + file en /public) o como imagen
         z.object({ type: z.literal("typography"), fonts: z.array(z.object({
-          name: z.string(), role: t, background: z.string(), color: z.string(),
-          family: z.string().optional(), file: z.string().optional(), image: image().optional() })) }),
+          name: z.string(), role: t.optional(), text: t.optional(), background: z.string(), color: z.string(),
+          family: z.string().optional(), file: z.string().optional(), image: image().optional(), imageEn: image().optional(), alt: t.optional() })) }),
+        // Íconos con un texto que explica la marca, en filas alternadas
+        z.object({ type: z.literal("icons"), background: z.string(), color: z.string(), family: z.string().optional(), file: z.string().optional(),
+          items: z.array(z.object({ src: image(), alt: t, title: t, body: t })) }),
         // Video destacado: un video vertical grande junto a su historia (reverse: video a la derecha)
         z.object({ type: z.literal("feature"), src: z.string(), poster: z.string().optional(), alt: t,
           kicker: t.optional(), title: t, body: t, reverse: z.boolean().default(false) }),

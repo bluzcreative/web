@@ -11,9 +11,11 @@ const { project, lang, cta, sizes = "(min-width: 900px) 33vw, 100vw", eager = fa
 const p = project.data;
 const layers = [0, 1, 2].map((i) => p.gallery[i] ?? { src: p.cover, alt: p.coverAlt, crop: true });
 const positions = ["30% 20%", "70% 50%", "50% 85%"];
+// Si las tres imágenes son horizontales (mockups), se muestran completas en su proporción, en cascada
+const landscape = layers.every((l) => !("crop" in l) && l.src.width > l.src.height * 1.2);
 ---
 <a href={projectUrl(lang, project.id)} class="card" style={p.accent ? `--accent: ${p.accent}` : undefined}>
-  <div class="card-media">
+  <div class:list={["card-media", { "is-land": landscape }]}>
     <Image class:list={["card-cover", { "is-fill": p.coverFill }]} src={p.cover} alt={p.coverAlt[lang]}
       style={p.coverFill ? `background: ${p.coverFill}` : undefined} widths={[480, 800, 1200]} sizes={sizes}
       loading={eager ? "eager" : "lazy"} />
@@ -43,6 +45,10 @@ const positions = ["30% 20%", "70% 50%", "50% 85%"];
   .l1 { width: 40%; aspect-ratio: 9 / 16; left: 4%; top: 16%; transform: translate(12%, 10%) scale(.85); }
   .l2 { width: 48%; aspect-ratio: 1; right: 4%; top: 6%; transform: translate(-10%, 10%) scale(.85); }
   .l3 { width: 44%; aspect-ratio: 4 / 3; right: 8%; bottom: 6%; transform: translate(-6%, -10%) scale(.85); }
+  .is-land .card-layer { aspect-ratio: auto; width: 78%; }
+  .is-land .l1 { left: 4%; top: 6%; right: auto; bottom: auto; }
+  .is-land .l2 { right: 4%; left: auto; top: 34%; bottom: auto; }
+  .is-land .l3 { left: 10%; right: auto; top: auto; bottom: 8%; }
   .card-cta { position: absolute; z-index: 4; left: 1rem; bottom: 1rem; padding: .7em 1.1em; border-radius: 999px;
     background: var(--green); color: var(--black); font-weight: 600; font-size: .875rem;
     opacity: 0; transform: translateY(8px); transition: opacity .35s var(--ease-out), transform .35s var(--ease-out); }
