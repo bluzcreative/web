@@ -348,6 +348,8 @@ const copy = {
 
   /* Galería de borde a borde con separaciones mínimas */
   .b-video, .b-site, .b-mosaic { padding-bottom: 6px; }
+  /* Aire entre una galería de fotos y la web que la sigue */
+  .b-mosaic + .b-site { margin-top: clamp(64px, 10vw, 160px); }
   .b-video video { display: block; width: 100%; height: auto; max-height: 100svh; object-fit: cover; background: #111; }
   .b-video.is-vertical { display: flex; justify-content: center; }
   .yt { position: relative; aspect-ratio: 16 / 9; background: #111; }
