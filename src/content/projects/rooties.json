@@ -203,6 +203,19 @@
       ]
     },
     {
+      "type": "social",
+      "text": {
+        "es": "Manejamos las redes de Rooties día a día. Así se ve la marca en su Instagram.",
+        "en": "We run Rooties' social media day to day. This is how the brand looks on its Instagram."
+      },
+      "links": [
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/rootiesvzla/"
+        }
+      ]
+    },
+    {
       "type": "mosaic",
       "images": [
         {

@@ -268,7 +268,7 @@ const copy = {
   .b-links { display: flex; flex-wrap: wrap; gap: .75rem; }
   .b-social-media { background: #141414; display: flex; justify-content: center; align-items: center; padding: clamp(24px, 5vw, 80px); }
   .b-social-media video { width: min(400px, 100%); aspect-ratio: 9 / 16; object-fit: cover; background: #111; }
-  @media (min-width: 900px) { .b-social { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 900px) { .b-social:has(.b-social-media) { grid-template-columns: 1fr 1fr; } }
 
   /* Sitio web: ventana de navegador a todo lo ancho, enlazada */
   .browser { display: block; background: #141414; }
