@@ -14,70 +14,227 @@
     "branding",
     "paid-media",
     "contenido",
-    "web"
+    "web",
+    "automatizaciones"
   ],
   "summary": {
-    "es": "Una startup de impresión 3D en concreto, posicionada como tecnología de vanguardia.",
-    "en": "A 3D concrete printing startup, positioned as cutting-edge technology."
+    "es": "Marketing de punta a punta para una empresa que imprime construcciones en concreto con robots.",
+    "en": "End-to-end marketing for a company that prints concrete buildings with robots."
   },
-  "cover": "../../assets/projects/x-build/campana.webp",
+  "cover": "../../assets/projects/x-build/impresora.jpg",
   "coverAlt": {
-    "es": "Pieza de campaña de X-Build: brazo robótico naranja imprimiendo en concreto frente a una casa",
-    "en": "X-Build campaign piece: orange robotic arm printing concrete in front of a house"
+    "es": "Impresora 3D de concreto de X-Build: brazo robótico naranja sobre orugas",
+    "en": "X-Build 3D concrete printer: orange robotic arm on tracks"
   },
   "gallery": [
     {
-      "src": "../../assets/projects/x-build/web-inicio.webp",
-      "phone": true,
+      "src": "../../assets/projects/x-build/render-sillas.webp",
       "alt": {
-        "es": "Sitio web de X-Build en móvil: portada con video de una casa impresa en 3D",
-        "en": "X-Build website on mobile: hero with video of a 3D printed house"
+        "es": "Render de sillas impresas en concreto",
+        "en": "Render of concrete printed chairs"
       }
     },
     {
       "src": "../../assets/projects/x-build/pendon.jpg",
       "alt": {
-        "es": "Pendón de X-Build diseñado por Bluz en el stand de Startup Alley",
-        "en": "X-Build roll-up banner designed by Bluz at the Startup Alley booth"
+        "es": "Pendón de X-Build en Startup Alley",
+        "en": "X-Build roll-up banner at Startup Alley"
       }
     },
     {
-      "src": "../../assets/projects/x-build/brochure.png",
+      "src": "../../assets/projects/x-build/render-materas.webp",
       "alt": {
-        "es": "Brochure de X-Build: impresión 3D industrial de concreto",
-        "en": "X-Build brochure: industrial 3D concrete printing"
-      }
-    },
-    {
-      "src": "../../assets/projects/x-build/web-ventaja.webp",
-      "phone": true,
-      "alt": {
-        "es": "Sitio web de X-Build en móvil: sección xPlore. xPand. xBuild.",
-        "en": "X-Build website on mobile: xPlore. xPand. xBuild. section"
-      }
-    },
-    {
-      "src": "../../assets/projects/x-build/web-proceso.webp",
-      "phone": true,
-      "alt": {
-        "es": "Sitio web de X-Build en móvil: línea de tiempo del proceso de impresión",
-        "en": "X-Build website on mobile: printing process timeline"
+        "es": "Render de la serie de materas de concreto",
+        "en": "Render of the concrete planter series"
       }
     }
   ],
-  "challenge": {
-    "es": "X-Build desarrolla tecnología de impresión 3D en concreto para vivienda en Australia. El reto era posicionarla como una empresa tecnológica de vanguardia dentro de una industria históricamente conservadora.",
-    "en": "X-Build develops 3D concrete printing technology for housing in Australia. The challenge was positioning it as a cutting-edge tech company inside a historically conservative industry."
-  },
-  "approach": {
-    "es": "Construimos su identidad visual y hoy manejamos sus redes sociales, la pauta y la generación de leads, además de su sitio corporativo con formularios conectados a su CRM.",
-    "en": "We built its visual identity and now run its social media, paid ads and lead generation, plus its corporate website with forms connected to its CRM."
-  },
+  "blocks": [
+    {
+      "type": "statement",
+      "title": {
+        "es": "Una empresa de robótica necesitaba un sistema comercial a la altura de su tecnología.",
+        "en": "A robotics company needed a sales engine as advanced as its technology."
+      },
+      "body": {
+        "es": "X-Build imprime viviendas y estructuras en concreto con brazos robóticos en Australia. Trabajamos mano a mano con su equipo para montar la base de su marketing: dónde llegan los clientes, cómo se les atiende y cómo se cuenta lo que hacen.",
+        "en": "X-Build prints homes and structures in concrete with robotic arms in Australia. We worked hand in hand with their team to build the foundation of their marketing: where leads come in, how they're handled and how the story gets told."
+      }
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "es": "CRM y pipeline de ventas",
+          "en": "CRM and sales pipeline"
+        },
+        {
+          "es": "Sistema telefónico",
+          "en": "Phone system"
+        },
+        {
+          "es": "Página de LinkedIn",
+          "en": "LinkedIn page"
+        },
+        {
+          "es": "Instagram",
+          "en": "Instagram"
+        },
+        {
+          "es": "Sitio web",
+          "en": "Website"
+        },
+        {
+          "es": "Pauta y generación de leads",
+          "en": "Ads and lead generation"
+        },
+        {
+          "es": "Branding y piezas impresas",
+          "en": "Branding and print"
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "src": "/projects/x-build/impresora.mp4",
+      "poster": "/projects/x-build/impresora-poster.jpg",
+      "alt": {
+        "es": "Video de la impresora de X-Build trabajando",
+        "en": "Video of the X-Build printer at work"
+      }
+    },
+    {
+      "type": "social",
+      "text": {
+        "es": "Hoy X-Build se presenta con voz propia frente a constructoras, desarrolladores y arquitectos. Producimos el contenido de sus redes, incluidos videos como este.",
+        "en": "Today X-Build speaks with its own voice to builders, developers and architects. We produce the content for its channels, including videos like this one."
+      },
+      "links": [
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/company/x-build-au/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/xbuild3d/"
+        }
+      ],
+      "video": "/projects/x-build/linkedin.mp4",
+      "poster": "/projects/x-build/linkedin-poster.jpg",
+      "videoAlt": {
+        "es": "Video de X-Build para LinkedIn",
+        "en": "X-Build video for LinkedIn"
+      }
+    },
+    {
+      "type": "site",
+      "url": "https://xbuild.com.au/",
+      "shots": [
+        {
+          "src": "../../assets/projects/x-build/web-inicio.webp",
+          "alt": {
+            "es": "Portada del sitio de X-Build",
+            "en": "X-Build website home page"
+          }
+        },
+        {
+          "src": "../../assets/projects/x-build/web-ventaja.webp",
+          "alt": {
+            "es": "Sección Build with us del sitio de X-Build",
+            "en": "Build with us section of the X-Build website"
+          }
+        },
+        {
+          "src": "../../assets/projects/x-build/web-compra.png",
+          "alt": {
+            "es": "Sección Purchase del sitio de X-Build",
+            "en": "Purchase section of the X-Build website"
+          }
+        }
+      ]
+    },
+    {
+      "type": "statement",
+      "title": {
+        "es": "Renders para vender lo que todavía no se imprimió.",
+        "en": "Renders to sell what hasn't been printed yet."
+      }
+    },
+    {
+      "type": "mosaic",
+      "images": [
+        {
+          "src": "../../assets/projects/x-build/render-interior.webp",
+          "wide": true,
+          "alt": {
+            "es": "Render de un interior con muros impresos en 3D",
+            "en": "Render of an interior with 3D printed walls"
+          }
+        },
+        {
+          "src": "../../assets/projects/x-build/render-cocina.webp",
+          "alt": {
+            "es": "Render de una isla de cocina impresa en concreto",
+            "en": "Render of a concrete printed kitchen island"
+          }
+        },
+        {
+          "src": "../../assets/projects/x-build/render-bano.webp",
+          "alt": {
+            "es": "Render de un baño con muros impresos",
+            "en": "Render of a bathroom with printed walls"
+          }
+        },
+        {
+          "src": "../../assets/projects/x-build/render-fogata.webp",
+          "alt": {
+            "es": "Render de una terraza con fogata impresa",
+            "en": "Render of a terrace with a printed fire pit"
+          }
+        },
+        {
+          "src": "../../assets/projects/x-build/render-sillas-detalle.webp",
+          "alt": {
+            "es": "Detalle de sillas impresas en concreto",
+            "en": "Detail of concrete printed chairs"
+          }
+        },
+        {
+          "src": "../../assets/projects/x-build/render-materas.webp",
+          "alt": {
+            "es": "Serie de materas de concreto",
+            "en": "Concrete planter series"
+          }
+        },
+        {
+          "src": "../../assets/projects/x-build/render-sillas.webp",
+          "alt": {
+            "es": "Sillas y mesa impresas en una terraza",
+            "en": "Printed chairs and table on a terrace"
+          }
+        }
+      ]
+    },
+    {
+      "type": "mosaic",
+      "images": [
+        {
+          "src": "../../assets/projects/x-build/pendon.jpg",
+          "alt": {
+            "es": "Pendón de X-Build en el stand de Startup Alley",
+            "en": "X-Build roll-up banner at the Startup Alley booth"
+          }
+        },
+        {
+          "src": "../../assets/projects/x-build/brochure.png",
+          "alt": {
+            "es": "Brochure de X-Build",
+            "en": "X-Build brochure"
+          }
+        }
+      ]
+    }
+  ],
   "results": [],
-  "accent": "#f28c28",
-  "presentation": "../../assets/projects/x-build/impresora.jpg",
-  "presentationAlt": {
-    "es": "Impresora 3D de concreto de X-Build: brazo robótico naranja sobre orugas en un galpón",
-    "en": "X-Build 3D concrete printer: orange robotic arm on tracks inside a warehouse"
-  }
+  "accent": "#f28c28"
 }

@@ -28,8 +28,24 @@ const projects = defineCollection({
       // Imágenes que se despliegan en la tarjeta al pasar el cursor y que llenan la página del proyecto
       // phone: captura de móvil, se muestra como pantalla de teléfono; wide: pieza a todo lo ancho
       gallery: z.array(z.object({ src: image(), alt: t, wide: z.boolean().default(false), phone: z.boolean().default(false) })).default([]),
-      challenge: t,
-      approach: t,
+      challenge: t.optional(),
+      approach: t.optional(),
+      // Bloques de la página del proyecto, en orden. Si no hay bloques, se usan reto y enfoque.
+      blocks: z.array(z.discriminatedUnion("type", [
+        // Frase grande + párrafo
+        z.object({ type: z.literal("statement"), title: t, body: t.optional() }),
+        // Lista de lo que hizo Bluz, en tipografía grande
+        z.object({ type: z.literal("list"), items: z.array(t) }),
+        // Video propio, sin audio, en bucle (archivo en /public)
+        z.object({ type: z.literal("video"), src: z.string(), poster: z.string().optional(), vertical: z.boolean().default(false), alt: t }),
+        // Mosaico de imágenes
+        z.object({ type: z.literal("mosaic"), images: z.array(z.object({ src: image(), alt: t, wide: z.boolean().default(false) })) }),
+        // Sitio web: capturas de escritorio en una ventana de navegador que enlaza al sitio
+        z.object({ type: z.literal("site"), url: z.string().url(), shots: z.array(z.object({ src: image(), alt: t })) }),
+        // Redes: texto, enlaces y un video opcional
+        z.object({ type: z.literal("social"), text: t, links: z.array(z.object({ label: z.string(), url: z.string().url() })),
+          video: z.string().optional(), poster: z.string().optional(), videoAlt: t.optional() }),
+      ])).default([]),
       results: z.array(z.object({ value: z.string(), label: t })).default([]),
       testimonial: z.object({ quote: t, author: z.string(), role: t.optional() }).optional(),
       accent: z.string().optional(), // color de apoyo del proyecto para marcadores

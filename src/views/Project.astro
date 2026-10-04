@@ -1,7 +1,9 @@
 ---
-// Plantilla de proyecto (estilo Veintitrés): imágenes a todo lo ancho; al hacer scroll, los textos y las
-// piezas pasan por encima de una imagen fija. Estructura: reto, enfoque, piezas, resultados y testimonio.
-// Las secciones sin contenido (por ejemplo, resultados aún sin cifras) no se muestran.
+// Plantilla de proyecto (estructura inspirada en Veintitrés):
+// 1. Portada a pantalla completa con el nombre del proyecto; queda fija.
+// 2. Un bloque negro sube por encima de la portada con el texto principal y los datos del proyecto.
+// 3. Galería de borde a borde (imágenes, videos, sitio web, redes) con separaciones mínimas.
+// La página se arma con los bloques de src/content/projects/*.json; si no hay bloques, usa reto y enfoque.
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import { routes, projectUrl, type Lang } from "../i18n/ui";
@@ -10,173 +12,250 @@ import { serviceTags } from "../data/services";
 interface Props { project: CollectionEntry<"projects">; next: CollectionEntry<"projects">; lang: Lang }
 const { project, next, lang } = Astro.props;
 const p = project.data;
-const stickyImage = p.presentation ?? p.cover;
-const stickyAlt = p.presentation && p.presentationAlt ? p.presentationAlt[lang] : "";
-// La primera captura de móvil (o la primera imagen) flota sobre la presentación; el resto va en Piezas
-const float = p.gallery.find((g) => g.phone) ?? p.gallery[0];
-const pieces = p.gallery.filter((g) => g !== float);
-const phones = pieces.filter((g) => g.phone);
-const others = pieces.filter((g) => !g.phone);
+
+type Block = (typeof p.blocks)[number];
+const allBlocks: Block[] = p.blocks.length > 0 ? p.blocks : [
+  ...(p.challenge ? [{ type: "statement" as const, title: p.challenge, body: p.approach }] : []),
+  ...(p.gallery.length > 0 ? [{ type: "mosaic" as const, images: p.gallery.map((g) => ({ ...g, wide: false })) }] : []),
+];
+// El primer texto del proyecto va en el bloque de información que sube sobre la portada
+const intro = allBlocks[0]?.type === "statement" ? allBlocks[0] : undefined;
+const blocks = intro ? allBlocks.slice(1) : allBlocks;
 
 const copy = {
-  es: { back: "Trabajo", industry: "Industria", country: "País", services: "Servicios", year: "Año",
-    challenge: "Reto", approach: "Enfoque", pieces: "Piezas", results: "Resultados", next: "Siguiente proyecto",
-    closeTitle: "¿Hablamos de tu marca?", closeCta: "Empieza tu proyecto" },
-  en: { back: "Work", industry: "Industry", country: "Country", services: "Services", year: "Year",
-    challenge: "Challenge", approach: "Approach", pieces: "Pieces", results: "Results", next: "Next project",
-    closeTitle: "Shall we talk about your brand?", closeCta: "Start your project" },
+  es: { client: "Cliente", industry: "Industria", country: "País", services: "Servicios", year: "Año",
+    visit: "Ver el sitio", next: "Siguiente", closeTitle: "¿Hablamos de tu marca?", closeCta: "Empieza tu proyecto" },
+  en: { client: "Client", industry: "Industry", country: "Country", services: "Services", year: "Year",
+    visit: "Visit the site", next: "Next", closeTitle: "Shall we talk about your brand?", closeCta: "Start your project" },
 }[lang];
 ---
 <article class="project">
-  <!-- Portada a todo lo ancho -->
-  <header class="p-hero tone-dark">
-    <Image class="p-hero-img" src={p.cover} alt={p.coverAlt[lang]} widths={[800, 1400, 2200]} sizes="100vw" loading="eager" fetchpriority="high" />
-    <span class="p-hero-shade" aria-hidden="true"></span>
-    <div class="p-hero-content edge">
-      <a href={routes.work[lang]} class="t-label p-back">← {copy.back}</a>
-      <h1 class="t-mega">{p.client}</h1>
-      <p class="t-lead">{p.summary[lang]}</p>
-      <dl class="p-meta">
-        <div><dt class="t-label">{copy.industry}</dt><dd>{p.industry[lang]}</dd></div>
-        {p.country && <div><dt class="t-label">{copy.country}</dt><dd>{p.country[lang]}</dd></div>}
-        <div><dt class="t-label">{copy.services}</dt><dd>{p.services.map((s) => serviceTags[s][lang]).join(", ")}</dd></div>
-        {p.year && <div><dt class="t-label">{copy.year}</dt><dd>{p.year}</dd></div>}
-      </dl>
-    </div>
+  <!-- 1. Portada fija -->
+  <header class="p-cover tone-dark">
+    <Image class="p-cover-img" src={p.cover} alt={p.coverAlt[lang]} widths={[800, 1400, 2200]} sizes="100vw" loading="eager" fetchpriority="high" />
+    <span class="p-cover-shade" aria-hidden="true"></span>
+    <h1 class="t-mega p-title edge">{p.client}</h1>
   </header>
 
-  <!-- Reto y enfoque pasan por encima de una imagen fija -->
-  <section class="p-overlap tone-dark" aria-label={`${copy.challenge}, ${copy.approach}`}>
-    <div class="p-sticky" aria-hidden={stickyAlt ? undefined : "true"}>
-      <Image src={stickyImage} alt={stickyAlt} widths={[800, 1400, 2200]} sizes="100vw" />
-    </div>
-    <div class="p-layers edge">
-      <div class="p-card p-card-a">
-        <p class="t-label">{copy.challenge}</p>
-        <p class="p-text">{p.challenge[lang]}</p>
+  <div class="p-body">
+    <!-- 2. Información: sube por encima de la portada -->
+    <section class="p-info tone-dark edge">
+      <div class="p-info-text">
+        <p class="p-lead">{intro ? intro.title[lang] : p.summary[lang]}</p>
+        {intro?.body && <p class="t-lead t-mute">{intro.body[lang]}</p>}
       </div>
-      {float && (
-        <Image class:list={["p-float", { "is-phone": float.phone }]} src={float.src} alt={float.alt[lang]} widths={[480, 800]} sizes="(min-width: 900px) 25vw, 60vw" />
-      )}
-      <div class="p-card p-card-b">
-        <p class="t-label">{copy.approach}</p>
-        <p class="p-text">{p.approach[lang]}</p>
-      </div>
-    </div>
-  </section>
+      <dl class="p-meta">
+        <div><dt class="t-label">{copy.client}</dt><dd>{p.client}</dd></div>
+        <div><dt class="t-label">{copy.industry}</dt><dd>{p.industry[lang]}</dd></div>
+        {p.country && <div><dt class="t-label">{copy.country}</dt><dd>{p.country[lang]}</dd></div>}
+        {p.year && <div><dt class="t-label">{copy.year}</dt><dd>{p.year}</dd></div>}
+        <div class="p-meta-wide"><dt class="t-label">{copy.services}</dt><dd>{p.services.map((s) => serviceTags[s][lang]).join(", ")}</dd></div>
+      </dl>
+    </section>
 
-  <!-- Piezas -->
-  {pieces.length > 0 && (
-    <section class="p-pieces tone-dark section" aria-label={copy.pieces}>
-      <p class="t-label edge">{copy.pieces}</p>
-      {phones.length > 0 && (
-        <div class="p-phones edge">
-          {phones.map((g) => (
-            <Image class="p-phone" src={g.src} alt={g.alt[lang]} widths={[400, 700]} sizes="(min-width: 900px) 28vw, 80vw" />
+    <!-- 3. Galería y bloques -->
+    {blocks.map((b) => {
+      if (b.type === "statement") return (
+        <section class="b-statement tone-dark edge">
+          <p class="p-lead">{b.title[lang]}</p>
+          {b.body && <p class="t-lead t-mute">{b.body[lang]}</p>}
+        </section>
+      );
+      if (b.type === "list") return (
+        <section class="b-list tone-dark edge">
+          <ul>{b.items.map((it) => <li>{it[lang]}</li>)}</ul>
+        </section>
+      );
+      if (b.type === "video") return (
+        <section class:list={["b-video", { "is-vertical": b.vertical }]}>
+          <video src={b.src} poster={b.poster} muted loop playsinline preload="metadata" aria-label={b.alt[lang]} data-autoplay></video>
+        </section>
+      );
+      if (b.type === "social") return (
+        <section class="b-social tone-dark">
+          <div class="b-social-text edge">
+            <p class="p-lead">{b.text[lang]}</p>
+            <div class="b-links">
+              {b.links.map((l) => <a href={l.url} target="_blank" rel="noopener" class="btn btn-line">{l.label} <span aria-hidden="true">↗</span></a>)}
+            </div>
+          </div>
+          {b.video && (
+            <div class="b-social-media">
+              <video src={b.video} poster={b.poster} muted loop playsinline preload="metadata" aria-label={b.videoAlt?.[lang]} data-autoplay></video>
+            </div>
+          )}
+        </section>
+      );
+      if (b.type === "site") return (
+        <section class="b-site">
+          <a href={b.url} target="_blank" rel="noopener" class="browser" aria-label={`${copy.visit}: ${new URL(b.url).hostname}`}>
+            <span class="browser-bar" aria-hidden="true">
+              <i></i><i></i><i></i>
+              <span class="browser-url">{new URL(b.url).hostname.replace(/^www\./, "")}</span>
+              <span class="browser-cta">{copy.visit} ↗</span>
+            </span>
+            <span class="browser-screen" data-shots>
+              {b.shots.map((s, i) => (
+                <Image class:list={["browser-shot", { "is-on": i === 0 }]} src={s.src} alt={s.alt[lang]} widths={[800, 1400, 1849]} sizes="100vw" />
+              ))}
+            </span>
+          </a>
+        </section>
+      );
+      if (b.type === "mosaic") return (
+        <section class="b-mosaic">
+          {b.images.map((im) => (
+            <Image class:list={["m-img", { "is-wide": im.wide }]} src={im.src} alt={im.alt[lang]} widths={[600, 1000, 1600, 2200]}
+              sizes={im.wide ? "100vw" : "(min-width: 700px) 50vw, 100vw"} />
           ))}
-        </div>
-      )}
-      {others.length > 0 && (
-        <div class="p-gallery">
-          {others.map((g) => (
-            <Image class:list={["p-piece", { "is-wide": g.wide }]} src={g.src} alt={g.alt[lang]} widths={[600, 1200, 2000]}
-              sizes={g.wide ? "100vw" : "(min-width: 900px) 50vw, 100vw"} />
+        </section>
+      );
+      return null;
+    })}
+
+    {p.results.length > 0 && (
+      <section class="p-results tone-dark section edge">
+        <ul>
+          {p.results.map((r) => (
+            <li><span class="t-mega">{r.value}</span><span class="t-label">{r.label[lang]}</span></li>
           ))}
-        </div>
-      )}
+        </ul>
+      </section>
+    )}
+
+    {p.testimonial && (
+      <section class="p-quote tone-dark section edge">
+        <blockquote>
+          <p class="p-lead">“{p.testimonial.quote[lang]}”</p>
+          <footer class="t-mute">{p.testimonial.author}{p.testimonial.role && `, ${p.testimonial.role[lang]}`}</footer>
+        </blockquote>
+      </section>
+    )}
+
+    <a href={projectUrl(lang, next.id)} class="p-next tone-dark edge">
+      <span class="p-next-text">
+        <span class="t-mute">{copy.next}</span>
+        <span class="t-mega">{next.data.client} <span aria-hidden="true">→</span></span>
+      </span>
+      <Image class="p-next-img" src={next.data.cover} alt="" widths={[400, 700]} sizes="(min-width: 900px) 24vw, 40vw" />
+    </a>
+
+    <section class="p-close tone-dark section edge">
+      <p class="t-h1">{copy.closeTitle}</p>
+      <a href={routes.contact[lang]} class="btn btn-green" data-contact-open>{copy.closeCta}</a>
     </section>
-  )}
-
-  <!-- Resultados -->
-  {p.results.length > 0 && (
-    <section class="p-results tone-dark section edge">
-      <p class="t-label">{copy.results}</p>
-      <ul>
-        {p.results.map((r) => (
-          <li><span class="t-mega">{r.value}</span><span class="t-label">{r.label[lang]}</span></li>
-        ))}
-      </ul>
-    </section>
-  )}
-
-  <!-- Testimonio -->
-  {p.testimonial && (
-    <section class="p-quote tone-dark section edge">
-      <blockquote>
-        <p class="t-h1">“{p.testimonial.quote[lang]}”</p>
-        <footer class="t-mute">{p.testimonial.author}{p.testimonial.role && `, ${p.testimonial.role[lang]}`}</footer>
-      </blockquote>
-    </section>
-  )}
-
-  <!-- Siguiente proyecto -->
-  <a href={projectUrl(lang, next.id)} class="p-next tone-dark">
-    <Image class="p-next-img" src={next.data.cover} alt="" widths={[800, 1400]} sizes="100vw" />
-    <span class="p-next-shade" aria-hidden="true"></span>
-    <span class="p-next-content edge">
-      <span class="t-label">{copy.next}</span>
-      <span class="t-mega">{next.data.client} <span aria-hidden="true">→</span></span>
-    </span>
-  </a>
-
-  <section class="p-close tone-dark section edge">
-    <p class="t-h1">{copy.closeTitle}</p>
-    <a href={routes.contact[lang]} class="btn btn-green" data-contact-open>{copy.closeCta}</a>
-  </section>
+  </div>
 </article>
 
 <style>
-  .p-hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; }
-  .p-hero-img, .p-next-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .p-hero-shade, .p-next-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,10,.55), rgba(10,10,10,.45) 35%, rgba(10,10,10,.95) 75%); }
-  .p-hero-content { position: relative; z-index: 1; width: 100%; display: grid; gap: 1.25rem; padding-bottom: clamp(32px, 6vh, 72px); }
-  .p-back { color: rgba(255,255,255,.75); justify-self: start; transition: color .25s var(--ease-out); }
-  .p-back:hover { color: var(--green); }
-  .p-hero h1 { margin-left: -.04em; }
-  .p-hero .t-lead { max-width: 40ch; }
-  .p-meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem var(--gutter); padding-top: 1.25rem; border-top: 1px solid var(--line); }
-  @media (min-width: 900px) { .p-meta { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-  .p-meta dd { margin-top: .35rem; }
+  /* 1. Portada fija a pantalla completa */
+  .p-cover { position: sticky; top: 0; height: 100svh; overflow: hidden; display: flex; align-items: flex-end; }
+  .p-cover-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .p-cover-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,10,.35) 0%, transparent 25%, transparent 55%, rgba(10,10,10,.75) 100%); }
+  .p-title { position: relative; z-index: 1; margin-left: -.04em; padding-bottom: clamp(16px, 4vh, 40px); }
 
-  .p-overlap { position: relative; }
-  .p-sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; }
-  .p-sticky img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.6); }
-  .p-layers { position: relative; z-index: 1; margin-top: -60svh; padding-bottom: 20svh;
-    display: grid; gap: var(--gutter); grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .p-card { grid-column: 1 / -1; display: grid; gap: 1rem; padding: clamp(24px, 4vw, 64px); background: var(--black); }
-  .p-card-b { margin-top: 20svh; }
-  .p-text { font-family: var(--display); font-weight: 500; font-size: clamp(1.25rem, 2.2vw, 2rem); line-height: 1.25; letter-spacing: -.02em; }
-  .p-float { grid-column: 2 / -1; width: 100%; height: auto; margin-top: 12svh; box-shadow: 0 30px 80px rgba(0,0,0,.5); }
-  .p-float.is-phone, .p-phone { border-radius: 28px; border: 6px solid #1c1c1c; }
-  .p-float.is-phone { grid-column: 2 / 4; }
+  /* El resto de la página sube por encima de la portada */
+  .p-body { position: relative; z-index: 1; background: var(--black); }
+
+  /* 2. Información */
+  .p-info { display: grid; gap: clamp(40px, 6vw, 96px); min-height: 100svh; align-content: center;
+    padding-block: var(--section); }
+  .p-info-text { display: grid; gap: 1.5rem; }
+  .p-lead { font-family: var(--display); font-weight: 500; font-size: clamp(1.6rem, 3.4vw, 3.6rem); line-height: 1.1;
+    letter-spacing: -.03em; max-width: 26ch; text-wrap: balance; }
+  .p-info-text .t-lead, .b-statement .t-lead { max-width: 52ch; }
+  .p-meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem var(--gutter); }
+  .p-meta div { display: grid; gap: .4rem; align-content: start; }
+  .p-meta dd { font-size: 1rem; }
   @media (min-width: 900px) {
-    .p-layers { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-    .p-card-a { grid-column: 1 / 7; }
-    .p-float { grid-column: 8 / 12; margin-top: 30svh; }
-    .p-float.is-phone { grid-column: 9 / 12; }
-    .p-card-b { grid-column: 6 / 13; margin-top: 10svh; }
+    .p-meta { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .p-meta-wide { grid-column: span 2; }
   }
 
-  .p-pieces .t-label { display: block; margin-bottom: 1.5rem; }
-  .p-gallery { display: grid; gap: 4px; }
-  @media (min-width: 900px) { .p-gallery { grid-template-columns: 1fr 1fr; } .p-piece.is-wide { grid-column: 1 / -1; } }
-  .p-piece { width: 100%; height: 100%; object-fit: cover; }
-  .p-phones { display: grid; gap: clamp(16px, 3vw, 48px); grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-bottom: clamp(40px, 6vw, 96px); }
-  .p-phone { width: 100%; height: auto; max-width: 420px; justify-self: center; }
+  /* Textos entre imágenes */
+  .b-statement { display: grid; gap: 1.5rem; padding-block: var(--section); }
+  @media (min-width: 900px) { .b-statement { padding-left: calc(var(--edge) + 33.333%); } }
 
-  .p-results ul { display: grid; gap: 2rem var(--gutter); margin-top: 2rem; }
+  /* Lista de lo que hizo Bluz */
+  .b-list { padding-bottom: var(--section); }
+  .b-list li { font-family: var(--display); font-weight: 500; font-size: clamp(1.9rem, 5.6vw, 6rem); line-height: 1.05;
+    letter-spacing: -.04em; padding-block: .2em; border-top: 1px solid var(--line); transition: color .3s var(--ease-out); }
+  .b-list li:last-child { border-bottom: 1px solid var(--line); }
+  .b-list li:hover { color: var(--green); }
+
+  /* Galería de borde a borde con separaciones mínimas */
+  .b-video, .b-site, .b-mosaic { padding-bottom: 6px; }
+  .b-video video { display: block; width: 100%; height: auto; max-height: 100svh; object-fit: cover; background: #111; }
+  .b-video.is-vertical { display: flex; justify-content: center; }
+  .b-video.is-vertical video { width: min(480px, 100%); }
+
+  .b-mosaic { display: grid; gap: 6px; }
+  .m-img { width: 100%; height: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+  .m-img.is-wide { aspect-ratio: 16 / 9; }
+  @media (min-width: 700px) {
+    .b-mosaic { grid-template-columns: 1fr 1fr; }
+    .m-img.is-wide { grid-column: 1 / -1; }
+  }
+
+  /* Redes: texto a un lado, video al otro */
+  .b-social { display: grid; gap: 6px; padding-bottom: 6px; }
+  .b-social-text { display: grid; gap: 2rem; align-content: center; padding-block: var(--section); }
+  .b-links { display: flex; flex-wrap: wrap; gap: .75rem; }
+  .b-social-media { background: #141414; display: flex; justify-content: center; align-items: center; padding: clamp(24px, 5vw, 80px); }
+  .b-social-media video { width: min(400px, 100%); aspect-ratio: 9 / 16; object-fit: cover; background: #111; }
+  @media (min-width: 900px) { .b-social { grid-template-columns: 1fr 1fr; } }
+
+  /* Sitio web: ventana de navegador a todo lo ancho, enlazada */
+  .browser { display: block; background: #141414; }
+  .browser-bar { display: flex; align-items: center; gap: 6px; padding: 12px var(--edge); }
+  .browser-bar i { width: 10px; height: 10px; border-radius: 50%; background: #3a3a3a; }
+  .browser-url { margin-left: 12px; font-size: .8125rem; color: var(--text-mute); }
+  .browser-cta { margin-left: auto; font-weight: 600; font-size: .9375rem; transition: color .3s var(--ease-out); }
+  .browser:hover .browser-cta { color: var(--green); }
+  .browser-screen { position: relative; display: block; aspect-ratio: 1849 / 919; overflow: hidden; }
+  .browser-shot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0;
+    transition: opacity .8s var(--ease-out); }
+  .browser-shot.is-on { opacity: 1; }
+
+  .p-results ul { display: grid; gap: 2rem var(--gutter); }
   @media (min-width: 900px) { .p-results ul { grid-template-columns: repeat(3, 1fr); } }
   .p-results li { display: grid; gap: .5rem; border-top: 1px solid var(--line); padding-top: 1.5rem; }
   .p-results .t-mega { color: var(--green); font-size: clamp(3rem, 8vw, 8rem); }
+  .p-quote blockquote { display: grid; gap: 1.5rem; }
 
-  .p-quote blockquote { display: grid; gap: 1.5rem; max-width: 30ch; }
-
-  .p-next { position: relative; display: flex; align-items: flex-end; min-height: 80svh; overflow: hidden; }
-  .p-next-img { transition: transform 1.2s var(--ease-out); }
-  .p-next:hover .p-next-img { transform: scale(1.04); }
-  .p-next-content { position: relative; z-index: 1; display: grid; gap: .75rem; width: 100%; padding-bottom: clamp(32px, 6vh, 72px); }
-  .p-next-content .t-mega { margin-left: -.04em; transition: color .4s var(--ease-out); }
+  /* Siguiente proyecto */
+  .p-next { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding-block: var(--section); }
+  .p-next-text { display: grid; gap: .5rem; }
+  .p-next .t-mega { margin-left: -.04em; transition: color .4s var(--ease-out); }
   .p-next:hover .t-mega { color: var(--green); }
+  .p-next-img { width: clamp(120px, 22vw, 340px); height: auto; aspect-ratio: 4 / 5; object-fit: cover; transition: transform .8s var(--ease-out); }
+  .p-next:hover .p-next-img { transform: rotate(-3deg) scale(1.03); }
 
-  .p-close { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; }
+  .p-close { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; border-top: 1px solid var(--line); }
 </style>
+
+<script>
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Videos propios: sin audio, en bucle, solo mientras se ven. Con movimiento reducido, con controles.
+  document.querySelectorAll<HTMLVideoElement>("video[data-autoplay]").forEach((v) => {
+    if (reduced) { v.controls = true; return; }
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) v.play().catch(() => { v.controls = true; });
+      else v.pause();
+    }, { threshold: 0.25 });
+    io.observe(v);
+  });
+
+  // Capturas del sitio: se van turnando dentro de la ventana del navegador
+  document.querySelectorAll<HTMLElement>("[data-shots]").forEach((screen) => {
+    const shots = Array.from(screen.querySelectorAll<HTMLElement>(".browser-shot"));
+    if (shots.length < 2 || reduced) return;
+    let i = 0;
+    setInterval(() => {
+      shots[i].classList.remove("is-on");
+      i = (i + 1) % shots.length;
+      shots[i].classList.add("is-on");
+    }, 3500);
+  });
+</script>

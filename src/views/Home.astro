@@ -71,7 +71,6 @@ const manifestoWords = copy.manifesto.split(" ");
 <!-- 2. Qué hacemos: cada servicio se enciende con el scroll y lleva a Servicios -->
 <section class="scene services tone-dark section edge">
   <div class="grid">
-    <p class="t-label scene-label">{copy.doKicker}</p>
     <ul class="services-list">
       {services.map((s) => (
         <li>
@@ -92,7 +91,6 @@ const manifestoWords = copy.manifesto.split(" ");
 <section class="scene work tone-dark section edge">
   <div class="scene-head">
     <div>
-      <p class="t-label">{copy.workKicker}</p>
       <h2 class="t-h1">{copy.workTitle}</h2>
     </div>
     <a href={routes.work[lang]} class="link-arrow">{copy.workLink} <span class="arr" aria-hidden="true">→</span></a>
@@ -110,7 +108,6 @@ const manifestoWords = copy.manifesto.split(" ");
 <!-- 5. El manifiesto: la frase se va escribiendo con el scroll, lleva a Nosotros -->
 <section class="scene manifesto tone-dark edge" data-manifesto>
   <div class="manifesto-sticky">
-    <p class="t-label">{copy.manifestoKicker}</p>
     <p class="t-h1 manifesto-text" aria-label={copy.manifesto}>
       {manifestoWords.map((w) => <span class="mw" aria-hidden="true">{w} </span>)}
     </p>
@@ -178,7 +175,7 @@ const manifestoWords = copy.manifesto.split(" ");
   .lit-word:hover, .lit-word:focus-visible { color: var(--green); }
   @media (min-width: 900px) {
     .scene-label { grid-column: 1 / 4; margin: .9em 0 0; }
-    .services-list, .scene-foot { grid-column: 4 / -1; }
+    .services-list, .scene-foot { grid-column: 1 / -1; }
   }
 
   /* 3. Trabajo */
