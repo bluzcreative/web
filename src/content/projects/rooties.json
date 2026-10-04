@@ -35,17 +35,17 @@
       }
     },
     {
-      "src": "../../assets/projects/rooties/rompa-el-vidrio.jpg",
+      "src": "../../assets/projects/rooties/navidad.jpg",
       "alt": {
-        "es": "Pieza En caso de resfriado, rompa el vidrio",
-        "en": "In case of a cold, break the glass piece"
+        "es": "Rooties Adult y Kids frente al árbol de Navidad",
+        "en": "Rooties Adult and Kids in front of the Christmas tree"
       }
     },
     {
-      "src": "../../assets/projects/rooties/booklet.jpg",
+      "src": "../../assets/projects/rooties/kids-mano.jpg",
       "alt": {
-        "es": "Booklet de lanzamiento de Rooties",
-        "en": "Rooties launch booklet"
+        "es": "Mano con Rooties Kids",
+        "en": "Hand holding Rooties Kids"
       }
     }
   ],
@@ -138,8 +138,8 @@
       "src": "/projects/rooties/receta.mp4",
       "poster": "/projects/rooties/receta-poster.jpg",
       "alt": {
-        "es": "Video receta de Rooties con las fundadoras",
-        "en": "Rooties recipe video with the founders"
+        "es": "Video receta de Rooties: las fundadoras preparan gomitas de propóleo",
+        "en": "Rooties recipe video: the founders make propolis gummies"
       },
       "kicker": {
         "es": "Receta",
@@ -150,8 +150,8 @@
         "en": "The founders, in their own words."
       },
       "body": {
-        "es": "Una receta con propóleo para la vuelta al cole, preparada por las fundadoras en su cocina. Contenido útil que muestra a las personas detrás de la marca y presenta el producto sin tecnicismos.",
-        "en": "A back-to-school recipe with propolis, made by the founders in their own kitchen. Useful content that shows the people behind the brand and introduces the product without jargon."
+        "es": "Gomitas de propóleo para la vuelta al cole, preparadas por las fundadoras en su cocina. Contenido útil que muestra a las personas detrás de la marca y presenta el producto sin tecnicismos.",
+        "en": "Propolis gummies for back to school, made by the founders in their own kitchen. Useful content that shows the people behind the brand and introduces the product without jargon."
       }
     },
     {
