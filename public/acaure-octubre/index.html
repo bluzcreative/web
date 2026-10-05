@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Acaure · Octubre · Grilla de revisión</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* === BRAND COLORS · swap these 3 per brand, everything else derives from them === */
+    --accent: #1D2B4A;       /* primary brand color (buttons, links, headings accent) */
+    --accent-deep: #131D33;  /* darker shade of accent, used for card backgrounds/hover */
+    --accent-2: #4F7A3A;     /* secondary brand color (approve state, small accents) */
+    --cream: #F4F1EC;
+    --ink: #1D2B4A;
+    --ink-soft: #6B6A66;
+    --card: #FFFFFF;
+    --line: #E4DED5;
+    --radius: 22px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: var(--cream);
+    font-family:'Nunito Sans', sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* subtle background texture */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      radial-gradient(circle at 8% 12%, rgba(232,96,44,0.06) 0, transparent 45%),
+      radial-gradient(circle at 92% 88%, rgba(29,43,74,0.06) 0, transparent 45%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  header{
+    position:relative; z-index:1;
+    max-width:1040px;
+    margin:0 auto;
+    padding: 56px 24px 28px;
+    text-align:center;
+  }
+  .logo{
+    margin: 0 0 6px;
+    display:flex;
+    justify-content:center;
+  }
+  .logo img{
+    height: 64px;
+    width: auto;
+    display:block;
+  }
+  @media (max-width: 640px){
+    .logo img{ height: 50px; }
+  }
+  .eyebrow{
+    display:inline-block;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:12px;
+    letter-spacing: 1.5px;
+    text-transform:uppercase;
+    color: var(--accent);
+    background: #FBE6DC; color: #C9531F;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom:14px;
+  }
+  h1{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size: 30px;
+    line-height:1.25;
+    margin: 0 0 10px;
+    color: var(--ink);
+  }
+  h1 b{ color: var(--accent); }
+  header p{
+    color: var(--ink-soft);
+    font-size:16px;
+    max-width:520px;
+    margin: 0 auto;
+    line-height:1.5;
+  }
+
+  .grid{
+    position:relative; z-index:1;
+    max-width: 900px;
+    margin: 8px auto 80px;
+    padding: 0 20px;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  @media (max-width: 640px){
+    .grid{ grid-template-columns: repeat(2, 1fr); gap:8px; padding:0 14px;}
+    h1{font-size:24px;}
+    .logo{font-size:38px;}
+  }
+
+  .card{
+    position:relative;
+    aspect-ratio: 4/5;
+    border-radius: 16px;
+    overflow:hidden;
+    cursor:pointer;
+    background: var(--accent-deep);
+    box-shadow: 0 1px 3px rgba(29,43,74,0.15);
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .card:hover{ transform: translateY(-3px); box-shadow: 0 10px 24px rgba(29,43,74,0.22); }
+  .card img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  .card .num{
+    position:absolute; top:10px; left:10px;
+    background: rgba(19,29,51,0.55);
+    color:#fff;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    backdrop-filter: blur(4px);
+  }
+  .card .badge{
+    position:absolute; top:10px; right:10px;
+    width:30px; height:30px;
+    border-radius:50%;
+    background: rgba(19,29,51,0.55);
+    backdrop-filter: blur(4px);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff;
+  }
+  .card .badge svg{ width:15px; height:15px; }
+  .card .status{
+    position:absolute; bottom:0; left:0; right:0;
+    padding: 8px 10px;
+    font-size:11px;
+    font-weight:700;
+    text-align:center;
+    letter-spacing:.3px;
+    color:#fff;
+    background: rgba(19,29,51,0.35);
+    backdrop-filter: blur(3px);
+    opacity:0;
+    transition: opacity .15s ease;
+  }
+  .card[data-status="approved"] .status{ opacity:1; background: rgba(63,163,92,0.85); }
+  .card[data-status="changes"] .status{ opacity:1; background: rgba(217,119,87,0.88); }
+
+  /* Lightbox */
+  .overlay{
+    position:fixed; inset:0;
+    background: rgba(19,29,51,0.92);
+    z-index:50;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding: 24px;
+  }
+  .overlay.open{ display:flex; }
+  .lightbox{
+    background: var(--card);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 420px;
+    max-height: 92vh;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+  }
+  .lightbox-media{
+    position:relative;
+    width:100%;
+    aspect-ratio: 4/5;
+    background:#000;
+    overflow:hidden;
+  }
+  .lightbox-media img, .lightbox-media video{
+    width:100%; height:100%; object-fit:contain;
+    background:#000;
+    display:none;
+  }
+  .lightbox-media img.active, .lightbox-media video.active{ display:block; }
+
+  .lb-close{
+    position:absolute; top:14px; right:14px; z-index:5;
+    width:34px; height:34px; border-radius:50%;
+    background: rgba(0,0,0,0.45);
+    border:none; color:#fff; font-size:18px;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .lb-nav{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:38px; height:38px; border-radius:50%;
+    background: rgba(0,0,0,0.4);
+    border:none; color:#fff; font-size:18px;
+    cursor:pointer; z-index:5;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .lb-prev{ left:10px; }
+  .lb-next{ right:10px; }
+  .lb-dots{
+    position:absolute; bottom:12px; left:0; right:0;
+    display:flex; justify-content:center; gap:6px; z-index:5;
+  }
+  .lb-dots span{
+    width:6px; height:6px; border-radius:50%;
+    background: rgba(255,255,255,0.45);
+  }
+  .lb-dots span.active{ background:#fff; }
+
+  .lightbox-footer{
+    padding: 16px 18px 18px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    max-height: 40vh;
+    overflow-y:auto;
+  }
+  .meta-block{ min-width:0; }
+  .lightbox-footer .meta{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    color: var(--ink);
+  }
+  .lightbox-footer .meta small{
+    display:block;
+    font-family:'Nunito Sans', sans-serif;
+    font-weight:600;
+    font-size:11px;
+    color: var(--ink-soft);
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    margin-top:2px;
+  }
+  .lb-caption{
+    white-space: pre-line;
+    margin: 8px 0 0;
+    font-size:13px;
+    line-height:1.45;
+    color: var(--ink);
+  }
+  .lb-extra{
+    margin: 6px 0 0;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.3px;
+    color: var(--accent);
+  }
+  .review-block{ display:flex; flex-direction:column; gap:8px; }
+  .review-btns{ display:flex; gap:8px; }
+  .comment-box{
+    width:100%;
+    min-height:64px;
+    resize:vertical;
+    border:1.5px solid var(--line);
+    border-radius:14px;
+    padding:10px 12px;
+    font-family:'Nunito Sans', sans-serif;
+    font-size:13px;
+    color: var(--ink);
+    background:#fff;
+  }
+  .comment-box:focus{ outline:none; border-color:#D97757; }
+  .review-btns button{
+    font-family:'Nunito Sans', sans-serif;
+    font-weight:700;
+    font-size:12px;
+    border-radius: 100px;
+    border: 1.5px solid var(--line);
+    background:#fff;
+    padding: 8px 13px;
+    cursor:pointer;
+    color: var(--ink-soft);
+    transition: all .15s ease;
+  }
+  .review-btns button.approve.on{ background: var(--accent-2); border-color: var(--accent-2); color:#fff; }
+  .review-btns button.changes.on{ background:#D97757; border-color:#D97757; color:#fff; }
+
+  footer{
+    text-align:center;
+    padding: 0 20px 50px;
+    color: var(--ink-soft);
+    font-size:13px;
+    position:relative; z-index:1;
+  }
+  footer b{ color: var(--accent); }
+
+  .send-wrap{
+    position: sticky;
+    bottom: 22px;
+    z-index: 20;
+    display:flex;
+    justify-content:center;
+    margin: 26px 0 10px;
+  }
+  #sendReview{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    color:#fff;
+    background: var(--accent);
+    border:none;
+    padding: 14px 28px;
+    border-radius: 100px;
+    box-shadow: 0 8px 20px rgba(29,43,74,0.35);
+    cursor:pointer;
+    transition: transform .15s ease, background .15s ease;
+  }
+  #sendReview:hover{ background: var(--accent-deep); transform: translateY(-2px); }
+  #sendReview:disabled{ opacity:.6; cursor:default; transform:none; }
+  #sendConfirm{
+    display:none;
+    align-self:center;
+    margin-left:12px;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    color: var(--accent-2);
+    font-size:14px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><img src="assets/logo.png" alt="Acaure"></div>
+  <div class="eyebrow">Octubre 2026</div>
+  <h1>Grilla de revisión · <b>Octubre</b></h1>
+  <p>Toca cualquier publicación para verla completa. Los videos y carruseles se reproducen aquí mismo.</p>
+</header>
+
+<div class="grid" id="grid"></div>
+
+<div class="send-wrap" id="sendWrap" style="display:none;">
+  <button id="sendReview">Enviar revisión a Bluz</button>
+  <span id="sendConfirm">¡Enviado! Gracias 🎉</span>
+</div>
+
+<form name="revision-acaure-octubre" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="text" name="resumen" />
+  <input name="bot-field" />
+</form>
+
+<footer>Preparado por <b>Bluz Creative</b> para revisión de Acaure</footer>
+
+<div class="overlay" id="overlay">
+  <div class="lightbox">
+    <div class="lightbox-media" id="lbMedia">
+      <button class="lb-close" id="lbClose">✕</button>
+      <button class="lb-nav lb-prev" id="lbPrev" style="display:none;">‹</button>
+      <button class="lb-nav lb-next" id="lbNext" style="display:none;">›</button>
+      <div class="lb-dots" id="lbDots"></div>
+    </div>
+    <div class="lightbox-footer">
+      <div class="meta-block">
+        <div class="meta" id="lbMeta">Post <small id="lbSub">Imagen</small></div>
+        <p class="lb-caption" id="lbCaption" style="display:none;"></p>
+        <p class="lb-extra" id="lbExtra" style="display:none;"></p>
+      </div>
+      <div class="review-block">
+        <div class="review-btns">
+          <button class="approve" id="btnApprove">✓ Aprobado</button>
+          <button class="changes" id="btnChanges">✎ Cambios</button>
+        </div>
+        <textarea class="comment-box" id="commentBox" placeholder="Escribe aquí qué hay que cambiar..." style="display:none;"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// REPLACE this whole array when building a grid for a real brand/campaign.
+// Fields: num (post order), type ('image'|'video'|'carousel'), label (shown as badge text,
+// e.g. 'Reel', 'Imagen', 'Carrusel · 3'), thumb (grid cover image path), slides (1 for
+// image/video, N for carousel · each {type, src}).
+// Optional, from the brand's Calendario de contenido sheet: fecha ('25 Ago 2026'),
+// caption (full caption text), pauta ('Pauta $50' or omit if organic).
+const posts = [
+ {
+  "num": 1,
+  "type": "carousel",
+  "label": "Carrusel · 5",
+  "thumb": "assets/post1_1.jpg",
+  "slides": [
+   {
+    "type": "image",
+    "src": "assets/post1_1.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post1_2.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post1_3.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post1_4.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post1_5.jpg"
+   }
+  ],
+  "fecha": "Lun 5 Oct 2026",
+  "caption": "Pedir carne de calidad desde casa es más simple de lo que parece. Entras a la web, armas tu caja con lo que quieras para la semana (cortes, pollo, cochino) y nosotros nos encargamos del resto. Si pides antes de las 3 de la tarde, te llega el mismo día, empacada al vacío, entre una y tres horas después, en cualquier punto de Caracas.\n\nCriamos, procesamos y llevamos la carne nosotros mismos, desde el campo en Acarigua hasta tu mesa, para que cada comida en familia tenga un poco de esa naturaleza donde todo empieza.\n\nCarnes, Llano y Familia.\nwww.acaure.com"
+ },
+ {
+  "num": 2,
+  "type": "carousel",
+  "label": "Carrusel · 5",
+  "thumb": "assets/post2_1.jpg",
+  "slides": [
+   {
+    "type": "image",
+    "src": "assets/post2_1.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post2_2.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post2_3.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post2_4.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post2_5.jpg"
+   }
+  ],
+  "fecha": "Mié 7 Oct 2026",
+  "caption": "Antes de que un corte llegue a tu mesa, hay toda una historia. Empieza en el campo, con animales que crecen en libertad y con el tiempo que necesitan, y sigue en manos de un equipo que conoce el oficio, trabaja con precisión y trata cada pieza con respeto.\n\nPor eso lo que llega a tu casa cumple con nuestros estándares de calidad. Y porque una buena carne se disfruta todavía más acompañada, la hacemos pensando en la mesa donde te vas a sentar con los tuyos.\n\nCarnes, Llano y Familia.\nwww.acaure.com"
+ },
+ {
+  "num": 3,
+  "type": "carousel",
+  "label": "Carrusel · 2",
+  "thumb": "assets/post3_1.jpg",
+  "slides": [
+   {
+    "type": "image",
+    "src": "assets/post3_1.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post3_2.jpg"
+   }
+  ],
+  "fecha": "Dom 11 Oct 2026",
+  "caption": "En el llano, la vida se mide en amaneceres, en pasto y en tiempo. Aquí nuestras reses crecen como siempre han crecido, libres, a su ritmo y con la tierra que las vio nacer bajo los pies. Es una forma de criar que viene de la gente de Portuguesa, de los que aprendieron del campo de generación en generación y nos enseñaron que lo bueno no se apura.\n\nEsa raíz es la que llega a tu mesa en cada corte.\n\nCarnes, Llano y Familia.\nwww.acaure.com"
+ },
+ {
+  "num": 4,
+  "type": "carousel",
+  "label": "Carrusel · 2",
+  "thumb": "assets/post4_1.jpg",
+  "slides": [
+   {
+    "type": "image",
+    "src": "assets/post4_1.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post4_2.jpg"
+   }
+  ],
+  "fecha": "Mar 13 Oct 2026",
+  "caption": "En la mesa se aprenden cosas que no se enseñan en ningún otro lugar: que nadie se levanta hasta que todos terminan, que donde comen dos comen tres, y que se agradece la comida y las manos que la prepararon. Son costumbres que vienen del campo, donde la carne siempre ha sido la excusa para reunirse y lo que de verdad importa es quién se sienta a tu lado.\n\nEn Acaure creemos en eso, y por eso cuidamos cada paso, desde la naturaleza donde crece el ganado hasta la mesa de tu casa, para que lo único que tengas que pensar sea en disfrutar con tu familia.\n\nCarnes, Llano y Familia.\nwww.acaure.com"
+ },
+ {
+  "num": 5,
+  "type": "carousel",
+  "label": "Carrusel · 5",
+  "thumb": "assets/post5_1.jpg",
+  "slides": [
+   {
+    "type": "image",
+    "src": "assets/post5_1.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post5_2.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post5_3.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post5_4.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post5_5.jpg"
+   }
+  ],
+  "fecha": "Jue 15 Oct 2026",
+  "caption": "Sabemos que a veces no hay tiempo de ir a la carnicería, y por eso Acaure va hasta tu casa. Eliges lo que quieres en la web, y por WhatsApp te mostramos tu pedido y concretamos el pago, sin colas, sin sacar número y sin esperar tu turno.\n\nDel otro lado no hay un bot, hay una persona que te atiende para que no tengas que preocuparte por nada. Y ese tiempo que te ahorras en la carnicería, lo puedes pasar en la mesa con los tuyos.\n\nCarnes, Llano y Familia.\nwww.acaure.com"
+ }
+];
+
+const grid = document.getElementById('grid');
+const STORAGE_KEY = 'acaure-octubre_grid_review';
+const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+
+function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+const videoIcon = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
+const carouselIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="14" height="14" rx="2"/><path d="M7 6V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2"/></svg>`;
+
+[...posts].reverse().forEach(post => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.dataset.postNum = post.num;
+  card.dataset.status = (state[post.num] && state[post.num].status) || '';
+  const badge = post.type === 'video' ? videoIcon : (post.type === 'carousel' ? carouselIcon : '');
+  card.innerHTML = `
+    <img src="${post.thumb}" alt="Post ${post.num}">
+    <div class="num">Post ${post.num}</div>
+    ${badge ? `<div class="badge">${badge}</div>` : ''}
+    <div class="status">${statusLabel((state[post.num] || {}).status)}</div>
+  `;
+  card.addEventListener('click', () => openLightbox(post));
+  grid.appendChild(card);
+});
+
+function statusLabel(s){
+  if(s === 'approved') return '✓ Aprobado';
+  if(s === 'changes') return '✎ Cambios pedidos';
+  return '';
+}
+
+// Lightbox logic
+const overlay = document.getElementById('overlay');
+const lbMedia = document.getElementById('lbMedia');
+const lbSub = document.getElementById('lbSub');
+const lbCaption = document.getElementById('lbCaption');
+const lbExtra = document.getElementById('lbExtra');
+const lbDots = document.getElementById('lbDots');
+const lbPrev = document.getElementById('lbPrev');
+const lbNext = document.getElementById('lbNext');
+const btnApprove = document.getElementById('btnApprove');
+const btnChanges = document.getElementById('btnChanges');
+const commentBox = document.getElementById('commentBox');
+
+let currentPost = null;
+let currentSlide = 0;
+let mediaEls = [];
+
+function openLightbox(post){
+  currentPost = post;
+  currentSlide = 0;
+  lbSub.textContent = `${post.label} · Post ${post.num}`;
+  lbCaption.textContent = post.caption || '';
+  lbCaption.style.display = post.caption ? 'block' : 'none';
+  const metaBits = [post.fecha, post.pauta].filter(Boolean);
+  lbExtra.textContent = metaBits.join(' · ');
+  lbExtra.style.display = metaBits.length ? 'block' : 'none';
+
+  // clear old media
+  mediaEls.forEach(el => el.remove());
+  mediaEls = [];
+  lbDots.innerHTML = '';
+
+  post.slides.forEach((slide, i) => {
+    let el;
+    if(slide.type === 'video'){
+      el = document.createElement('video');
+      el.src = slide.src;
+      el.controls = true;
+      el.playsInline = true;
+    } else {
+      el = document.createElement('img');
+      el.src = slide.src;
+    }
+    el.className = i === 0 ? 'active' : '';
+    lbMedia.insertBefore(el, lbMedia.firstChild);
+    mediaEls.push(el);
+
+    if(post.slides.length > 1){
+      const dot = document.createElement('span');
+      if(i===0) dot.className='active';
+      lbDots.appendChild(dot);
+    }
+  });
+
+  const multi = post.slides.length > 1;
+  lbPrev.style.display = multi ? 'flex' : 'none';
+  lbNext.style.display = multi ? 'flex' : 'none';
+
+  updateReviewButtons();
+  overlay.classList.add('open');
+}
+
+function showSlide(i){
+  mediaEls.forEach((el, idx) => {
+    if(el.tagName === 'VIDEO') el.pause();
+    el.className = idx === i ? 'active' : '';
+  });
+  const dots = lbDots.children;
+  for(let d=0; d<dots.length; d++){ dots[d].className = d===i ? 'active' : ''; }
+  currentSlide = i;
+}
+
+lbPrev.addEventListener('click', (e) => {
+  e.stopPropagation();
+  showSlide((currentSlide - 1 + mediaEls.length) % mediaEls.length);
+});
+lbNext.addEventListener('click', (e) => {
+  e.stopPropagation();
+  showSlide((currentSlide + 1) % mediaEls.length);
+});
+
+function closeLightbox(){
+  mediaEls.forEach(el => { if(el.tagName === 'VIDEO') el.pause(); });
+  overlay.classList.remove('open');
+}
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+overlay.addEventListener('click', (e) => { if(e.target === overlay) closeLightbox(); });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLightbox(); });
+
+function updateReviewButtons(){
+  const entry = state[currentPost.num] || {};
+  btnApprove.classList.toggle('on', entry.status === 'approved');
+  btnChanges.classList.toggle('on', entry.status === 'changes');
+  commentBox.style.display = entry.status === 'changes' ? 'block' : 'none';
+  commentBox.value = entry.comment || '';
+}
+
+function setStatus(status){
+  const entry = state[currentPost.num] || {};
+  const newStatus = entry.status === status ? '' : status;
+  state[currentPost.num] = { status: newStatus, comment: newStatus === 'changes' ? (entry.comment || '') : '' };
+  saveState();
+  updateReviewButtons();
+  const card = grid.querySelector(`[data-post-num="${currentPost.num}"]`);
+  card.dataset.status = newStatus;
+  card.querySelector('.status').textContent = statusLabel(newStatus);
+  refreshSendButton();
+  if(newStatus === 'changes') commentBox.focus();
+}
+btnApprove.addEventListener('click', () => setStatus('approved'));
+btnChanges.addEventListener('click', () => setStatus('changes'));
+
+commentBox.addEventListener('input', () => {
+  if(!currentPost) return;
+  const entry = state[currentPost.num] || { status: 'changes', comment: '' };
+  entry.comment = commentBox.value;
+  state[currentPost.num] = entry;
+  saveState();
+});
+
+// Send summary to Bluz via Netlify Forms
+const sendWrap = document.getElementById('sendWrap');
+const sendBtn = document.getElementById('sendReview');
+const sendConfirm = document.getElementById('sendConfirm');
+
+function refreshSendButton(){
+  const hasMarks = Object.values(state).some(v => v && v.status);
+  sendWrap.style.display = hasMarks ? 'flex' : 'none';
+}
+refreshSendButton();
+
+function buildSummary(){
+  const lines = posts.map(p => {
+    const entry = state[p.num];
+    if(!entry || !entry.status) return null;
+    let line = `Post ${p.num} (${p.label}): ${entry.status === 'approved' ? 'Aprobado' : 'Cambios pedidos'}`;
+    if(entry.status === 'changes' && entry.comment && entry.comment.trim()){
+      line += `: "${entry.comment.trim()}"`;
+    }
+    return line;
+  }).filter(Boolean);
+  return lines.join('\n');
+}
+
+function encodeForm(data){
+  return Object.keys(data).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k])).join('&');
+}
+
+sendBtn.addEventListener('click', () => {
+  const resumen = buildSummary();
+  sendBtn.disabled = true;
+  sendBtn.textContent = 'Enviando...';
+  fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: encodeForm({ 'form-name': 'revision-acaure-octubre', resumen })
+  })
+  .then(() => {
+    sendBtn.style.display = 'none';
+    sendConfirm.style.display = 'inline-block';
+  })
+  .catch(() => {
+    sendBtn.disabled = false;
+    sendBtn.textContent = 'Reintentar envío';
+  });
+});
+
+// basic swipe support
+let touchStartX = 0;
+lbMedia.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX);
+lbMedia.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if(Math.abs(dx) > 50 && mediaEls.length > 1){
+    if(dx < 0) showSlide((currentSlide + 1) % mediaEls.length);
+    else showSlide((currentSlide - 1 + mediaEls.length) % mediaEls.length);
+  }
+});
+</script>
+
+</body>
+</html>
