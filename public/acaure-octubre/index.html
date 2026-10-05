@@ -260,6 +260,8 @@
     letter-spacing:.3px;
     color: var(--accent);
   }
+  .lb-note{ margin:8px 0 0; padding:8px 10px; border-radius:10px; background:#FBE6DC; color:#8A3A14; font-size:12px; font-weight:700; line-height:1.4; }
+  .card .flag{ position:absolute; bottom:10px; left:10px; background:#E8602C; color:#fff; font-size:10px; font-weight:800; padding:3px 8px; border-radius:100px; letter-spacing:.3px; }
   .review-block{ display:flex; flex-direction:column; gap:8px; }
   .review-btns{ display:flex; gap:8px; }
   .comment-box{
@@ -369,6 +371,7 @@
         <div class="meta" id="lbMeta">Post <small id="lbSub">Imagen</small></div>
         <p class="lb-caption" id="lbCaption" style="display:none;"></p>
         <p class="lb-extra" id="lbExtra" style="display:none;"></p>
+        <p class="lb-note" id="lbNote" style="display:none;"></p>
       </div>
       <div class="review-block">
         <div class="review-btns">
@@ -422,7 +425,7 @@ const posts = [
  {
   "num": 2,
   "type": "carousel",
-  "label": "Carrusel · 5",
+  "label": "Carrusel · 4",
   "thumb": "assets/post2_1.jpg",
   "slides": [
    {
@@ -440,19 +443,16 @@ const posts = [
    {
     "type": "image",
     "src": "assets/post2_4.jpg"
-   },
-   {
-    "type": "image",
-    "src": "assets/post2_5.jpg"
    }
   ],
   "fecha": "Mié 7 Oct 2026",
-  "caption": "Antes de que un corte llegue a tu mesa, hay toda una historia. Empieza en el campo, con animales que crecen en libertad y con el tiempo que necesitan, y sigue en manos de un equipo que conoce el oficio, trabaja con precisión y trata cada pieza con respeto.\n\nPor eso lo que llega a tu casa cumple con nuestros estándares de calidad. Y porque una buena carne se disfruta todavía más acompañada, la hacemos pensando en la mesa donde te vas a sentar con los tuyos.\n\nCarnes, Llano y Familia.\nwww.acaure.com"
+  "caption": "Una buena carne no necesita mucho. Con unos medallones de lomito, sal, pimienta, mantequilla, ajo y romero tienes una cena para lucirte en menos de 15 minutos. Seca bien la carne, sazónala, séllala en una sartén bien caliente hasta que se forme una buena costra, báñala con la mantequilla con ajo y romero, y déjala reposar unos minutos antes de cortar.\n\nEsa es la idea: pocos ingredientes, buena carne y buena compañía. Lo demás lo pone la mesa.\n\nGuarda esta receta para tu próxima comida en familia.\n\nCarnes, Llano y Familia.\nwww.acaure.com",
+  "nota": "Queda pendiente confirmar si la receta con romero está bien o si prefieren cambiarla."
  },
  {
   "num": 3,
   "type": "carousel",
-  "label": "Carrusel · 2",
+  "label": "Carrusel · 5",
   "thumb": "assets/post3_1.jpg",
   "slides": [
    {
@@ -462,10 +462,22 @@ const posts = [
    {
     "type": "image",
     "src": "assets/post3_2.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post3_3.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post3_4.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post3_5.jpg"
    }
   ],
   "fecha": "Dom 11 Oct 2026",
-  "caption": "En el llano, la vida se mide en amaneceres, en pasto y en tiempo. Aquí nuestras reses crecen como siempre han crecido, libres, a su ritmo y con la tierra que las vio nacer bajo los pies. Es una forma de criar que viene de la gente de Portuguesa, de los que aprendieron del campo de generación en generación y nos enseñaron que lo bueno no se apura.\n\nEsa raíz es la que llega a tu mesa en cada corte.\n\nCarnes, Llano y Familia.\nwww.acaure.com"
+  "caption": "Antes de que un corte llegue a tu mesa, hay toda una historia. Empieza en el campo, con animales que crecen en libertad y con el tiempo que necesitan, y sigue en manos de un equipo que conoce el oficio, trabaja con precisión y trata cada pieza con respeto.\n\nPor eso lo que llega a tu casa cumple con nuestros estándares de calidad. Y porque una buena carne se disfruta todavía más acompañada, la hacemos pensando en la mesa donde te vas a sentar con los tuyos.\n\nCarnes, Llano y Familia.\nwww.acaure.com"
  },
  {
   "num": 4,
@@ -483,12 +495,12 @@ const posts = [
    }
   ],
   "fecha": "Mar 13 Oct 2026",
-  "caption": "En la mesa se aprenden cosas que no se enseñan en ningún otro lugar: que nadie se levanta hasta que todos terminan, que donde comen dos comen tres, y que se agradece la comida y las manos que la prepararon. Son costumbres que vienen del campo, donde la carne siempre ha sido la excusa para reunirse y lo que de verdad importa es quién se sienta a tu lado.\n\nEn Acaure creemos en eso, y por eso cuidamos cada paso, desde la naturaleza donde crece el ganado hasta la mesa de tu casa, para que lo único que tengas que pensar sea en disfrutar con tu familia.\n\nCarnes, Llano y Familia.\nwww.acaure.com"
+  "caption": "En el llano, la vida se mide en amaneceres, en pasto y en tiempo. Aquí nuestras reses crecen como siempre han crecido, libres, a su ritmo y con la tierra que las vio nacer bajo los pies. Es una forma de criar que viene de la gente de Portuguesa, de los que aprendieron del campo de generación en generación y nos enseñaron que lo bueno no se apura.\n\nEsa raíz es la que llega a tu mesa en cada corte.\n\nCarnes, Llano y Familia.\nwww.acaure.com"
  },
  {
   "num": 5,
   "type": "carousel",
-  "label": "Carrusel · 5",
+  "label": "Carrusel · 2",
   "thumb": "assets/post5_1.jpg",
   "slides": [
    {
@@ -498,21 +510,39 @@ const posts = [
    {
     "type": "image",
     "src": "assets/post5_2.jpg"
-   },
-   {
-    "type": "image",
-    "src": "assets/post5_3.jpg"
-   },
-   {
-    "type": "image",
-    "src": "assets/post5_4.jpg"
-   },
-   {
-    "type": "image",
-    "src": "assets/post5_5.jpg"
    }
   ],
   "fecha": "Jue 15 Oct 2026",
+  "caption": "En la mesa se aprenden cosas que no se enseñan en ningún otro lugar: que nadie se levanta hasta que todos terminan, que donde comen dos comen tres, y que se agradece la comida y las manos que la prepararon. Son costumbres que vienen del campo, donde la carne siempre ha sido la excusa para reunirse y lo que de verdad importa es quién se sienta a tu lado.\n\nEn Acaure creemos en eso, y por eso cuidamos cada paso, desde la naturaleza donde crece el ganado hasta la mesa de tu casa, para que lo único que tengas que pensar sea en disfrutar con tu familia.\n\nCarnes, Llano y Familia.\nwww.acaure.com"
+ },
+ {
+  "num": 6,
+  "type": "carousel",
+  "label": "Carrusel · 5",
+  "thumb": "assets/post6_1.jpg",
+  "slides": [
+   {
+    "type": "image",
+    "src": "assets/post6_1.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post6_2.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post6_3.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post6_4.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post6_5.jpg"
+   }
+  ],
+  "fecha": "Lun 19 Oct 2026",
   "caption": "Sabemos que a veces no hay tiempo de ir a la carnicería, y por eso Acaure va hasta tu casa. Eliges lo que quieres en la web, y por WhatsApp te mostramos tu pedido y concretamos el pago, sin colas, sin sacar número y sin esperar tu turno.\n\nDel otro lado no hay un bot, hay una persona que te atiende para que no tengas que preocuparte por nada. Y ese tiempo que te ahorras en la carnicería, lo puedes pasar en la mesa con los tuyos.\n\nCarnes, Llano y Familia.\nwww.acaure.com"
  }
 ];
@@ -536,6 +566,7 @@ const carouselIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
     <img src="${post.thumb}" alt="Post ${post.num}">
     <div class="num">Post ${post.num}</div>
     ${badge ? `<div class="badge">${badge}</div>` : ''}
+    ${post.nota ? `<div class="flag">Pendiente</div>` : ''}
     <div class="status">${statusLabel((state[post.num] || {}).status)}</div>
   `;
   card.addEventListener('click', () => openLightbox(post));
@@ -574,6 +605,9 @@ function openLightbox(post){
   const metaBits = [post.fecha, post.pauta].filter(Boolean);
   lbExtra.textContent = metaBits.join(' · ');
   lbExtra.style.display = metaBits.length ? 'block' : 'none';
+  const lbNote = document.getElementById('lbNote');
+  lbNote.textContent = post.nota ? 'Nota de Bluz: ' + post.nota : '';
+  lbNote.style.display = post.nota ? 'block' : 'none';
 
   // clear old media
   mediaEls.forEach(el => el.remove());
