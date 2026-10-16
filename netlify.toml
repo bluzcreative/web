@@ -25,3 +25,9 @@
   from = "/about.html"
   to = "/en/about/"
   status = 301
+
+# Grilla de revisión de Lunetto: también por la dirección escrita con "grille"
+[[redirects]]
+  from = "/grille-lunetto-oct/*"
+  to = "/grilla-lunetto-oct/:splat"
+  status = 301
