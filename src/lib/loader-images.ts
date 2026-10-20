@@ -8,7 +8,7 @@ import type { Lang } from "../i18n/ui";
 const skipGallery = new Set(["compremos-en-china"]);
 
 export async function loaderImages(lang: Lang) {
-  const projects = (await getCollection("projects", (p) => !p.data.draft)).sort((a, b) => a.data.order - b.data.order);
+  const projects = (await getCollection("projects", (p) => !p.data.draft && !p.data.onlyInFilters)).sort((a, b) => a.data.order - b.data.order);
   const perProject = projects.map((p) => {
     const list: { src: ImageMetadata; alt: string }[] = [];
     if (!p.data.coverFill) list.push({ src: p.data.cover, alt: p.data.coverAlt[lang] });

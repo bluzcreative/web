@@ -6,18 +6,18 @@ import type { CollectionEntry } from "astro:content";
 import { projectUrl, type Lang } from "../../i18n/ui";
 import { serviceTags } from "../../data/services";
 
-interface Props { project: CollectionEntry<"projects">; lang: Lang; cta: string; sizes?: string; eager?: boolean }
-const { project, lang, cta, sizes = "(min-width: 900px) 33vw, 100vw", eager = false } = Astro.props;
+interface Props { project: CollectionEntry<"projects">; lang: Lang; cta: string; sizes?: string; eager?: boolean; class?: string }
+const { project, lang, cta, sizes = "(min-width: 900px) 33vw, 100vw", eager = false, class: className } = Astro.props;
 const p = project.data;
 const layers = [0, 1, 2].map((i) => p.gallery[i] ?? { src: p.cover, alt: p.coverAlt, crop: true });
 const positions = ["30% 20%", "70% 50%", "50% 85%"];
 // Si las tres imágenes son horizontales (mockups), se muestran completas en su proporción, en cascada
 const landscape = layers.every((l) => !("crop" in l) && l.src.width > l.src.height * 1.2);
 ---
-<a href={projectUrl(lang, project.id)} class="card" style={p.accent ? `--accent: ${p.accent}` : undefined}>
+<a href={projectUrl(lang, project.id)} class:list={["card", className]} data-services={p.services.join(" ")} data-only-in={p.onlyInFilters?.join(" ")} hidden={p.onlyInFilters ? true : undefined} style={p.accent ? `--accent: ${p.accent}` : undefined}>
   <div class:list={["card-media", { "is-land": landscape }]}>
     <Image class:list={["card-cover", { "is-fill": p.coverFill }]} src={p.cover} alt={p.coverAlt[lang]}
-      style={p.coverFill ? `background: ${p.coverFill}` : undefined} widths={[480, 800, 1200]} sizes={sizes}
+      style={p.coverFill ? `background: ${p.coverFill}` : p.cardFocus ? `object-position: ${p.cardFocus}` : undefined} widths={[480, 800, 1200]} sizes={sizes}
       loading={eager ? "eager" : "lazy"} />
     {layers.map((l, i) => (
       <Image class={`card-layer l${i + 1}`} src={l.src} alt="" aria-hidden="true" widths={[320, 560]} sizes="(min-width: 900px) 16vw, 45vw"

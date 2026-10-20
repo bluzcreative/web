@@ -34,6 +34,12 @@ const flowIcons: Record<string, string> = {
   check: '<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',
 };
 
+// Logo animado de la portada (coverLogo): se toman el viewBox y los trazos del SVG
+const logoFiles = import.meta.glob<string>("../assets/projects/*/*.svg", { query: "?raw", import: "default", eager: true });
+const logoSvg = p.coverLogo ? logoFiles[`../assets/projects/${project.id}/${p.coverLogo}`] : undefined;
+const logoViewBox = logoSvg?.match(/viewBox="([^"]+)"/)?.[1];
+const logoPaths = logoSvg ? [...logoSvg.matchAll(/<path[^>]*\sd="([^"]+)"/g)].map((m) => m[1]) : [];
+
 const isLightHex = (hex: string) => {
   const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
   return 0.2126 * r + 0.7152 * g + 0.0722 * b > 150;
@@ -47,13 +53,31 @@ const copy = {
 }[lang];
 ---
 <article class="project">
-  <!-- 1. Portada fija -->
+  <!-- 1. Portada fija: imagen con el nombre, o el logo que se construye sobre su color -->
+  {logoPaths.length > 0 ? (
+    <header class="p-cover p-cover-logo tone-dark" style={`background: ${p.coverLogoColor ?? "var(--black)"}`} data-logo-hero>
+      <h1 class="p-logo">
+        <span class="sr-only">{p.client}</span>
+        <svg viewBox={logoViewBox} aria-hidden="true" data-logo>
+          <g class="logo-guides" data-logo-guides></g>
+          <g class="logo-shapes">{logoPaths.map((d) => <path d={d} />)}</g>
+          <g class="logo-marks" data-logo-marks></g>
+        </svg>
+      </h1>
+    </header>
+  ) : (
   <header class:list={["p-cover tone-dark", { "is-light": p.coverFill && isLightHex(p.coverFill) }]}>
     <Image src={p.cover} alt={p.coverAlt[lang]} class:list={["p-cover-img", { "is-fill": p.coverFill }]} style={[p.coverFocus && `object-position: ${p.coverFocus}`, p.coverFill && `background: ${p.coverFill}`].filter(Boolean).join(";") || undefined} widths={[800, 1400, 2200]} sizes="100vw" loading="eager" fetchpriority="high" />
     {p.coverVideo && <video class="p-cover-video" src={p.coverVideo} muted loop playsinline preload="auto" aria-hidden="true" data-autoplay></video>}
     <span class="p-cover-shade" aria-hidden="true"></span>
     <h1 class="t-mega p-title edge">{p.client}</h1>
   </header>
+  )}
+  <script is:inline>
+    // Oculta el relleno del logo antes del primer pintado para que la animación arranque desde cero
+    (function () { var h = document.querySelector("[data-logo-hero]");
+      if (h && !matchMedia("(prefers-reduced-motion: reduce)").matches) h.classList.add("is-pre"); })();
+  </script>
 
   <div class="p-body">
     <!-- 2. Información: sube por encima de la portada -->
@@ -315,6 +339,15 @@ const copy = {
   .p-cover.is-light .p-cover-shade { background: linear-gradient(180deg, rgba(10,10,10,.25) 0%, transparent 20%, transparent 45%, rgba(10,10,10,.7) 68%, rgba(10,10,10,.95) 100%); }
   .p-title { position: relative; z-index: 1; margin-left: -.04em; padding-bottom: clamp(16px, 4vh, 40px); }
 
+  /* Portada con logo: retícula de construcción, contorno y relleno */
+  .p-cover-logo { align-items: center; justify-content: center; }
+  .p-logo { position: relative; z-index: 1; width: min(78vw, 1100px); line-height: 0; }
+  .p-logo svg { width: 100%; height: auto; overflow: visible; }
+  .logo-shapes path { fill: #fff; stroke: #fff; stroke-width: 1.25; stroke-opacity: 0; vector-effect: non-scaling-stroke; }
+  .is-pre .logo-shapes path { fill-opacity: 0; }
+  .logo-guides :global(line) { stroke: #fff; stroke-width: 1; stroke-opacity: .28; vector-effect: non-scaling-stroke; }
+  .logo-marks :global(rect) { fill: #85c0ff; }
+
   /* El resto de la página sube por encima de la portada */
   .p-body { position: relative; z-index: 1; background: var(--black); }
 
@@ -528,6 +561,69 @@ const copy = {
   import { ScrollTrigger } from "gsap/ScrollTrigger";
   gsap.registerPlugin(ScrollTrigger);
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Portada con logo: primero se trazan las guías de construcción, luego el contorno de cada letra y al final el relleno
+  document.querySelectorAll<HTMLElement>("[data-logo-hero]").forEach((hero) => {
+    const svg = hero.querySelector<SVGSVGElement>("[data-logo]");
+    const guides = hero.querySelector<SVGGElement>("[data-logo-guides]");
+    const marks = hero.querySelector<SVGGElement>("[data-logo-marks]");
+    if (!svg || !guides || !marks) return;
+    const NS = "http://www.w3.org/2000/svg";
+    const paths = Array.from(svg.querySelectorAll<SVGPathElement>(".logo-shapes path"));
+    const vb = svg.viewBox.baseVal;
+    const far = Math.max(vb.width, vb.height) * 4;
+    // Guías en los bordes de cada letra, sin repetir las que caen casi en el mismo lugar
+    const xs: number[] = [], ys: number[] = [];
+    const add = (list: number[], v: number) => { if (!list.some((u) => Math.abs(u - v) < 4)) list.push(v); };
+    paths.forEach((path) => {
+      const b = path.getBBox();
+      add(xs, b.x); add(xs, b.x + b.width); add(ys, b.y); add(ys, b.y + b.height);
+    });
+    const line = (x1: number, y1: number, x2: number, y2: number) => {
+      const l = document.createElementNS(NS, "line");
+      Object.entries({ x1, y1, x2, y2 }).forEach(([k, v]) => l.setAttribute(k, String(v)));
+      guides.appendChild(l);
+      return l;
+    };
+    const vLines = xs.map((x) => line(x, -far, x, vb.height + far));
+    const hLines = ys.map((y) => line(-far, y, vb.width + far, y));
+    // Marcas en las esquinas de cada letra
+    const size = vb.height * 0.012;
+    paths.forEach((path) => {
+      const b = path.getBBox();
+      [[b.x, b.y], [b.x + b.width, b.y], [b.x, b.y + b.height], [b.x + b.width, b.y + b.height]].forEach(([x, y]) => {
+        const r = document.createElementNS(NS, "rect");
+        Object.entries({ x: x - size / 2, y: y - size / 2, width: size, height: size }).forEach(([k, v]) => r.setAttribute(k, String(v)));
+        marks.appendChild(r);
+      });
+    });
+    if (reduced) { hero.classList.remove("is-pre"); return; }
+
+    const tl = gsap.timeline({ paused: true });
+    // Las guías crecen desde el centro del logo hacia los bordes de la pantalla
+    const cx = vb.x + vb.width / 2, cy = vb.y + vb.height / 2;
+    vLines.forEach((l) => gsap.set(l, { scaleY: 0, svgOrigin: `${l.getAttribute("x1")} ${cy}` }));
+    hLines.forEach((l) => gsap.set(l, { scaleX: 0, svgOrigin: `${cx} ${l.getAttribute("y1")}` }));
+    paths.forEach((path) => { const len = path.getTotalLength(); gsap.set(path, { strokeDasharray: len, strokeDashoffset: len, strokeOpacity: 1 }); });
+    gsap.set(marks.children, { opacity: 0, scale: 0, transformOrigin: "center", transformBox: "fill-box" });
+    tl.to(gsap.utils.shuffle([...vLines]), { scaleY: 1, duration: 1.4, ease: "power3.inOut", stagger: 0.035 }, 0.2)
+      .to(hLines, { scaleX: 1, duration: 1.4, ease: "power3.inOut", stagger: 0.08 }, 0.35)
+      .to(marks.children, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)", stagger: { each: 0.015, from: "random" } }, 0.9)
+      .to(paths, { strokeDashoffset: 0, duration: 1.5, ease: "power2.inOut", stagger: 0.09 }, 1.1)
+      .to(paths, { fillOpacity: 1, duration: 0.7, ease: "power2.out", stagger: 0.06 }, 2.5)
+      .to(paths, { strokeOpacity: 0, duration: 0.5 }, 3.1)
+      .to(guides, { opacity: 0.55, duration: 0.8 }, 3.1)
+      .to(marks.children, { opacity: 0, scale: 0.5, duration: 0.5, stagger: 0.005 }, 3.2);
+    hero.classList.remove("is-pre");
+    gsap.set(paths, { fillOpacity: 0 });
+    // Si la pantalla de carga está visible, la animación espera a que termine
+    const root = document.documentElement;
+    const start = () => tl.play();
+    if (root.classList.contains("intro")) {
+      const mo = new MutationObserver(() => { if (!root.classList.contains("intro")) { mo.disconnect(); start(); } });
+      mo.observe(root, { attributes: true, attributeFilter: ["class"] });
+    } else start();
+  });
 
   // Videos propios: sin audio, en bucle, solo mientras se ven. Con movimiento reducido, con controles.
   document.querySelectorAll<HTMLVideoElement>("video[data-autoplay]").forEach((v) => {

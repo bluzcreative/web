@@ -4,6 +4,7 @@ import { getCollection } from "astro:content";
 import ProjectCard from "../components/site/ProjectCard.astro";
 import { routes, type Lang } from "../i18n/ui";
 import { moreWork } from "../data/clients";
+import { serviceTags } from "../data/services";
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -16,6 +17,8 @@ const copy = {
     title: "Marcas que ya se ven distinto.",
     lede: "Una selección de proyectos de paid media, contenido, branding, web y automatización. Pasa el cursor para ver más de cada uno.",
     cta: "Ver proyecto",
+    filterLabel: "Filtrar proyectos",
+    filterAll: "Todo",
     moreKicker: "Más trabajo",
     moreTitle: "Otras marcas con las que hemos trabajado.",
     closeTitle: "¿La próxima es tu marca?",
@@ -26,12 +29,22 @@ const copy = {
     title: "Brands that already look different.",
     lede: "A selection of paid media, content, branding, web and automation projects. Hover to see more of each one.",
     cta: "View project",
+    filterLabel: "Filter projects",
+    filterAll: "All",
     moreKicker: "More work",
     moreTitle: "Other brands we've worked with.",
     closeTitle: "Is your brand next?",
     closeCta: "Start your project",
   },
 }[lang];
+
+// Filtros de la grilla: cada uno muestra los proyectos que tienen ese servicio en "services".
+// Aparecen en este orden y solo si al menos dos proyectos tienen el servicio.
+const filterOrder = ["branding", "paid-media", "contenido", "redes", "web", "automatizaciones", "diseno", "audiovisual", "fotografia", "video"] as const;
+const filters = filterOrder.filter((f) => projects.filter((p) => p.data.services.includes(f)).length >= 2);
+// En "Todo" no se muestran los proyectos que solo aparecen con un filtro
+let visible = 0;
+const offsets = projects.map((p) => !p.data.onlyInFilters && visible++ % 2 === 1);
 ---
 <section class="page-hero tone-dark edge">
   <h1 class="t-mega">{copy.title}</h1>
@@ -39,8 +52,14 @@ const copy = {
 </section>
 
 <section class="tone-dark edge work">
-  <div class="work-grid">
-    {projects.map((p, i) => <ProjectCard project={p} lang={lang} cta={copy.cta} eager={i < 2} sizes="(min-width: 900px) 50vw, 100vw" />)}
+  {filters.length > 0 && (
+    <div class="work-filters" role="group" aria-label={copy.filterLabel} data-work-filters>
+      <button type="button" class="work-filter" data-filter="" aria-pressed="true">{copy.filterAll}</button>
+      {filters.map((f) => <button type="button" class="work-filter" data-filter={f} aria-pressed="false">{serviceTags[f][lang]}</button>)}
+    </div>
+  )}
+  <div class="work-grid" data-work-grid>
+    {projects.map((p, i) => <ProjectCard project={p} lang={lang} cta={copy.cta} eager={i < 2} sizes="(min-width: 900px) 50vw, 100vw" class={offsets[i] ? "is-offset" : undefined} />)}
   </div>
 </section>
 
@@ -67,6 +86,41 @@ const copy = {
   <a href={routes.contact[lang]} class="btn btn-green" data-contact-open>{copy.closeCta}</a>
 </section>
 
+<script>
+  // Filtro de la grilla de Trabajo. ?filtro=branding (o ?filter=branding) abre la página ya filtrada.
+  const bar = document.querySelector<HTMLElement>("[data-work-filters]");
+  const grid = document.querySelector<HTMLElement>("[data-work-grid]");
+  if (bar && grid) {
+    const buttons = Array.from(bar.querySelectorAll<HTMLButtonElement>("[data-filter]"));
+    const cards = Array.from(grid.children) as HTMLElement[];
+    const apply = (value: string, updateUrl = true) => {
+      if (!buttons.some((b) => b.dataset.filter === value)) value = "";
+      buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.filter === value)));
+      let n = 0;
+      cards.forEach((card) => {
+        const onlyIn = card.dataset.onlyIn?.split(" ");
+        const show = value
+          ? (card.dataset.services ?? "").split(" ").includes(value) && (!onlyIn || onlyIn.includes(value))
+          : !onlyIn;
+        card.hidden = !show;
+        // La columna derecha va desfasada: se recalcula con las tarjetas visibles
+        card.classList.toggle("is-offset", show && n++ % 2 === 1);
+      });
+      if (updateUrl) {
+        const url = new URL(location.href);
+        url.searchParams.delete("filter");
+        if (value) url.searchParams.set("filtro", value); else url.searchParams.delete("filtro");
+        history.replaceState(history.state, "", url);
+      }
+      window.dispatchEvent(new Event("resize"));
+    };
+    buttons.forEach((b) => b.addEventListener("click", () => apply(b.dataset.filter ?? "")));
+    const params = new URLSearchParams(location.search);
+    const initial = params.get("filtro") ?? params.get("filter");
+    if (initial) apply(initial, false);
+  }
+</script>
+
 <style>
   .page-hero { min-height: 70svh; display: flex; flex-direction: column; justify-content: flex-end; gap: 1.25rem;
     padding-top: calc(var(--bar-h) + 3rem); padding-bottom: clamp(48px, 8vh, 96px); }
@@ -75,8 +129,15 @@ const copy = {
   .work-grid { display: grid; gap: clamp(56px, 7vw, 120px) var(--gutter); }
   @media (min-width: 800px) {
     .work-grid { grid-template-columns: 1fr 1fr; }
-    .work-grid > :nth-child(even) { margin-top: 18vh; }
+    .work-grid > :global(.is-offset) { margin-top: 18vh; }
   }
+  .work-filters { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: clamp(40px, 5vw, 72px); }
+  .work-filter { font: inherit; font-size: .875rem; font-weight: 600; color: inherit; background: transparent; cursor: pointer;
+    padding: .7em 1.2em; border: 1px solid var(--line); border-radius: 999px;
+    transition: background .3s var(--ease-out), color .3s var(--ease-out), border-color .3s var(--ease-out); }
+  .work-filter:hover { border-color: var(--green); }
+  .work-filter[aria-pressed="true"] { background: var(--green); border-color: var(--green); color: var(--black); }
+  .work-grid > :global([hidden]) { display: none; }
   .more-head { grid-column: 1 / -1; display: grid; gap: 1rem; margin-bottom: 2rem; }
   .more-list { grid-column: 1 / -1; }
   .more-list li { display: grid; gap: .35rem 2rem; padding-block: 1.5rem; border-top: 1px solid var(--line); }

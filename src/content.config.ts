@@ -16,6 +16,9 @@ const projects = defineCollection({
       order: z.number().default(100),
       featured: z.boolean().default(false), // aparece en la landing
       draft: z.boolean().default(false),
+      // Filtros de Trabajo en los que aparece el proyecto. Si se indica, no aparece en "Todo", en la landing
+      // ni en "Siguiente proyecto"; solo al elegir uno de estos filtros. Ej. ["branding"]
+      onlyInFilters: z.array(z.string()).optional(),
       year: z.number().optional(),
       country: t.optional(),
       industry: t,
@@ -24,8 +27,13 @@ const projects = defineCollection({
       cover: image(),
       coverAlt: t,
       coverFocus: z.string().optional(), // punto de la portada que se mantiene al recortar, ej. "50% 65%"
+      cardFocus: z.string().optional(), // punto de la portada que se mantiene al recortarla en la tarjeta
       coverVideo: z.string().optional(), // video propio que se mueve en la portada, sin audio (la imagen de portada queda como póster)
       coverFill: z.string().optional(), // color de fondo para mostrar la portada completa, sin recortar (ej. un logo)
+      // Logo en SVG (archivo en src/assets/projects/<proyecto>/) que se dibuja animado como título de la portada,
+      // sobre coverLogoColor, en lugar de la imagen de portada (la imagen sigue usándose en la tarjeta)
+      coverLogo: z.string().optional(),
+      coverLogoColor: z.string().optional(),
       // Imagen de presentación de la empresa: queda fija detrás del reto y el enfoque
       presentation: image().optional(),
       presentationAlt: t.optional(),

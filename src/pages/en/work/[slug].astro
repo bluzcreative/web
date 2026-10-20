@@ -6,10 +6,12 @@ import { projectUrl } from "../../../i18n/ui";
 
 export async function getStaticPaths() {
   const projects = (await getCollection("projects", (p) => !p.data.draft)).sort((a, b) => a.data.order - b.data.order);
-  return projects.map((project, i) => ({
-    params: { slug: project.id },
-    props: { project, next: projects[(i + 1) % projects.length] },
-  }));
+  // "Siguiente" recorre solo los proyectos visibles en "Todo"; los que solo aparecen con un filtro llevan al primero
+  const listed = projects.filter((p) => !p.data.onlyInFilters);
+  return projects.map((project) => {
+    const i = listed.indexOf(project);
+    return { params: { slug: project.id }, props: { project, next: listed[(i + 1) % listed.length] } };
+  });
 }
 
 const { project, next } = Astro.props;

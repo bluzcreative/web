@@ -1,0 +1,279 @@
+{
+  "client": "Rent2fi",
+  "order": 4.5,
+  "featured": false,
+  "onlyInFilters": [
+    "branding"
+  ],
+  "country": {
+    "es": "Estados Unidos",
+    "en": "United States"
+  },
+  "industry": {
+    "es": "Financiamiento de activos comerciales",
+    "en": "Commercial asset financing"
+  },
+  "services": [
+    "branding",
+    "diseno"
+  ],
+  "summary": {
+    "es": "Una identidad para una fintech que lleva a las empresas del alquiler a la propiedad.",
+    "en": "An identity for a fintech that takes businesses from renting to owning."
+  },
+  "cover": "../../assets/projects/rent2fi/camion.jpg",
+  "coverAlt": {
+    "es": "Camión con remolque azul de Rent2fi en carretera",
+    "en": "Truck with a blue Rent2fi trailer on the highway"
+  },
+  "coverLogoColor": "#0a80fe",
+  "cardFocus": "88% 50%",
+  "coverLogo": "logo.svg",
+  "gallery": [
+    {
+      "src": "../../assets/projects/rent2fi/papeleria.jpg",
+      "alt": {
+        "es": "Papelería de Rent2fi",
+        "en": "Rent2fi stationery"
+      }
+    },
+    {
+      "src": "../../assets/projects/rent2fi/cascos.jpg",
+      "alt": {
+        "es": "Cascos de seguridad con el logo de Rent2fi",
+        "en": "Hard hats with the Rent2fi logo"
+      }
+    },
+    {
+      "src": "../../assets/projects/rent2fi/fachada.jpg",
+      "alt": {
+        "es": "Fachada con el logo de Rent2fi",
+        "en": "Building facade with the Rent2fi logo"
+      }
+    }
+  ],
+  "blocks": [
+    {
+      "type": "statement",
+      "title": {
+        "es": "Del alquiler a la propiedad: una marca para financiar camiones y equipos con inteligencia.",
+        "en": "From renting to owning: a brand for financing trucks and equipment, intelligently."
+      },
+      "body": {
+        "es": "Rent2fi ayuda a pequeñas y medianas empresas de Estados Unidos, Australia y Nueva Zelanda a acceder a vehículos comerciales y equipos mientras reparan su crédito y consiguen mejores condiciones de financiamiento. Diseñamos una identidad tecnológica y cercana: un logotipo tipográfico en Cocogoose, sólido y geométrico, y un azul eléctrico que transmite energía, confianza e innovación.",
+        "en": "Rent2fi helps small and medium-sized businesses in the United States, Australia and New Zealand access commercial vehicles and equipment while repairing their credit and securing better financing. We designed an identity that feels technological and approachable: a solid, geometric wordmark set in Cocogoose, and an electric blue that conveys energy, trust and innovation."
+      }
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "es": "Identidad visual",
+          "en": "Visual identity"
+        },
+        {
+          "es": "Manual de marca",
+          "en": "Brand guidelines"
+        },
+        {
+          "es": "Sistema de íconos",
+          "en": "Icon system"
+        },
+        {
+          "es": "Plantillas para redes",
+          "en": "Social media templates"
+        },
+        {
+          "es": "Aplicaciones de marca",
+          "en": "Brand applications"
+        }
+      ]
+    },
+    {
+      "type": "mosaic",
+      "images": [
+        {
+          "src": "../../assets/projects/rent2fi/camion.jpg",
+          "alt": {
+            "es": "Camión con remolque azul de Rent2fi",
+            "en": "Truck with a blue Rent2fi trailer"
+          },
+          "wide": true
+        }
+      ]
+    },
+    {
+      "type": "mosaic",
+      "images": [
+        {
+          "src": "../../assets/projects/rent2fi/bb-construccion.jpg",
+          "alt": {
+            "es": "Construcción del logo de Rent2fi con la tipografía Cocogoose",
+            "en": "Rent2fi logo construction with the Cocogoose typeface"
+          },
+          "wide": true
+        }
+      ]
+    },
+    {
+      "type": "palette",
+      "intro": {
+        "es": "Un azul eléctrico que empuja hacia adelante, acompañado de azules profundos y neutros que ordenan todo.",
+        "en": "An electric blue that pushes forward, backed by deep blues and neutrals that keep everything in order."
+      },
+      "colors": [
+        {
+          "hex": "#0a80fe",
+          "rgb": "10 128 254",
+          "cmyk": "67 36 0 0",
+          "main": true,
+          "name": {
+            "es": "Azul eléctrico",
+            "en": "Electric blue"
+          }
+        },
+        {
+          "hex": "#85c0ff",
+          "rgb": "133 192 255",
+          "cmyk": "48 25 0 0",
+          "name": {
+            "es": "Malibu",
+            "en": "Malibu"
+          }
+        },
+        {
+          "hex": "#054080",
+          "rgb": "5 64 128",
+          "cmyk": "96 50 0 50",
+          "main": true,
+          "name": {
+            "es": "Cerúleo oscuro",
+            "en": "Dark cerulean"
+          }
+        },
+        {
+          "hex": "#01080f",
+          "rgb": "1 8 15",
+          "cmyk": "93 47 0 94",
+          "name": {
+            "es": "Casi negro",
+            "en": "Almost black"
+          }
+        },
+        {
+          "hex": "#eeeeee",
+          "rgb": "238 238 238",
+          "cmyk": "0 0 0 7",
+          "name": {
+            "es": "Súper plata",
+            "en": "Super silver"
+          }
+        }
+      ]
+    },
+    {
+      "type": "typography",
+      "fonts": [
+        {
+          "name": "Cocogoose",
+          "role": {
+            "es": "Principal",
+            "en": "Primary"
+          },
+          "background": "#ffffff",
+          "color": "#054080",
+          "image": "../../assets/projects/rent2fi/tipo-cocogoose.jpg",
+          "alt": {
+            "es": "Muestra de la tipografía Cocogoose",
+            "en": "Cocogoose type specimen"
+          }
+        },
+        {
+          "name": "Inter",
+          "role": {
+            "es": "Secundaria",
+            "en": "Secondary"
+          },
+          "background": "#3797fe",
+          "color": "#ffffff",
+          "image": "../../assets/projects/rent2fi/tipo-inter.jpg",
+          "alt": {
+            "es": "Muestra de la tipografía Inter",
+            "en": "Inter type specimen"
+          }
+        }
+      ]
+    },
+    {
+      "type": "mosaic",
+      "images": [
+        {
+          "src": "../../assets/projects/rent2fi/bb-uso-color.jpg",
+          "alt": {
+            "es": "Usos de color del logo de Rent2fi",
+            "en": "Rent2fi logo color uses"
+          },
+          "wide": true
+        },
+        {
+          "src": "../../assets/projects/rent2fi/bb-iconos.jpg",
+          "alt": {
+            "es": "Iconografía de Rent2fi",
+            "en": "Rent2fi iconography"
+          },
+          "wide": true
+        }
+      ]
+    },
+    {
+      "type": "mosaic",
+      "images": [
+        {
+          "src": "../../assets/projects/rent2fi/papeleria.jpg",
+          "alt": {
+            "es": "Papelería de Rent2fi: hoja membretada, sobre y tarjetas",
+            "en": "Rent2fi stationery: letterhead, envelope and business cards"
+          }
+        },
+        {
+          "src": "../../assets/projects/rent2fi/cascos.jpg",
+          "alt": {
+            "es": "Cascos de seguridad con el logo de Rent2fi",
+            "en": "Hard hats with the Rent2fi logo"
+          },
+          "focus": "28% 55%"
+        },
+        {
+          "src": "../../assets/projects/rent2fi/fachada.jpg",
+          "alt": {
+            "es": "Fachada con el logo de Rent2fi",
+            "en": "Building facade with the Rent2fi logo"
+          },
+          "wide": true
+        }
+      ]
+    },
+    {
+      "type": "mosaic",
+      "images": [
+        {
+          "src": "../../assets/projects/rent2fi/bb-redes.jpg",
+          "alt": {
+            "es": "Plantillas de Rent2fi para redes sociales",
+            "en": "Rent2fi social media templates"
+          },
+          "wide": true
+        },
+        {
+          "src": "../../assets/projects/rent2fi/bb-valores.jpg",
+          "alt": {
+            "es": "Valores de Rent2fi: optimización inteligente, empoderamiento financiero y acceso sin fricción",
+            "en": "Rent2fi values: intelligent optimization, financial empowerment and seamless access"
+          },
+          "wide": true
+        }
+      ]
+    }
+  ],
+  "accent": "#0a80fe"
+}
