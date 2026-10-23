@@ -106,6 +106,13 @@
     .logo{font-size:38px;}
   }
 
+  .section-title{ position:relative; z-index:1; max-width:900px; margin: 0 auto 14px; padding: 0 20px; font-family:'Baloo 2', sans-serif; font-size:22px; color: var(--ink); }
+  .grid.stories{ grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 640px){ .grid.stories{ grid-template-columns: repeat(2, 1fr); } }
+  .stories .card{ aspect-ratio: 9/16; }
+  .card video{ width:100%; height:100%; object-fit:cover; display:block; }
+  .lightbox.is-story{ max-width: 360px; }
+  .lightbox.is-story .lightbox-media{ aspect-ratio: 9/16; max-height: 62vh; }
   .card{
     position:relative;
     aspect-ratio: 4/5;
@@ -260,8 +267,6 @@
     letter-spacing:.3px;
     color: var(--accent);
   }
-  .lb-note{ margin:8px 0 0; padding:8px 10px; border-radius:10px; background:#FBE6DC; color:#8A3A14; font-size:12px; font-weight:700; line-height:1.4; }
-  .card .flag{ position:absolute; bottom:10px; left:10px; background:#E8602C; color:#fff; font-size:10px; font-weight:800; padding:3px 8px; border-radius:100px; letter-spacing:.3px; }
   .review-block{ display:flex; flex-direction:column; gap:8px; }
   .review-btns{ display:flex; gap:8px; }
   .comment-box{
@@ -346,6 +351,9 @@
 
 <div class="grid" id="grid"></div>
 
+<h2 class="section-title" id="storiesTitle">Historias</h2>
+<div class="grid stories" id="storiesGrid"></div>
+
 <div class="send-wrap" id="sendWrap" style="display:none;">
   <button id="sendReview">Enviar revisión a Bluz</button>
   <span id="sendConfirm">¡Enviado! Gracias 🎉</span>
@@ -371,7 +379,6 @@
         <div class="meta" id="lbMeta">Post <small id="lbSub">Imagen</small></div>
         <p class="lb-caption" id="lbCaption" style="display:none;"></p>
         <p class="lb-extra" id="lbExtra" style="display:none;"></p>
-        <p class="lb-note" id="lbNote" style="display:none;"></p>
       </div>
       <div class="review-block">
         <div class="review-btns">
@@ -393,66 +400,36 @@
 // caption (full caption text), pauta ('Pauta $50' or omit if organic).
 const posts = [
  {
-  "num": 1,
-  "type": "carousel",
-  "label": "Carrusel · 5",
+  "type": "image",
+  "label": "Imagen",
   "thumb": "assets/post1_1.jpg",
   "slides": [
    {
     "type": "image",
     "src": "assets/post1_1.jpg"
-   },
-   {
-    "type": "image",
-    "src": "assets/post1_2.jpg"
-   },
-   {
-    "type": "image",
-    "src": "assets/post1_3.jpg"
-   },
-   {
-    "type": "image",
-    "src": "assets/post1_4.jpg"
-   },
-   {
-    "type": "image",
-    "src": "assets/post1_5.jpg"
    }
   ],
-  "fecha": "Lun 5 Oct 2026",
-  "caption": "Pedir carne de calidad desde casa es más simple de lo que parece. Entras a la web, armas tu caja con lo que quieras para la semana (cortes, pollo, cochino) y nosotros nos encargamos del resto. Si pides antes de las 3 de la tarde, te llega el mismo día, empacada al vacío, entre una y tres horas después, en cualquier punto de Caracas.\n\nCriamos, procesamos y llevamos la carne nosotros mismos, desde el campo en Acarigua hasta tu mesa, para que cada comida en familia tenga un poco de esa naturaleza donde todo empieza.\n\nCarnes, Llano y Familia.\nwww.acaure.com"
+  "num": 1,
+  "story": false,
+  "caption": "Ningún corte es de segunda.\n\nEn Venezuela crecimos escuchando que hay carne de primera y carne de segunda. Esa división nació para ponerle un precio distinto a cada parte del animal. Con la calidad tiene poco que ver.\n\nUn animal criado a pastoreo, sin apuro, da buena carne de punta a punta. Lo que cambia entre un corte y otro es la textura, la grasa y la forma de cocinarlo. El lomito pide fuego rápido. El pecho y la falda piden olla y tiempo, y a cambio te dan un sabor que el lomito no tiene.\n\nAprovechar el animal completo es nuestra forma de respetar cómo fue criado. En la mesa se nota.\n\n¿Qué corte \"de segunda\" se cocina en tu casa desde siempre? Cuéntanos.\n\n📍 Desde el llano, Portuguesa\n\nCarnes, llano y familia.\nwww.acaure.com"
  },
  {
-  "num": 2,
-  "type": "carousel",
-  "label": "Carrusel · 4",
-  "thumb": "assets/post2_1.jpg",
+  "type": "video",
+  "label": "Reel",
+  "thumb": "assets/post2_reel.jpg",
   "slides": [
    {
-    "type": "image",
-    "src": "assets/post2_1.jpg"
-   },
-   {
-    "type": "image",
-    "src": "assets/post2_2.jpg"
-   },
-   {
-    "type": "image",
-    "src": "assets/post2_3.jpg"
-   },
-   {
-    "type": "image",
-    "src": "assets/post2_4.jpg"
+    "type": "video",
+    "src": "assets/post2_reel.mp4"
    }
   ],
-  "fecha": "Mié 7 Oct 2026",
-  "caption": "Una buena carne no necesita mucho. Con unos medallones de lomito, sal, pimienta, mantequilla, ajo y romero tienes una cena para lucirte en menos de 15 minutos. Seca bien la carne, sazónala, séllala en una sartén bien caliente hasta que se forme una buena costra, báñala con la mantequilla con ajo y romero, y déjala reposar unos minutos antes de cortar.\n\nEsa es la idea: pocos ingredientes, buena carne y buena compañía. Lo demás lo pone la mesa.\n\nGuarda esta receta para tu próxima comida en familia.\n\nCarnes, Llano y Familia.\nwww.acaure.com",
-  "nota": "Queda pendiente confirmar si la receta con romero está bien o si prefieren cambiarla."
+  "num": 2,
+  "story": false,
+  "caption": "Pedir en Acaure toma menos de lo que crees.\n\nEntras a la web, ves lo que tenemos disponible esa semana y armas tu caja con los cortes y cantidades que necesita tu casa. Después te escribimos por WhatsApp para confirmar el peso, el pago y la hora de entrega.\n\nLa confirmación es por WhatsApp porque la carne no pesa siempre lo mismo, y preferimos cobrarte lo que de verdad te llevas.\n\nMejor crianza. Mejor carne.\n\nCarnes, Llano y Familia.\nwww.acaure.com"
  },
  {
-  "num": 3,
   "type": "carousel",
-  "label": "Carrusel · 5",
+  "label": "Carrusel · 6",
   "thumb": "assets/post3_1.jpg",
   "slides": [
    {
@@ -474,15 +451,19 @@ const posts = [
    {
     "type": "image",
     "src": "assets/post3_5.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post3_6.jpg"
    }
   ],
-  "fecha": "Dom 11 Oct 2026",
-  "caption": "Antes de que un corte llegue a tu mesa, hay toda una historia. Empieza en el campo, con animales que crecen en libertad y con el tiempo que necesitan, y sigue en manos de un equipo que conoce el oficio, trabaja con precisión y trata cada pieza con respeto.\n\nPor eso lo que llega a tu casa cumple con nuestros estándares de calidad. Y porque una buena carne se disfruta todavía más acompañada, la hacemos pensando en la mesa donde te vas a sentar con los tuyos.\n\nCarnes, Llano y Familia.\nwww.acaure.com"
+  "num": 3,
+  "story": false,
+  "caption": "Elegir carne también es elegir cómo se cría un animal, cómo se trata la tierra y cómo se sienta tu familia a comer.\n\nNosotros ya elegimos.\n\nCarnes, Llano y Familia.\n🌐 www.acaure.com"
  },
  {
-  "num": 4,
   "type": "carousel",
-  "label": "Carrusel · 2",
+  "label": "Carrusel · 3",
   "thumb": "assets/post4_1.jpg",
   "slides": [
    {
@@ -492,15 +473,19 @@ const posts = [
    {
     "type": "image",
     "src": "assets/post4_2.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post4_3.jpg"
    }
   ],
-  "fecha": "Mar 13 Oct 2026",
-  "caption": "En el llano, la vida se mide en amaneceres, en pasto y en tiempo. Aquí nuestras reses crecen como siempre han crecido, libres, a su ritmo y con la tierra que las vio nacer bajo los pies. Es una forma de criar que viene de la gente de Portuguesa, de los que aprendieron del campo de generación en generación y nos enseñaron que lo bueno no se apura.\n\nEsa raíz es la que llega a tu mesa en cada corte.\n\nCarnes, Llano y Familia.\nwww.acaure.com"
+  "num": 4,
+  "story": false,
+  "caption": "Estas fotos no las hizo ninguna inteligencia artificial. Son de nuestro ganado, en el campo, en Portuguesa.\n\nEsas vacas existen. Comen pasto, caminan, se echan bajo los árboles cuando pega el sol. Y son las mismas que terminan en tu mesa.\n\nHoy cualquiera genera una vaca perfecta en segundos. Lo que no se puede inventar es de dónde viene tu carne.\n\nCarnes, Llano y Familia.\n🌐 www.acaure.com"
  },
  {
-  "num": 5,
   "type": "carousel",
-  "label": "Carrusel · 2",
+  "label": "Carrusel · 5",
   "thumb": "assets/post5_1.jpg",
   "slides": [
    {
@@ -510,40 +495,79 @@ const posts = [
    {
     "type": "image",
     "src": "assets/post5_2.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post5_3.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post5_4.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post5_5.jpg"
    }
   ],
-  "fecha": "Jue 15 Oct 2026",
-  "caption": "En la mesa se aprenden cosas que no se enseñan en ningún otro lugar: que nadie se levanta hasta que todos terminan, que donde comen dos comen tres, y que se agradece la comida y las manos que la prepararon. Son costumbres que vienen del campo, donde la carne siempre ha sido la excusa para reunirse y lo que de verdad importa es quién se sienta a tu lado.\n\nEn Acaure creemos en eso, y por eso cuidamos cada paso, desde la naturaleza donde crece el ganado hasta la mesa de tu casa, para que lo único que tengas que pensar sea en disfrutar con tu familia.\n\nCarnes, Llano y Familia.\nwww.acaure.com"
- },
+  "num": 5,
+  "story": false,
+  "caption": "Dos años de pasto, sol y paciencia. Y un equipo que no se pierde un solo día.\n\nAsí se cría la carne que llega a tu casa.\n\nCarnes, Llano y Familia.\n🌐 www.acaure.com"
+ }
+];
+const stories = [
  {
-  "num": 6,
   "type": "carousel",
-  "label": "Carrusel · 5",
-  "thumb": "assets/post6_1.jpg",
+  "label": "Historia · 4 pantallas",
+  "thumb": "assets/historia1_1.jpg",
   "slides": [
    {
     "type": "image",
-    "src": "assets/post6_1.jpg"
+    "src": "assets/historia1_1.jpg"
    },
    {
     "type": "image",
-    "src": "assets/post6_2.jpg"
+    "src": "assets/historia1_2.jpg"
    },
    {
     "type": "image",
-    "src": "assets/post6_3.jpg"
+    "src": "assets/historia1_3.jpg"
    },
    {
     "type": "image",
-    "src": "assets/post6_4.jpg"
-   },
-   {
-    "type": "image",
-    "src": "assets/post6_5.jpg"
+    "src": "assets/historia1_4.jpg"
    }
   ],
-  "fecha": "Lun 19 Oct 2026",
-  "caption": "Sabemos que a veces no hay tiempo de ir a la carnicería, y por eso Acaure va hasta tu casa. Eliges lo que quieres en la web, y por WhatsApp te mostramos tu pedido y concretamos el pago, sin colas, sin sacar número y sin esperar tu turno.\n\nDel otro lado no hay un bot, hay una persona que te atiende para que no tengas que preocuparte por nada. Y ese tiempo que te ahorras en la carnicería, lo puedes pasar en la mesa con los tuyos.\n\nCarnes, Llano y Familia.\nwww.acaure.com"
+  "num": 101,
+  "story": true,
+  "caption": ""
+ },
+ {
+  "type": "image",
+  "label": "Historia",
+  "thumb": "assets/historia2_1.jpg",
+  "slides": [
+   {
+    "type": "image",
+    "src": "assets/historia2_1.jpg"
+   }
+  ],
+  "num": 102,
+  "story": true,
+  "caption": ""
+ },
+ {
+  "type": "image",
+  "label": "Historia",
+  "thumb": "assets/historia3_1.jpg",
+  "slides": [
+   {
+    "type": "image",
+    "src": "assets/historia3_1.jpg"
+   }
+  ],
+  "num": 103,
+  "story": true,
+  "caption": ""
  }
 ];
 
@@ -556,22 +580,25 @@ function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); 
 const videoIcon = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
 const carouselIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="14" height="14" rx="2"/><path d="M7 6V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2"/></svg>`;
 
-[...posts].reverse().forEach(post => {
+function renderCard(post, target){
   const card = document.createElement('div');
   card.className = 'card';
   card.dataset.postNum = post.num;
   card.dataset.status = (state[post.num] && state[post.num].status) || '';
   const badge = post.type === 'video' ? videoIcon : (post.type === 'carousel' ? carouselIcon : '');
   card.innerHTML = `
-    <img src="${post.thumb}" alt="Post ${post.num}">
-    <div class="num">Post ${post.num}</div>
+    ${post.type === 'video' ? `<video src="${post.slides[0].src}" poster="${post.thumb}" muted loop playsinline autoplay></video>` : `<img src="${post.thumb}" alt="">`}
+    <div class="num">${post.story ? 'Historia ' + (post.num - 100) : 'Post ' + post.num}</div>
     ${badge ? `<div class="badge">${badge}</div>` : ''}
-    ${post.nota ? `<div class="flag">Pendiente</div>` : ''}
     <div class="status">${statusLabel((state[post.num] || {}).status)}</div>
   `;
   card.addEventListener('click', () => openLightbox(post));
-  grid.appendChild(card);
-});
+  target.appendChild(card);
+}
+[...posts].reverse().forEach(p => renderCard(p, grid));
+const storiesGrid = document.getElementById('storiesGrid');
+stories.forEach(p => renderCard(p, storiesGrid));
+if (!stories.length) { storiesGrid.remove(); document.getElementById('storiesTitle').remove(); }
 
 function statusLabel(s){
   if(s === 'approved') return '✓ Aprobado';
@@ -599,15 +626,13 @@ let mediaEls = [];
 function openLightbox(post){
   currentPost = post;
   currentSlide = 0;
-  lbSub.textContent = `${post.label} · Post ${post.num}`;
+  lbSub.textContent = post.story ? post.label : `${post.label} · Post ${post.num}`;
+  document.querySelector('.lightbox').classList.toggle('is-story', !!post.story);
   lbCaption.textContent = post.caption || '';
   lbCaption.style.display = post.caption ? 'block' : 'none';
   const metaBits = [post.fecha, post.pauta].filter(Boolean);
   lbExtra.textContent = metaBits.join(' · ');
   lbExtra.style.display = metaBits.length ? 'block' : 'none';
-  const lbNote = document.getElementById('lbNote');
-  lbNote.textContent = post.nota ? 'Nota de Bluz: ' + post.nota : '';
-  lbNote.style.display = post.nota ? 'block' : 'none';
 
   // clear old media
   mediaEls.forEach(el => el.remove());
@@ -685,7 +710,7 @@ function setStatus(status){
   state[currentPost.num] = { status: newStatus, comment: newStatus === 'changes' ? (entry.comment || '') : '' };
   saveState();
   updateReviewButtons();
-  const card = grid.querySelector(`[data-post-num="${currentPost.num}"]`);
+  const card = document.querySelector(`[data-post-num="${currentPost.num}"]`);
   card.dataset.status = newStatus;
   card.querySelector('.status').textContent = statusLabel(newStatus);
   refreshSendButton();
@@ -714,10 +739,10 @@ function refreshSendButton(){
 refreshSendButton();
 
 function buildSummary(){
-  const lines = posts.map(p => {
+  const lines = [...posts, ...stories].map(p => {
     const entry = state[p.num];
     if(!entry || !entry.status) return null;
-    let line = `Post ${p.num} (${p.label}): ${entry.status === 'approved' ? 'Aprobado' : 'Cambios pedidos'}`;
+    let line = `${p.story ? 'Historia ' + (p.num - 100) : 'Post ' + p.num} (${p.label}): ${entry.status === 'approved' ? 'Aprobado' : 'Cambios pedidos'}`;
     if(entry.status === 'changes' && entry.comment && entry.comment.trim()){
       line += `: "${entry.comment.trim()}"`;
     }
