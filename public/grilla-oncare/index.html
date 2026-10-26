@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ON Care · Primeros posts · Grilla de revisión</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* === BRAND COLORS · swap these 3 per brand, everything else derives from them === */
+    --accent: #0D2E33;       /* primary brand color (buttons, links, headings accent) */
+    --accent-deep: #08201F;  /* darker shade of accent, used for card backgrounds/hover */
+    --accent-2: #2F7D5B;     /* secondary brand color (approve state, small accents) */
+    --cream: #EFE9DA;
+    --ink: #0D2E33;
+    --ink-soft: #5B6A68;
+    --card: #FFFFFF;
+    --line: #DDD5C2;
+    --radius: 22px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: var(--cream);
+    font-family:'Nunito Sans', sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* subtle background texture */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      radial-gradient(circle at 8% 12%, rgba(253,183,26,0.10) 0, transparent 45%),
+      radial-gradient(circle at 92% 88%, rgba(13,46,51,0.06) 0, transparent 45%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  header{
+    position:relative; z-index:1;
+    max-width:1040px;
+    margin:0 auto;
+    padding: 56px 24px 28px;
+    text-align:center;
+  }
+  .logo{
+    margin: 0 0 6px;
+    display:flex;
+    justify-content:center;
+  }
+  .logo img{
+    height: 64px;
+    width: auto;
+    display:block;
+  }
+  @media (max-width: 640px){
+    .logo img{ height: 50px; }
+  }
+  .eyebrow{
+    display:inline-block;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:12px;
+    letter-spacing: 1.5px;
+    text-transform:uppercase;
+    color: var(--accent);
+    background: #FDB71A; color: #0D2E33;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom:14px;
+  }
+  h1{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size: 30px;
+    line-height:1.25;
+    margin: 0 0 10px;
+    color: var(--ink);
+  }
+  h1 b{ color: var(--accent); }
+  header p{
+    color: var(--ink-soft);
+    font-size:16px;
+    max-width:520px;
+    margin: 0 auto;
+    line-height:1.5;
+  }
+
+  .grid{
+    position:relative; z-index:1;
+    max-width: 900px;
+    margin: 8px auto 80px;
+    padding: 0 20px;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  @media (max-width: 640px){
+    .grid{ grid-template-columns: repeat(2, 1fr); gap:8px; padding:0 14px;}
+    h1{font-size:24px;}
+    .logo{font-size:38px;}
+  }
+
+  .section-title{ position:relative; z-index:1; max-width:900px; margin: 0 auto 14px; padding: 0 20px; font-family:'Baloo 2', sans-serif; font-size:22px; color: var(--ink); }
+  .grid.stories{ grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 640px){ .grid.stories{ grid-template-columns: repeat(2, 1fr); } }
+  .stories .card{ aspect-ratio: 9/16; }
+  .card video{ width:100%; height:100%; object-fit:cover; display:block; }
+  .lightbox.is-story{ max-width: 360px; }
+  .lightbox.is-story .lightbox-media{ aspect-ratio: 9/16; max-height: 62vh; }
+  .card{
+    position:relative;
+    aspect-ratio: 4/5;
+    border-radius: 16px;
+    overflow:hidden;
+    cursor:pointer;
+    background: var(--accent-deep);
+    box-shadow: 0 1px 3px rgba(13,46,51,0.15);
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .card:hover{ transform: translateY(-3px); box-shadow: 0 10px 24px rgba(13,46,51,0.22); }
+  .card img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  .card .num{
+    position:absolute; top:10px; left:10px;
+    background: rgba(8,32,31,0.55);
+    color:#fff;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    backdrop-filter: blur(4px);
+  }
+  .card .badge{
+    position:absolute; top:10px; right:10px;
+    width:30px; height:30px;
+    border-radius:50%;
+    background: rgba(8,32,31,0.55);
+    backdrop-filter: blur(4px);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff;
+  }
+  .card .badge svg{ width:15px; height:15px; }
+  .card .status{
+    position:absolute; bottom:0; left:0; right:0;
+    padding: 8px 10px;
+    font-size:11px;
+    font-weight:700;
+    text-align:center;
+    letter-spacing:.3px;
+    color:#fff;
+    background: rgba(8,32,31,0.35);
+    backdrop-filter: blur(3px);
+    opacity:0;
+    transition: opacity .15s ease;
+  }
+  .card[data-status="approved"] .status{ opacity:1; background: rgba(63,163,92,0.85); }
+  .card[data-status="changes"] .status{ opacity:1; background: rgba(217,119,87,0.88); }
+
+  /* Lightbox */
+  .overlay{
+    position:fixed; inset:0;
+    background: rgba(8,32,31,0.92);
+    z-index:50;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding: 24px;
+  }
+  .overlay.open{ display:flex; }
+  .lightbox{
+    background: var(--card);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 420px;
+    max-height: 92vh;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+  }
+  .lightbox-media{
+    position:relative;
+    width:100%;
+    aspect-ratio: 4/5;
+    background:#000;
+    overflow:hidden;
+  }
+  .lightbox-media img, .lightbox-media video{
+    width:100%; height:100%; object-fit:contain;
+    background:#000;
+    display:none;
+  }
+  .lightbox-media img.active, .lightbox-media video.active{ display:block; }
+
+  .lb-close{
+    position:absolute; top:14px; right:14px; z-index:5;
+    width:34px; height:34px; border-radius:50%;
+    background: rgba(0,0,0,0.45);
+    border:none; color:#fff; font-size:18px;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .lb-nav{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:38px; height:38px; border-radius:50%;
+    background: rgba(0,0,0,0.4);
+    border:none; color:#fff; font-size:18px;
+    cursor:pointer; z-index:5;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .lb-prev{ left:10px; }
+  .lb-next{ right:10px; }
+  .lb-dots{
+    position:absolute; bottom:12px; left:0; right:0;
+    display:flex; justify-content:center; gap:6px; z-index:5;
+  }
+  .lb-dots span{
+    width:6px; height:6px; border-radius:50%;
+    background: rgba(255,255,255,0.45);
+  }
+  .lb-dots span.active{ background:#fff; }
+
+  .lightbox-footer{
+    padding: 16px 18px 18px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    max-height: 40vh;
+    overflow-y:auto;
+  }
+  .meta-block{ min-width:0; }
+  .lightbox-footer .meta{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    color: var(--ink);
+  }
+  .lightbox-footer .meta small{
+    display:block;
+    font-family:'Nunito Sans', sans-serif;
+    font-weight:600;
+    font-size:11px;
+    color: var(--ink-soft);
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    margin-top:2px;
+  }
+  .lb-caption{
+    white-space: pre-line;
+    margin: 8px 0 0;
+    font-size:13px;
+    line-height:1.45;
+    color: var(--ink);
+  }
+  .lb-extra{
+    margin: 6px 0 0;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.3px;
+    color: var(--accent);
+  }
+  .review-block{ display:flex; flex-direction:column; gap:8px; }
+  .review-btns{ display:flex; gap:8px; }
+  .comment-box{
+    width:100%;
+    min-height:64px;
+    resize:vertical;
+    border:1.5px solid var(--line);
+    border-radius:14px;
+    padding:10px 12px;
+    font-family:'Nunito Sans', sans-serif;
+    font-size:13px;
+    color: var(--ink);
+    background:#fff;
+  }
+  .comment-box:focus{ outline:none; border-color:#D97757; }
+  .review-btns button{
+    font-family:'Nunito Sans', sans-serif;
+    font-weight:700;
+    font-size:12px;
+    border-radius: 100px;
+    border: 1.5px solid var(--line);
+    background:#fff;
+    padding: 8px 13px;
+    cursor:pointer;
+    color: var(--ink-soft);
+    transition: all .15s ease;
+  }
+  .review-btns button.approve.on{ background: var(--accent-2); border-color: var(--accent-2); color:#fff; }
+  .review-btns button.changes.on{ background:#D97757; border-color:#D97757; color:#fff; }
+
+  footer{
+    text-align:center;
+    padding: 0 20px 50px;
+    color: var(--ink-soft);
+    font-size:13px;
+    position:relative; z-index:1;
+  }
+  footer b{ color: var(--accent); }
+
+  .send-wrap{
+    position: sticky;
+    bottom: 22px;
+    z-index: 20;
+    display:flex;
+    justify-content:center;
+    margin: 26px 0 10px;
+  }
+  #sendReview{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    color:#fff;
+    background: var(--accent);
+    border:none;
+    padding: 14px 28px;
+    border-radius: 100px;
+    box-shadow: 0 8px 20px rgba(13,46,51,0.35);
+    cursor:pointer;
+    transition: transform .15s ease, background .15s ease;
+  }
+  #sendReview:hover{ background: var(--accent-deep); transform: translateY(-2px); }
+  #sendReview:disabled{ opacity:.6; cursor:default; transform:none; }
+  #sendConfirm{
+    display:none;
+    align-self:center;
+    margin-left:12px;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    color: var(--accent-2);
+    font-size:14px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><img src="assets/logo.png" alt="ON Care"></div>
+  <div class="eyebrow">Propuesta de contenido</div>
+  <h1>Grilla de revisión · <b>Primeros posts</b></h1>
+  <p>Toca cualquier publicación para verla completa. Los videos y carruseles se reproducen aquí mismo.</p>
+</header>
+
+<div class="grid" id="grid"></div>
+
+<h2 class="section-title" id="storiesTitle">Historias</h2>
+<div class="grid stories" id="storiesGrid"></div>
+
+<div class="send-wrap" id="sendWrap" style="display:none;">
+  <button id="sendReview">Enviar revisión a Bluz</button>
+  <span id="sendConfirm">¡Enviado! Gracias 🎉</span>
+</div>
+
+<form name="revision-oncare" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="text" name="resumen" />
+  <input name="bot-field" />
+</form>
+
+<footer>Preparado por <b>Bluz Creative</b> para revisión de ON Care</footer>
+
+<div class="overlay" id="overlay">
+  <div class="lightbox">
+    <div class="lightbox-media" id="lbMedia">
+      <button class="lb-close" id="lbClose">✕</button>
+      <button class="lb-nav lb-prev" id="lbPrev" style="display:none;">‹</button>
+      <button class="lb-nav lb-next" id="lbNext" style="display:none;">›</button>
+      <div class="lb-dots" id="lbDots"></div>
+    </div>
+    <div class="lightbox-footer">
+      <div class="meta-block">
+        <div class="meta" id="lbMeta">Post <small id="lbSub">Imagen</small></div>
+        <p class="lb-caption" id="lbCaption" style="display:none;"></p>
+        <p class="lb-extra" id="lbExtra" style="display:none;"></p>
+      </div>
+      <div class="review-block">
+        <div class="review-btns">
+          <button class="approve" id="btnApprove">✓ Aprobado</button>
+          <button class="changes" id="btnChanges">✎ Cambios</button>
+        </div>
+        <textarea class="comment-box" id="commentBox" placeholder="Escribe aquí qué hay que cambiar..." style="display:none;"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// REPLACE this whole array when building a grid for a real brand/campaign.
+// Fields: num (post order), type ('image'|'video'|'carousel'), label (shown as badge text,
+// e.g. 'Reel', 'Imagen', 'Carrusel · 3'), thumb (grid cover image path), slides (1 for
+// image/video, N for carousel · each {type, src}).
+// Optional, from the brand's Calendario de contenido sheet: fecha ('25 Ago 2026'),
+// caption (full caption text), pauta ('Pauta $50' or omit if organic).
+const posts = [
+ {
+  "type": "image",
+  "label": "Imagen",
+  "thumb": "assets/post1_1.jpg",
+  "slides": [
+   {
+    "type": "image",
+    "src": "assets/post1_1.jpg"
+   }
+  ],
+  "num": 1,
+  "story": false,
+  "caption": "This is ON Care. One doctor for your whole family, who knows your kids, knows you, and remembers what happened last time.\n\nVisits that take the time they need, messages with your doctor during the day, and someone who's with you from the first question to the follow-up.\n\nSometimes it looks like a checkup on the floor, at your kid's level, saying \"aaah\" together.\n\nYour family's doctor. Message us to learn how it works.\n\nES\n\nEsto es ON Care. Un doctor para toda tu familia, que conoce a tus hijos, te conoce a ti y se acuerda de lo que pasó la última vez.\n\nConsultas que duran lo que tienen que durar, mensajes con tu doctor durante el día y alguien que te acompaña desde la primera pregunta hasta el seguimiento.\n\nA veces se ve así: una consulta en el piso, a la altura de tu hijo, diciendo \"aaah\" juntos.\n\nTu doctor de familia. Escríbenos y te contamos cómo funciona."
+ },
+ {
+  "type": "carousel",
+  "label": "Carrusel · 3",
+  "thumb": "assets/post2_1.jpg",
+  "slides": [
+   {
+    "type": "video",
+    "src": "assets/post2_1.mp4",
+    "poster": "assets/post2_1.jpg"
+   },
+   {
+    "type": "video",
+    "src": "assets/post2_2.mp4",
+    "poster": "assets/post2_2.jpg"
+   },
+   {
+    "type": "video",
+    "src": "assets/post2_3.mp4",
+    "poster": "assets/post2_3.jpg"
+   }
+  ],
+  "num": 2,
+  "story": false,
+  "caption": "18 minutes. That's how long the average doctor visit lasts in the US. Barely enough time to explain what's going on, and the questions you wrote down on your phone end up staying there.\n\nAt ON Care, a visit lasts more than an hour. And if something comes up after you leave, you can message your doctor all day and get a real answer.\n\nYour family's doctor. Send us a message and we'll walk you through how it works.\n\nES\n\n18 minutos. Eso dura en promedio una consulta médica en Estados Unidos. Apenas da tiempo de explicar qué está pasando, y las preguntas que tenías anotadas en el teléfono se quedan ahí.\n\nEn ON Care la consulta dura más de una hora. Y si te surge una duda después, le escribes a tu médico durante el día y te responde.\n\nTu médico de familia. Escríbenos y te contamos cómo funciona."
+ },
+ {
+  "type": "carousel",
+  "label": "Carrusel · 5",
+  "thumb": "assets/post3_1.jpg",
+  "slides": [
+   {
+    "type": "image",
+    "src": "assets/post3_1.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post3_2.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post3_3.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post3_4.jpg"
+   },
+   {
+    "type": "image",
+    "src": "assets/post3_5.jpg"
+   }
+  ],
+  "num": 3,
+  "story": false,
+  "caption": "\"Do I need a specialist?\" It's not always obvious. And sometimes asking it means a referral, another waiting room and a new doctor who doesn't know your history.\n\nA lot of what usually gets referred out, your ON Care doctor can handle. When you do need a specialist, we tell you when and who, and we stay with you through the whole process.\n\nLabs and specialists go through your insurance, and your doctor is connected to those systems, so you're not left figuring it out on your own.\n\nDr. Nevett is with you from the first question to the follow-up. WhatsApp us and ask her anything.\n\nES\n\n\"¿Necesito un especialista?\" No siempre es obvio. Y a veces hacer esa pregunta significa una referencia, otra sala de espera y un médico nuevo que no conoce tu historia.\n\nMuchas de las cosas por las que normalmente te refieren, tu médico de ON Care las puede atender. Cuando sí necesitas un especialista, te decimos cuándo y con quién, y te acompañamos durante todo el proceso.\n\nLos laboratorios y especialistas van por tu seguro, y tu médico está conectada con esos sistemas, así que no te toca resolverlo solo.\n\nLa Dra. Nevett está contigo desde la primera pregunta hasta el seguimiento. Escríbenos por WhatsApp y pregúntale lo que necesites."
+ }
+];
+const stories = [];
+
+const grid = document.getElementById('grid');
+const STORAGE_KEY = 'oncare_grid_review';
+const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+
+function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+const videoIcon = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
+const carouselIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="14" height="14" rx="2"/><path d="M7 6V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2"/></svg>`;
+
+function renderCard(post, target){
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.dataset.postNum = post.num;
+  card.dataset.status = (state[post.num] && state[post.num].status) || '';
+  const badge = post.type === 'video' ? videoIcon : (post.type === 'carousel' ? carouselIcon : '');
+  card.innerHTML = `
+    ${post.type === 'video' ? `<video src="${post.slides[0].src}" poster="${post.thumb}" muted loop playsinline autoplay></video>` : `<img src="${post.thumb}" alt="">`}
+    <div class="num">${post.story ? 'Historia ' + (post.num - 100) : 'Post ' + post.num}</div>
+    ${badge ? `<div class="badge">${badge}</div>` : ''}
+    <div class="status">${statusLabel((state[post.num] || {}).status)}</div>
+  `;
+  card.addEventListener('click', () => openLightbox(post));
+  target.appendChild(card);
+}
+[...posts].reverse().forEach(p => renderCard(p, grid));
+const storiesGrid = document.getElementById('storiesGrid');
+stories.forEach(p => renderCard(p, storiesGrid));
+if (!stories.length) { storiesGrid.remove(); document.getElementById('storiesTitle').remove(); }
+
+function statusLabel(s){
+  if(s === 'approved') return '✓ Aprobado';
+  if(s === 'changes') return '✎ Cambios pedidos';
+  return '';
+}
+
+// Lightbox logic
+const overlay = document.getElementById('overlay');
+const lbMedia = document.getElementById('lbMedia');
+const lbSub = document.getElementById('lbSub');
+const lbCaption = document.getElementById('lbCaption');
+const lbExtra = document.getElementById('lbExtra');
+const lbDots = document.getElementById('lbDots');
+const lbPrev = document.getElementById('lbPrev');
+const lbNext = document.getElementById('lbNext');
+const btnApprove = document.getElementById('btnApprove');
+const btnChanges = document.getElementById('btnChanges');
+const commentBox = document.getElementById('commentBox');
+
+let currentPost = null;
+let currentSlide = 0;
+let mediaEls = [];
+
+function openLightbox(post){
+  currentPost = post;
+  currentSlide = 0;
+  lbSub.textContent = post.story ? post.label : `${post.label} · Post ${post.num}`;
+  document.querySelector('.lightbox').classList.toggle('is-story', !!post.story);
+  lbCaption.textContent = post.caption || '';
+  lbCaption.style.display = post.caption ? 'block' : 'none';
+  const metaBits = [post.fecha, post.pauta].filter(Boolean);
+  lbExtra.textContent = metaBits.join(' · ');
+  lbExtra.style.display = metaBits.length ? 'block' : 'none';
+
+  // clear old media
+  mediaEls.forEach(el => el.remove());
+  mediaEls = [];
+  lbDots.innerHTML = '';
+
+  post.slides.forEach((slide, i) => {
+    let el;
+    if(slide.type === 'video'){
+      el = document.createElement('video');
+      el.src = slide.src;
+      if (slide.poster) el.poster = slide.poster;
+      el.controls = true;
+      el.playsInline = true;
+    } else {
+      el = document.createElement('img');
+      el.src = slide.src;
+    }
+    el.className = i === 0 ? 'active' : '';
+    lbMedia.insertBefore(el, lbMedia.firstChild);
+    mediaEls.push(el);
+
+    if(post.slides.length > 1){
+      const dot = document.createElement('span');
+      if(i===0) dot.className='active';
+      lbDots.appendChild(dot);
+    }
+  });
+
+  const multi = post.slides.length > 1;
+  lbPrev.style.display = multi ? 'flex' : 'none';
+  lbNext.style.display = multi ? 'flex' : 'none';
+
+  updateReviewButtons();
+  overlay.classList.add('open');
+}
+
+function showSlide(i){
+  mediaEls.forEach((el, idx) => {
+    if(el.tagName === 'VIDEO') el.pause();
+    el.className = idx === i ? 'active' : '';
+  });
+  const dots = lbDots.children;
+  for(let d=0; d<dots.length; d++){ dots[d].className = d===i ? 'active' : ''; }
+  currentSlide = i;
+}
+
+lbPrev.addEventListener('click', (e) => {
+  e.stopPropagation();
+  showSlide((currentSlide - 1 + mediaEls.length) % mediaEls.length);
+});
+lbNext.addEventListener('click', (e) => {
+  e.stopPropagation();
+  showSlide((currentSlide + 1) % mediaEls.length);
+});
+
+function closeLightbox(){
+  mediaEls.forEach(el => { if(el.tagName === 'VIDEO') el.pause(); });
+  overlay.classList.remove('open');
+}
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+overlay.addEventListener('click', (e) => { if(e.target === overlay) closeLightbox(); });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLightbox(); });
+
+function updateReviewButtons(){
+  const entry = state[currentPost.num] || {};
+  btnApprove.classList.toggle('on', entry.status === 'approved');
+  btnChanges.classList.toggle('on', entry.status === 'changes');
+  commentBox.style.display = entry.status === 'changes' ? 'block' : 'none';
+  commentBox.value = entry.comment || '';
+}
+
+function setStatus(status){
+  const entry = state[currentPost.num] || {};
+  const newStatus = entry.status === status ? '' : status;
+  state[currentPost.num] = { status: newStatus, comment: newStatus === 'changes' ? (entry.comment || '') : '' };
+  saveState();
+  updateReviewButtons();
+  const card = document.querySelector(`[data-post-num="${currentPost.num}"]`);
+  card.dataset.status = newStatus;
+  card.querySelector('.status').textContent = statusLabel(newStatus);
+  refreshSendButton();
+  if(newStatus === 'changes') commentBox.focus();
+}
+btnApprove.addEventListener('click', () => setStatus('approved'));
+btnChanges.addEventListener('click', () => setStatus('changes'));
+
+commentBox.addEventListener('input', () => {
+  if(!currentPost) return;
+  const entry = state[currentPost.num] || { status: 'changes', comment: '' };
+  entry.comment = commentBox.value;
+  state[currentPost.num] = entry;
+  saveState();
+});
+
+// Send summary to Bluz via Netlify Forms
+const sendWrap = document.getElementById('sendWrap');
+const sendBtn = document.getElementById('sendReview');
+const sendConfirm = document.getElementById('sendConfirm');
+
+function refreshSendButton(){
+  const hasMarks = Object.values(state).some(v => v && v.status);
+  sendWrap.style.display = hasMarks ? 'flex' : 'none';
+}
+refreshSendButton();
+
+function buildSummary(){
+  const lines = [...posts, ...stories].map(p => {
+    const entry = state[p.num];
+    if(!entry || !entry.status) return null;
+    let line = `${p.story ? 'Historia ' + (p.num - 100) : 'Post ' + p.num} (${p.label}): ${entry.status === 'approved' ? 'Aprobado' : 'Cambios pedidos'}`;
+    if(entry.status === 'changes' && entry.comment && entry.comment.trim()){
+      line += `: "${entry.comment.trim()}"`;
+    }
+    return line;
+  }).filter(Boolean);
+  return lines.join('\n');
+}
+
+function encodeForm(data){
+  return Object.keys(data).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k])).join('&');
+}
+
+sendBtn.addEventListener('click', () => {
+  const resumen = buildSummary();
+  sendBtn.disabled = true;
+  sendBtn.textContent = 'Enviando...';
+  fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: encodeForm({ 'form-name': 'revision-oncare', resumen })
+  })
+  .then(() => {
+    sendBtn.style.display = 'none';
+    sendConfirm.style.display = 'inline-block';
+  })
+  .catch(() => {
+    sendBtn.disabled = false;
+    sendBtn.textContent = 'Reintentar envío';
+  });
+});
+
+// basic swipe support
+let touchStartX = 0;
+lbMedia.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX);
+lbMedia.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if(Math.abs(dx) > 50 && mediaEls.length > 1){
+    if(dx < 0) showSlide((currentSlide + 1) % mediaEls.length);
+    else showSlide((currentSlide - 1 + mediaEls.length) % mediaEls.length);
+  }
+});
+</script>
+
+</body>
+</html>
