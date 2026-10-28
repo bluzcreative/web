@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Marina · Ondas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+/* Layout: Bluz dark editorial — big cover headline, the client's artboard as hero, then one full-width plate per brand topic (anatomy, construction, lockup, color, uses, scale). */
+:root{
+  --bg:#0a0a0a; --surface:#131415; --line:#25272a; --fg:#ededeb; --soft:#cfd1d3; --muted:#8c9096;
+  --marina:#199fd6; --profundo:#106d89; --white:#ffffff; --black:#000000;
+  --sans:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Instrument Serif","Times New Roman",Georgia,serif;
+  --mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:720px){.wrap{padding-left:max(40px,env(safe-area-inset-left,0px));padding-right:max(40px,env(safe-area-inset-right,0px))}}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--marina);outline-offset:3px;border-radius:4px}
+em.s{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+/* Top bar */
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:22px;border-bottom:1px solid var(--line)}
+.brand{display:block;text-decoration:none}
+.brand svg{height:22px;width:auto;display:block;color:var(--fg)}
+.top nav{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.top nav a{text-decoration:none;font-size:14px;color:var(--muted)}
+.top nav a:hover{color:var(--fg)}
+.pill{border:1px solid var(--line);border-radius:999px;padding:7px 14px;color:var(--fg)!important}
+@media (max-width:820px){.top nav a:not(.pill){display:none}}
+
+/* Cover */
+.cover{padding-block:clamp(56px,9vw,120px) 40px}
+.cover .mono{margin:0 0 28px}
+.cover h1{font-weight:500;font-size:clamp(52px,11vw,156px);line-height:.9;letter-spacing:-.05em;margin:0;text-wrap:balance}
+.cover h1 em.s{font-size:1.06em;color:var(--marina);letter-spacing:-.01em}
+.cover-foot{display:grid;grid-template-columns:1fr;gap:24px;margin-top:clamp(36px,6vw,64px);align-items:end}
+@media (min-width:860px){.cover-foot{grid-template-columns:1.2fr 1fr}}
+.cover-foot p{margin:0;max-width:52ch;font-size:clamp(17px,1.6vw,20px);color:var(--soft);line-height:1.5}
+.meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;border-top:1px solid var(--line);padding-top:16px}
+.meta div{min-width:0}
+.meta span{display:block}
+.meta span:last-child{font-size:14px;margin-top:4px}
+.hero{margin:clamp(40px,6vw,64px) 0 0;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+.hero img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+
+/* Intermediate note */
+.note{margin-top:20px;display:grid;grid-template-columns:auto 1fr;gap:18px 28px;align-items:center;padding:clamp(22px,3vw,34px) clamp(20px,3vw,36px);border-radius:18px;background:var(--white);color:#0a0a0a}
+.note p{margin:0;max-width:72ch;color:#3b3f44;font-size:clamp(15px,1.3vw,17px);line-height:1.55}
+.note strong{display:block;color:#0a0a0a;font-weight:500;font-size:clamp(22px,2.4vw,30px);line-height:1.15;letter-spacing:-.02em;margin-bottom:8px;text-wrap:balance}
+.note strong em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--marina)}
+.note-tag{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--marina);border-radius:999px;padding:8px 14px;white-space:nowrap;align-self:start}
+@media (max-width:640px){.note{grid-template-columns:1fr}.note-tag{justify-self:start}}
+
+/* Section scaffold */
+section.block{padding-block:clamp(64px,9vw,120px);border-top:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:1fr;gap:20px 48px;margin-bottom:40px}
+@media (min-width:960px){.sec-head{grid-template-columns:1fr 1fr;align-items:end}}
+.sec-head h2{margin:10px 0 0;font-weight:500;font-size:clamp(38px,5.6vw,76px);line-height:.96;letter-spacing:-.04em;text-wrap:balance}
+.sec-head h2 em.s{color:var(--marina)}
+.sec-head p{margin:0;max-width:56ch;color:var(--soft)}
+.plate{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--surface)}
+.specs{margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));border-top:1px solid var(--line)}
+.specs div{padding:14px 16px;border-right:1px solid var(--line);min-width:0}
+.specs dt{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.specs dd{margin:4px 0 0;font-size:15px;font-variant-numeric:tabular-nums}
+
+/* Anatomy */
+.anat{display:grid;grid-template-columns:1fr;gap:0}
+@media (min-width:960px){.anat{grid-template-columns:1.1fr 1fr}}
+.anat-fig{background:var(--marina);display:grid;place-items:center;padding:clamp(32px,6vw,72px);min-height:340px}
+.anat-fig svg{width:min(100%,380px);height:auto;overflow:visible}
+.anat-fig path{fill:#fff;transition:opacity .35s ease}
+.anat-fig[data-focus] path{opacity:.22}
+.anat-fig[data-focus="ondas"] path.p-onda,.anat-fig[data-focus="anclas"] path.p-ancla,.anat-fig[data-focus="ritmo"] path{opacity:1}
+.anat-fig .rit{opacity:0;transition:opacity .35s}
+.anat-fig[data-focus="ritmo"] .rit{opacity:1}
+.parts{list-style:none;margin:0;padding:0;display:grid}
+.parts button{width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:24px clamp(18px,3vw,32px);display:grid;gap:6px;transition:background .25s}
+.parts li:last-child button{border-bottom:0}
+.parts button:hover,.parts button[aria-pressed="true"]{background:rgba(25,159,214,.08)}
+.parts b{font-weight:500;font-size:clamp(20px,2vw,26px);letter-spacing:-.02em}
+.parts b em.s{color:var(--marina)}
+.parts span{color:var(--soft);max-width:52ch;font-size:15px}
+
+/* Construction */
+.stage{position:relative;width:100%;aspect-ratio:16/8;overflow:hidden;background:var(--marina)}
+@media (max-width:700px){.stage{aspect-ratio:1/1}}
+.stage svg{position:absolute;inset:0;width:100%;height:100%}
+.stage .guides line{stroke:#fff;stroke-width:1;stroke-opacity:.3;vector-effect:non-scaling-stroke}
+.stage .guides line.d{stroke-opacity:.22}
+.stage .guides circle{fill:none;stroke:#fff;stroke-opacity:.45;stroke-width:1;vector-effect:non-scaling-stroke}
+.stage .shapes path{fill:#fff;stroke:#fff;stroke-width:1.25;stroke-opacity:0;vector-effect:non-scaling-stroke}
+.stage.is-pre .shapes path{fill-opacity:0}
+.stage.is-pre .guides,.stage.is-pre .marks{visibility:hidden}
+.cap{position:absolute;left:16px;right:16px;bottom:14px;display:flex;justify-content:space-between;align-items:center;gap:12px;pointer-events:none}
+.cap .mono{color:rgba(255,255,255,.8)}
+.replay{pointer-events:auto;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:999px;padding:7px 14px;font-size:13px;backdrop-filter:blur(6px)}
+.replay:hover{background:rgba(0,0,0,.32)}
+
+/* Lockup */
+.lock{padding:clamp(24px,5vw,64px) clamp(16px,4vw,56px)}
+.lock svg{display:block;width:100%;height:auto}
+
+/* Color */
+.pal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (min-width:900px){.pal{grid-template-columns:1.6fr 1.2fr 1fr 1fr}}
+.sw{border-radius:18px;min-height:clamp(220px,26vw,360px);padding:18px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;border:1px solid var(--line);text-align:left;min-width:0}
+.sw h3{margin:0;font-weight:500;font-size:clamp(20px,2vw,26px);letter-spacing:-.02em}
+.sw dl{margin:0;display:grid;gap:2px;font:13px/1.45 var(--mono);font-variant-numeric:tabular-nums}
+.sw dl div{display:flex;gap:10px}
+.sw dt{opacity:.6;min-width:44px}
+.sw dd{margin:0}
+.sw .hint{font:11px var(--mono);letter-spacing:.06em;text-transform:uppercase;opacity:.65}
+.pal-note{margin:14px 0 0;color:var(--muted);font-size:13px}
+
+/* Uses */
+.uses-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px}
+.seg button{background:none;border:0;border-radius:999px;padding:7px 14px;font-size:13px;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.uses{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+@media (min-width:900px){.uses{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.use{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:clamp(24px,4vw,44px);padding:clamp(28px,4vw,48px) clamp(14px,2vw,28px);min-height:clamp(260px,34vw,520px);position:relative;min-width:0}
+.use svg{width:62%;height:auto;max-width:200px}
+.uses.is-lock .use svg{width:92%;max-width:320px}
+.use .tag{position:absolute;left:14px;top:12px;font:11px var(--mono);letter-spacing:.06em;text-transform:uppercase;opacity:.7}
+
+/* Scale */
+.scale-grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width:900px){.scale-grid{grid-template-columns:1fr 1.6fr}}
+.icon-card{border-radius:18px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;padding:40px 20px;gap:16px;text-align:center}
+.app{width:132px;height:132px;border-radius:30px;background:var(--marina);display:grid;place-items:center;box-shadow:0 20px 40px -18px rgba(25,159,214,.6)}
+.app svg{width:64%;height:auto}
+.sizes{border-radius:18px;overflow:hidden;border:1px solid var(--line);display:grid;grid-template-rows:1fr 1fr}
+.row{display:flex;align-items:flex-end;justify-content:space-around;gap:12px;padding:32px 20px 18px;flex-wrap:wrap}
+.row figure{margin:0;display:grid;justify-items:center;gap:10px}
+.row figcaption{font:11px var(--mono);letter-spacing:.06em;opacity:.7;font-variant-numeric:tabular-nums}
+
+/* Next */
+.next{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.next li{display:grid;grid-template-columns:1fr;gap:6px 40px;padding:24px 0;border-bottom:1px solid var(--line)}
+@media (min-width:860px){.next li{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)}}
+.next b{font-weight:500;font-size:clamp(20px,2.2vw,28px);letter-spacing:-.02em;line-height:1.15}
+.next span{color:var(--soft);max-width:60ch}
+.close h2{margin:clamp(56px,8vw,96px) 0 0;font-weight:500;font-size:clamp(44px,8vw,112px);line-height:.92;letter-spacing:-.045em;text-wrap:balance}
+.close h2 em.s{color:var(--marina)}
+footer{border-top:1px solid var(--line);padding-block:28px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
+.foot-logo{height:26px;width:auto;display:block;color:var(--fg)}
+</style>
+</head>
+<body>
+
+
+<header class="wrap top">
+  <a class="brand" href="#inicio" aria-label="Bluz Creative"><svg viewBox="0 0 569 85" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" focusable="false"><path d="M104.718 11.6556L119.63 11.6152C132.47 11.5893 153.173 11.0854 148.798 31.7867C147.972 35.6992 143.03 38.4028 139.68 39.9919C148.709 42.0472 153.982 49.9453 149.796 58.7136C143.7 70.9083 132.653 70.1056 121.144 70.0869L104.715 70.0456L104.718 11.6556ZM118.563 59.7308C124.195 59.7897 131.039 60.7658 135.438 57.5067C138.036 53.9547 138.141 47.65 133.274 46.0436C128.852 44.5839 123.17 45.7483 118.563 45.4069L118.563 59.7308ZM118.563 36.1419C123.084 36.1906 130.171 36.8456 133.794 34.2606C135.67 32.0297 135.784 30.345 135.56 27.4834C134.925 19.3447 123.683 22.4889 118.563 21.8186V36.1419Z"/><path d="M206.874 28.5753L219.596 28.5806L219.603 42.3611L219.567 70.0531C217.264 70.0239 215.014 70.2561 212.732 70.2117C209.201 70.1428 208.639 68.6219 207.792 65.6911C201.512 71.1133 192.321 73.3156 185.508 67.0831C180.191 62.2192 181.058 53.2364 181.067 46.4783L181.107 28.5994C185.059 28.4567 189.805 28.5806 193.819 28.5794C193.929 37.535 193.475 47.3356 193.976 56.267C194.381 63.4936 202.519 61.6178 206.868 58.1564L206.874 28.5753Z"/><path d="M228.279 28.595C238.85 28.3172 250.606 28.5783 261.274 28.58C261.322 30.7314 261.634 33.3558 260.896 35.4128C259.583 39.0672 245.533 56.0622 241.954 60.7864L260.816 60.7917L260.809 70.0519L227.167 70.0447C227.123 67.8922 226.824 65.25 227.586 63.2078C228.939 59.5836 243.232 42.2917 246.554 37.8639L228.282 37.8328L228.279 28.595Z"/><path d="M158.881 10.1074C163.058 10.0383 167.418 10.1071 171.61 10.1145C171.899 29.8453 171.626 50.2689 171.626 70.0567L158.875 70.0433C158.638 50.2872 158.842 29.8853 158.881 10.1074Z"/><path d="M418.97 29.5539C426.244 29.3489 431.932 32.4261 433.048 40.2531C433.873 46.0156 433.19 52.5106 433.334 58.372C433.417 61.6272 433.651 66.5811 433.234 69.6795C432.382 70.4028 432.748 70.2364 431.679 70.4531C429.84 69.9106 429.774 65.5214 429.629 63.9231C426.2 67.1058 422.822 69.6903 418.057 70.4733C410.953 71.6406 404.904 69.6903 403.551 62.0075C403.543 61.8764 403.535 61.7453 403.529 61.6139C403.149 49.6203 420.742 48.5342 429.446 48.2906C429.507 44.1058 429.774 39.1195 427.102 35.6875C422.803 30.1692 413.247 32.6003 408.95 36.9445C408.303 37.5989 407.69 37.6839 406.862 37.5817C406.095 37.1058 405.862 36.3478 405.509 35.5245C410.217 31.7831 412.852 30.0786 418.97 29.5539ZM410.869 66.7611C417.898 69.4353 424.547 66.4495 429.424 61.1578C429.449 58.3408 429.618 53.7936 429.36 51.1153C428.807 50.7647 427.796 50.8711 427.091 50.9528C421.748 51.2953 412.847 51.7956 409.036 55.9356C405.993 59.2422 407.29 64.3272 410.869 66.7611Z"/><path d="M377.985 29.5583C389.61 28.5836 395.406 37.763 395.181 48.4075C392.368 48.678 387.805 48.53 384.811 48.5266C378.087 48.4841 371.366 48.5011 364.643 48.5769C364.729 62.2936 371.811 70.7619 386.105 66.5572C388.177 65.8289 391.759 63.4566 392.818 63.5228C393.548 63.9461 393.645 64.0641 393.962 64.848C393.304 68.4441 384.419 70.2903 381.045 70.6097C356.164 72.9664 352.562 31.5692 377.985 29.5583ZM364.793 46.1294L378.671 46.135L391.621 46.1389C391.59 45.4008 391.523 44.6764 391.487 43.9419C391.173 37.4205 385.227 31.6186 378.415 32.6178C369.414 33.3553 366.484 37.7886 364.793 46.1294Z"/><path d="M547.53 29.5517C547.677 29.5417 547.824 29.5347 547.968 29.5311C552.645 29.4217 555.939 30.4053 559.932 33.8778C562.84 36.3714 566.145 44.3325 564.348 47.9095C563.857 48.8858 554.311 48.5514 552.887 48.547H534.188C534.554 62.415 541.381 70.8472 555.967 66.4981C557.788 65.8156 561.374 63.4345 562.471 63.5156C563.171 63.897 563.254 64.0503 563.629 64.7575C563.36 68.2739 554.05 70.2645 550.923 70.5997C525.917 73.2808 522.124 31.6631 547.53 29.5517ZM534.321 46.1253L548.079 46.135L561.299 46.1389C560.918 38.1481 556.875 32.1867 548.204 32.595C548.124 32.5992 548.043 32.6058 547.963 32.6156C539.237 33.3453 535.954 37.9536 534.321 46.1253Z"/><path d="M297.496 12.8855C304.692 11.522 314.148 14.6724 319.344 19.7259C318.9 20.4637 318.022 21.5391 317.467 22.2597C315.567 21.2784 313.495 19.4901 311.618 18.6174C301.823 14.061 288.323 16.1055 281.683 24.9681C273.549 35.8206 274.651 54.2256 285.685 62.695C291.603 67.2369 298.89 67.5311 305.941 66.5506C311.421 65.2428 313.732 63.6772 317.842 60.0672C318.55 60.7997 319.378 61.7842 320.069 62.5625C309.893 72.5203 293.208 73.8358 281.935 64.895C270.1 55.5064 269.115 34.0683 278.336 22.5919C283.285 16.4305 289.77 13.6587 297.496 12.8855Z"/><path d="M488.789 30.2595C490.058 30.2261 491.544 30.2756 492.833 30.2847C495.901 36.5028 498.954 45.0589 501.936 51.5347C503.494 54.9228 506.932 62.6044 507.691 65.8939C508.357 62.8547 510.076 59.3208 511.37 56.437C515.233 47.8381 518.652 38.7731 522.665 30.2722L526.564 30.2525L525.306 33.3589C520.096 45.4864 514.739 58.0228 509.368 70.0425C508.357 70.0872 506.93 70.0297 505.885 70.0211C502.353 60.9517 497.479 51.2711 493.827 42.1367C492.269 38.2367 490.167 34.2606 488.789 30.2595Z"/><path d="M449.65 16.2043C449.706 16.2022 449.758 16.2008 449.811 16.1998C450.692 16.1838 451.239 16.0908 451.772 16.6079C452.133 19.0623 451.9 28.62 451.891 31.5C453.733 31.5772 463.789 31.2161 464.555 31.872C464.589 32.8383 464.636 33.3397 464.392 34.3008C463.272 34.5556 453.738 34.4628 451.889 34.4675C451.877 39.4578 451.125 61.9025 452.602 64.8917C453.188 66.0767 454.28 66.8817 455.513 67.2947C459.02 68.4711 461.27 66.2642 464.2 64.8078C464.883 65.8253 465.091 65.8156 465.194 66.9292C464.119 69.9361 459.454 70.6417 456.685 70.7158C452.102 70.8381 448.72 68.65 448.095 63.9081C447.662 60.6242 447.859 56.9614 447.862 53.6011L447.903 34.4511C445.579 34.4881 442.91 34.7464 440.855 33.617L440.691 32.9031C442.002 31.5186 446.095 31.5733 447.92 31.5039C448.209 27.0222 448.473 21.79 448.948 17.2666C449.006 16.7128 449.281 16.539 449.65 16.2043Z"/><path d="M347.608 29.5461C350.213 29.3722 352.382 29.96 354.756 30.9033C354.687 31.75 354.284 33.6978 354.123 34.6145C345.25 32.1542 338.479 33.6922 335.643 43.8122C334.877 46.5439 335.244 52.1353 335.257 55.2014L335.274 70.0586L331.336 70.0434C331.336 65.8575 330.908 32.1967 331.564 30.4283C332.722 30.2047 333.08 30.2508 334.233 30.3678C335.194 31.5703 335.091 37.8128 335.163 39.7395C337.84 33.8089 340.867 30.1981 347.608 29.5461Z"/><path d="M476.053 30.2622L479.861 30.2503L479.852 70.0447L476.056 70.0392L476.053 30.2622Z"/><path d="M476.589 13.1942C477.78 12.6571 479.172 12.8171 480.208 13.6108C481.246 14.4044 481.766 15.7039 481.56 16.9948C481.357 18.2857 480.46 19.36 479.227 19.7925C477.43 20.4226 475.456 19.525 474.748 17.7566C474.042 15.9881 474.853 13.9767 476.589 13.1942Z"/><path d="M33.7063 0H57.9578C59.7033 0.657778 63.3881 2.06096 64.5301 3.47011C73.7598 14.8573 82.8212 26.5582 91.6088 38.2828C92.2287 39.1094 91.6258 40.1761 91.0364 40.7947C88.4076 41.5933 65.506 41.1308 60.9697 41.2581C61.9842 48.1561 63.0457 55.0472 64.1535 61.9308C65.0897 67.4261 66.0753 72.9494 66.7254 78.4864C66.761 80.2567 67.0651 82.3911 64.5353 82.4539C58.1522 82.6119 53.9426 82.7103 47.3376 82.5261C41.2569 82.3567 31.8725 83.2755 25.7674 81.9858C25.3786 81.9036 25.2542 80.8 25.206 80.4758C25.4213 73.7525 27.2191 65.8722 28.2285 59.2278C29.1644 53.0672 30.059 47.2597 30.9557 41.2711C24.1329 41.1192 17.3092 41.3 10.4897 41.2494C8.02209 41.2311 1.75848 41.8319 0.128104 40.1206C0.0847281 40.0747 0.042022 40.0283 0 39.9814V38.6208C1.21708 36.6175 3.6409 33.7156 5.15894 31.7636L14.7181 19.4892L22.727 9.15003C26.9876 3.65917 27.1062 2.69096 33.7063 0Z"/></svg></a>
+  <nav aria-label="Secciones">
+    <a href="#idea">Idea</a>
+    <a href="#construccion">Construcción</a>
+    <a href="#imagotipo">Imagotipo</a>
+    <a href="#color">Color</a>
+    <a href="#usos">Usos</a>
+    <a class="pill" href="#siguiente">Siguiente paso</a>
+  </nav>
+</header>
+
+<main id="inicio">
+  <section class="wrap cover">
+    <p class="mono">Identidad visual · Marina · Ronda 02 · Camino elegido</p>
+    <h1>Ondas.<br>La M que <em class="s">fluye.</em></h1>
+    <div class="cover-foot">
+      <p>De las tres propuestas, el equipo eligió Ondas. En esta ronda refinamos su geometría y definimos una primera paleta. Así se ve hoy la marca de Marina.</p>
+      <div class="meta">
+        <div><span class="mono">Cliente</span><span>Marina Consulting</span></div>
+        <div><span class="mono">Etapa</span><span>Propuesta intermedia</span></div>
+        <div><span class="mono">Siguiente</span><span>Artes finales</span></div>
+      </div>
+    </div>
+    <figure class="hero"><img src="img/ondas-hero.webp" alt="Imagotipo de Marina en blanco sobre fondo azul con textura de líneas verticales" width="1920" height="1080"></figure>
+    <aside class="note" aria-label="Estado de la propuesta">
+      <span class="note-tag">Propuesta intermedia</span>
+      <p><strong>Vamos bien, pero <em>todavía no es el final.</em></strong>Esta versión ya tiene la geometría corregida y una paleta definida. Antes de entregar los artes finales aún podemos ajustar proporciones, curvas, grosores, tipografía y tonos de color con los comentarios del equipo.</p>
+    </aside>
+  </section>
+
+  <section class="block" id="idea">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="mono" style="margin:0">La idea</p><h2>Dos ondas, dos anclas, <em class="s">un ritmo.</em></h2></div>
+        <p>El símbolo es una M hecha de movimiento. Se lee como el agua de un puerto, como la onda sonora de la canción de Rocco Granata que le da nombre y como datos que entran, se ordenan y salen. Toca cada parte para verla.</p>
+      </div>
+      <div class="plate anat">
+        <div class="anat-fig" id="anat" data-focus="ondas"></div>
+        <ul class="parts">
+          <li><button type="button" id="part-ondas" data-part="ondas" aria-pressed="true"><b>Las <em class="s">ondas</em></b><span>Dos bandas paralelas bajan, tocan fondo y vuelven a subir. Forman la M y muestran lo que hace Marina: tomar información en movimiento y darle dirección.</span></button></li>
+          <li><button type="button" id="part-anclas" data-part="anclas" aria-pressed="false"><b>Las <em class="s">anclas</em></b><span>Los dos bloques de las esquinas fijan el movimiento al suelo. Representan la experiencia y el método que hay detrás de cada proyecto de IA.</span></button></li>
+          <li><button type="button" id="part-ritmo" data-part="ritmo" aria-pressed="false"><b>El <em class="s">ritmo</em></b><span>Mismo grosor en cada banda, mismos radios en cada curva y el mismo ángulo en cada diagonal. Esa repetición es la que transmite calma y precisión.</span></button></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="construccion">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="mono" style="margin:0">Construcción del isotipo</p><h2>Geometría <em class="s">corregida.</em></h2></div>
+        <p>Cada curva y cada diagonal sale de la misma retícula. Las bandas tienen el mismo grosor, los hombros comparten radio, los valles también, y todas las diagonales corren a 42,5°.</p>
+      </div>
+      <div class="plate">
+        <div class="stage is-pre" id="stage" role="img" aria-label="Animación de la construcción en retícula del isotipo de Marina"></div>
+        <dl class="specs">
+          <div><dt>Unidad 1x</dt><dd>Grosor de una banda</dd></div>
+          <div><dt>Espacio entre bandas</dt><dd>0,57x</dd></div>
+          <div><dt>Radio de los hombros</dt><dd>0,75x</dd></div>
+          <div><dt>Radio de los valles</dt><dd>0,88x</dd></div>
+          <div><dt>Ángulo de las diagonales</dt><dd>42,5°</dd></div>
+          <div><dt>Proporción</dt><dd>1,29 : 1</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="imagotipo">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="mono" style="margin:0">Imagotipo</p><h2>Símbolo y nombre, <em class="s">juntos.</em></h2></div>
+        <p>El nombre va en minúsculas, con trazos rectos y terminaciones redondeadas que repiten las curvas del símbolo. Alrededor siempre debe quedar libre al menos el grosor de una banda.</p>
+      </div>
+      <div class="plate">
+        <div class="lock"></div>
+        <dl class="specs">
+          <div><dt>Área de seguridad</dt><dd>1x en los cuatro lados</dd></div>
+          <div><dt>Separación símbolo–nombre</dt><dd>1,9x</dd></div>
+          <div><dt>Altura x del nombre</dt><dd>2,6x</dd></div>
+          <div><dt>Proporción</dt><dd>4,97 : 1</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="color">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="mono" style="margin:0">Color</p><h2>Azul de puerto, <em class="s">sin ruido.</em></h2></div>
+        <p>El Azul Marina sigue el pedido del brief: un azul claro, limpio y cercano al azul Napoli. El Azul Profundo le da peso para fondos y textos largos. Blanco y negro completan el sistema. Toca un color para copiar su código.</p>
+      </div>
+      <div class="pal" id="pal"></div>
+      <p class="pal-note">CMYK referencial. Los valores de impresión se ajustan con prueba de color antes de los artes finales.</p>
+    </div>
+  </section>
+
+  <section class="block" id="usos">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="mono" style="margin:0">Usos de color</p><h2>Una marca, <em class="s">cada fondo.</em></h2></div>
+        <p>Sobre los azules y el negro, la marca va en blanco. Sobre blanco puede ir en Azul Marina, en Azul Profundo o en negro cuando la pieza es a una tinta.</p>
+      </div>
+      <div class="uses-bar">
+        <div class="seg" role="group" aria-label="Versión de la marca">
+          <button type="button" id="v-iso" data-v="iso" aria-pressed="true">Isotipo</button>
+          <button type="button" id="v-lock" data-v="lock" aria-pressed="false">Imagotipo</button>
+        </div>
+      </div>
+      <div class="uses" id="uses"></div>
+    </div>
+  </section>
+
+  <section class="block" id="reduccion">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="mono" style="margin:0">Reducción</p><h2>Se lee <em class="s">en pequeño.</em></h2></div>
+        <p>El símbolo se sigue reconociendo hasta 16 px, el tamaño de un favicon. Por eso funciona como ícono de la plataforma y como avatar en redes.</p>
+      </div>
+      <div class="scale-grid">
+        <div class="icon-card"><div class="app" aria-label="Ícono de app de Marina"><svg viewBox="0 0 268.02 208.19" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#fff" d="M124.05,196.4L48.67,127.3c-6.69-6.13-14.94-9.46-23.43-9.46H0v-45.9h38.76c8.49,0,16.74,3.33,23.43,9.46l62.3,57.1c16.23,14.88,38.97,15.11,55.42.56l26.18-23.15c6.6-5.84,14.64-8.99,22.91-8.99h39.04v45.9h-25.9c-8.27,0-16.31,3.16-22.91,8.99l-39.74,35.15c-16.45,14.55-39.19,14.32-55.42-.56Z"/><path fill="#fff" d="M123.95,111.07l-60.57-55.67c-6.69-6.15-14.96-9.5-23.47-9.5H0V0h53.46c8.51,0,16.77,3.34,23.47,9.5l47.37,43.54c16.29,14.98,39.17,15.16,55.64.45l10.53-9.41c6.62-5.92,14.72-9.12,23.05-9.12h53.23v45.9h-39.99c-8.33,0-16.43,3.2-23.05,9.12l-24.11,21.54c-16.47,14.71-39.35,14.52-55.64-.45Z"/><path fill="#fff" d="M58.12,208.19H0v-59.94c0-1.48,1.03-2.68,2.29-2.68h21.93c18.65,0,33.9,9.7,33.9,31.54v31.08Z"/><path fill="#fff" d="M243.81,170.73h24.22v37.47h-41.64v-20.04c0-9.62,7.81-17.43,17.43-17.43Z"/></svg></div><span class="mono">Ícono de app</span></div>
+        <div class="sizes" id="sizes"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="siguiente">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="mono" style="margin:0">Lo que falta para los finales</p><h2>Ajustes antes de <em class="s">cerrar.</em></h2></div>
+        <p>Con los comentarios del equipo sobre esta ronda pasamos a la versión final. Estos son los puntos que aún están abiertos.</p>
+      </div>
+      <ul class="next">
+        <li><b>Ajuste fino del símbolo</b><span>Revisar tensiones de las curvas, el peso óptico de las anclas y el comportamiento del símbolo en tamaños muy pequeños.</span></li>
+        <li><b>Nombre definitivo</b><span>Cerrar el espaciado entre letras, el peso del trazo y la relación de tamaño con el símbolo.</span></li>
+        <li><b>Paleta completa</b><span>Sumar colores de apoyo para la plataforma y los gráficos de datos, y validar los valores de impresión.</span></li>
+        <li><b>Aplicaciones y manual</b><span>Web, plataforma, presentaciones, papelería y redes, junto con el manual de uso de la marca.</span></li>
+      </ul>
+      <div class="close"><h2>¿Qué ajustamos <em class="s">antes de cerrar?</em></h2></div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <svg class="foot-logo" viewBox="0 0 569 85" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" focusable="false"><path d="M104.718 11.6556L119.63 11.6152C132.47 11.5893 153.173 11.0854 148.798 31.7867C147.972 35.6992 143.03 38.4028 139.68 39.9919C148.709 42.0472 153.982 49.9453 149.796 58.7136C143.7 70.9083 132.653 70.1056 121.144 70.0869L104.715 70.0456L104.718 11.6556ZM118.563 59.7308C124.195 59.7897 131.039 60.7658 135.438 57.5067C138.036 53.9547 138.141 47.65 133.274 46.0436C128.852 44.5839 123.17 45.7483 118.563 45.4069L118.563 59.7308ZM118.563 36.1419C123.084 36.1906 130.171 36.8456 133.794 34.2606C135.67 32.0297 135.784 30.345 135.56 27.4834C134.925 19.3447 123.683 22.4889 118.563 21.8186V36.1419Z"/><path d="M206.874 28.5753L219.596 28.5806L219.603 42.3611L219.567 70.0531C217.264 70.0239 215.014 70.2561 212.732 70.2117C209.201 70.1428 208.639 68.6219 207.792 65.6911C201.512 71.1133 192.321 73.3156 185.508 67.0831C180.191 62.2192 181.058 53.2364 181.067 46.4783L181.107 28.5994C185.059 28.4567 189.805 28.5806 193.819 28.5794C193.929 37.535 193.475 47.3356 193.976 56.267C194.381 63.4936 202.519 61.6178 206.868 58.1564L206.874 28.5753Z"/><path d="M228.279 28.595C238.85 28.3172 250.606 28.5783 261.274 28.58C261.322 30.7314 261.634 33.3558 260.896 35.4128C259.583 39.0672 245.533 56.0622 241.954 60.7864L260.816 60.7917L260.809 70.0519L227.167 70.0447C227.123 67.8922 226.824 65.25 227.586 63.2078C228.939 59.5836 243.232 42.2917 246.554 37.8639L228.282 37.8328L228.279 28.595Z"/><path d="M158.881 10.1074C163.058 10.0383 167.418 10.1071 171.61 10.1145C171.899 29.8453 171.626 50.2689 171.626 70.0567L158.875 70.0433C158.638 50.2872 158.842 29.8853 158.881 10.1074Z"/><path d="M418.97 29.5539C426.244 29.3489 431.932 32.4261 433.048 40.2531C433.873 46.0156 433.19 52.5106 433.334 58.372C433.417 61.6272 433.651 66.5811 433.234 69.6795C432.382 70.4028 432.748 70.2364 431.679 70.4531C429.84 69.9106 429.774 65.5214 429.629 63.9231C426.2 67.1058 422.822 69.6903 418.057 70.4733C410.953 71.6406 404.904 69.6903 403.551 62.0075C403.543 61.8764 403.535 61.7453 403.529 61.6139C403.149 49.6203 420.742 48.5342 429.446 48.2906C429.507 44.1058 429.774 39.1195 427.102 35.6875C422.803 30.1692 413.247 32.6003 408.95 36.9445C408.303 37.5989 407.69 37.6839 406.862 37.5817C406.095 37.1058 405.862 36.3478 405.509 35.5245C410.217 31.7831 412.852 30.0786 418.97 29.5539ZM410.869 66.7611C417.898 69.4353 424.547 66.4495 429.424 61.1578C429.449 58.3408 429.618 53.7936 429.36 51.1153C428.807 50.7647 427.796 50.8711 427.091 50.9528C421.748 51.2953 412.847 51.7956 409.036 55.9356C405.993 59.2422 407.29 64.3272 410.869 66.7611Z"/><path d="M377.985 29.5583C389.61 28.5836 395.406 37.763 395.181 48.4075C392.368 48.678 387.805 48.53 384.811 48.5266C378.087 48.4841 371.366 48.5011 364.643 48.5769C364.729 62.2936 371.811 70.7619 386.105 66.5572C388.177 65.8289 391.759 63.4566 392.818 63.5228C393.548 63.9461 393.645 64.0641 393.962 64.848C393.304 68.4441 384.419 70.2903 381.045 70.6097C356.164 72.9664 352.562 31.5692 377.985 29.5583ZM364.793 46.1294L378.671 46.135L391.621 46.1389C391.59 45.4008 391.523 44.6764 391.487 43.9419C391.173 37.4205 385.227 31.6186 378.415 32.6178C369.414 33.3553 366.484 37.7886 364.793 46.1294Z"/><path d="M547.53 29.5517C547.677 29.5417 547.824 29.5347 547.968 29.5311C552.645 29.4217 555.939 30.4053 559.932 33.8778C562.84 36.3714 566.145 44.3325 564.348 47.9095C563.857 48.8858 554.311 48.5514 552.887 48.547H534.188C534.554 62.415 541.381 70.8472 555.967 66.4981C557.788 65.8156 561.374 63.4345 562.471 63.5156C563.171 63.897 563.254 64.0503 563.629 64.7575C563.36 68.2739 554.05 70.2645 550.923 70.5997C525.917 73.2808 522.124 31.6631 547.53 29.5517ZM534.321 46.1253L548.079 46.135L561.299 46.1389C560.918 38.1481 556.875 32.1867 548.204 32.595C548.124 32.5992 548.043 32.6058 547.963 32.6156C539.237 33.3453 535.954 37.9536 534.321 46.1253Z"/><path d="M297.496 12.8855C304.692 11.522 314.148 14.6724 319.344 19.7259C318.9 20.4637 318.022 21.5391 317.467 22.2597C315.567 21.2784 313.495 19.4901 311.618 18.6174C301.823 14.061 288.323 16.1055 281.683 24.9681C273.549 35.8206 274.651 54.2256 285.685 62.695C291.603 67.2369 298.89 67.5311 305.941 66.5506C311.421 65.2428 313.732 63.6772 317.842 60.0672C318.55 60.7997 319.378 61.7842 320.069 62.5625C309.893 72.5203 293.208 73.8358 281.935 64.895C270.1 55.5064 269.115 34.0683 278.336 22.5919C283.285 16.4305 289.77 13.6587 297.496 12.8855Z"/><path d="M488.789 30.2595C490.058 30.2261 491.544 30.2756 492.833 30.2847C495.901 36.5028 498.954 45.0589 501.936 51.5347C503.494 54.9228 506.932 62.6044 507.691 65.8939C508.357 62.8547 510.076 59.3208 511.37 56.437C515.233 47.8381 518.652 38.7731 522.665 30.2722L526.564 30.2525L525.306 33.3589C520.096 45.4864 514.739 58.0228 509.368 70.0425C508.357 70.0872 506.93 70.0297 505.885 70.0211C502.353 60.9517 497.479 51.2711 493.827 42.1367C492.269 38.2367 490.167 34.2606 488.789 30.2595Z"/><path d="M449.65 16.2043C449.706 16.2022 449.758 16.2008 449.811 16.1998C450.692 16.1838 451.239 16.0908 451.772 16.6079C452.133 19.0623 451.9 28.62 451.891 31.5C453.733 31.5772 463.789 31.2161 464.555 31.872C464.589 32.8383 464.636 33.3397 464.392 34.3008C463.272 34.5556 453.738 34.4628 451.889 34.4675C451.877 39.4578 451.125 61.9025 452.602 64.8917C453.188 66.0767 454.28 66.8817 455.513 67.2947C459.02 68.4711 461.27 66.2642 464.2 64.8078C464.883 65.8253 465.091 65.8156 465.194 66.9292C464.119 69.9361 459.454 70.6417 456.685 70.7158C452.102 70.8381 448.72 68.65 448.095 63.9081C447.662 60.6242 447.859 56.9614 447.862 53.6011L447.903 34.4511C445.579 34.4881 442.91 34.7464 440.855 33.617L440.691 32.9031C442.002 31.5186 446.095 31.5733 447.92 31.5039C448.209 27.0222 448.473 21.79 448.948 17.2666C449.006 16.7128 449.281 16.539 449.65 16.2043Z"/><path d="M347.608 29.5461C350.213 29.3722 352.382 29.96 354.756 30.9033C354.687 31.75 354.284 33.6978 354.123 34.6145C345.25 32.1542 338.479 33.6922 335.643 43.8122C334.877 46.5439 335.244 52.1353 335.257 55.2014L335.274 70.0586L331.336 70.0434C331.336 65.8575 330.908 32.1967 331.564 30.4283C332.722 30.2047 333.08 30.2508 334.233 30.3678C335.194 31.5703 335.091 37.8128 335.163 39.7395C337.84 33.8089 340.867 30.1981 347.608 29.5461Z"/><path d="M476.053 30.2622L479.861 30.2503L479.852 70.0447L476.056 70.0392L476.053 30.2622Z"/><path d="M476.589 13.1942C477.78 12.6571 479.172 12.8171 480.208 13.6108C481.246 14.4044 481.766 15.7039 481.56 16.9948C481.357 18.2857 480.46 19.36 479.227 19.7925C477.43 20.4226 475.456 19.525 474.748 17.7566C474.042 15.9881 474.853 13.9767 476.589 13.1942Z"/><path d="M33.7063 0H57.9578C59.7033 0.657778 63.3881 2.06096 64.5301 3.47011C73.7598 14.8573 82.8212 26.5582 91.6088 38.2828C92.2287 39.1094 91.6258 40.1761 91.0364 40.7947C88.4076 41.5933 65.506 41.1308 60.9697 41.2581C61.9842 48.1561 63.0457 55.0472 64.1535 61.9308C65.0897 67.4261 66.0753 72.9494 66.7254 78.4864C66.761 80.2567 67.0651 82.3911 64.5353 82.4539C58.1522 82.6119 53.9426 82.7103 47.3376 82.5261C41.2569 82.3567 31.8725 83.2755 25.7674 81.9858C25.3786 81.9036 25.2542 80.8 25.206 80.4758C25.4213 73.7525 27.2191 65.8722 28.2285 59.2278C29.1644 53.0672 30.059 47.2597 30.9557 41.2711C24.1329 41.1192 17.3092 41.3 10.4897 41.2494C8.02209 41.2311 1.75848 41.8319 0.128104 40.1206C0.0847281 40.0747 0.042022 40.0283 0 39.9814V38.6208C1.21708 36.6175 3.6409 33.7156 5.15894 31.7636L14.7181 19.4892L22.727 9.15003C26.9876 3.65917 27.1062 2.69096 33.7063 0Z"/></svg>
+  <span class="mono">© 2026 Bluz Creative LLC · bluzcreative@gmail.com</span>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+/* Geometry: refined isotype (268.02 × 208.19) and lockup (935.62 × 188.12) */
+const ISO = {w:268.02,h:208.19,paths:[
+ {c:'p-onda',d:'M124.05,196.4L48.67,127.3c-6.69-6.13-14.94-9.46-23.43-9.46H0v-45.9h38.76c8.49,0,16.74,3.33,23.43,9.46l62.3,57.1c16.23,14.88,38.97,15.11,55.42.56l26.18-23.15c6.6-5.84,14.64-8.99,22.91-8.99h39.04v45.9h-25.9c-8.27,0-16.31,3.16-22.91,8.99l-39.74,35.15c-16.45,14.55-39.19,14.32-55.42-.56Z'},
+ {c:'p-onda',d:'M123.95,111.07l-60.57-55.67c-6.69-6.15-14.96-9.5-23.47-9.5H0V0h53.46c8.51,0,16.77,3.34,23.47,9.5l47.37,43.54c16.29,14.98,39.17,15.16,55.64.45l10.53-9.41c6.62-5.92,14.72-9.12,23.05-9.12h53.23v45.9h-39.99c-8.33,0-16.43,3.2-23.05,9.12l-24.11,21.54c-16.47,14.71-39.35,14.52-55.64-.45Z'},
+ {c:'p-ancla',d:'M58.12,208.19H0v-59.94c0-1.48,1.03-2.68,2.29-2.68h21.93c18.65,0,33.9,9.7,33.9,31.54v31.08Z'},
+ {c:'p-ancla',d:'M243.81,170.73h24.22v37.47h-41.64v-20.04c0-9.62,7.81-17.43,17.43-17.43Z'}
+]};
+const isoInner = (fill)=>ISO.paths.map(p=>`<path class="${p.c}" fill="${fill||'currentColor'}" d="${p.d}"/>`).join('');
+const isoSVG = (fill)=>`<svg viewBox="0 0 ${ISO.w} ${ISO.h}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${isoInner(fill)}</svg>`;
+const LOCK = {w:935.62,h:188.12,paths:[
+ 'M320.76,52.23h16.24v24.06h.98c4.11-18.78,11.74-26.02,31.11-26.02,20.74,0,29.54,7.24,34.04,26.02h.78c4.11-18.78,14.67-26.02,36.39-26.02,27.78,0,39.13,11.74,39.13,42.06v67.49h-14.09v-64.36c0-24.26-6.46-31.69-25.24-31.69-21.13,0-30.91,9.39-30.91,30.32v65.73h-16.24v-64.36c0-24.26-8.22-31.69-26.41-31.69-20.35,0-29.54,9.39-29.54,35.21v60.84h-16.24V52.23Z',
+ 'M494.09,134.6v-15.65c0-19.76,12.91-27.58,46.76-27.58h33.26v-9.98c0-13.5-7.63-17.61-31.3-17.61s-30.52,4.11-30.52,17.61h-16.24c0-22.5,12.72-31.11,47.15-31.11s47.15,8.22,47.15,29.15v80.4h-16.24v-21.32h-.98c-4.69,16.82-15.45,23.28-40.5,23.28-27.39,0-38.54-7.63-38.54-27.19ZM574.1,115.81v-10.96h-33.26c-23.48,0-30.52,4.11-30.52,17.8v6.46c0,14.67,6.46,19.17,27.78,19.17,27.58,0,36-7.63,36-32.47Z',
+ 'M607.16,52.23h16.24v21.52h.98c4.7-16.43,13.11-23.48,34.82-23.48h11.15v13.5h-12.13c-27.39,0-34.82,9.59-34.82,36.39v59.67h-16.24V52.23Z',
+ 'M684.24,29.74c0-6.46,2.54-8.8,10.37-8.8s10.17,2.35,10.17,8.8-2.54,8.8-10.17,8.8-10.37-2.15-10.37-8.8ZM686.39,52.23h16.24v107.6h-16.24V52.23Z',
+ 'M722.38,52.23h16.24v24.06h.98c4.7-18.19,16.82-26.02,41.86-26.02,30.91,0,43.04,11.74,43.04,42.06v67.49h-16.24v-65.54c0-23.28-9-30.52-32.67-30.52-27.19,0-36.97,9.59-36.97,36.39v59.67h-16.24V52.23Z',
+ 'M839.37,134.6v-15.65c0-19.76,12.91-27.58,46.76-27.58h33.26v-9.98c0-13.5-7.63-17.61-31.3-17.61s-30.52,4.11-30.52,17.61h-16.24c0-22.5,12.72-31.11,47.15-31.11s47.15,8.22,47.15,29.15v80.4h-16.24v-21.32h-.98c-4.69,16.82-15.45,23.28-40.5,23.28-27.39,0-38.54-7.63-38.54-27.19ZM919.38,115.81v-10.96h-33.26c-23.48,0-30.52,4.11-30.52,17.8v6.46c0,14.67,6.46,19.17,27.78,19.17,27.58,0,36-7.63,36-32.47Z',
+ 'M112.1,177.47l-68.12-62.43c-6.04-5.54-13.5-8.55-21.17-8.55H0v-41.47h35.02c7.67,0,15.13,3.01,21.17,8.55l56.29,51.59c14.67,13.44,35.22,13.65,50.08.5l23.65-20.92c5.96-5.27,13.23-8.13,20.7-8.13h35.28v41.47h-23.41c-7.47,0-14.74,2.85-20.7,8.13l-35.91,31.76c-14.86,13.15-35.41,12.94-50.08-.5Z',
+ 'M112,100.36l-54.73-50.31c-6.05-5.56-13.52-8.58-21.21-8.58H0V0h48.3c7.69,0,15.16,3.02,21.21,8.58l42.8,39.35c14.72,13.53,35.39,13.7,50.28.41l9.52-8.5c5.98-5.35,13.3-8.24,20.83-8.24h48.1v41.47h-36.13c-7.53,0-14.84,2.9-20.83,8.24l-21.79,19.46c-14.88,13.29-35.55,13.12-50.28-.41Z',
+ 'M52.52,188.12H0v-54.16c0-1.33.93-2.42,2.07-2.42h19.81c16.85,0,30.63,8.77,30.63,28.5v28.09Z',
+ 'M220.31,154.27h21.88v33.86h-37.63v-18.11c0-8.69,7.06-15.75,15.75-15.75Z'
+]};
+const lockInner = (fill)=>LOCK.paths.map(d=>`<path fill="${fill}" d="${d}"/>`).join('');
+const lockSVG = (fill)=>`<svg viewBox="0 0 ${LOCK.w} ${LOCK.h}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${lockInner(fill)}</svg>`;
+
+/* Anatomy */
+(function(){
+  const fig = document.getElementById('anat');
+  const r = [[53.1,34.63,34.63],[152.36,24.07,40.33],[213.85,69.49,34.53],[39.54,80.56,34.66],[152.02,82.09,40.34],[227.09,115.39,34.53],[38.39,106.59,34.65],[152.5,109.51,40.31],[229.32,141.43,34.51],[24.87,152.49,34.65],[152.08,167.41,40.31],[242.48,187.38,34.56],[243.83,188.17,17.44]];
+  const rit = `<g class="rit" fill="none" stroke="#0c3a52" stroke-width="1.2" vector-effect="non-scaling-stroke" stroke-dasharray="3 3">${r.map(([x,y,rr])=>`<circle cx="${x}" cy="${y}" r="${rr}"/>`).join('')}</g>`;
+  fig.innerHTML = `<svg viewBox="-10 -10 ${ISO.w+20} ${ISO.h+20}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${isoInner('#fff')}${rit}</svg>`;
+  const btns = document.querySelectorAll('[data-part]');
+  const set = k=>{ fig.dataset.focus=k; btns.forEach(b=>b.setAttribute('aria-pressed', b.dataset.part===k)); };
+  btns.forEach(b=>{ b.addEventListener('click',()=>set(b.dataset.part)); b.addEventListener('mouseenter',()=>set(b.dataset.part)); b.addEventListener('focus',()=>set(b.dataset.part)); });
+})();
+
+/* Lockup with clear space */
+(function(){
+  const host = document.querySelector('.lock');
+  const u = 41.47, pad = u*1.9;
+  const x0=-u, y0=-u, W=LOCK.w+2*u, H=LOCK.h+2*u;
+  const vb = `${x0-pad} ${y0-pad*0.9} ${W+2*pad} ${H+pad*1.8}`;
+  const fs = 15;
+  const t = (x,y,s)=>`<text x="${x}" y="${y}" fill="#8c9096" font-family="Geist Mono, ui-monospace, monospace" font-size="${fs}" text-anchor="middle" dominant-baseline="middle">${s}</text>`;
+  const ln = (a,b,c,d,dash)=>`<line x1="${a}" y1="${b}" x2="${c}" y2="${d}" stroke="rgba(255,255,255,.16)" stroke-width="1" vector-effect="non-scaling-stroke" ${dash?'stroke-dasharray="4 4"':''}/>`;
+  const g = [];
+  [0,LOCK.h,52.23,159.83].forEach(y=>g.push(ln(x0-pad,y,x0+W+pad,y)));
+  [0,242.19,320.76,LOCK.w].forEach(x=>g.push(ln(x,y0-pad,x,y0+H+pad)));
+  g.push(`<rect x="${x0}" y="${y0}" width="${W}" height="${H}" fill="rgba(25,159,214,.07)" stroke="#199fd6" stroke-width="1.2" stroke-dasharray="6 5" vector-effect="non-scaling-stroke"/>`);
+  g.push(`<rect x="0" y="0" width="${u}" height="${u}" fill="none" stroke="#199fd6" stroke-width="1" vector-effect="non-scaling-stroke" transform="translate(${-u} ${-u})"/>`);
+  const labs = [t(LOCK.w/2,-u/2,'1x'),t(LOCK.w/2,LOCK.h+u/2,'1x'),t(-u/2,LOCK.h/2,'1x'),t(LOCK.w+u/2,LOCK.h/2,'1x'),t((242.19+320.76)/2,-u*0.5,'1,9x'),t(LOCK.w+u+pad/2,(52.23+159.83)/2,'2,6x')];
+  g.push(`<line x1="${LOCK.w+u+pad*0.25}" y1="52.23" x2="${LOCK.w+u+pad*0.25}" y2="159.83" stroke="#199fd6" stroke-width="1.2" vector-effect="non-scaling-stroke"/>`);
+  host.innerHTML = `<svg viewBox="${vb}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Imagotipo de Marina con su área de seguridad">${g.join('')}${lockInner('#fff')}${labs.join('')}</svg>`;
+})();
+
+/* Palette */
+(function(){
+  const C = [
+    {n:'Azul Marina',hex:'#199FD6',rgb:'25 · 159 · 214',cmyk:'88 · 26 · 0 · 16',bg:'#199fd6',fg:'#fff'},
+    {n:'Azul Profundo',hex:'#106D89',rgb:'16 · 109 · 137',cmyk:'88 · 20 · 0 · 46',bg:'#106d89',fg:'#fff'},
+    {n:'Blanco',hex:'#FFFFFF',rgb:'255 · 255 · 255',cmyk:'0 · 0 · 0 · 0',bg:'#ffffff',fg:'#0a0a0a'},
+    {n:'Negro',hex:'#000000',rgb:'0 · 0 · 0',cmyk:'0 · 0 · 0 · 100',bg:'#000000',fg:'#fff'}
+  ];
+  const pal = document.getElementById('pal');
+  C.forEach((c,i)=>{
+    pal.insertAdjacentHTML('beforeend',`<button type="button" class="sw" id="sw-${i}" style="background:${c.bg};color:${c.fg}"><span class="hint">Copiar ${c.hex}</span><div><h3>${c.n}</h3><dl><div><dt>HEX</dt><dd>${c.hex}</dd></div><div><dt>RGB</dt><dd>${c.rgb}</dd></div><div><dt>CMYK</dt><dd>${c.cmyk}</dd></div></dl></div></button>`);
+  });
+  pal.querySelectorAll('.sw').forEach((b,i)=>b.addEventListener('click',()=>{
+    const h=b.querySelector('.hint'); const done=t=>{h.textContent=t; setTimeout(()=>h.textContent='Copiar '+C[i].hex,1800);};
+    try{ navigator.clipboard.writeText(C[i].hex).then(()=>done('Copiado ✓'),()=>done(C[i].hex)); }catch(e){ done(C[i].hex); }
+  }));
+})();
+
+/* Color uses */
+(function(){
+  const host = document.getElementById('uses');
+  const cols = [
+    {bg:'#199fd6',tag:'Sobre Azul Marina',tc:'#fff',marks:['#ffffff']},
+    {bg:'#106d89',tag:'Sobre Azul Profundo',tc:'#fff',marks:['#ffffff']},
+    {bg:'#ffffff',tag:'Sobre blanco',tc:'#0a0a0a',marks:['#199fd6','#106d89','#000000']},
+    {bg:'#000000',tag:'Sobre negro',tc:'#fff',marks:['#ffffff']}
+  ];
+  const render = v=>{
+    host.classList.toggle('is-lock', v==='lock');
+    host.innerHTML = cols.map(c=>`<div class="use" style="background:${c.bg};color:${c.tc}"><span class="tag">${c.tag}</span>${c.marks.map(m=>v==='lock'?lockSVG(m):isoSVG(m)).join('')}</div>`).join('');
+  };
+  render('iso');
+  document.querySelectorAll('[data-v]').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('[data-v]').forEach(x=>x.setAttribute('aria-pressed',x===b)); render(b.dataset.v);
+  }));
+})();
+
+/* Scale test */
+(function(){
+  const s = [96,64,48,32,24,16];
+  const row = (bg,fill,tc)=>`<div class="row" style="background:${bg};color:${tc}">${s.map(px=>`<figure><div style="width:${px}px">${isoSVG(fill)}</div><figcaption>${px} px</figcaption></figure>`).join('')}</div>`;
+  document.getElementById('sizes').innerHTML = row('#199fd6','#ffffff','#fff') + row('#ffffff','#199fd6','#0a0a0a');
+  document.querySelectorAll('#sizes svg').forEach(e=>{e.style.width='100%';e.style.height='auto';e.style.display='block';});
+})();
+
+/* Construction animation (same choreography as bluzcreative.com/trabajo/rent2fi) */
+(function(){
+  const NS='http://www.w3.org/2000/svg';
+  const mk=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e;};
+  const stage=document.getElementById('stage');
+  const W=ISO.w,H=ISO.h, vbH=H/0.52, vbW=W/0.40, vx=W/2-vbW/2, vy=H/2-vbH/2;
+  const svg=mk('svg',{viewBox:`${vx} ${vy} ${vbW} ${vbH}`,preserveAspectRatio:'xMidYMid meet','aria-hidden':'true'},stage);
+  const gG=mk('g',{class:'guides'},svg), gS=mk('g',{class:'shapes'},svg), gM=mk('g',{class:'marks'},svg);
+  gS.innerHTML = ISO.paths.map(p=>`<path d="${p.d}"/>`).join('');
+  const shapes=[...gS.children];
+  const L=Math.max(vbW,vbH)*4;
+  const xs=[0,53.46,58.12,152.2,213.52,226.39,243.81,268.02];
+  const ys=[0,34.96,45.9,71.94,80.86,106.92,117.84,145.57,152.82,170.73,208.19];
+  const diags=[[63.38,55.4,123.95,111.07],[76.93,9.5,124.3,53.04],[179.94,53.49,190.47,44.08],[203.71,89.98,179.6,111.52],[48.67,127.3,124.05,196.4],[62.19,81.4,124.49,138.5],[179.91,139.06,206.09,115.91],[219.23,161.81,179.49,196.96]];
+  const circles=[[53.1,34.63,34.63],[152.36,24.07,40.33],[213.85,69.49,34.53],[39.54,80.56,34.66],[152.02,82.09,40.34],[227.09,115.39,34.53],[38.39,106.59,34.65],[152.5,109.51,40.31],[229.32,141.43,34.51],[24.87,152.49,34.65],[152.08,167.41,40.31],[242.48,187.38,34.56],[243.83,188.17,17.44]];
+  const cx=W/2, cy=H/2;
+  const V=xs.map(x=>mk('line',{x1:x,y1:-L,x2:x,y2:H+L},gG));
+  const Hh=ys.map(y=>mk('line',{x1:-L,y1:y,x2:W+L,y2:y},gG));
+  const pts=[];
+  const D=diags.map(([a,b,c,d])=>{const dx=c-a,dy=d-b,n=Math.hypot(dx,dy),ux=dx/n,uy=dy/n; pts.push([a,b],[c,d]); const l=mk('line',{x1:a-ux*L,y1:b-uy*L,x2:c+ux*L,y2:d+uy*L,class:'d'},gG); l._o=`${(a+c)/2} ${(b+d)/2}`; return l;});
+  const C=circles.map(([x,y,r])=>mk('circle',{cx:x,cy:y,r},gG));
+  shapes.forEach(s=>{const b=s.getBBox(); pts.push([b.x,b.y],[b.x+b.width,b.y],[b.x,b.y+b.height],[b.x+b.width,b.y+b.height]);});
+  const g=vbH*0.011;
+  const uniq=[]; pts.forEach(([x,y])=>{ if(!uniq.some(([a,b])=>Math.hypot(a-x,b-y)<2)) uniq.push([x,y]); });
+  uniq.forEach(([x,y])=>mk('rect',{x:x-g/2,y:y-g/2,width:g,height:g,fill:'#bfe6f7'},gM));
+  const marks=[...gM.children];
+  stage.insertAdjacentHTML('beforeend','<div class="cap"><span class="mono">Construcción del isotipo · Ronda 02</span><button class="replay" type="button">↻ Repetir</button></div>');
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce||!window.gsap){ stage.classList.remove('is-pre'); gG.style.opacity=.6; marks.forEach(m=>m.style.opacity=0); stage.querySelector('.replay').hidden=true; return; }
+  const tl=gsap.timeline({paused:true});
+  const reset=()=>{
+    V.forEach(l=>gsap.set(l,{scaleY:0,svgOrigin:`${l.getAttribute('x1')} ${cy}`}));
+    Hh.forEach(l=>gsap.set(l,{scaleX:0,svgOrigin:`${cx} ${l.getAttribute('y1')}`}));
+    D.forEach(l=>gsap.set(l,{scale:0,svgOrigin:l._o}));
+    C.forEach(c=>{const n=c.getTotalLength(); gsap.set(c,{strokeDasharray:n,strokeDashoffset:n,opacity:1});});
+    shapes.forEach(s=>{const n=s.getTotalLength(); gsap.set(s,{strokeDasharray:n,strokeDashoffset:n,strokeOpacity:1,fillOpacity:0});});
+    gsap.set(marks,{opacity:0,scale:0,transformOrigin:'center',transformBox:'fill-box'});
+    gsap.set(gG,{opacity:1});
+  };
+  reset();
+  tl.to(gsap.utils.shuffle([...V]),{scaleY:1,duration:1.4,ease:'power3.inOut',stagger:.035},.2)
+    .to(Hh,{scaleX:1,duration:1.4,ease:'power3.inOut',stagger:.06},.35)
+    .to(D,{scale:1,duration:1.6,ease:'power3.inOut',stagger:.05},.6)
+    .to(marks,{opacity:1,scale:1,duration:.3,ease:'back.out(3)',stagger:{each:.012,from:'random'}},.9)
+    .to(C,{strokeDashoffset:0,duration:1.1,ease:'power2.inOut',stagger:.04},1.0)
+    .to(shapes,{strokeDashoffset:0,duration:1.5,ease:'power2.inOut',stagger:.09},1.3)
+    .to(shapes,{fillOpacity:1,duration:.7,ease:'power2.out',stagger:.06},2.8)
+    .to(shapes,{strokeOpacity:0,duration:.5},3.4)
+    .to(gG,{opacity:.6,duration:.8},3.4)
+    .to(marks,{opacity:0,scale:.5,duration:.5,stagger:.004},3.5);
+  stage.classList.remove('is-pre');
+  const play=()=>{reset(); tl.restart();};
+  new IntersectionObserver((e,o)=>{ if(e[0].isIntersecting){o.disconnect(); play();} },{threshold:.35}).observe(stage);
+  stage.querySelector('.replay').addEventListener('click',play);
+})();
+</script>
+
+</body>
+</html>
