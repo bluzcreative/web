@@ -569,7 +569,7 @@ const carouselIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
   card.dataset.status = (state[post.num] && state[post.num].status) || '';
   const badge = post.type === 'video' ? videoIcon : (post.type === 'carousel' ? carouselIcon : '');
   card.innerHTML = `
-    ${post.type === 'video' ? `<video src="${post.slides[0].src}" poster="${post.thumb}" muted loop playsinline autoplay></video>` : `<img src="${post.thumb}" alt="Post ${post.num}">`}
+    ${post.slides[0].type === 'video' ? `<video src="${post.slides[0].src}" poster="${post.thumb}" muted loop playsinline autoplay></video>` : `<img src="${post.thumb}" alt="Post ${post.num}">`}
     <div class="num">Post ${post.num}</div>
     ${badge ? `<div class="badge">${badge}</div>` : ''}
     ${post.nota ? `<div class="flag">Pendiente</div>` : ''}
